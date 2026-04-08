@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    // Đăng ký
     public function register(Request $request)
     {
         $request->validate([
