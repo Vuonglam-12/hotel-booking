@@ -23,6 +23,7 @@ Route::post('/forgot-password',             [AuthController::class, 'forgotPassw
 Route::post('/forgot-password-otp',         [AuthController::class, 'forgotPasswordOtp']);
 Route::post('/forgot-password-verify-otp',  [AuthController::class, 'forgotPasswordVerifyOtp']); 
 Route::post('/reset-password',              [AuthController::class, 'resetPassword']);
+Route::post('/auth/google',                 [AuthController::class, 'loginGoogle']);
 
 Route::prefix('hotels')->group(function () {
     Route::get('/',             [HotelController::class, 'index']);
@@ -81,6 +82,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me',      [AuthController::class, 'me']);
     Route::post('/auth/send-phone-otp',   [AuthController::class, 'sendPhoneOtp']);
     Route::post('/auth/verify-phone-otp', [AuthController::class, 'verifyPhoneOtp']);
+    Route::put('/me',          [AuthController::class, 'updateProfile']);
+    Route::post('/me/password', [AuthController::class, 'updatePassword']);
 
     // Booking
     Route::post('/bookings',             [BookingController::class, 'store']);

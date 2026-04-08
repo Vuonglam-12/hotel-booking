@@ -16,61 +16,64 @@ use Illuminate\Support\Facades\Log;
 class BookingController extends Controller
 {
     /**
-     * HÀM STORE: CHỊU TRÁCH NHIỆM XỬ LÝ KHI KHÁCH BẤM NÚT "ĐẶT PHÒNG"
-     * Đây là hàm quan trọng nhất, gánh vác việc giữ chỗ và tạo đơn hàng.
+     * HÀM STORE: XỬ LÝ KHI KHÁCH BẤM NÚT "ĐẶT PHÒNG"
      */
     public function store(Request $request)
     {
-        // --- BƯỚC 1: KIỂM DUYỆT ĐẦU VÀO (VALIDATION) ---
-        // Nhiệm vụ: Chặn lại những dữ liệu tào lao. Ví dụ khách cố tình nhập ngày đi trước ngày đến, 
-        // hoặc nhập số lượng phòng là số âm. Nếu sai ở đây, Laravel tự động đá văng ra lỗi 422.
+        // --- BƯỚC 1: VALIDATION ---
         $request->validate([
-            'hotel_id'        => 'required|integer|exists:hotel,id', // Khách sạn phải tồn tại trong DB
-            'room_type_id'    => 'required|integer|exists:room_type,id', // Loại phòng phải tồn tại
-            'quantity'        => 'required|integer|min:1|max:10', // Đặt từ 1 đến 10 phòng
-            'check_in'        => 'required|date|after_or_equal:today', // Ngày nhận phòng từ hôm nay trở đi
-            'check_out'       => 'required|date|after:check_in', // Ngày trả phải sau ngày nhận
-            'num_guests'      => 'required|integer|min:1', // Ít nhất 1 khách
-            'special_request' => 'nullable|string|max:500', // Yêu cầu đặc biệt (không bắt buộc)
-            'payment_method'  => 'nullable|in:vnpay,banking,cash', // Chỉ nhận 3 loại thanh toán này
+            'hotel_id'        => 'required|integer|exists:hotel,id',
+            'room_type_id'    => 'required|integer|exists:room_type,id',
+            'quantity'        => 'required|integer|min:1|max:10',
+            'check_in'        => 'required|date|after_or_equal:today',
+            'check_out'       => 'required|date|after:check_in',
+            'num_guests'      => 'required|integer|min:1',
+            'special_request' => 'nullable|string|max:500',
+            'payment_method'  => 'nullable|in:vnpay,banking,cash',
         ]);
 
         // --- BƯỚC 2: CHUẨN BỊ DỮ LIỆU ---
-        // Nhiệm vụ: Gom nhặt các thông tin cần thiết để tính toán
-        $customerId    = auth('sanctum')->id(); // Lấy ID của khách đang đăng nhập
+        $customerId    = auth('sanctum')->id();
         $checkIn       = $request->check_in;
         $checkOut      = $request->check_out;
-        // Tính toán khách ở bao nhiêu đêm để lát nữa nhân tiền
         $nights        = Carbon::parse($checkIn)->diffInDays(Carbon::parse($checkOut));
-        // Nếu không chọn phương thức thanh toán, mặc định cho xài VNPay
-        $paymentMethod = $request->payment_method ?? 'vnpay'; 
+        $paymentMethod = $request->payment_method ?? 'vnpay';
 
-        // --- BƯỚC 3: KIỂM TRA PHÒNG TRỐNG (AVAILABILITY CHECK) ---
-        // Nhiệm vụ: Chọc vào bảng room_availability xem trong khoảng ngày khách chọn, 
-        // khách sạn có còn đủ số lượng phòng mà khách muốn đặt không.
-        $available = DB::table('room_availability')
+        // --- BƯỚC 3: KIỂM TRA PHÒNG TRỐNG ---
+        // Đếm tổng số phòng của loại phòng đó trong khách sạn
+        $totalRooms = DB::table('room')
             ->where('hotel_id',     $request->hotel_id)
             ->where('room_type_id', $request->room_type_id)
-            ->whereBetween('date',  [$checkIn, Carbon::parse($checkOut)->subDay()])
-            ->min('available_count'); // Lấy số phòng trống ít nhất trong các ngày đó
+            ->where('status',       'available')
+            ->count();
 
-        // Nếu ngày đó chưa cấu hình phòng (null) hoặc số phòng trống ít hơn số phòng khách muốn đặt -> Báo lỗi ngay
-        if (is_null($available) || $available < $request->quantity) {
+        // Đếm số phòng đã bị booking trong khoảng ngày đó (trùng lịch)
+        $bookedRooms = DB::table('booking_room as br')
+            ->join('booking as b', 'b.id', '=', 'br.booking_id')
+            ->where('b.hotel_id',     $request->hotel_id)
+            ->where('br.room_type_id', $request->room_type_id)
+            ->whereNotIn('b.status',  ['cancelled'])
+            ->where('b.check_in',  '<', $checkOut)  // Booking bắt đầu trước ngày trả
+            ->where('b.check_out', '>', $checkIn)   // Booking kết thúc sau ngày nhận
+            ->sum('br.quantity');
+
+        // Số phòng thực sự còn trống
+        $available = $totalRooms - $bookedRooms;
+
+        if ($available < $request->quantity) {
             return response()->json([
                 'message' => 'Không đủ phòng trống trong khoảng thời gian này',
             ], 422);
         }
 
-        // Kéo giá gốc của loại phòng ra để tính tổng tiền
+        // --- BƯỚC 4: LẤY GIÁ PHÒNG ---
         $roomType   = RoomType::findOrFail($request->room_type_id);
-        $totalPrice = $roomType->base_price * $nights * $request->quantity; // Công thức: Giá x Số đêm x Số phòng
+        $totalPrice = $roomType->base_price * $nights * $request->quantity;
 
-        // --- BƯỚC 4: TẠO ĐƠN HÀNG VÀ CHỐT PHÒNG (DATABASE TRANSACTION) ---
-        // Nhiệm vụ: Gói tất cả các thao tác DB vào 1 cục (Transaction). 
-        // Rất quan trọng: Lỡ đang lưu mà cúp điện hay lỗi mạng, hệ thống tự động Rollback (phục hồi như cũ), không bị mất phòng oan.
+        // --- BƯỚC 5: TẠO ĐƠN HÀNG (TRANSACTION) ---
         $booking = DB::transaction(function () use ($request, $customerId, $totalPrice, $roomType, $checkIn, $checkOut, $nights) {
-            
-            // 4.1 Tạo đơn đặt phòng chính thức (Trạng thái Pending)
+
+            // 5.1 Tạo booking chính
             $booking = Booking::create([
                 'customer_id'     => $customerId,
                 'hotel_id'        => $request->hotel_id,
@@ -78,13 +81,12 @@ class BookingController extends Controller
                 'check_out'       => $checkOut,
                 'num_guests'      => $request->num_guests,
                 'total_price'     => $totalPrice,
-                'status'          => 'pending', // Khóa lại, chờ thanh toán
-                'expires_at'      => now()->addMinutes(15), // Cho khách 15 phút để thao tác thanh toán
+                'status'          => 'pending',
+                'expires_at'      => now()->addMinutes(15),
                 'special_request' => $request->special_request,
             ]);
 
-            // 4.2 Lưu chi tiết đơn: Khách đặt loại phòng nào và CHỐT GIÁ NGAY LÚC NÀY
-            // Chốt giá (price_at_booking) để lỡ ngày mai KS tăng giá thì khách vẫn đóng theo giá cũ
+            // 5.2 Lưu chi tiết phòng đặt (chốt giá tại thời điểm đặt)
             BookingRoom::create([
                 'booking_id'       => $booking->id,
                 'room_type_id'     => $request->room_type_id,
@@ -93,53 +95,29 @@ class BookingController extends Controller
                 'quantity'         => $request->quantity,
             ]);
 
-            // 4.3 Trừ dần số phòng trống trong kho (Giữ chỗ cho khách)
-            $dates = CarbonPeriod::create($checkIn, Carbon::parse($checkOut)->subDay());
-            foreach ($dates as $date) {
-                // Trừ số lượng phòng trống đi (available_count)
-                DB::table('room_availability')
-                    ->where('hotel_id',     $request->hotel_id)
-                    ->where('room_type_id', $request->room_type_id)
-                    ->where('date',         $date->format('Y-m-d'))
-                    ->decrement('available_count', $request->quantity);
-
-                // Tăng số lượng phòng đã được đặt lên (booked_count)
-                DB::table('room_availability')
-                    ->where('hotel_id',     $request->hotel_id)
-                    ->where('room_type_id', $request->room_type_id)
-                    ->where('date',         $date->format('Y-m-d'))
-                    ->increment('booked_count', $request->quantity);
-            }
-
-            return $booking; // Thành công thì trả ra cục thông tin đặt phòng
+            return $booking;
         });
 
-
-        // --- BƯỚC 5: XỬ LÝ THANH TOÁN THỦ CÔNG (TIỀN MẶT HOẶC CHUYỂN KHOẢN TRỰC TIẾP) ---
-        // Nhiệm vụ: Nếu khách không dùng VNPay (có luồng đi riêng), thì mình tạo trước cho khách 
-        // một lịch sử thanh toán là 'pending' (chờ lễ tân xác nhận), đồng thời xuất hóa đơn và gửi email luôn.
+        // --- BƯỚC 6: XỬ LÝ THANH TOÁN THỦ CÔNG (BANKING / CASH) ---
         if (in_array($paymentMethod, ['banking', 'cash'])) {
             try {
-                // Tạo bảng ghi thanh toán
                 $payment = Payment::create([
                     'booking_id'     => $booking->id,
                     'amount'         => $totalPrice,
                     'payment_method' => $paymentMethod,
-                    'payment_status' => 'pending', // Chờ tiền ting ting vào tài khoản hoặc nhận tiền mặt
-                    // Gắn chữ MANUAL để phân biệt với mã giao dịch tự động của VNPay
+                    'payment_status' => 'pending',
                     'transaction_id' => 'MANUAL_' . time() . '_' . $booking->id,
                 ]);
 
-                // Gọi hàm bên InvoiceController để in cái hóa đơn cho khách
+                // Tạo hóa đơn
                 InvoiceController::createFromPayment($booking, $payment);
 
-                // Kéo email của khách ra và gửi Mail xác nhận giữ chỗ
+                // Gửi email xác nhận
                 $booking->load('customer');
                 Mail::to($booking->customer->email)
                     ->send(new \App\Mail\BookingConfirmed($booking));
 
             } catch (\Exception $e) {
-                // Nếu gửi mail bị lỗi mạng, không làm sập chức năng đặt phòng. Ghi log lại để Admin sửa.
                 Log::error('BookingController@store: Lỗi tạo invoice/email cho ' . $paymentMethod, [
                     'booking_id' => $booking->id,
                     'error'      => $e->getMessage(),
@@ -147,8 +125,7 @@ class BookingController extends Controller
             }
         }
 
-        // --- BƯỚC 6: TRẢ KẾT QUẢ VỀ CHO GIAO DIỆN (FRONTEND) ---
-        // Nhiệm vụ: Format lại tiền tệ cho đẹp (thêm dấu phẩy, chữ VND) để báo cho Frontend hiện thông báo thành công.
+        // --- BƯỚC 7: TRẢ KẾT QUẢ ---
         $bookingData = $booking->load(['bookingRooms.roomType', 'hotel'])->toArray();
         $bookingData['total_price'] = number_format($booking->total_price, 0, '.', ',') . ' VND';
         foreach ($bookingData['booking_rooms'] as &$br) {
@@ -160,57 +137,51 @@ class BookingController extends Controller
             'message'        => 'Đặt phòng thành công' . ($paymentMethod === 'vnpay' ? ', vui lòng thanh toán trong 15 phút' : ''),
             'booking'        => $bookingData,
             'payment_method' => $paymentMethod,
-        ], 201); // 201 là mã HTTP báo hiệu Đã tạo mới thành công
+        ], 201);
     }
 
     /**
-     * HÀM MYBOOKINGS: XEM LỊCH SỬ ĐẶT PHÒNG CỦA MÌNH
-     * Khách bấm vào profile để xem danh sách các đơn đã đặt.
+     * HÀM MYBOOKINGS: XEM LỊCH SỬ ĐẶT PHÒNG
      */
     public function myBookings(Request $request)
     {
-        // Lấy tất cả đơn hàng của cái ông đang đăng nhập (auth('sanctum')->id()), 
-        // kèm theo tên KS, loại phòng. Sắp xếp đơn mới nhất nổi lên đầu (desc).
         $bookings = Booking::with(['hotel', 'bookingRooms.roomType', 'payment'])
             ->where('customer_id', auth('sanctum')->id())
             ->orderBy('created_at', 'desc')
-            ->paginate($request->per_page ?? 10); // Phân trang, 10 đơn 1 trang
+            ->paginate($request->per_page ?? 10);
 
         return response()->json($bookings);
     }
 
     /**
      * HÀM SHOW: XEM CHI TIẾT 1 ĐƠN HÀNG
-     * Khách bấm vào nút "Xem chi tiết" của 1 cái đơn cụ thể trong lịch sử.
      */
     public function show($id)
     {
         $booking = Booking::with(['hotel', 'bookingRooms.roomType', 'payment'])
-            ->where('customer_id', auth('sanctum')->id()) // Phải đúng ông đó mới xem được đơn của ổng
-            ->findOrFail($id); // Tìm đúng mã ID đơn hàng, không thấy thì quăng lỗi 404
+            ->where('customer_id', auth('sanctum')->id())
+            ->findOrFail($id);
 
         return response()->json($booking);
     }
 
     /**
-     * HÀM CANCEL: KHÁCH HÀNG TỰ HỦY ĐƠN
-     * Xử lý luồng hủy phòng và cộng trả lại số lượng phòng trống cho hệ thống.
+     * HÀM CANCEL: KHÁCH TỰ HỦY ĐƠN
      */
     public function cancel($id)
     {
         $booking = Booking::with('bookingRooms')
-            ->where('customer_id', auth('sanctum')->id()) // Đảm bảo đúng người đang thao tác
+            ->where('customer_id', auth('sanctum')->id())
             ->findOrFail($id);
 
-        // --- BƯỚC 1: KIỂM TRA ĐIỀU KIỆN ĐƯỢC PHÉP HỦY ---
-        // Chỉ cho hủy khi đơn hàng đang ở trạng thái 'pending' hoặc 'confirmed'
+        // Kiểm tra trạng thái có được hủy không
         if (!in_array($booking->status, ['pending', 'confirmed'])) {
             return response()->json([
                 'message' => 'Không thể huỷ booking ở trạng thái ' . $booking->status,
             ], 422);
         }
 
-        // Chặn không cho hủy sát giờ (Dưới 24 tiếng trước khi check-in thì cấm)
+        // Chặn hủy trong vòng 24 giờ trước check-in
         $hoursUntilCheckIn = now()->diffInHours($booking->check_in, false);
         if ($hoursUntilCheckIn < 24) {
             return response()->json([
@@ -218,44 +189,16 @@ class BookingController extends Controller
             ], 422);
         }
 
-        // --- BƯỚC 2: TIẾN HÀNH HỦY VÀ HOÀN TRẢ PHÒNG LẠI CHO KHO (Transaction) ---
+        // Tiến hành hủy (không cần cập nhật room_availability nữa vì dùng logic đếm trực tiếp)
         DB::transaction(function () use ($booking) {
-            
-            // Cập nhật trạng thái đơn thành 'Đã hủy'
             $booking->update([
                 'status'       => 'cancelled',
                 'cancelled_at' => now(),
                 'cancelled_by' => 'customer',
             ]);
-
-            // Lấy ra số lượng phòng và loại phòng mà khách đã đặt trước đó
-            $quantity   = $booking->bookingRooms->sum('quantity');
-            $roomTypeId = $booking->bookingRooms->first()->room_type_id;
-            $dates      = CarbonPeriod::create(
-                $booking->check_in->format('Y-m-d'),
-                $booking->check_out->copy()->subDay()->format('Y-m-d')
-            );
-
-            // Chạy vòng lặp y như lúc đặt, nhưng lần này đi CỘNG ngược lại
-            foreach ($dates as $date) {
-                // Tăng số phòng trống lên để khách khác mua
-                DB::table('room_availability')
-                    ->where('hotel_id',     $booking->hotel_id)
-                    ->where('room_type_id', $roomTypeId)
-                    ->where('date',         $date->format('Y-m-d'))
-                    ->increment('available_count', $quantity);
-
-                // Giảm số phòng đã đặt xuống
-                DB::table('room_availability')
-                    ->where('hotel_id',     $booking->hotel_id)
-                    ->where('room_type_id', $roomTypeId)
-                    ->where('date',         $date->format('Y-m-d'))
-                    ->decrement('booked_count', $quantity);
-            }
         });
 
-        // --- BƯỚC 3: TRẢ KẾT QUẢ CHO FRONTEND ---
-        // Load lại dữ liệu mới nhất (fresh), format lại tiền và báo thành công
+        // Trả kết quả
         $bookingData = $booking->fresh(['bookingRooms.roomType', 'hotel'])->toArray();
         $bookingData['total_price'] = number_format($booking->total_price, 0, '.', ',') . ' VND';
         foreach ($bookingData['booking_rooms'] as &$br) {

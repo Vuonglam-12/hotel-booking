@@ -32,15 +32,10 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Đăng ký thành công',
             'token'   => $token,
-            'user'    => [
-                'id'    => $customer->id,
-                'name'  => $customer->name,
-                'email' => $customer->email,
-            ]
+            'user'    => ['id' => $customer->id, 'name' => $customer->name, 'email' => $customer->email],
         ], 201);
     }
 
-    // Đăng nhập bằng email + password
     public function login(Request $request)
     {
         $request->validate([
@@ -51,9 +46,7 @@ class AuthController extends Controller
         $customer = Customer::where('email', $request->email)->first();
 
         if (!$customer || !Hash::check($request->password, $customer->password_hash)) {
-            return response()->json([
-                'message' => 'Email hoặc mật khẩu không đúng'
-            ], 401);
+            return response()->json(['message' => 'Email hoặc mật khẩu không đúng'], 401);
         }
 
         $token = $customer->createToken('auth_token')->plainTextToken;
@@ -61,149 +54,154 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Đăng nhập thành công',
             'token'   => $token,
-            'user'    => [
-                'id'    => $customer->id,
-                'name'  => $customer->name,
-                'email' => $customer->email,
-            ]
+            'user'    => ['id' => $customer->id, 'name' => $customer->name, 'email' => $customer->email],
         ]);
     }
 
-    // Đăng xuất
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-
-        return response()->json([
-            'message' => 'Đăng xuất thành công'
-        ]);
+        return response()->json(['message' => 'Đăng xuất thành công']);
     }
 
-    // Thông tin user đang đăng nhập
     public function me(Request $request)
     {
         return response()->json($request->user());
     }
 
     // ==========================================
-    // POST /api/auth/send-phone-otp
-    // Nhận phone + email → tạo OTP 6 số → gửi Gmail
+    // PUT /api/me — Cập nhật thông tin profile
     // ==========================================
-    public function sendPhoneOtp(Request $request)
+    public function updateProfile(Request $request)
     {
+        $customer = Customer::findOrFail(auth('sanctum')->id());
+
         $request->validate([
-            'phone' => 'required|string|max:20',
-            'email' => 'required|email',
+            'name'  => 'required|string|max:100',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'required|email|unique:customer,email,' . $customer->id,
         ]);
 
-        $phone = $request->phone;
-        $email = $request->email;
-
-        // Tìm customer theo SĐT (hỗ trợ cả 0901... và +84901...)
-        $customer = Customer::where('phone', $phone)
-            ->orWhere('phone', '+84' . ltrim($phone, '0'))
-            ->first();
-
-        if (!$customer) {
-            return response()->json([
-                'message' => 'Số điện thoại chưa được đăng ký. Vui lòng đăng ký tài khoản trước.',
-            ], 404);
-        }
-
-        // Verify email khớp với account
-        if ($customer->email !== $email) {
-            return response()->json([
-                'message' => 'Email không khớp với tài khoản có số điện thoại này.',
-            ], 422);
-        }
-
-        // Tạo OTP 6 số ngẫu nhiên
-        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-
-        // Lưu OTP vào bảng password_reset_tokens (tái dụng bảng sẵn có)
-        DB::table('password_reset_tokens')
-            ->where('email', $email)
-            ->delete();
-
-        DB::table('password_reset_tokens')->insert([
-            'email'      => $email,
-            'token'      => Hash::make($otp),
-            'created_at' => now(),
+        $customer->update([
+            'name'  => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
         ]);
 
-        // Gửi email OTP
-        Mail::send('emails.otp', [
-            'otp'      => $otp,
-            'customer' => $customer,
-            'phone'    => $phone,
-        ], function ($mail) use ($customer) {
-            $mail->to($customer->email)
-                 ->subject('Mã OTP đăng nhập — Hotel Booking');
-        });
-
-        // Trả về email đã che bớt để hiển thị UI (bảo mật)
-        $maskedEmail = substr($email, 0, 3) . '***' . strstr($email, '@');
-
+        // Cập nhật lại localStorage user
         return response()->json([
-            'message'      => 'Đã gửi mã OTP đến email của bạn',
-            'masked_email' => $maskedEmail,
-        ]);
-    }
-
-    // ==========================================
-    // POST /api/auth/verify-phone-otp
-    // Nhận phone + email + otp → verify → trả Sanctum token
-    // ==========================================
-    public function verifyPhoneOtp(Request $request)
-    {
-        $request->validate([
-            'phone' => 'required|string',
-            'email' => 'required|email',
-            'otp'   => 'required|string|size:6',
-        ]);
-
-        $email = $request->email;
-        $otp   = $request->otp;
-
-        $record = DB::table('password_reset_tokens')
-            ->where('email', $email)
-            ->first();
-
-        if (!$record) {
-            return response()->json([
-                'message' => 'Mã OTP không hợp lệ hoặc đã hết hạn',
-            ], 422);
-        }
-
-        if (!Hash::check($otp, $record->token)) {
-            return response()->json([
-                'message' => 'Mã OTP không đúng, vui lòng kiểm tra lại',
-            ], 422);
-        }
-
-        // OTP hết hạn sau 10 phút
-        if (now()->diffInMinutes($record->created_at) > 10) {
-            DB::table('password_reset_tokens')->where('email', $email)->delete();
-            return response()->json([
-                'message' => 'Mã OTP đã hết hạn, vui lòng yêu cầu mã mới',
-            ], 422);
-        }
-
-        // Xóa OTP sau khi verify thành công — chỉ dùng 1 lần
-        DB::table('password_reset_tokens')->where('email', $email)->delete();
-
-        $customer = Customer::where('email', $email)->firstOrFail();
-        $token    = $customer->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Đăng nhập thành công',
-            'token'   => $token,
+            'message' => 'Cập nhật thông tin thành công',
             'user'    => [
                 'id'    => $customer->id,
                 'name'  => $customer->name,
                 'email' => $customer->email,
-            ]
+                'phone' => $customer->phone,
+            ],
         ]);
+    }
+
+    // ==========================================
+    // POST /api/me/password — Đổi mật khẩu
+    // ==========================================
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password'     => 'required|string|min:6|confirmed',
+        ]);
+
+        $customer = Customer::findOrFail(auth('sanctum')->id());
+
+        if (!Hash::check($request->current_password, $customer->password_hash)) {
+            return response()->json(['message' => 'Mật khẩu hiện tại không đúng'], 422);
+        }
+
+        $customer->update([
+            'password_hash' => Hash::make($request->new_password),
+        ]);
+
+        return response()->json(['message' => 'Đổi mật khẩu thành công']);
+    }
+
+    // ==========================================
+    // POST /api/auth/login-phone
+    // ==========================================
+    public function loginByPhone(Request $request)
+    {
+        $request->validate(['phone' => 'required|string', 'password' => 'required|string']);
+
+        $customer = Customer::where('phone', $request->phone)
+            ->orWhere('phone', '+84' . ltrim($request->phone, '0'))
+            ->first();
+
+        if (!$customer || !Hash::check($request->password, $customer->password_hash)) {
+            return response()->json(['message' => 'Số điện thoại hoặc mật khẩu không đúng'], 401);
+        }
+
+        $token = $customer->createToken('auth_token')->plainTextToken;
+        return response()->json([
+            'message' => 'Đăng nhập thành công',
+            'token'   => $token,
+            'user'    => ['id' => $customer->id, 'name' => $customer->name, 'email' => $customer->email],
+        ]);
+    }
+
+    // ==========================================
+    // POST /api/forgot-password-otp
+    // ==========================================
+    public function forgotPasswordOtp(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $customer = Customer::where('email', $request->email)->first();
+        if (!$customer) {
+            return response()->json(['message' => 'Email không tồn tại trong hệ thống'], 404);
+        }
+
+        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+        DB::table('password_reset_tokens')->insert([
+            'email'      => $request->email,
+            'token'      => Hash::make($otp),
+            'created_at' => now(),
+        ]);
+
+        Mail::send('emails.otp', [
+            'otp'      => $otp,
+            'customer' => $customer,
+            'phone'    => '',
+        ], function ($mail) use ($customer) {
+            $mail->to($customer->email)->subject('Mã OTP đặt lại mật khẩu — Hotel Booking');
+        });
+
+        return response()->json(['message' => 'Đã gửi OTP về email']);
+    }
+
+    // ==========================================
+    // POST /api/forgot-password-verify-otp
+    // ==========================================
+    public function forgotPasswordVerifyOtp(Request $request)
+    {
+        $request->validate(['email' => 'required|email', 'otp' => 'required|string|size:6']);
+
+        $record = DB::table('password_reset_tokens')->where('email', $request->email)->first();
+
+        if (!$record || !Hash::check($request->otp, $record->token)) {
+            return response()->json(['message' => 'Mã OTP không đúng hoặc đã hết hạn'], 422);
+        }
+
+        if (now()->diffInMinutes($record->created_at) > 10) {
+            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+            return response()->json(['message' => 'Mã OTP đã hết hạn (10 phút), vui lòng gửi lại'], 422);
+        }
+
+        $resetToken = Str::random(64);
+        DB::table('password_reset_tokens')->where('email', $request->email)->update([
+            'token' => Hash::make($resetToken),
+        ]);
+
+        return response()->json(['message' => 'OTP hợp lệ', 'reset_token' => $resetToken]);
     }
 
     // ==========================================
@@ -211,24 +209,15 @@ class AuthController extends Controller
     // ==========================================
     public function forgotPassword(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
+        $request->validate(['email' => 'required|email']);
 
         $customer = Customer::where('email', $request->email)->first();
-
         if (!$customer) {
-            return response()->json([
-                'message' => 'Nếu email tồn tại, bạn sẽ nhận được link đặt lại mật khẩu',
-            ]);
+            return response()->json(['message' => 'Nếu email tồn tại, bạn sẽ nhận được link đặt lại mật khẩu']);
         }
 
-        DB::table('password_reset_tokens')
-            ->where('email', $request->email)
-            ->delete();
-
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
         $token = Str::random(64);
-
         DB::table('password_reset_tokens')->insert([
             'email'      => $request->email,
             'token'      => Hash::make($token),
@@ -236,18 +225,11 @@ class AuthController extends Controller
         ]);
 
         $resetLink = url('/reset-password/' . $token . '?email=' . urlencode($request->email));
-
-        Mail::send('emails.reset_password', [
-            'customer'  => $customer,
-            'resetLink' => $resetLink,
-        ], function ($mail) use ($customer) {
-            $mail->to($customer->email)
-                 ->subject('Đặt lại mật khẩu — Hotel Booking');
+        Mail::send('emails.reset_password', ['customer' => $customer, 'resetLink' => $resetLink], function ($mail) use ($customer) {
+            $mail->to($customer->email)->subject('Đặt lại mật khẩu — Hotel Booking');
         });
 
-        return response()->json([
-            'message' => 'Nếu email tồn tại, bạn sẽ nhận được link đặt lại mật khẩu',
-        ]);
+        return response()->json(['message' => 'Nếu email tồn tại, bạn sẽ nhận được link đặt lại mật khẩu']);
     }
 
     // ==========================================
@@ -261,119 +243,68 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        $record = DB::table('password_reset_tokens')
-            ->where('email', $request->email)
-            ->first();
+        $record = DB::table('password_reset_tokens')->where('email', $request->email)->first();
 
         if (!$record || !Hash::check($request->token, $record->token)) {
-            return response()->json([
-                'message' => 'Token không hợp lệ hoặc đã hết hạn',
-            ], 422);
+            return response()->json(['message' => 'Token không hợp lệ hoặc đã hết hạn'], 422);
         }
 
         if (now()->diffInMinutes($record->created_at) > 60) {
             DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-            return response()->json([
-                'message' => 'Token đã hết hạn, vui lòng yêu cầu lại',
-            ], 422);
+            return response()->json(['message' => 'Token đã hết hạn, vui lòng yêu cầu lại'], 422);
         }
 
-        Customer::where('email', $request->email)
-            ->update(['password_hash' => Hash::make($request->password)]);
+        Customer::where('email', $request->email)->update(['password_hash' => Hash::make($request->password)]);
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
-        DB::table('password_reset_tokens')
-            ->where('email', $request->email)
-            ->delete();
-
-        return response()->json([
-            'message' => 'Đặt lại mật khẩu thành công, vui lòng đăng nhập lại',
-        ]);
+        return response()->json(['message' => 'Đặt lại mật khẩu thành công, vui lòng đăng nhập lại']);
     }
 
-    // POST /api/auth/login-phone
-public function loginByPhone(Request $request)
-{
-    $request->validate([
-        'phone'    => 'required|string',
-        'password' => 'required|string',
-    ]);
-
-    $customer = Customer::where('phone', $request->phone)
-        ->orWhere('phone', '+84' . ltrim($request->phone, '0'))
-        ->first();
-
-    if (!$customer || !Hash::check($request->password, $customer->password_hash)) {
-        return response()->json(['message' => 'Số điện thoại hoặc mật khẩu không đúng'], 401);
-    }
-
-    $token = $customer->createToken('auth_token')->plainTextToken;
-    return response()->json([
-        'message' => 'Đăng nhập thành công',
-        'token'   => $token,
-        'user'    => ['id' => $customer->id, 'name' => $customer->name, 'email' => $customer->email],
-    ]);
-}
-
-// POST /api/forgot-password-otp
-public function forgotPasswordOtp(Request $request)
-{
-    $request->validate(['email' => 'required|email']);
-
-    $customer = Customer::where('email', $request->email)->first();
-    if (!$customer) {
-        return response()->json(['message' => 'Email không tồn tại trong hệ thống'], 404);
-    }
-
-    $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-
-    DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-    DB::table('password_reset_tokens')->insert([
-        'email'      => $request->email,
-        'token'      => Hash::make($otp),
-        'created_at' => now(),
-    ]);
-
-    Mail::send('emails.otp', [
-        'otp'      => $otp,
-        'customer' => $customer,
-        'phone'    => '',
-    ], function ($mail) use ($customer) {
-        $mail->to($customer->email)->subject('Mã OTP đặt lại mật khẩu — Hotel Booking');
-    });
-
-    return response()->json(['message' => 'Đã gửi OTP về email']);
-}
-
-    // POST /api/forgot-password-verify-otp
-    public function forgotPasswordVerifyOtp(Request $request)
+    // ==========================================
+    // POST /api/auth/google
+    // ==========================================
+    public function loginGoogle(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'otp'   => 'required|string|size:6',
+            'credential' => 'required|string',
         ]);
 
-        $record = DB::table('password_reset_tokens')
-            ->where('email', $request->email)
-            ->first();
+        // Giải mã token từ Google (Google trả về dạng JWT)
+        $jwt = explode('.', $request->credential);
+        if (count($jwt) !== 3) {
+            return response()->json(['message' => 'Token Google không hợp lệ'], 401);
+        }
+        
+        $payload = json_decode(base64_decode(str_replace(['-', '_'], ['+', '/'], $jwt[1])), true);
 
-        if (!$record || !Hash::check($request->otp, $record->token)) {
-            return response()->json(['message' => 'Mã OTP không đúng hoặc đã hết hạn'], 422);
+        if (!$payload || !isset($payload['email'])) {
+            return response()->json(['message' => 'Không thể lấy thông tin từ Google'], 401);
         }
 
-        if (now()->diffInMinutes($record->created_at) > 10) {
-            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-            return response()->json(['message' => 'Mã OTP đã hết hạn (10 phút), vui lòng gửi lại'], 422);
+        // Tìm khách hàng theo email
+        $customer = Customer::where('email', $payload['email'])->first();
+
+        // Nếu chưa có tài khoản, tự động tạo mới
+        if (!$customer) {
+            $customer = Customer::create([
+                'name'          => $payload['name'] ?? 'Khách hàng',
+                'email'         => $payload['email'],
+                // Mật khẩu ngẫu nhiên vì họ đăng nhập bằng Google
+                'password_hash' => Hash::make(\Illuminate\Support\Str::random(24)), 
+            ]);
         }
 
-        // Tạo reset_token để redirect sang /reset-password
-        $resetToken = \Illuminate\Support\Str::random(64);
-        DB::table('password_reset_tokens')->where('email', $request->email)->update([
-            'token' => Hash::make($resetToken),
-        ]);
+        // Tạo token Sanctum để đăng nhập
+        $token = $customer->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'message'     => 'OTP hợp lệ',
-            'reset_token' => $resetToken,
+            'message' => 'Đăng nhập Google thành công',
+            'token'   => $token,
+            'user'    => [
+                'id'    => $customer->id, 
+                'name'  => $customer->name, 
+                'email' => $customer->email
+            ],
         ]);
     }
 }

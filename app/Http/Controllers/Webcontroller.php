@@ -75,6 +75,12 @@ class WebController extends Controller
         return view('auth.register');
     }
 
+    // Trang blog
+    public function blog()
+    {
+        return view('blog');
+    }
+
     public function paymentResult(Request $request)
     {
         // Verify chữ ký VNPay

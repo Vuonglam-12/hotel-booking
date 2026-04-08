@@ -23,6 +23,11 @@ class Location extends Model
         return $this->hasMany(Hotel::class);
     }
 
+    public function rooms()
+    {
+        return $this->hasManyThrough(Room::class, Hotel::class, 'location_id', 'hotel_id', 'id', 'id');
+    }
+
     public function destinations()
     {
         return $this->hasMany(Destination::class);

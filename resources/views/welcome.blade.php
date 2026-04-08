@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8">
@@ -267,4 +267,4 @@
     </footer>
 
 </body>
-</html>
+</html> -->

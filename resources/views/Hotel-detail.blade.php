@@ -384,7 +384,7 @@
                         </div>
                     </div>
 
-                    <button onclick="submitBooking({{ $hotel->id }})" class="btn-gold w-full py-3 rounded-xl text-sm font-semibold click-effect flex items-center justify-center gap-2">
+                    <button id="submit-booking-btn" onclick="submitBooking({{ $hotel->id }})" class="btn-gold w-full py-3 rounded-xl text-sm font-semibold click-effect flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
@@ -534,6 +534,43 @@
 <script>
     let currentBookingId = null;
     let currentTotal     = 0;
+    let isBookingSubmitting = false;
+
+    function setBookingButtonState(isLoading) {
+        const btn = document.getElementById('submit-booking-btn');
+        if (!btn) return;
+
+        if (isLoading) {
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+            btn.innerHTML = `
+                <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                Đang xử lý...
+            `;
+        } else {
+            btn.disabled = false;
+            btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            btn.innerHTML = `
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+                Đặt phòng ngay
+            `;
+        }
+    }
+
+    function getApiErrorMessage(data) {
+        if (!data) return 'Đặt phòng thất bại!';
+        if (data.message && data.errors) {
+            const errors = Object.values(data.errors).flat();
+            return errors.length ? errors[0] : data.message;
+        }
+        if (data.message) return data.message;
+        return typeof data === 'string' ? data : JSON.stringify(data);
+    }
 
     document.getElementById('check-in').addEventListener('change', calcPrice);
     document.getElementById('check-out').addEventListener('change', calcPrice);
@@ -610,6 +647,8 @@
 
     // [SỬA] submitBooking — tạo booking xong mở modal xác nhận thay vì redirect thẳng
     async function submitBooking(hotelId) {
+        if (isBookingSubmitting) return;
+
         const token = localStorage.getItem('token');
         if (!token) { window.location.href = '/login'; return; }
 
@@ -621,9 +660,16 @@
         const succDiv  = document.getElementById('booking-success');
         const roomSelect = document.getElementById('room-select');
         const roomName   = roomSelect.options[roomSelect.selectedIndex]?.text;
+        const roomTypeId = parseInt(roomId, 10);
 
         errDiv.classList.add('hidden');
         succDiv.classList.add('hidden');
+
+        if (isNaN(roomTypeId)) {
+            errDiv.textContent = 'Vui lòng chọn loại phòng hợp lệ!';
+            errDiv.classList.remove('hidden');
+            return;
+        }
 
         if (!checkIn || !checkOut) {
             errDiv.textContent = 'Vui lòng chọn ngày nhận và trả phòng!';
@@ -636,47 +682,58 @@
             return;
         }
 
-        const res = await api('/bookings', {
-            method: 'POST',
-            body: JSON.stringify({
-                hotel_id:     hotelId,
-                room_type_id: parseInt(roomId),
-                quantity:     1,
-                check_in:     checkIn,
-                check_out:    checkOut,
-                num_guests:   parseInt(guests)
-            })
-        });
+        isBookingSubmitting = true;
+        setBookingButtonState(true);
+        await new Promise(resolve => requestAnimationFrame(resolve));
 
-        const data = await res.json();
+        try {
+            const res = await api('/bookings', {
+                method: 'POST',
+                body: JSON.stringify({
+                    hotel_id:     hotelId,
+                    room_type_id: parseInt(roomId),
+                    quantity:     1,
+                    check_in:     checkIn,
+                    check_out:    checkOut,
+                    num_guests:   parseInt(guests)
+                })
+            });
 
-        if (res.ok) {
-            currentBookingId = data.booking.id;
+            const data = await res.json();
 
-            const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / 86400000);
-            const price  = roomSelect.options[roomSelect.selectedIndex]?.dataset.price;
-            currentTotal = nights * parseInt(price);
+            if (res.ok) {
+                currentBookingId = data.booking.id;
 
-            // Điền thông tin vào modal
-            document.getElementById('co-hotel').textContent   = document.querySelector('h1').textContent.trim();
-            document.getElementById('co-room').textContent    = roomName?.split('—')[0]?.trim();
-            document.getElementById('co-checkin').textContent = checkIn;
-            document.getElementById('co-checkout').textContent= checkOut;
-            document.getElementById('co-nights').textContent  = nights + ' đêm';
-            document.getElementById('co-total').textContent   = new Intl.NumberFormat('vi-VN').format(currentTotal) + 'đ';
+                const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / 86400000);
+                const price  = roomSelect.options[roomSelect.selectedIndex]?.dataset.price;
+                currentTotal = nights * parseInt(price);
 
-            // Reset về VNPay
-            document.querySelector('input[value="vnpay"]').checked = true;
-            document.getElementById('qr-section').classList.add('hidden');
-            document.getElementById('cash-section').classList.add('hidden');
+                // Điền thông tin vào modal
+                document.getElementById('co-hotel').textContent   = document.querySelector('h1').textContent.trim();
+                document.getElementById('co-room').textContent    = roomName?.split('—')[0]?.trim();
+                document.getElementById('co-checkin').textContent = checkIn;
+                document.getElementById('co-checkout').textContent= checkOut;
+                document.getElementById('co-nights').textContent  = nights + ' đêm';
+                document.getElementById('co-total').textContent   = new Intl.NumberFormat('vi-VN').format(currentTotal) + 'đ';
 
-            // Mở modal xác nhận
-            document.getElementById('checkoutModal').classList.remove('hidden');
-            document.getElementById('checkoutModal').classList.add('flex');
+                // Reset về VNPay
+                document.querySelector('input[value="vnpay"]').checked = true;
+                document.getElementById('qr-section').classList.add('hidden');
+                document.getElementById('cash-section').classList.add('hidden');
 
-        } else {
-            errDiv.textContent = data.message || 'Đặt phòng thất bại!';
+                // Mở modal xác nhận
+                document.getElementById('checkoutModal').classList.remove('hidden');
+                document.getElementById('checkoutModal').classList.add('flex');
+            } else {
+                errDiv.textContent = getApiErrorMessage(data) || 'Đặt phòng thất bại!';
+                errDiv.classList.remove('hidden');
+            }
+        } catch (error) {
+            errDiv.textContent = 'Đã có lỗi mạng. Vui lòng thử lại.';
             errDiv.classList.remove('hidden');
+        } finally {
+            isBookingSubmitting = false;
+            setBookingButtonState(false);
         }
     }
 
