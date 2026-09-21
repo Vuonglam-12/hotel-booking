@@ -1,0 +1,900 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Itinerary;
+use App\Models\ItineraryItem;
+use App\Models\Location;
+use App\Models\Attraction;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
+class ItineraryController extends Controller
+{
+    /* ============================================================
+       GET /api/itineraries
+       Danh sách lịch trình của customer
+    ============================================================ */
+    public function index(Request $request): JsonResponse
+    {
+        $itineraries = Itinerary::where('customer_id', $request->user()->id)
+            ->with(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day'), 'location'])
+            ->orderByDesc('id')
+            ->get()
+            ->map(fn($it) => $this->formatItinerary($it));
+
+        return response()->json($itineraries);
+    }
+
+    /* ============================================================
+       GET /api/itineraries/{id}
+    ============================================================ */
+    public function show(Request $request, int $id): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)
+            ->with(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day'), 'location'])
+            ->findOrFail($id);
+
+        return response()->json($this->formatItinerary($itinerary));
+    }
+
+    /* ============================================================
+       POST /api/itineraries/generate
+       Tạo lịch trình bằng AI (Groq)
+    ============================================================ */
+    public function generate(Request $request): JsonResponse
+    {
+        $request->validate([
+            'destination'    => 'required|string|max:150',
+            'days'           => 'required|integer|min:1|max:21',
+            'start_date'     => 'nullable|date',
+            'people'         => 'nullable|integer|min:1|max:20',
+            'budget'         => 'nullable|integer|min:0',
+            'trip_style'     => 'nullable|string|max:100',
+            'interests'      => 'nullable|array',
+            'interests.*'    => 'string|max:50',
+            'pace'           => 'nullable|in:relaxed,moderate,packed',
+            'transport'      => 'nullable|string|max:100',
+            'stay_area'      => 'nullable|string|max:150',
+            'spend_priority' => 'nullable|string|max:150',
+            'must_visit'     => 'nullable|string|max:500',
+            'notes'          => 'nullable|string|max:1000',
+        ]);
+
+        $user        = $request->user();
+        $destination = $request->destination;
+        $days        = $request->days;
+        $people      = $request->people      ?? 1;
+        $budget      = $request->budget      ?? 5000000;
+        $startDate   = $request->start_date;
+        $tripStyle   = $request->trip_style   ?? 'khám phá';
+        $interests   = $request->interests    ? implode(', ', $request->interests) : 'đa dạng';
+        $pace        = match($request->pace) {
+            'relaxed'  => 'thư thả (3-4 hoạt động/ngày)',
+            'packed'   => 'dày đặc (6-7 hoạt động/ngày)',
+            default    => 'vừa phải (4-5 hoạt động/ngày)',
+        };
+        $transport      = $request->transport      ?? 'linh hoạt';
+        $stayArea       = $request->stay_area       ?? 'trung tâm';
+        $spendPriority  = $request->spend_priority  ?? 'cân bằng';
+        $mustVisit      = $request->must_visit      ?? '';
+        $notes          = $request->notes           ?? '';
+        $budgetFmt      = number_format($budget, 0, ',', '.') . 'đ';
+        $budgetPerDay   = number_format(intval($budget / $days), 0, ',', '.') . 'đ/ngày';
+
+        // ===== MỚI: Query DB trước khi gọi AI =====
+        // Đổi sang model Location
+        $locationRecord = Location::where('name', 'like', "%{$destination}%")->first();
+
+        $attractions = $locationRecord
+            ? Attraction::where('location_id', $locationRecord->id)
+                        ->where('is_active', true)
+                        ->get()
+                        ->groupBy('item_type')
+            : collect(); // không tìm thấy → AI tự generate (fallback mode)
+
+        // ===== Build prompt có ground truth =====
+        $contextLines = [];
+        foreach ($attractions as $type => $items) {
+            $contextLines[] = strtoupper($type) . ':';
+            foreach ($items as $item) {
+                $price = $item->price_min > 0
+                    ? number_format($item->price_min) . '-' . number_format($item->price_max) . 'đ'
+                    : 'miễn phí';
+                $contextLines[] = "  - {$item->name} | {$price} | ~{$item->duration_hours}h"
+                                . ($item->open_time ? " | {$item->open_time}-{$item->close_time}" : "");
+            }
+        }
+
+        $groundTruth = $attractions->isNotEmpty()
+            ? "DANH SÁCH ĐỊA ĐIỂM THẬT TẠI {$locationRecord->name}:\n" . implode("\n", $contextLines)
+            : ""; // AI tự generate nếu chưa có data
+
+        $mustVisitLine   = $mustVisit   ? "\n- Điểm bắt buộc ghé thăm: {$mustVisit}"       : '';
+        $notesLine       = $notes       ? "\n- Ghi chú đặc biệt: {$notes}"                  : '';
+        $startDateLine   = $startDate   ? "\n- Ngày bắt đầu: {$startDate}"                  : '';
+
+        // Sửa lỗi $destinationInput thành $destination
+        $prompt = <<<PROMPT
+Bạn là chuyên gia du lịch Việt Nam.
+{$groundTruth}
+
+Tạo lịch trình chi tiết {$days} ngày tại {$destination} cho {$people} người.
+
+THÔNG TIN CHUYẾN ĐI:
+- Điểm đến: {$destination}
+- Số ngày: {$days} ngày
+- Số người: {$people} người
+- Ngân sách: {$budgetFmt} tổng ({$budgetPerDay}/ngày){$startDateLine}
+
+PHONG CÁCH:
+- Loại chuyến đi: {$tripStyle}
+- Sở thích: {$interests}
+- Nhịp độ: {$pace}
+- Phương tiện: {$transport}
+
+TÙY CHỈNH:
+- Khu vực lưu trú: {$stayArea}
+- Ưu tiên chi tiêu: {$spendPriority}{$mustVisitLine}{$notesLine}
+
+QUAN TRỌNG:
+- Ưu tiên chọn địa điểm từ danh sách thực tế ở trên (nếu có)
+- estimated_cost phải nằm trong khoảng price_min/price_max của địa điểm đó
+
+NGÔN NGỮ: Trả lời bằng ngôn ngữ của yêu cầu (tiếng Việt nếu yêu cầu bằng tiếng Việt).
+
+YÊU CẦU JSON: Chỉ trả về JSON thuần (KHÔNG markdown, KHÔNG backtick, KHÔNG giải thích):
+{
+  "title": "Tên lịch trình ngắn gọn hấp dẫn",
+  "summary": "Mô tả tổng quan 1-2 câu",
+  "days": [
+    {
+      "day_number": 1,
+      "theme": "Chủ đề ngày (VD: Khám phá phố cổ)",
+      "items": [
+        {
+          "item_type": "hotel|restaurant|attraction|transport|activity|shopping",
+          "title": "Tên địa điểm/hoạt động",
+          "description": "Mô tả ngắn 1-2 câu thực tế",
+          "start_time": "08:00",
+          "end_time": "10:00",
+          "estimated_cost": 150000,
+          "order_in_day": 1
+        }
+      ]
+    }
+  ]
+}
+
+RÀNG BUỘC:
+- Mỗi ngày có {$pace}
+- Tổng chi phí tất cả items ≤ {$budgetFmt}
+- estimated_cost là số nguyên VND, tính cho {$people} người
+- item_type: hotel, restaurant, attraction, transport, activity, shopping
+- Địa điểm phải có thật và nổi tiếng tại {$destination}
+- start_time và end_time theo định dạng HH:MM
+PROMPT;
+
+        // ===== CALL GROQ API =====
+        $parsed = null;
+
+        try {
+            $groqKey   = config('services.groq.api_key');
+            $groqModel = 'llama-3.3-70b-versatile'; 
+
+            if ($groqKey) {
+                $response = Http::timeout(45)
+                    ->withToken($groqKey)
+                    ->post('https://api.groq.com/openai/v1/chat/completions', [
+                        'model'       => $groqModel,
+                        'max_tokens'  => 4000,
+                        'temperature' => 0.7,
+                        'messages'    => [
+                            [
+                                'role'    => 'system',
+                                'content' => 'Bạn là AI tạo lịch trình du lịch chuyên nghiệp. Chỉ trả về JSON thuần theo đúng schema được yêu cầu. Không thêm bất kỳ text nào ngoài JSON.',
+                            ],
+                            [
+                                'role'    => 'user',
+                                'content' => $prompt,
+                            ],
+                        ],
+                    ]);
+
+                if ($response->successful()) {
+                    $raw    = $response->json('choices.0.message.content');
+                    $clean  = preg_replace('/^```(?:json)?\s*/m', '', $raw ?? '');
+                    $clean  = preg_replace('/```\s*$/m', '', $clean);
+                    $parsed = json_decode(trim($clean), true);
+
+                    if (!$parsed || !isset($parsed['days'])) {
+                        Log::warning('Groq: JSON parse failed', ['raw' => substr($raw ?? '', 0, 500)]);
+                        $parsed = null;
+                    }
+                } else {
+                    Log::warning('Groq API error', [
+                        'status' => $response->status(),
+                        'body'   => $response->body(),
+                    ]);
+                }
+            }
+        } catch (\Exception $e) {
+            Log::error('Groq exception: ' . $e->getMessage());
+        }
+
+        // ===== FALLBACK nếu AI fail =====
+        if (!$parsed) {
+            $parsed = $this->buildFallback($destination, $days, $budget, $people);
+        }
+
+        // ===== LƯU DATABASE =====
+        $endDate = $startDate
+            ? date('Y-m-d', strtotime("+{$days} days", strtotime($startDate)))
+            : null;
+
+        $itinerary = Itinerary::create([
+            'customer_id'      => $user->id,
+            'title'            => $parsed['title']            ?? "Lịch trình {$days} ngày tại {$destination}",
+            'location_id'      => $locationRecord?->id, // ← Đổi sang location_id
+            'total_days'       => $days,
+            'start_date'       => $startDate,
+            'end_date'         => $endDate,
+            'estimated_budget' => $budget,
+            'status'           => 'draft',
+        ]);
+
+        foreach ($parsed['days'] as $day) {
+            $dayNum = (int) ($day['day_number'] ?? 1);
+            foreach ($day['items'] ?? [] as $item) {
+                ItineraryItem::create([
+                    'itinerary_id'   => $itinerary->id,
+                    'day_number'     => $dayNum,
+                    'item_type'      => $this->sanitizeType($item['item_type'] ?? ''),
+                    'title'          => $item['title']          ?? 'Hoạt động',
+                    'description'    => $item['description']    ?? null,
+                    'start_time'     => $item['start_time']      ?? null,
+                    'end_time'       => $item['end_time']        ?? null,
+                    'estimated_cost' => isset($item['estimated_cost']) ? (int) $item['estimated_cost'] : null,
+                    'order_in_day'   => (int) ($item['order_in_day'] ?? 0),
+                ]);
+            }
+        }
+
+        $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
+
+        return response()->json([
+            'message'   => 'Đã tạo lịch trình thành công!',
+            'itinerary' => $this->formatItinerary($itinerary),
+            'summary'   => $parsed['summary'] ?? null,
+        ], 201);
+    }
+
+/* ============================================================
+   POST /api/itineraries/{id}/chat
+   Chat tinh chỉnh lịch trình đã có
+============================================================ */
+    public function chat(Request $request, int $id): JsonResponse
+    {
+        $request->validate([
+            'message' => 'required|string|max:1000',
+            'history' => 'nullable|array',
+            'history.*.role'    => 'in:user,assistant',
+            'history.*.content' => 'string|max:2000',
+        ]);
+
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)
+            ->with(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day'), 'location'])
+            ->findOrFail($id);
+
+        $itineraryJson = json_encode($this->formatItinerary($itinerary), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        $systemPrompt = <<<SYS
+    Bạn là AI trợ lý du lịch thông minh, có quyền chỉnh sửa trực tiếp lịch trình.
+
+    LỊCH TRÌNH HIỆN TẠI:
+    {$itineraryJson}
+
+    NHIỆM VỤ: Phân tích yêu cầu và THỰC HIỆN NGAY, không hỏi lại, không giải thích dài dòng.
+
+    CHỈ trả về JSON thuần (KHÔNG markdown, KHÔNG backtick, KHÔNG text thừa ngoài JSON):
+
+    === KHI THÊM/BỔ SUNG (user nói: "thêm", "bổ sung", "thêm vào ngày X") ===
+    Chỉ gửi items mới, KHÔNG gửi lại items cũ:
+    {"action":"merge_items","reply":"Đã thêm [tên địa điểm] vào ngày X.","items":[{"day_number":1,"item_type":"attraction","title":"Tên thật","description":"Mô tả 1-2 câu","start_time":"09:00","end_time":"11:00","estimated_cost":50000,"order_in_day":6}]}
+
+    === KHI SỬA/ĐỔI/LÀM MỚI (user nói: "sửa", "đổi", "thay", "làm mới", "tạo lại", "đổi hết") ===
+    Gửi TOÀN BỘ items của tất cả các ngày (kể cả ngày không thay đổi):
+    {"action":"update_items","reply":"Đã cập nhật lịch trình theo yêu cầu.","items":[...toàn bộ...]}
+
+    === KHI CHỈ TRẢ LỜI CÂU HỎI (hỏi về địa điểm, thời tiết, giá cả...) ===
+    {"action":"reply","reply":"Câu trả lời ngắn gọn, dùng \\n xuống dòng, dùng • cho danh sách"}
+
+    QUY TẮC QUAN TRỌNG:
+    - item_type chỉ được dùng: hotel, restaurant, attraction, transport, activity, shopping
+    - estimated_cost là số nguyên VND
+    - Địa điểm phải có thật, phù hợp với điểm đến trong lịch trình
+    - Nếu user nói "ít người", "độc lạ", "hot mạng xã hội" → chọn địa điểm thật sự ít phổ biến, không dùng Hồ Hoàn Kiếm, Bến Thành...
+    - reply ngắn gọn tối đa 2 câu, KHÔNG liệt kê dài dòng trong reply
+    SYS;
+
+        $messages = [['role' => 'system', 'content' => $systemPrompt]];
+        foreach ($request->history ?? [] as $h) {
+            if (in_array($h['role'], ['user', 'assistant'])) {
+                $messages[] = ['role' => $h['role'], 'content' => $h['content']];
+            }
+        }
+        $messages[] = ['role' => 'user', 'content' => $request->message];
+
+        $replyText = null;
+        $action    = 'reply';
+        $items     = [];
+
+        try {
+            $groqKey = config('services.groq.api_key');
+            if ($groqKey) {
+                $response = Http::timeout(30)
+                    ->withToken($groqKey)
+                    ->post('https://api.groq.com/openai/v1/chat/completions', [
+                        'model'       => 'llama-3.3-70b-versatile',
+                        'max_tokens'  => 3000,
+                        'temperature' => 0.6,
+                        'messages'    => $messages,
+                    ]);
+
+                if ($response->successful()) {
+                    $content = $response->json('choices.0.message.content') ?? '';
+
+                    // Strip markdown nếu AI bọc backtick
+                    $clean = preg_replace('/^```(?:json)?\s*/m', '', $content);
+                    $clean = preg_replace('/```\s*$/m',          '', $clean);
+                    $data  = json_decode(trim($clean), true);
+
+                    if (is_array($data) && isset($data['action'])) {
+                        $action    = $data['action'];
+                        $replyText = $data['reply'] ?? 'Đã xử lý.';
+                        $items     = $data['items'] ?? [];
+                    } else {
+                        // AI không trả JSON đúng → dùng raw text
+                        $replyText = trim($content);
+                        $action    = 'reply';
+                    }
+                } else {
+                    Log::warning('Groq chat error', [
+                        'status' => $response->status(),
+                        'body'   => $response->body(),
+                    ]);
+                }
+            }
+        } catch (\Exception $e) {
+            Log::error('Groq chat exception: ' . $e->getMessage());
+        }
+
+        if (!$replyText) {
+            $replyText = 'Xin lỗi, không thể xử lý yêu cầu. Vui lòng thử lại!';
+            $action    = 'reply';
+        }
+
+        // Áp dụng thay đổi
+        $wasUpdated = false;
+
+        if ($action === 'update_items' && !empty($items)) {
+            $this->applyItemUpdates($itinerary, $items, 'replace');
+            $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
+            $wasUpdated = true;
+        }
+
+        if ($action === 'merge_items' && !empty($items)) {
+            $this->applyItemUpdates($itinerary, $items, 'merge');
+            $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
+            $wasUpdated = true;
+        }
+
+        return response()->json([
+            'reply'     => $replyText,
+            'action'    => $action,
+            'updated'   => $wasUpdated,
+            'itinerary' => $wasUpdated ? $this->formatItinerary($itinerary) : null,
+        ]);
+    }
+
+    /* ============================================================
+       PUT /api/itineraries/{id}
+    ============================================================ */
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        $itinerary->update($request->only(['title', 'start_date', 'end_date', 'status', 'estimated_budget']));
+        $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
+
+        return response()->json(['message' => 'Đã cập nhật!', 'itinerary' => $this->formatItinerary($itinerary)]);
+    }
+
+    /* ============================================================
+       PUT /api/itineraries/{id}/items/{itemId}
+    ============================================================ */
+    public function updateItem(Request $request, int $id, int $itemId): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        $item = ItineraryItem::where('itinerary_id', $itinerary->id)->findOrFail($itemId);
+
+        $item->update($request->only([
+            'title', 'description', 'start_time', 'end_time',
+            'estimated_cost', 'item_type', 'order_in_day'
+        ]));
+
+        return response()->json(['message' => 'Đã cập nhật hoạt động!', 'item' => $item]);
+    }
+
+    /* ============================================================
+       DELETE /api/itineraries/{id}/items/{itemId}
+    ============================================================ */
+    public function deleteItem(Request $request, int $id, int $itemId): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        ItineraryItem::where('itinerary_id', $itinerary->id)->findOrFail($itemId)->delete();
+        return response()->json(['message' => 'Đã xóa hoạt động!']);
+    }
+
+    /* ============================================================
+       DELETE /api/itineraries/{id}
+    ============================================================ */
+    public function destroy(Request $request, int $id): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        $itinerary->delete();
+        return response()->json(['message' => 'Đã xóa lịch trình!']);
+    }
+
+    /* ============================================================
+       PRIVATE HELPERS
+    ============================================================ */
+    private function formatItinerary(Itinerary $itinerary): array
+    {
+        $days = [];
+        foreach ($itinerary->items->groupBy('day_number') as $dayNum => $items) {
+            $days[] = [
+                'day_number' => $dayNum,
+                'items'      => $items->map(fn($item) => [
+                    'id'             => $item->id,
+                    'item_type'      => $item->item_type,
+                    'title'          => $item->title,
+                    'description'    => $item->description,
+                    'start_time'     => $item->start_time,
+                    'end_time'       => $item->end_time,
+                    'estimated_cost' => $item->estimated_cost,
+                    'order_in_day'   => $item->order_in_day,
+                ])->values(),
+            ];
+        }
+
+        return [
+            'id'               => $itinerary->id,
+            'title'            => $itinerary->title,
+            'location_id'      => $itinerary->location_id,
+            'destination'      => $itinerary->location_id
+                                    ? Location::find($itinerary->location_id)?->name
+                                    : null,
+            'total_days'       => $itinerary->total_days,
+            'start_date'       => $itinerary->start_date?->format('Y-m-d'),
+            'end_date'         => $itinerary->end_date?->format('Y-m-d'),
+            'estimated_budget' => $itinerary->estimated_budget,
+            'status'           => $itinerary->status,
+            'days'             => $days,
+            'total_cost'       => $itinerary->items->sum('estimated_cost'),
+        ];
+    }
+
+    private function sanitizeType(string $type): string
+    {
+        $allowed = ['hotel', 'restaurant', 'attraction', 'transport', 'activity', 'shopping'];
+        return in_array($type, $allowed) ? $type : 'attraction';
+    }
+
+    private function applyItemUpdates(Itinerary $itinerary, array $items, string $mode = 'replace'): void
+    {
+        if ($mode === 'replace') {
+            // Xoá toàn bộ items cũ, thay bằng items mới
+            ItineraryItem::where('itinerary_id', $itinerary->id)->delete();
+            foreach ($items as $item) {
+                ItineraryItem::create([
+                    'itinerary_id'   => $itinerary->id,
+                    'day_number'     => (int) ($item['day_number']    ?? 1),
+                    'item_type'      => $this->sanitizeType($item['item_type'] ?? ''),
+                    'title'          => $item['title']          ?? 'Hoạt động',
+                    'description'    => $item['description']    ?? null,
+                    'start_time'     => $item['start_time']      ?? null,
+                    'end_time'       => $item['end_time']        ?? null,
+                    'estimated_cost' => isset($item['estimated_cost']) ? (int) $item['estimated_cost'] : null,
+                    'order_in_day'   => (int) ($item['order_in_day']   ?? 0),
+                ]);
+            }
+        } elseif ($mode === 'merge') {
+            // Chỉ thêm mới items, giữ nguyên items cũ
+            foreach ($items as $item) {
+                ItineraryItem::create([
+                    'itinerary_id'   => $itinerary->id,
+                    'day_number'     => (int) ($item['day_number']    ?? 1),
+                    'item_type'      => $this->sanitizeType($item['item_type'] ?? ''),
+                    'title'          => $item['title']          ?? 'Hoạt động',
+                    'description'    => $item['description']    ?? null,
+                    'start_time'     => $item['start_time']      ?? null,
+                    'end_time'       => $item['end_time']        ?? null,
+                    'estimated_cost' => isset($item['estimated_cost']) ? (int) $item['estimated_cost'] : null,
+                    'order_in_day'   => (int) ($item['order_in_day']   ?? 0),
+                ]);
+            }
+        }
+    }
+
+    private function buildFallback(string $destination, int $days, int $budget, int $people): array
+    {
+        $perDay = intval($budget / $days);
+        $templates = [
+            ['item_type' => 'hotel',      'title' => "Khách sạn trung tâm {$destination}",   'start_time' => '14:00', 'end_time' => '15:00', 'description' => 'Nhận phòng và nghỉ ngơi.',              'ratio' => 0.35],
+            ['item_type' => 'restaurant', 'title' => "Bữa trưa đặc sản {$destination}",       'start_time' => '12:00', 'end_time' => '13:30', 'description' => 'Thưởng thức ẩm thực địa phương.',      'ratio' => 0.10],
+            ['item_type' => 'attraction', 'title' => "Tham quan điểm nổi tiếng",              'start_time' => '08:00', 'end_time' => '11:00', 'description' => "Khám phá địa danh tại {$destination}.", 'ratio' => 0.20],
+            ['item_type' => 'activity',   'title' => "Trải nghiệm văn hóa địa phương",        'start_time' => '15:00', 'end_time' => '17:00', 'description' => 'Tham gia hoạt động đặc trưng.',        'ratio' => 0.15],
+            ['item_type' => 'restaurant', 'title' => "Bữa tối ẩm thực đường phố",             'start_time' => '18:30', 'end_time' => '20:00', 'description' => 'Thưởng thức ẩm thực buổi tối.',        'ratio' => 0.12],
+            ['item_type' => 'transport',  'title' => "Di chuyển tham quan",                   'start_time' => '07:00', 'end_time' => '08:00', 'description' => 'Di chuyển giữa các điểm tham quan.',   'ratio' => 0.08],
+        ];
+
+        $dayz = [];
+        for ($d = 1; $d <= $days; $d++) {
+            $items = [];
+            foreach ($templates as $order => $t) {
+                $items[] = [
+                    'item_type'      => $t['item_type'],
+                    'title'          => $t['title'],
+                    'description'    => $t['description'],
+                    'start_time'     => $t['start_time'],
+                    'end_time'       => $t['end_time'],
+                    'estimated_cost' => intval($perDay * $t['ratio']),
+                    'order_in_day'   => $order + 1,
+                ];
+            }
+            $dayz[] = [
+                'day_number' => $d,
+                'theme'      => "Ngày {$d} tại {$destination}",
+                'items'      => $items,
+            ];
+        }
+
+        return [
+            'title'   => "Lịch trình {$days} ngày tại {$destination}",
+            'summary' => "Hành trình khám phá {$destination} trong {$days} ngày cho {$people} người.",
+            'days'    => $dayz,
+        ];
+    }
+}<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Customer;  
+use App\Models\Location;
+
+class Itinerary extends Model
+{
+    protected $table = 'itinerary'; 
+
+    public $timestamps = false;
+    
+    protected $fillable = [
+        'customer_id',      // ← Đổi từ user_id
+        'title',
+        'location_id',   // ← Đổi từ city
+        'total_days',
+        'start_date',
+        'end_date',
+        'estimated_budget',
+        'status',
+        'session_id',
+    ];
+
+    protected $casts = [
+        'start_date'       => 'date',
+        'end_date'         => 'date',
+        'estimated_budget' => 'decimal:2',
+        'total_days'       => 'integer',
+    ];
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(ItineraryItem::class, 'itinerary_id')
+                    ->orderBy('day_number')
+                    ->orderBy('order_in_day');
+    }
+
+    // THÊM relationship này — ItineraryController cần nó
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'location_id');
+    }
+}<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class ItineraryItem extends Model
+{
+    protected $table = 'itinerary_item';
+
+    public $timestamps = false;
+    
+    protected $fillable = [
+        'itinerary_id',
+        'day_number',
+        'item_type',        // ← Đổi từ type
+        'title',            // ← Đổi từ name
+        'description',
+        'start_time',       // ← Đổi từ time
+        'end_time',
+        'estimated_cost',   // ← Đổi từ cost
+        'order_in_day',     // ← Đổi từ sort_order
+    ];
+
+    protected $casts = [
+        'estimated_cost' => 'decimal:2',
+        'day_number'     => 'integer',
+        'order_in_day'   => 'integer',
+    ];
+
+    public function itinerary(): BelongsTo
+    {
+        return $this->belongsTo(Itinerary::class, 'itinerary_id');
+    }
+}<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HotelController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ItineraryController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\NotificationController;
+
+// ==========================================
+// PUBLIC — không cần đăng nhập
+// ==========================================
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login',    [AuthController::class, 'login']);
+Route::post('/auth/login-phone',            [AuthController::class, 'loginByPhone']);
+Route::post('/forgot-password',             [AuthController::class, 'forgotPassword']);
+Route::post('/forgot-password-otp',         [AuthController::class, 'forgotPasswordOtp']);
+Route::post('/forgot-password-verify-otp',  [AuthController::class, 'forgotPasswordVerifyOtp']);
+Route::post('/reset-password',              [AuthController::class, 'resetPassword']);
+Route::post('/auth/google',                 [AuthController::class, 'loginGoogle']);
+
+Route::prefix('hotels')->group(function () {
+    Route::get('/',             [HotelController::class, 'index']);
+    Route::get('/map',          [HotelController::class, 'mapData']);
+    Route::get('/{id}',         [HotelController::class, 'show']);
+    Route::get('/{id}/rooms',   [HotelController::class, 'rooms']);
+    Route::get('/{id}/reviews', [ReviewController::class, 'hotelReviews']);
+});
+
+Route::get('/locations', [HotelController::class, 'locations']);
+
+// VNPay callback — public vì VNPay tự gọi
+Route::get('/payments/vnpay-return', [PaymentController::class, 'vnpayReturn']);
+
+// ==========================================
+// ADMIN đăng nhập/đăng xuất
+// ==========================================
+Route::prefix('admin')->group(function () {
+    Route::post('/login', [AuthAdminController::class, 'login']);
+
+    Route::middleware('auth:admin')->group(function () {
+        Route::post('/logout', [AuthAdminController::class, 'logout']);
+        Route::get('/me',      [AuthAdminController::class, 'me']);
+
+        // Rooms
+        Route::get('/rooms/availability', [App\Http\Controllers\RoomController::class, 'checkAvailability']);
+
+        // Dashboard
+        Route::get('/dashboard', [AdminController::class, 'dashboard']);
+
+        // Quản lý khách sạn
+        Route::get('/hotels',             [AdminController::class, 'hotels']);
+        Route::post('/hotels',            [AdminController::class, 'createHotel']);
+        Route::put('/hotels/{id}',        [AdminController::class, 'updateHotel']);
+        Route::put('/hotels/{id}/status', [AdminController::class, 'updateHotelStatus']);
+        
+        // Quản lý phòng của khách sạn
+        Route::get('/hotels/{hotelId}/room-types',  [AdminController::class, 'getRoomTypes']);
+        Route::post('/hotels/{hotelId}/room-types', [AdminController::class, 'createRoomType']);
+
+        // Quản lý khách hàng
+        Route::get('/customers', [AdminController::class, 'customers']);
+
+        // Quản lý review
+        Route::get('/reviews',          [AdminController::class, 'reviews']);
+        Route::delete('/reviews/{id}',  [AdminController::class, 'deleteReview']);
+
+        // Báo cáo doanh thu
+        Route::get('/revenue', [AdminController::class, 'revenue']);
+
+        // Quản lý locations (điểm đến)
+        Route::get('/locations',                     [AdminController::class, 'destinations']);
+        Route::post('/locations',                    [AdminController::class, 'createDestination']);
+        Route::put('/locations/{id}',                [AdminController::class, 'updateDestination']);
+        Route::put('/locations/{id}/toggle',         [AdminController::class, 'toggleDestination']);
+
+        // Quản lý attractions
+        Route::get('/locations/{locId}/attractions',    [AdminController::class, 'attractions']);
+        Route::post('/locations/{locId}/attractions',   [AdminController::class, 'createAttraction']);
+        Route::put('/attractions/{id}',                 [AdminController::class, 'updateAttraction']);
+        Route::delete('/attractions/{id}',              [AdminController::class, 'deleteAttraction']);
+        Route::put('/attractions/{id}/toggle',          [AdminController::class, 'toggleAttraction']);
+    });
+});
+
+// ==========================================
+// PROTECTED — Customer cần đăng nhập
+// ==========================================
+Route::middleware('auth:sanctum')->group(function () {
+
+    // Auth
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me',      [AuthController::class, 'me']);
+    Route::post('/auth/send-phone-otp',   [AuthController::class, 'sendPhoneOtp']);
+    Route::post('/auth/verify-phone-otp', [AuthController::class, 'verifyPhoneOtp']);
+    Route::put('/me',           [AuthController::class, 'updateProfile']);
+    Route::post('/me/password', [AuthController::class, 'updatePassword']);
+
+    // Booking
+    Route::post('/bookings',              [BookingController::class, 'store']);
+    Route::get('/bookings/my',            [BookingController::class, 'myBookings']);
+    Route::get('/bookings/{id}',          [BookingController::class, 'show']);
+    Route::post('/bookings/{id}/cancel',  [BookingController::class, 'cancel']);
+
+    // Wishlist
+    Route::get('/wishlist',                    [WishlistController::class, 'index']);
+    Route::post('/wishlist/{hotel_id}',        [WishlistController::class, 'add']);
+    Route::delete('/wishlist/{hotel_id}',      [WishlistController::class, 'remove']);
+    Route::post('/wishlist/{hotel_id}/toggle', [WishlistController::class, 'toggle']);
+
+    // Review
+    Route::get('/reviews/my',            [ReviewController::class, 'myReviews']);
+    Route::post('/reviews',              [ReviewController::class, 'store']);
+    Route::delete('/reviews/{id}',       [ReviewController::class, 'destroy']);
+    Route::post('/reviews/{id}/helpful', [ReviewController::class, 'helpful']);
+
+    // Payment
+    Route::post('/payments/create',         [PaymentController::class, 'createPayment']);
+    Route::post('/payments/manual',         [PaymentController::class, 'createManual']);
+    Route::post('/payments/retry',          [PaymentController::class, 'retry']);
+    Route::get('/payments/{booking_id}',    [PaymentController::class, 'show']);
+
+    // Invoice
+    Route::get('/invoices',                  [InvoiceController::class, 'index']);
+    Route::get('/invoices/{booking_id}',     [InvoiceController::class, 'show']);
+    Route::get('/invoices/{booking_id}/pdf', [InvoiceController::class, 'exportPdf']);
+
+    // Chatbot
+    Route::post('/chat/start',                [ChatController::class, 'startSession']);
+    Route::get('/chat',                       [ChatController::class, 'mySessions']);
+    Route::get('/chat/{session_id}',          [ChatController::class, 'getSession']);
+    Route::post('/chat/{session_id}/message', [ChatController::class, 'sendMessage']);
+    Route::put('/chat/{session_id}/close',    [ChatController::class, 'closeSession']);
+
+    // Itineraries
+    Route::prefix('itineraries')->group(function () {
+        Route::get('/',              [ItineraryController::class, 'index']);
+        Route::post('/generate',     [ItineraryController::class, 'generate']);
+        Route::get('/{id}',          [ItineraryController::class, 'show']);
+        Route::put('/{id}',          [ItineraryController::class, 'update']);
+        Route::delete('/{id}',       [ItineraryController::class, 'destroy']);
+        Route::post('/{id}/chat',    [ItineraryController::class, 'chat']);
+        Route::put('/{id}/items/{itemId}',    [ItineraryController::class, 'updateItem']);
+        Route::delete('/{id}/items/{itemId}', [ItineraryController::class, 'deleteItem']);
+    });
+
+    // Notifications
+    Route::prefix('notifications')->group(function () {
+        Route::get('/',              [NotificationController::class, 'index']);
+        Route::get('/unread-count',  [NotificationController::class, 'unreadCount']);
+        Route::post('/read-all',     [NotificationController::class, 'markAllRead']);
+        Route::post('/{id}/read',    [NotificationController::class, 'markRead']);
+        Route::delete('/delete-all', [NotificationController::class, 'deleteAll']);
+        Route::delete('/{id}',       [NotificationController::class, 'destroy']);
+    });
+
+    // Cập nhật avatar
+    Route::post('/me/avatar', [AuthController::class, 'updateAvatar']);
+});<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WebController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DealsController;
+use App\Http\Controllers\BlogController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes — Blade views
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/',             [WebController::class, 'home'])->name('home');
+Route::get('/hotels/{id}',  [WebController::class, 'hotelDetail'])->name('hotel.detail');
+Route::get('/booking/{id}', [WebController::class, 'booking'])->name('booking');
+Route::get('/login',        [WebController::class, 'login'])->name('login');
+Route::get('/register',     [WebController::class, 'register'])->name('register');
+Route::get('/deals',        [DealsController::class, 'index'])->name('deals');
+Route::get('/blog',         [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/{id}',    [BlogController::class, 'detail'])->name('blog.detail');
+
+
+// Dashboard — cần đăng nhập (check bằng JS)
+Route::get('/dashboard',    [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/payment/result', [WebController::class, 'paymentResult'])->name('payment.result');
+
+Route::get('/profile', fn() => view('user.profile'));
+Route::get('/password', fn() => view('user.password'));
+Route::get('/bookings', fn() => view('user.booking'));
+Route::get('/itineraries', fn() => view('user.itineraries'));
+
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset_password', [
+        'token' => $token,
+        'email' => request('email'),
+    ]);
+});
+
+
+// ==========================================
+// ADMIN ROUTES - Blade views
+// ==========================================
+Route::prefix('admin')->name('admin.')->group(function () {
+    
+    // Login page (không cần middleware)
+    Route::get('/login', function () {
+        return view('admin.login');
+    })->name('login');
+    
+    // Các trang cần đăng nhập (middleware sẽ check token ở frontend JS)
+    Route::middleware(['web'])->group(function () {
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+        
+        Route::get('/bookings', function () {
+            return view('admin.bookings');
+        })->name('bookings');
+        
+        Route::get('/hotels', function () {
+            return view('admin.hotels');
+        })->name('hotels');
+        
+        Route::get('/customers', function () {
+            return view('admin.customers');
+        })->name('customers');
+        
+        Route::get('/reviews', function () {
+            return view('admin.reviews');
+        })->name('reviews');
+        
+        Route::get('/revenue', function () {
+            return view('admin.revenue');
+        })->name('revenue');
+    });
+});

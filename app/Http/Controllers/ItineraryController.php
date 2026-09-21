@@ -4,357 +4,565 @@ namespace App\Http\Controllers;
 
 use App\Models\Itinerary;
 use App\Models\ItineraryItem;
-use App\Models\Destination;
-use App\Models\Hotel;
+use App\Models\Location;
+use App\Models\Attraction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ItineraryController extends Controller
 {
-    // ==========================================
-    // Xem tất cả lịch trình của user
-    // GET /api/itineraries
-    // ==========================================
-    public function index()
+    /* ============================================================
+       GET /api/itineraries
+       Danh sách lịch trình của customer
+    ============================================================ */
+    public function index(Request $request): JsonResponse
     {
-        $itineraries = Itinerary::with(['destination', 'items'])
-            ->where('customer_id', auth('sanctum')->id())
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $itineraries = Itinerary::where('customer_id', $request->user()->id)
+            ->with(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day'), 'location'])
+            ->orderByDesc('id')
+            ->get()
+            ->map(fn($it) => $this->formatItinerary($it));
 
         return response()->json($itineraries);
     }
 
-    // ==========================================
-    // Xem chi tiết 1 lịch trình
-    // GET /api/itineraries/{id}
-    // ==========================================
-    public function show($id)
+    /* ============================================================
+       GET /api/itineraries/{id}
+    ============================================================ */
+    public function show(Request $request, int $id): JsonResponse
     {
-        $itinerary = Itinerary::with([
-            'destination',
-            'items.hotel',       // KS trong từng item
-            'items.destination', // Địa điểm trong từng item
-        ])
-        ->where('customer_id', auth('sanctum')->id())
-        ->findOrFail($id);
-
-        return response()->json($itinerary);
-    }
-
-    // ==========================================
-    // Tạo lịch trình thủ công
-    // POST /api/itineraries
-    // ==========================================
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title'            => 'required|string|max:200',
-            'start_date'       => 'nullable|date',
-            'end_date'         => 'nullable|date|after:start_date',
-            'estimated_budget' => 'nullable|numeric|min:0',
-            'destination_id'   => 'nullable|integer|exists:destination,id',
-        ]);
-
-        $itinerary = Itinerary::create([
-            'customer_id'      => auth('sanctum')->id(),
-            'title'            => $request->title,
-            'destination_id'   => $request->destination_id,
-            'start_date'       => $request->start_date,
-            'end_date'         => $request->end_date,
-            'total_days'       => $request->start_date && $request->end_date
-                ? \Carbon\Carbon::parse($request->start_date)->diffInDays($request->end_date) + 1
-                : null,
-            'estimated_budget' => $request->estimated_budget,
-            'status'           => 'draft',
-            'created_at'       => now(),
-        ]);
-
-        return response()->json([
-            'message'   => 'Tạo lịch trình thành công',
-            'itinerary' => $itinerary,
-        ], 201);
-    }
-
-    // ==========================================
-    // Thêm hoạt động vào lịch trình
-    // POST /api/itineraries/{id}/items
-    // ==========================================
-    public function addItem(Request $request, $id)
-    {
-        $request->validate([
-            'day_number'     => 'required|integer|min:1',
-            'order_in_day'   => 'required|integer|min:1',
-            'item_type'      => 'required|in:hotel,destination,restaurant,transport,activity',
-            'title'          => 'required|string|max:200',
-            'hotel_id'       => 'nullable|integer|exists:hotel,id',
-            'destination_id' => 'nullable|integer|exists:destination,id',
-            'description'    => 'nullable|string',
-            'start_time'     => 'nullable|string',
-            'end_time'       => 'nullable|string',
-            'estimated_cost' => 'nullable|numeric|min:0',
-            'latitude'       => 'nullable|numeric',
-            'longitude'      => 'nullable|numeric',
-        ]);
-
-        // Verify lịch trình thuộc về user này
-        $itinerary = Itinerary::where('customer_id', auth('sanctum')->id())
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)
+            ->with(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day'), 'location'])
             ->findOrFail($id);
 
-        // Nếu không có tọa độ nhưng có hotel_id → lấy tọa độ từ hotel
-        $lat = $request->latitude;
-        $lng = $request->longitude;
-        if (!$lat && $request->hotel_id) {
-            $hotel = Hotel::find($request->hotel_id);
-            $lat = $hotel?->latitude;
-            $lng = $hotel?->longitude;
-        }
-
-        // Nếu không có tọa độ nhưng có destination_id → lấy tọa độ từ destination
-        if (!$lat && $request->destination_id) {
-            $dest = Destination::find($request->destination_id);
-            $lat = $dest?->latitude;
-            $lng = $dest?->longitude;
-        }
-
-        $item = ItineraryItem::create([
-            'itinerary_id'   => $itinerary->id,
-            'day_number'     => $request->day_number,
-            'order_in_day'   => $request->order_in_day,
-            'item_type'      => $request->item_type,
-            'hotel_id'       => $request->hotel_id,
-            'destination_id' => $request->destination_id,
-            'title'          => $request->title,
-            'description'    => $request->description,
-            'start_time'     => $request->start_time,
-            'end_time'       => $request->end_time,
-            'estimated_cost' => $request->estimated_cost,
-            'latitude'       => $lat,
-            'longitude'      => $lng,
-            'created_at'     => now(),
-        ]);
-
-        return response()->json([
-            'message' => 'Thêm hoạt động thành công',
-            'item'    => $item->load(['hotel', 'destination']),
-        ], 201);
+        return response()->json($this->formatItinerary($itinerary));
     }
 
-    // ==========================================
-    // Xóa hoạt động khỏi lịch trình
-    // DELETE /api/itineraries/{id}/items/{item_id}
-    // ==========================================
-    public function removeItem($id, $item_id)
-    {
-        // Verify lịch trình thuộc về user này
-        $itinerary = Itinerary::where('customer_id', auth('sanctum')->id())
-            ->findOrFail($id);
-
-        ItineraryItem::where('id', $item_id)
-            ->where('itinerary_id', $itinerary->id)
-            ->delete();
-
-        return response()->json(['message' => 'Đã xóa hoạt động']);
-    }
-
-    // ==========================================
-    // Cập nhật trạng thái lịch trình
-    // PUT /api/itineraries/{id}/status
-    // ==========================================
-    public function updateStatus(Request $request, $id)
+/* ============================================================
+       POST /api/itineraries/generate
+       Tạo lịch trình bằng AI (Groq) - Đã nâng cấp Reasoning & Hybrid Data
+    ============================================================ */
+    public function generate(Request $request): JsonResponse
     {
         $request->validate([
-            'status' => 'required|in:draft,confirmed,completed',
+            'destination'    => 'required|string|max:150',
+            'days'           => 'required|integer|min:1|max:21',
+            'start_date'     => 'nullable|date',
+            'people'         => 'nullable|integer|min:1|max:20',
+            'budget'         => 'nullable|integer|min:0',
+            'trip_style'     => 'nullable|string|max:100',
+            'interests'      => 'nullable|array',
+            'interests.*'    => 'string|max:50',
+            'pace'           => 'nullable|in:relaxed,moderate,packed',
+            'transport'      => 'nullable|string|max:100',
+            'stay_area'      => 'nullable|string|max:150',
+            'spend_priority' => 'nullable|string|max:150',
+            'must_visit'     => 'nullable|string|max:500',
+            'notes'          => 'nullable|string|max:1000',
         ]);
 
-        $itinerary = Itinerary::where('customer_id', auth('sanctum')->id())
-            ->findOrFail($id);
+        $user        = $request->user();
+        $destination = $request->destination;
+        $days        = $request->days;
+        $people      = $request->people      ?? 1;
+        $budget      = $request->budget      ?? 5000000;
+        $startDate   = $request->start_date;
+        $tripStyle   = $request->trip_style   ?? 'khám phá';
+        $interests   = $request->interests    ? implode(', ', $request->interests) : 'đa dạng';
+        $pace        = match($request->pace) {
+            'relaxed'  => 'thư thả (3-4 hoạt động/ngày)',
+            'packed'   => 'dày đặc (6-7 hoạt động/ngày)',
+            default    => 'vừa phải (4-5 hoạt động/ngày)',
+        };
+        $transport      = $request->transport      ?? 'linh hoạt';
+        $stayArea       = $request->stay_area       ?? 'trung tâm';
+        $spendPriority  = $request->spend_priority  ?? 'cân bằng';
+        $mustVisit      = $request->must_visit      ?? '';
+        $notes          = $request->notes           ?? '';
+        $budgetFmt      = number_format($budget, 0, ',', '.') . 'đ';
+        $budgetPerDay   = number_format(intval($budget / $days), 0, ',', '.') . 'đ/ngày';
 
-        $itinerary->update(['status' => $request->status]);
+        // ===== MỚI: Query DB trước khi gọi AI =====
+        $locationRecord = Location::where('name', 'like', "%{$destination}%")->first();
 
-        return response()->json([
-            'message'   => 'Cập nhật trạng thái thành công',
-            'itinerary' => $itinerary,
-        ]);
-    }
+        $attractions = $locationRecord
+            ? Attraction::where('location_id', $locationRecord->id)
+                        ->where('is_active', true) // Chỉ lấy những địa điểm đang hoạt động, tránh gợi ý chỗ đóng cửa hoặc đang sửa chữa
+                        ->get()
+                        ->groupBy('item_type')
+            : collect(); 
 
-    // ==========================================
-    // Tạo lịch trình bằng AI (Groq)
-    // POST /api/itineraries/generate
-    // User nhập: thành phố, số ngày, budget → AI tự lên lịch
-    // ==========================================
-    public function generateWithAI(Request $request)
-    {
-        $request->validate([
-            'city'       => 'required|string',
-            'days'       => 'required|integer|min:1|max:14',
-            'budget'     => 'nullable|numeric',
-            'start_date' => 'nullable|date',
-            'interests'  => 'nullable|string', // VD: "biển, ẩm thực, lịch sử"
-        ]);
-
-        // Lấy danh sách KS và địa điểm tại thành phố đó
-        $hotels = Hotel::whereHas('location', fn($q) => $q->where('name', 'like', '%' . $request->city . '%'))
-            ->where('status', 'active')
-            ->select('id', 'name', 'star_rating', 'avg_rating', 'address', 'latitude', 'longitude')
-            ->get()
-            ->map(fn($h) => "[KS-{$h->id}] {$h->name} ({$h->star_rating} sao, rating: {$h->avg_rating})")
-            ->join("\n");
-
-        $destinations = Destination::whereHas('location', fn($q) => $q->where('name', 'like', '%' . $request->city . '%'))
-            ->select('id', 'name', 'category', 'description', 'latitude', 'longitude')
-            ->get()
-            ->map(fn($d) => "[DD-{$d->id}] {$d->name} (loại: {$d->category})")
-            ->join("\n");
-
-        // Prompt yêu cầu AI tạo lịch trình dạng JSON
-        $prompt = "Hãy tạo lịch trình du lịch {$request->days} ngày tại {$request->city}.
-" . ($request->budget ? "Ngân sách: " . number_format($request->budget) . " VND.\n" : "")
-. ($request->interests ? "Sở thích: {$request->interests}.\n" : "")
-. "
-Khách sạn có sẵn:
-{$hotels}
-
-Địa điểm có sẵn:
-{$destinations}
-
-Hãy trả về JSON theo format sau (KHÔNG có text nào khác, chỉ JSON thuần):
-{
-  \"title\": \"Tên lịch trình\",
-  \"estimated_budget\": 5000000,
-  \"days\": [
-    {
-      \"day\": 1,
-      \"activities\": [
-        {
-          \"order\": 1,
-          \"type\": \"hotel\",
-          \"title\": \"Check-in khách sạn\",
-          \"hotel_id\": 1,
-          \"destination_id\": null,
-          \"start_time\": \"14:00\",
-          \"end_time\": \"15:00\",
-          \"estimated_cost\": 900000,
-          \"description\": \"Nhận phòng và nghỉ ngơi\"
-        }
-      ]
-    }
-  ]
-}";
-
-        // Gọi Groq AI
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('services.groq.api_key'),
-            'Content-Type'  => 'application/json',
-        ])->post('https://api.groq.com/openai/v1/chat/completions', [
-            'model'       => config('services.groq.model', 'llama-3.1-8b-instant'),
-            'messages'    => [
-                ['role' => 'user', 'content' => $prompt]
-            ],
-            'max_tokens'  => 2000,
-            'temperature' => 0.7,
-        ]);
-
-        if (!$response->successful()) {
-            return response()->json(['message' => 'AI đang bận, thử lại sau!'], 500);
+        // ===== Build prompt có ground truth =====
+        $contextLines = [];
+        foreach ($attractions as $type => $items) {
+            $contextLines[] = strtoupper($type) . ':';
+            foreach ($items as $item) {
+                $price = $item->price_min > 0
+                    ? number_format($item->price_min) . '-' . number_format($item->price_max) . 'đ'
+                    : 'miễn phí';
+                $contextLines[] = "  - {$item->name} | {$price} | ~{$item->duration_hours}h"
+                                . ($item->open_time ? " | {$item->open_time}-{$item->close_time}" : "");
+            }
         }
 
-        $aiContent = $response->json('choices.0.message.content');
+        $groundTruth = $attractions->isNotEmpty()
+            ? "DANH SÁCH ĐỊA ĐIỂM THẬT TẠI {$locationRecord->name}:\n" . implode("\n", $contextLines)
+            : ""; 
 
-        // Parse JSON từ AI — xóa markdown code block nếu có
-        $aiContent = preg_replace('/```json\s*|\s*```/', '', $aiContent);
-        $aiData = json_decode(trim($aiContent), true);
+        $mustVisitLine   = $mustVisit   ? "\n- Điểm bắt buộc ghé thăm: {$mustVisit}"       : '';
+        $notesLine       = $notes       ? "\n- Ghi chú đặc biệt: {$notes}"                  : '';
+        $startDateLine   = $startDate   ? "\n- Ngày bắt đầu: {$startDate}"                  : '';
 
-        if (!$aiData) {
-            return response()->json([
-                'message' => 'AI trả về dữ liệu không hợp lệ, thử lại!',
-                'raw'     => $aiContent,
-            ], 500);
-        }
+        // TỐI ƯU PROMPT THEO NGHIỆP VỤ (Reasoning AI + Hybrid Data)
+        $prompt = <<<PROMPT
+            Bạn là chuyên gia du lịch Việt Nam am hiểu sâu rộng, sáng tạo và luôn mang đến những trải nghiệm mới mẻ, thú vị.
+            {$groundTruth}
 
-        // Lưu lịch trình vào DB trong transaction
-        $itinerary = DB::transaction(function () use ($request, $aiData) {
-            // Tạo lịch trình
-            $itinerary = Itinerary::create([
-                'customer_id'      => auth('sanctum')->id(),
-                'title'            => $aiData['title'] ?? "Lịch trình {$request->city} {$request->days} ngày",
-                'start_date'       => $request->start_date,
-                'end_date'         => $request->start_date
-                    ? \Carbon\Carbon::parse($request->start_date)->addDays($request->days - 1)->format('Y-m-d')
-                    : null,
-                'total_days'       => $request->days,
-                'estimated_budget' => $aiData['estimated_budget'] ?? $request->budget,
-                'status'           => 'draft',
-                'created_at'       => now(),
-            ]);
+            Nhiệm vụ của bạn là lập lịch trình {$days} ngày tại {$destination} cho {$people} người.
 
-            // Lưu từng hoạt động trong lịch trình
-            foreach ($aiData['days'] ?? [] as $day) {
-                foreach ($day['activities'] ?? [] as $activity) {
-                    // Lấy tọa độ tự động từ hotel hoặc destination
-                    $lat = $lng = null;
-                    if (!empty($activity['hotel_id'])) {
-                        $hotel = Hotel::find($activity['hotel_id']);
-                        $lat = $hotel?->latitude;
-                        $lng = $hotel?->longitude;
-                    } elseif (!empty($activity['destination_id'])) {
-                        $dest = Destination::find($activity['destination_id']);
-                        $lat = $dest?->latitude;
-                        $lng = $dest?->longitude;
+            THÔNG TIN CHUYẾN ĐI:
+            - Ngân sách: {$budgetFmt} tổng ({$budgetPerDay}/ngày){$startDateLine}
+            - Phong cách: {$tripStyle}, Nhịp độ: {$pace}
+            - Tùy chỉnh: {$spendPriority}{$mustVisitLine}{$notesLine}
+
+            [QUY TẮC NGHIỆP VỤ CỐT LÕI - PHẢI TUÂN THỦ]:
+            1. SỰ PHONG PHÚ & CHỐNG TRÙNG LẶP: Lịch trình phải kỳ thú, mang tính trải nghiệm cao. Tuyệt đối KHÔNG lặp lại bất kỳ địa điểm, nhà hàng hay hoạt động nào trong suốt {$days} ngày.
+            2. KIỂM CHỨNG THỰC TẾ (VALIDATION): 
+            - Nếu khách yêu cầu những trải nghiệm hoàn toàn phi lý, trái với tự nhiên hoặc địa lý của {$destination} (VD: Ngắm tuyết ở Sài Gòn, lặn ngắm san hô ở Sapa, hái dâu tây ở sa mạc), PHẢI TỪ CHỐI bằng cách set "is_valid": false và ghi lý do giải thích vào "ai_note".
+            - Nếu yêu cầu hợp lý hoặc chỉ là món ăn/địa điểm bình thường, set "is_valid": true.
+            
+            3. NGUỒN DỮ LIỆU (NGHIÊM CẤM VI PHẠM):
+            - CHỈ được sử dụng địa điểm có trong [DANH SÁCH ĐỊA ĐIỂM THẬT] ở trên.
+            - NGHIÊM CẤM TUYỆT ĐỐI thêm bất kỳ địa điểm nào KHÔNG có trong danh sách, dù là nổi tiếng hay hidden-gem.
+            - NGHIÊM CẤM dùng địa điểm của tỉnh/thành khác (VD: Đà Lạt, Hà Nội, HCM...) vào lịch trình {$destination}.
+            - Nếu không đủ địa điểm: được phép lặp lại hoặc sắp xếp lại thứ tự các địa điểm trong danh sách.
+
+            YÊU CẦU JSON RESPONSE (Chỉ trả về JSON thuần, KHÔNG markdown, KHÔNG giải thích):
+            {
+            "is_valid": true,
+            "ai_note": "Ghi chú của chuyên gia cho khách (hoặc lý do từ chối nếu is_valid = false)",
+            "title": "Tên lịch trình ngắn gọn hấp dẫn",
+            "summary": "Mô tả tổng quan 1-2 câu",
+            "days": [
+                {
+                "day_number": 1,
+                "theme": "Chủ đề ngày",
+                "items": [
+                    {
+                    "item_type": "hotel|restaurant|attraction|transport|activity|shopping",
+                    "title": "Tên địa điểm (CẤM TRÙNG LẶP VỚI NGÀY KHÁC)",
+                    "description": "Mô tả thực tế, thu hút",
+                    "start_time": "08:00",
+                    "end_time": "10:00",
+                    "estimated_cost": 150000,
+                    "order_in_day": 1
+                    }
+                ]
+                }
+            ]
+            }
+
+            - Lịch mỗi ngày bắt đầu từ 07:00 và kết thúc lúc 22:00
+            - Thứ tự thời gian phải tăng dần: sáng → trưa → chiều → tối
+            - Không xếp check-in khách sạn trước 13:00
+            - Bữa trưa: 11:30-13:30 | Bữa tối: 18:30-20:30  
+        PROMPT;
+
+        // ===== CALL GROQ API =====
+        $parsed = null;
+
+        try {
+            $groqKey   = config('services.groq.api_key');
+            $groqModel = 'llama-3.3-70b-versatile'; 
+
+            if ($groqKey) {
+                $response = Http::timeout(45)
+                    ->withToken($groqKey)
+                    ->post('https://api.groq.com/openai/v1/chat/completions', [
+                        'model'       => $groqModel,
+                        'max_tokens'  => 4000,
+                        'temperature' => 0.7,
+                        'messages'    => [
+                            [
+                                'role'    => 'system',
+                                'content' => 'Bạn là AI trợ lý du lịch có khả năng suy luận (reasoning). Phải trả về JSON thuần theo schema.',
+                            ],
+                            [
+                                'role'    => 'user',
+                                'content' => $prompt,
+                            ],
+                        ],
+                    ]);
+
+                if ($response->successful()) {
+                    $raw    = $response->json('choices.0.message.content');
+                    $clean  = preg_replace('/^```(?:json)?\s*/m', '', $raw ?? '');
+                    $clean  = preg_replace('/```\s*$/m', '', $clean);
+                    $parsed = json_decode(trim($clean), true);
+
+                    // XỬ LÝ KHI AI PHÁT HIỆN YÊU CẦU VÔ LÝ
+                    if (isset($parsed['is_valid']) && $parsed['is_valid'] === false) {
+                        return response()->json([
+                            'message' => 'Yêu cầu không khả thi',
+                            'error'   => $parsed['ai_note'] ?? 'AI không thể tạo lịch trình với các yêu cầu này tại ' . $destination
+                        ], 400); 
                     }
 
-                    ItineraryItem::create([
-                        'itinerary_id'   => $itinerary->id,
-                        'day_number'     => $day['day'],
-                        'order_in_day'   => $activity['order'] ?? 1,
-                        'item_type'      => $activity['type'] ?? 'activity',
-                        'hotel_id'       => $activity['hotel_id'] ?? null,
-                        'destination_id' => $activity['destination_id'] ?? null,
-                        'title'          => $activity['title'],
-                        'description'    => $activity['description'] ?? null,
-                        'start_time'     => $activity['start_time'] ?? null,
-                        'end_time'       => $activity['end_time'] ?? null,
-                        'estimated_cost' => $activity['estimated_cost'] ?? 0,
-                        'latitude'       => $lat,
-                        'longitude'      => $lng,
-                        'created_at'     => now(),
+                    if (!$parsed || !isset($parsed['days'])) {
+                        Log::warning('Groq: JSON parse failed', ['raw' => substr($raw ?? '', 0, 500)]);
+                        $parsed = null;
+                    }
+                } else {
+                    Log::warning('Groq API error', [
+                        'status' => $response->status(),
+                        'body'   => $response->body(),
                     ]);
                 }
             }
+        } catch (\Exception $e) {
+            Log::error('Groq exception: ' . $e->getMessage());
+        }
 
-            return $itinerary;
-        });
+        // ===== FALLBACK nếu AI fail =====
+        if (!$parsed) {
+            $parsed = $this->buildFallback($destination, $days, $budget, $people);
+        }
+
+        // ===== LƯU DATABASE =====
+        $endDate = $startDate
+            ? date('Y-m-d', strtotime("+{$days} days", strtotime($startDate)))
+            : null;
+
+        $itinerary = Itinerary::create([
+            'customer_id'      => $user->id,
+            'title'            => $parsed['title']            ?? "Lịch trình {$days} ngày tại {$destination}",
+            'location_id'      => $locationRecord?->id, 
+            'total_days'       => $days,
+            'start_date'       => $startDate,
+            'end_date'         => $endDate,
+            'estimated_budget' => $budget,
+            'status'           => 'draft',
+        ]);
+
+        foreach ($parsed['days'] as $day) {
+            $dayNum = (int) ($day['day_number'] ?? 1);
+            foreach ($day['items'] ?? [] as $item) {
+                ItineraryItem::create([
+                    'itinerary_id'   => $itinerary->id,
+                    'day_number'     => $dayNum,
+                    'item_type'      => $this->sanitizeType($item['item_type'] ?? ''),
+                    'title'          => $item['title']          ?? 'Hoạt động',
+                    'description'    => $item['description']    ?? null,
+                    'start_time'     => $item['start_time']      ?? null,
+                    'end_time'       => $item['end_time']        ?? null,
+                    'estimated_cost' => isset($item['estimated_cost']) ? (int) $item['estimated_cost'] : null,
+                    'order_in_day'   => (int) ($item['order_in_day'] ?? 0),
+                ]);
+            }
+        }
+
+        $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
 
         return response()->json([
-            'message'   => 'AI đã tạo lịch trình thành công! 🗺️',
-            'itinerary' => $itinerary->load(['items.hotel', 'items.destination']),
+            'message'   => 'Đã tạo lịch trình thành công!',
+            'itinerary' => $this->formatItinerary($itinerary),
+            'summary'   => $parsed['summary'] ?? null,
+            'ai_note'   => $parsed['ai_note'] ?? null,
         ], 201);
     }
 
-    // ==========================================
-    // Lấy route cho Google Maps
-    // GET /api/itineraries/{id}/map-route
-    // Trả về tất cả tọa độ theo thứ tự để vẽ đường đi
-    // ==========================================
-    public function mapRoute($id)
+/* ============================================================
+   POST /api/itineraries/{id}/chat
+   Chat tinh chỉnh lịch trình đã có
+============================================================ */
+    public function chat(Request $request, int $id): JsonResponse
     {
-        $itinerary = Itinerary::where('customer_id', auth('sanctum')->id())
+        $request->validate([
+            'message' => 'required|string|max:1000',
+            'history' => 'nullable|array',
+            'history.*.role'    => 'in:user,assistant',
+            'history.*.content' => 'string|max:2000',
+        ]);
+
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)
+            ->with(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day'), 'location'])
             ->findOrFail($id);
 
-        // Lấy tất cả item có tọa độ, sắp xếp theo ngày và thứ tự
-        $route = ItineraryItem::where('itinerary_id', $id)
-            ->whereNotNull('latitude')
-            ->whereNotNull('longitude')
-            ->orderBy('day_number')
-            ->orderBy('order_in_day')
-            ->select('day_number', 'order_in_day', 'title', 'item_type', 'latitude', 'longitude', 'start_time')
-            ->get();
+        $itineraryJson = json_encode($this->formatItinerary($itinerary), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+    $systemPrompt = <<<SYS
+        Bạn là AI trợ lý du lịch. Bạn đang xem xét LỊCH TRÌNH HIỆN TẠI của khách.
+
+        LỊCH TRÌNH HIỆN TẠI:
+        {$itineraryJson}
+
+        LUẬT SINH TỒN (NẾU VI PHẠM SẼ GÂY LỖI HỆ THỐNG):
+        Khi khách yêu cầu Thêm, Sửa, hoặc Xóa bất kỳ hoạt động nào, bạn PHẢI LUÔN LUÔN trả về MỘT MẢNG "items" chứa TOÀN BỘ CÁC HOẠT ĐỘNG CỦA TẤT CẢ CÁC NGÀY (bao gồm cả những ngày không bị thay đổi).
+        Tuyệt đối không được chỉ trả về 1 ngày. Nếu lịch trình cũ có 15 activities trong 3 ngày, và khách bảo xóa 1, bạn phải trả về 14 activities còn lại.
+        - `action` luôn là "update_items".
+        - `estimated_cost` phải là số nguyên (không chứa chữ 'đ' hay dấu chấm).
+        - Mọi hoạt động phải có đủ: day_number, item_type, title, start_time, end_time, order_in_day.
+
+        [QUY ĐỊNH JSON KẾT QUẢ - CHỈ TRẢ VỀ JSON]
+        {
+        "action": "update_items",
+        "reply": "Thông báo bạn đã làm gì (VD: Đã xóa cà phê và thêm ăn trưa).",
+        "items": [
+            { "day_number": 1, "item_type": "attraction", "title": "Bà Nà Hills", "start_time": "08:00", "end_time": "12:00", "estimated_cost": 500000, "order_in_day": 1 },
+            ... (GHI ĐẦY ĐỦ ITEMS CỦA TẤT CẢ CÁC NGÀY VÀO ĐÂY) ...
+        ]
+        }
+        SYS;
+
+        $messages = [['role' => 'system', 'content' => $systemPrompt]];
+        foreach ($request->history ?? [] as $h) {
+            if (in_array($h['role'], ['user', 'assistant'])) {
+                $messages[] = ['role' => $h['role'], 'content' => $h['content']];
+            }
+        }
+        $messages[] = ['role' => 'user', 'content' => $request->message];
+
+        $replyText = null;
+        $action    = 'reply';
+        $items     = [];
+
+        try {
+            $groqKey = config('services.groq.api_key');
+            if ($groqKey) {
+                $response = Http::timeout(30)
+                    ->withToken($groqKey)
+                    ->post('https://api.groq.com/openai/v1/chat/completions', [
+                        'model'       => 'llama-3.3-70b-versatile',
+                        'max_tokens'  => 3000,
+                        'temperature' => 0.6,
+                        'messages'    => $messages,
+                    ]);
+
+                if ($response->successful()) {
+                    $content = $response->json('choices.0.message.content') ?? '';
+
+                    // Strip markdown nếu AI bọc backtick
+                    $clean = preg_replace('/^```(?:json)?\s*/m', '', $content);
+                    $clean = preg_replace('/```\s*$/m',          '', $clean);
+                    $data  = json_decode(trim($clean), true);
+
+                    if (is_array($data) && isset($data['action'])) {
+                        $action    = $data['action'];
+                        $replyText = $data['reply'] ?? 'Đã xử lý.';
+                        $items     = $data['items'] ?? [];
+                    } else {
+                        // AI không trả JSON đúng → dùng raw text
+                        $replyText = trim($content);
+                        $action    = 'reply';
+                    }
+                } else {
+                    Log::warning('Groq chat error', [
+                        'status' => $response->status(),
+                        'body'   => $response->body(),
+                    ]);
+                }
+            }
+        } catch (\Exception $e) {
+            Log::error('Groq chat exception: ' . $e->getMessage());
+        }
+
+        if (!$replyText) {
+            $replyText = 'Xin lỗi, không thể xử lý yêu cầu. Vui lòng thử lại!';
+            $action    = 'reply';
+        }
+
+        // Áp dụng thay đổi
+        $wasUpdated = false;
+
+        if ($action === 'update_items' && !empty($items)) {
+            $this->applyItemUpdates($itinerary, $items, 'replace');
+            $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
+            $wasUpdated = true;
+        }
+
+        if ($action === 'merge_items' && !empty($items)) {
+            $this->applyItemUpdates($itinerary, $items, 'merge');
+            $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
+            $wasUpdated = true;
+        }
 
         return response()->json([
-            'itinerary_id' => $id,
-            'title'        => $itinerary->title,
-            'route'        => $route, // Mảng tọa độ theo thứ tự → vẽ đường đi trên Maps
+            'reply'     => $replyText,
+            'action'    => $action,
+            'updated'   => $wasUpdated,
+            'itinerary' => $wasUpdated ? $this->formatItinerary($itinerary) : null,
         ]);
+    }
+
+    /* ============================================================
+       PUT /api/itineraries/{id}
+    ============================================================ */
+    public function update(Request $request, int $id): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        $itinerary->update($request->only(['title', 'start_date', 'end_date', 'status', 'estimated_budget']));
+        $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
+
+        return response()->json(['message' => 'Đã cập nhật!', 'itinerary' => $this->formatItinerary($itinerary)]);
+    }
+
+    /* ============================================================
+       PUT /api/itineraries/{id}/items/{itemId}
+    ============================================================ */
+    public function updateItem(Request $request, int $id, int $itemId): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        $item = ItineraryItem::where('itinerary_id', $itinerary->id)->findOrFail($itemId);
+
+        $item->update($request->only([
+            'title', 'description', 'start_time', 'end_time',
+            'estimated_cost', 'item_type', 'order_in_day'
+        ]));
+
+        return response()->json(['message' => 'Đã cập nhật hoạt động!', 'item' => $item]);
+    }
+
+    /* ============================================================
+       DELETE /api/itineraries/{id}/items/{itemId}
+    ============================================================ */
+    public function deleteItem(Request $request, int $id, int $itemId): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        ItineraryItem::where('itinerary_id', $itinerary->id)->findOrFail($itemId)->delete();
+        return response()->json(['message' => 'Đã xóa hoạt động!']);
+    }
+
+    /* ============================================================
+       DELETE /api/itineraries/{id}
+    ============================================================ */
+    public function destroy(Request $request, int $id): JsonResponse
+    {
+        $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        $itinerary->delete();
+        return response()->json(['message' => 'Đã xóa lịch trình!']);
+    }
+
+    /* ============================================================
+       PRIVATE HELPERS
+    ============================================================ */
+    private function formatItinerary(Itinerary $itinerary): array
+    {
+        $days = [];
+        foreach ($itinerary->items->groupBy('day_number') as $dayNum => $items) {
+            $days[] = [
+                'day_number' => $dayNum,
+                'items'      => $items->map(fn($item) => [
+                    'id'             => $item->id,
+                    'item_type'      => $item->item_type,
+                    'title'          => $item->title,
+                    'description'    => $item->description,
+                    'start_time'     => $item->start_time,
+                    'end_time'       => $item->end_time,
+                    'estimated_cost' => $item->estimated_cost,
+                    'order_in_day'   => $item->order_in_day,
+                ])->values(),
+            ];
+        }
+
+        return [
+            'id'               => $itinerary->id,
+            'title'            => $itinerary->title,
+            'location_id'      => $itinerary->location_id,
+            'destination'      => $itinerary->location_id
+                                    ? Location::find($itinerary->location_id)?->name
+                                    : null,
+            'total_days'       => $itinerary->total_days,
+            'start_date'       => $itinerary->start_date?->format('Y-m-d'),
+            'end_date'         => $itinerary->end_date?->format('Y-m-d'),
+            'estimated_budget' => $itinerary->estimated_budget,
+            'status'           => $itinerary->status,
+            'days'             => $days,
+            'total_cost'       => $itinerary->items->sum('estimated_cost'),
+        ];
+    }
+
+    private function sanitizeType(string $type): string
+    {
+        $allowed = ['hotel', 'restaurant', 'attraction', 'transport', 'activity', 'shopping'];
+        return in_array($type, $allowed) ? $type : 'attraction';
+    }
+
+    private function applyItemUpdates(Itinerary $itinerary, array $items, string $mode = 'replace'): void
+    {
+        if ($mode === 'replace') {
+            // Xoá toàn bộ items cũ, thay bằng items mới
+            ItineraryItem::where('itinerary_id', $itinerary->id)->delete();
+            foreach ($items as $item) {
+                ItineraryItem::create([
+                    'itinerary_id'   => $itinerary->id,
+                    'day_number'     => (int) ($item['day_number']    ?? 1),
+                    'item_type'      => $this->sanitizeType($item['item_type'] ?? ''),
+                    'title'          => $item['title']          ?? 'Hoạt động',
+                    'description'    => $item['description']    ?? null,
+                    'start_time'     => $item['start_time']      ?? null,
+                    'end_time'       => $item['end_time']        ?? null,
+                    'estimated_cost' => isset($item['estimated_cost']) ? (int) $item['estimated_cost'] : null,
+                    'order_in_day'   => (int) ($item['order_in_day']   ?? 0),
+                ]);
+            }
+        } elseif ($mode === 'merge') {
+            // Chỉ thêm mới items, giữ nguyên items cũ
+            foreach ($items as $item) {
+                ItineraryItem::create([
+                    'itinerary_id'   => $itinerary->id,
+                    'day_number'     => (int) ($item['day_number']    ?? 1),
+                    'item_type'      => $this->sanitizeType($item['item_type'] ?? ''),
+                    'title'          => $item['title']          ?? 'Hoạt động',
+                    'description'    => $item['description']    ?? null,
+                    'start_time'     => $item['start_time']      ?? null,
+                    'end_time'       => $item['end_time']        ?? null,
+                    'estimated_cost' => isset($item['estimated_cost']) ? (int) $item['estimated_cost'] : null,
+                    'order_in_day'   => (int) ($item['order_in_day']   ?? 0),
+                ]);
+            }
+        }
+    }
+
+    private function buildFallback(string $destination, int $days, int $budget, int $people): array
+    {
+        $perDay = intval($budget / $days);
+        $templates = [
+            ['item_type' => 'transport',  'title' => "Di chuyển xuất phát",                    'start_time' => '07:00', 'end_time' => '08:00', 'description' => 'Di chuyển đến điểm tham quan đầu tiên.',  'ratio' => 0.05],
+            ['item_type' => 'attraction', 'title' => "Tham quan buổi sáng tại {$destination}", 'start_time' => '08:00', 'end_time' => '11:00', 'description' => "Khám phá địa danh nổi tiếng tại {$destination}.", 'ratio' => 0.15],
+            ['item_type' => 'restaurant', 'title' => "Bữa trưa đặc sản {$destination}",        'start_time' => '11:30', 'end_time' => '13:00', 'description' => 'Thưởng thức ẩm thực địa phương.',          'ratio' => 0.10],
+            ['item_type' => 'attraction', 'title' => "Tham quan buổi chiều",                   'start_time' => '13:30', 'end_time' => '16:30', 'description' => "Khám phá thêm địa điểm tại {$destination}.", 'ratio' => 0.15],
+            ['item_type' => 'activity',   'title' => "Trải nghiệm văn hóa địa phương",         'start_time' => '17:00', 'end_time' => '18:30', 'description' => 'Tham gia hoạt động đặc trưng vùng miền.',  'ratio' => 0.10],
+            ['item_type' => 'restaurant', 'title' => "Bữa tối ẩm thực đường phố",              'start_time' => '19:00', 'end_time' => '20:30', 'description' => 'Thưởng thức ẩm thực buổi tối.',            'ratio' => 0.10],
+            ['item_type' => 'hotel',      'title' => "Khách sạn tại {$destination}",           'start_time' => '21:00', 'end_time' => '22:00', 'description' => 'Nhận phòng và nghỉ ngơi.',                'ratio' => 0.35],
+        ];
+
+        $dayz = [];
+        for ($d = 1; $d <= $days; $d++) {
+            $items = [];
+            foreach ($templates as $order => $t) {
+                $items[] = [
+                    'item_type'      => $t['item_type'],
+                    'title'          => $t['title'],
+                    'description'    => $t['description'],
+                    'start_time'     => $t['start_time'],
+                    'end_time'       => $t['end_time'],
+                    'estimated_cost' => intval($perDay * $t['ratio']),
+                    'order_in_day'   => $order + 1,
+                ];
+            }
+            $dayz[] = [
+                'day_number' => $d,
+                'theme'      => "Ngày {$d} tại {$destination}",
+                'items'      => $items,
+            ];
+        }
+
+        return [
+            'title'   => "Lịch trình {$days} ngày tại {$destination}",
+            'summary' => "Hành trình khám phá {$destination} trong {$days} ngày cho {$people} người.",
+            'days'    => $dayz,
+        ];
     }
 }

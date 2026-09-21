@@ -19,20 +19,15 @@ class AuthAdminController extends Controller
             'password' => 'required|string',
         ]);
 
-        // Tìm staff theo email
         $staff = Staff::where('email', $request->email)->first();
 
-        // Kiểm tra password — staff dùng password_hash thay vì password
         if (!$staff || !Hash::check($request->password, $staff->password_hash)) {
             return response()->json([
                 'message' => 'Email hoặc mật khẩu không đúng',
             ], 401);
         }
 
-        // Xóa token cũ — chỉ cho đăng nhập 1 thiết bị
         $staff->tokens()->delete();
-
-        // Tạo token mới với ability 'admin'
         $token = $staff->createToken('admin_token', ['admin'])->plainTextToken;
 
         return response()->json([
@@ -42,7 +37,7 @@ class AuthAdminController extends Controller
                 'name'     => $staff->name,
                 'email'    => $staff->email,
                 'role'     => $staff->role,
-                'hotel_id' => $staff->hotel_id, // NULL = superadmin
+                'hotel_id' => $staff->hotel_id,
             ],
         ]);
     }
@@ -53,8 +48,8 @@ class AuthAdminController extends Controller
     // ==========================================
     public function logout(Request $request)
     {
-        // Xóa token hiện tại
-        $request->user()->currentAccessToken()->delete();
+        
+        $request->user('admin')->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Đăng xuất thành công']);
     }
@@ -65,7 +60,11 @@ class AuthAdminController extends Controller
     // ==========================================
     public function me(Request $request)
     {
-        $staff = auth('sanctum')->user();
+        $staff = $request->user('admin');
+
+        if (!$staff) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
 
         return response()->json([
             'id'       => $staff->id,

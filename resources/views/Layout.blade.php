@@ -3,362 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Hotel Booking') — Đặt Phòng Khách Sạn</title>
+    <title>@yield('title', 'HolidayViet') — Đặt Phòng Thông Minh</title>
 
-    {{-- Google Fonts --}}
+    {{-- Google Fonts - Chỉ dùng Inter cho body và Playfair cho Tiêu đề --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    {{-- Swiper CSS (Dành cho hiệu ứng Carousel) --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     {{-- Vite compile Tailwind CSS --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
 
     <style>
+        /* =========================================================
+           1. GLOBAL VARIABLES & TYPOGRAPHY
+           ========================================================= */
         :root {
-            --soft-sky: #87CEFA;
-            --soft-sky-dark: #7BC4F5;
-            --soft-bg: #EAF3FF;
-            --white: #FFFFFF;
-            --soft-gray: #C9D3DD;
-            --dark-soft: #3A4A5A;
-            --dark-soft-light: #5A6A7A;
+            --text-main: #1E293B;       /* Slate 800 - Text chính */
+            --text-muted: #64748B;      /* Slate 500 - Text phụ */
+            --text-heading: #0F172A;    /* Slate 900 - Tiêu đề */
+            
+            --accent-primary: #3B82F6;  /* Blue 500 */
+            --accent-secondary: #14B8A6; /* Teal 500 */
+            --brand-gradient: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
         }
 
         * { font-family: 'Inter', sans-serif; }
-        body { font-family: 'Inter', sans-serif; background: var(--soft-bg); }
-        .font-display { font-family: 'Playfair Display', serif; }
+        body { 
+            color: var(--text-main);
+            background: #F8FAFC; 
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-display { 
+            font-family: 'Playfair Display', serif; 
+            letter-spacing: -0.02em;
+        }
+        /* Chỉ tô màu heading trong content, không ảnh hưởng logo/navbar/footer */
+        main h1, main h2, main h3, main h4 {
+            color: var(--text-heading);
+        }
 
-        .text-primary   { color: var(--dark-soft); }
-        .text-secondary { color: var(--soft-gray); }
-        .text-accent    { color: var(--soft-sky); }
-
+        /* =========================================================
+           2. UTILITIES & GLASSMORPHISM
+           ========================================================= */
         .btn-primary {
-            background: var(--soft-sky);
-            color: var(--dark-soft);
+            background: var(--brand-gradient);
+            color: white;
             font-weight: 600;
+            border-radius: 9999px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
             transition: all 0.3s ease;
         }
         .btn-primary:hover {
-            background: var(--soft-sky-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(135,206,250,0.4);
-        }
-        .btn-primary:active { transform: translateY(0); }
-
-        .btn-outline {
-            border: 1.5px solid var(--soft-sky);
-            color: var(--dark-soft);
-            background: transparent;
-            transition: all 0.3s ease;
-        }
-        .btn-outline:hover {
-            background: var(--soft-sky);
-            color: white;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             transform: translateY(-2px);
         }
+        .click-effect:active { transform: scale(0.96); transition: transform 0.1s; }
 
-        /* NAVBAR */
+        /* Custom Scrollbar */
+        .custom-scroll { scrollbar-width: thin; scrollbar-color: var(--accent-primary) transparent; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 10px; }
+
+        /* =========================================================
+           3. NAVBAR DARK GLASS
+           ========================================================= */
         .navbar-glass {
-            background: rgba(58, 74, 90, 0.97);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(135,206,250,0.15);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
         }
 
         .nav-link {
-            color: var(--soft-gray);
-            transition: all 0.2s ease;
-            position: relative;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem; font-weight: 500;
+            display: flex; align-items: center; gap: 6px;
+            padding: 8px 12px; border-radius: 8px;
+            transition: all 0.2s;
         }
-        .nav-link:hover { color: var(--soft-sky); }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px; left: 0;
-            width: 0; height: 2px;
-            background: var(--soft-sky);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: white; background: rgba(255, 255, 255, 0.1); }
 
-        /* DROPDOWN */
-        .nav-dropdown {
-            position: relative;
-        }
+        /* Dropdown chung (Kính trắng) */
+        .nav-dropdown { position: relative; }
+
         .nav-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #2A3A4A;
-            border: 1px solid rgba(135,206,250,0.15);
-            border-radius: 14px;
-            padding: 8px;
-            min-width: 200px;
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+            display: none; position: absolute; top: calc(100%); left: 50%; transform: translateX(-50%);
+            width: 220px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px; padding: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             z-index: 100;
         }
-        .nav-dropdown:hover .nav-dropdown-menu { display: block; }
-        .nav-dropdown-menu::before {
-            content: '';
-            position: absolute;
-            top: -6px; left: 50%;
-            transform: translateX(-50%);
-            width: 12px; height: 12px;
-            background: #2A3A4A;
-            border-left: 1px solid rgba(135,206,250,0.15);
-            border-top: 1px solid rgba(135,206,250,0.15);
-            transform: translateX(-50%) rotate(45deg);
-        }
+        .nav-dropdown:hover .nav-dropdown-menu { display: block; animation: dropFade 0.2s ease; }
         .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            color: var(--soft-gray);
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        .dropdown-item:hover {
-            background: rgba(135,206,250,0.1);
-            color: var(--soft-sky);
-        }
-        .dropdown-item svg { flex-shrink: 0; }
-
-        /* BADGE mới */
-        .badge-new {
-            background: #F59E0B;
-            color: white;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 1px 5px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; border-radius: 10px;
+            color: var(--text-main); font-size: 0.875rem; font-weight: 500;
+            transition: all 0.2s;
         }
 
-        /* Card hover */
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 30px -10px rgba(58,74,90,0.15);
-        }
+        .dropdown-item:hover { background: rgba(59, 130, 246, 0.1); color: var(--accent-primary); }
+        @keyframes dropFade { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
-        /* Footer */
-        .footer-bg {
-            background: linear-gradient(135deg, var(--dark-soft) 0%, #2A3A4A 100%);
+        /* Dropdown Scroll Spy */
+        .dropdown-sticky-header {
+            position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(5px);
+            z-index: 5; padding: 8px 12px; margin: -8px -8px 4px -8px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent-primary);
         }
+        .active-scroll-spy { background: rgba(59, 130, 246, 0.1) !important; color: var(--accent-primary) !important; border-left: 3px solid var(--accent-primary); padding-left: 9px; }
 
-        .click-effect:active {
-            transform: scale(0.98);
-            transition: transform 0.1s ease;
+        /* =========================================================
+           4. NOTIFICATION BELL 
+           ========================================================= */
+        .notif-bell-btn {
+            position: relative; width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s; cursor: pointer;
         }
-
-        #toast { animation: slideUp 0.3s ease; }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+        .notif-bell-btn:hover { background: rgba(255,255,255,0.15); color: white; }
+        .notif-badge {
+            position: absolute; top: -2px; right: -2px;
+            min-width: 18px; height: 18px; padding: 0 4px;
+            background: #EF4444; border-radius: 9px;
+            font-size: 10px; font-weight: 700; color: white;
+            display: none; align-items: center; justify-content: center;
+            border: 2px solid #0F172A;
         }
+        .notif-badge.show { display: flex; }
 
-        p, .text-content { line-height: 1.6; }
-        h1, h2, h3, h4   { line-height: 1.3; }
-
-        /* Mobile menu */
-        #mobile-menu {
-            display: none;
-            background: #2A3A4A;
-            border-top: 1px solid rgba(135,206,250,0.1);
+        .notif-dropdown {
+            position: absolute;
+            top: calc(100% + 12px); 
+            right: 1;
+            width: 360px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.6);
+            z-index: 9999; display: none; overflow: hidden; transform-origin: top right;
         }
+        .notif-dropdown.open { display: block; animation: notifPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes notifPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .notif-item {
+            display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: background 0.15s;
+        }
+        .notif-item:hover { background: rgba(59, 130, 246, 0.05); }
+        .notif-item.unread { background: rgba(59, 130, 246, 0.08); }
+        .notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-primary); flex-shrink: 0; margin-top: 6px; }
+        .notif-item.read .notif-dot { background: transparent; border: 2px solid #CBD5E1; }
+
+        /* =========================================================
+           5. MISC (Footer, Mobile Menu, Toast, Loading)
+           ========================================================= */
+        footer { background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+        #mobile-menu { display: none; background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(255,255,255,0.1); }
         #mobile-menu.open { display: block; }
         .mobile-nav-link {
-            display: flex; align-items: center gap-3;
-            padding: 12px 20px;
-            color: var(--soft-gray);
-            font-size: 14px; font-weight: 500;
+            display: flex; align-items: center; gap: 12px; padding: 12px 20px;
+            color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.2s;
-            text-decoration: none;
         }
-        .mobile-nav-link:hover {
-            background: rgba(135,206,250,0.08);
-            color: var(--soft-sky);
+        .mobile-nav-link:hover { background: rgba(255,255,255,0.05); color: white; }
+
+        #toast { animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        #global-loading {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(4px);
+            z-index: 99999; display: none; align-items: center; justify-content: center;
         }
+        #global-loading.show { display: flex; }
+        .global-spinner {
+            width: 50px; height: 50px; border: 4px solid #E2E8F0;
+            border-top-color: var(--accent-primary); border-radius: 50%;
+            animation: globalSpin 0.8s linear infinite;
+        }
+        @keyframes globalSpin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-[#EAF3FF]">
 
+<body>
     {{-- NAVBAR --}}
     <nav class="navbar-glass fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
 
                 {{-- Logo --}}
-                <a href="{{ route('home') }}" class="flex items-center gap-2 hover:opacity-90 transition click-effect">
-                    <svg class="w-8 h-8 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                    </svg>
-                    <span class="font-display text-2xl font-bold text-[#87CEFA]">Hotel</span>
-                    <span class="font-display text-2xl font-light text-white">Booking</span>
+                <a href="{{ route('home') }}" class="flex items-center gap-2 hover:opacity-80 transition click-effect">
+                    <div class="relative w-9 h-9" style="filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full filter drop-shadow-sm">
+                            <path d="M20 80C20 80 25 25 55 10C55 10 45 40 45 80H20Z" fill="rgba(255,255,255,0.90)"/>
+                            <path d="M50 75C50 75 55 35 75 20C75 20 65 45 65 75H50Z" fill="#2563EB"/>
+                            <path d="M40 85C60 85 85 65 85 35" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M55 70L65 75M60 60L75 65M68 50L82 52M75 40L88 38" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M15 85C35 78 65 78 85 85" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <div class="flex items-baseline tracking-tight">
+                        <span class="font-display text-2xl font-bold text-white">Holiday</span>
+                        <span class="font-display text-2xl font-bold ml-0.5" style="color:#60A5FA">Viet</span>
+                    </div>
                 </a>
 
                 {{-- Nav Links Desktop --}}
                 <div class="hidden lg:flex items-center gap-6">
+                    <!-- LINK VỀ CHÚNG TÔI ĐÃ FIX /#about -->
+                    <a href="/#about" class="nav-link">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                        Về chúng tôi
+                    </a>
 
-                    {{-- Khách sạn --}}
-                    <a href="{{ route('home') }}" class="nav-link text-sm font-medium flex items-center gap-1.5">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
+                    <a href="{{ route('home') }}" class="nav-link">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                         Khách sạn
                     </a>
 
-                    {{-- Địa điểm (dropdown) --}}
+                    {{-- Địa điểm dropdown --}}
                     <div class="nav-dropdown">
-                        <button class="nav-link text-sm font-medium flex items-center gap-1.5 bg-transparent border-0 cursor-pointer">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            Địa điểm
-                            <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                        <button class="nav-link bg-transparent border-0 cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            Địa điểm <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                         </button>
-                        <div class="nav-dropdown-menu">
-                            <a href="{{ route('home') }}?city=Hà Nội" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                                Hà Nội
-                            </a>
-                            <a href="{{ route('home') }}?city=Hồ Chí Minh" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                                Hồ Chí Minh
-                            </a>
-                            <a href="{{ route('home') }}?city=Đà Nẵng" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                                Đà Nẵng
-                            </a>
-                            <a href="{{ route('home') }}?city=Phú Quốc" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                                Phú Quốc
-                            </a>
-                            <a href="{{ route('home') }}?city=Hội An" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                                Hội An
-                            </a>
+                        <div class="nav-dropdown-menu custom-scroll">
+                            <a href="#" data-city="Hà Nội" class="dropdown-item city-filter-link">Hà Nội</a>
+                            <a href="#" data-city="Hồ Chí Minh" class="dropdown-item city-filter-link">Hồ Chí Minh</a>
+                            <a href="#" data-city="Đà Nẵng" class="dropdown-item city-filter-link">Đà Nẵng</a>
+                            <a href="#" data-city="Phú Quốc" class="dropdown-item city-filter-link">Phú Quốc</a>
+                            <a href="#" data-city="Nha Trang" class="dropdown-item city-filter-link">Nha Trang</a>
+                            <a href="#" data-city="Hội An" class="dropdown-item city-filter-link">Hội An</a>
+                            <a href="#" data-city="Đà Lạt" class="dropdown-item city-filter-link">Đà Lạt</a>
+                            <a href="#" data-city="Huế" class="dropdown-item city-filter-link">Huế</a>
                         </div>
-                    </div>
+                    </div>  
 
-                    {{-- Lịch trình --}}
-                    <a href="/dashboard#itineraries" class="nav-link text-sm font-medium flex items-center gap-1.5">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-                        </svg>
-                        Lịch trình
+                    <a href="/deals" class="nav-link">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                        Ưu đãi <span class="bg-amber-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded ml-1">HOT</span>
                     </a>
 
-                    {{-- Ưu đãi --}}
-                    <a href="/deals" class="nav-link text-sm font-medium flex items-center gap-1.5">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                        </svg>
-                        Ưu đãi
-                        <span class="badge-new">HOT</span>
-                    </a>
-
-                    {{-- Khám phá (dropdown: Blog + Về chúng tôi + Liên hệ) --}}
+                    {{-- Khám phá dropdown --}}
                     <div class="nav-dropdown">
-                        <button class="nav-link text-sm font-medium flex items-center gap-1.5 bg-transparent border-0 cursor-pointer">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
-                            </svg>
-                            Khám phá
-                            <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                        
+                        <button class="nav-link bg-transparent border-0 cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                            Khám phá <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                         </button>
+
                         <div class="nav-dropdown-menu">
-                            <a href="/blog" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                                </svg>
-                                Blog / Tin tức
-                            </a>
-                            <a href="/about" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                Về chúng tôi
-                            </a>
-                            <a href="/contact" class="dropdown-item">
-                                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                                Liên hệ
-                            </a>
+                            <a href="/blog" class="dropdown-item">Blog / Tin tức</a>
+                            <a href="/contact" class="dropdown-item">Liên hệ</a>
                         </div>
                     </div>
-
                 </div>
 
-                {{-- Auth Buttons --}}
+                {{-- Right: Auth + Notification Bell --}}
                 <div class="flex items-center gap-3" id="nav-auth">
-                    <a href="{{ route('login') }}" class="text-[#C9D3DD] hover:text-white text-sm font-medium transition flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                        </svg>
-                        Đăng nhập
-                    </a>
-                    <a href="{{ route('register') }}" class="btn-primary px-4 py-2 rounded-lg text-sm flex items-center gap-1 click-effect">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                        </svg>
-                        Đăng ký
-                    </a>
+                    <a href="{{ route('login') }}" class="text-slate-300 hover:text-white text-sm font-medium transition">Đăng nhập</a>
+                    <a href="{{ route('register') }}" class="btn-primary px-5 py-2 text-sm click-effect">Đăng ký</a>
                 </div>
 
                 {{-- Mobile hamburger --}}
-                <button onclick="toggleMobileMenu()" class="lg:hidden text-[#C9D3DD] hover:text-white ml-3" id="hamburger">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-300 hover:text-white ml-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
-
             </div>
         </div>
 
         {{-- Mobile Menu --}}
         <div id="mobile-menu">
-            <a href="{{ route('home') }}" class="mobile-nav-link">
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                Khách sạn
-            </a>
-            <a href="{{ route('home') }}?city=Hà Nội" class="mobile-nav-link">
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                Địa điểm
-            </a>
-            <a href="/dashboard#itineraries" class="mobile-nav-link">
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
-                Lịch trình
-            </a>
-            <a href="/deals" class="mobile-nav-link">
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
-                Ưu đãi / Khuyến mãi
-            </a>
-            <a href="/blog" class="mobile-nav-link">
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
-                Blog / Tin tức
-            </a>
-            <a href="/about" class="mobile-nav-link">
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Về chúng tôi
-            </a>
-            <a href="/contact" class="mobile-nav-link">
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                Liên hệ
-            </a>
+            <a href="{{ route('home') }}" class="mobile-nav-link">Khách sạn</a>
+            <a href="{{ route('home') }}?city=Hà Nội" class="mobile-nav-link">Địa điểm</a>
+            <a href="/itineraries" class="mobile-nav-link">Lịch trình AI</a>
+            <a href="/deals" class="mobile-nav-link">Ưu đãi</a>
+            <a href="/#about" class="mobile-nav-link">Về chúng tôi</a>
         </div>
     </nav>
 
@@ -368,130 +300,205 @@
     </main>
 
     {{-- FOOTER --}}
-    <footer class="footer-bg text-[#C9D3DD] mt-20">
+    <footer class="mt-20">
         <div class="max-w-7xl mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center gap-2 mb-4">
-                        <svg class="w-8 h-8 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                        <span class="font-display text-2xl font-bold text-[#87CEFA]">Hotel</span>
-                        <span class="font-display text-2xl font-light text-white">Booking</span>
-                    </div>
-                    <p class="text-sm leading-relaxed">Hệ thống đặt phòng khách sạn thông minh với AI chatbot gợi ý lịch trình du lịch tại Việt Nam.</p>
-                    {{-- Social links --}}
-                    <div class="flex gap-3 mt-4">
-                        <a href="#" class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#87CEFA]/20 transition">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                        </a>
-                        <a href="#" class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#87CEFA]/20 transition">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/></svg>
-                        </a>
-                    </div>
+                    <a href="{{ route('home') }}" class="flex items-center gap-2 mb-4 hover:opacity-80 transition">
+                        <div class="relative w-8 h-8 flex-shrink-0">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                <path d="M20 80C20 80 25 25 55 10C55 10 45 40 45 80H20Z" fill="rgba(255,255,255,0.90)"/>
+                                <path d="M50 75C50 75 55 35 75 20C75 20 65 45 65 75H50Z" fill="#2563EB"/>
+                                <path d="M40 85C60 85 85 65 85 35" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M55 70L65 75M60 60L75 65M68 50L82 52M75 40L88 38" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M15 85C35 78 65 78 85 85" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="flex items-baseline tracking-tight">
+                            <span class="font-display text-2xl font-bold text-white">Holiday</span>
+                            <span class="font-display text-2xl font-bold ml-0.5" style="color:#60A5FA">Viet</span>
+                        </div>
+                    </a>
+                    <p class="text-sm leading-relaxed">Hành trình du lịch của bạn bắt đầu từ việc lựa chọn nơi lưu trú phù hợp. Chúng tôi mang đến giải pháp đặt phòng khách sạn thông minh và tự động.</p>
                 </div>
                 <div>
-                    <h4 class="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Khám phá</h4>
+                    <h4 class="font-semibold mb-3 text-sm uppercase tracking-wider text-white">Khám phá</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('home') }}?city=Hà Nội"    class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Hà Nội</a></li>
-                        <li><a href="{{ route('home') }}?city=Hồ Chí Minh" class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Hồ Chí Minh</a></li>
-                        <li><a href="{{ route('home') }}?city=Đà Nẵng"   class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Đà Nẵng</a></li>
-                        <li><a href="{{ route('home') }}?city=Phú Quốc"  class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Phú Quốc</a></li>
-                        <li><a href="/deals"                              class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Ưu đãi</a></li>
-                        <li><a href="/blog"                               class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Blog</a></li>
+                        <li><a href="{{ route('home') }}?city=Hà Nội" class="hover:text-blue-400 transition">Hà Nội</a></li>
+                        <li><a href="{{ route('home') }}?city=Đà Nẵng" class="hover:text-blue-400 transition">Đà Nẵng</a></li>
+                        <li><a href="/deals" class="hover:text-blue-400 transition">Ưu đãi</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Hỗ trợ</h4>
+                    <h4 class="font-semibold mb-3 text-sm uppercase tracking-wider text-white">Hỗ trợ</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/contact" class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Liên hệ</a></li>
-                        <li><a href="/about"   class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Về chúng tôi</a></li>
-                        <li><a href="#"        class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>Chính sách</a></li>
-                        <li><a href="#"        class="hover:text-[#87CEFA] transition flex items-center gap-2"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>FAQ</a></li>
+                        <li><a href="/contact" class="hover:text-blue-400 transition">Liên hệ</a></li>
+                        <li><a href="/#about" class="hover:text-blue-400 transition">Về chúng tôi</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-[#5A6A7A] mt-8 pt-6 text-center text-sm">
-                <p>© {{ date('Y') }} Hotel Booking System. Build by NguyenTranQuocAnh.</p>
+            <div class="border-t border-slate-700 mt-8 pt-6 text-center text-sm opacity-70">
+                <p>© {{ date('Y') }} HolidayViet. Built by Nguyễn Trần Quốc Anh.</p>
             </div>
         </div>
     </footer>
 
     {{-- Toast --}}
-    <div id="toast" class="fixed bottom-4 right-4 z-50 hidden">
-        <div class="bg-[#3A4A5A] text-white px-6 py-3 rounded-xl shadow-2xl border border-[#87CEFA] text-sm font-medium flex items-center gap-2" id="toast-msg">
-            <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+    <div id="toast" class="fixed bottom-4 right-4 z-[9999] hidden">
+        <div class="bg-slate-800 text-white px-6 py-3 rounded-xl shadow-2xl border border-slate-600 text-sm font-medium flex items-center gap-2" id="toast-msg">
+            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             <span></span>
         </div>
     </div>
 
+    {{-- Global Loading --}}
+    <div id="global-loading"><div class="global-spinner"></div></div>
+
+    {{-- SCRIPTS LOGIC --}}
     <script>
         const token = localStorage.getItem('token');
 
+        // ===== JS RENDER UI KHI ĐÃ LOGIN (CHUÔNG & USER) =====
         if (token) {
-            document.getElementById('nav-auth').innerHTML = `
-                <a href="/dashboard" class="nav-link text-sm font-medium flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                    Dashboard
+            const _rawUser  = localStorage.getItem('user');
+            const _authUser = _rawUser ? JSON.parse(_rawUser) : {};
+            const _name     = _authUser.name || 'User';
+            const _initial  = _name.charAt(0).toUpperCase();
+
+            const _isAdminEmail = _authUser.role === 'admin';
+            const _adminItem = _isAdminEmail ? `
+                <a href="/admin/login" class="dropdown-item click-effect text-amber-500 hover:text-amber-600" onclick="closeUserDropdown()">
+                    Quản trị Admin <span class="ml-auto text-[9px] bg-amber-100 px-1.5 py-0.5 rounded">ADMIN</span>
                 </a>
-                <button onclick="logout()" class="btn-primary px-4 py-2 rounded-lg text-sm flex items-center gap-1 click-effect">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                    </svg>
-                    Đăng xuất
-                </button>
+                <div style="height:1px;background:rgba(0,0,0,0.05);margin:4px 0;"></div>
+            ` : '';
+
+            // ĐÂY LÀ CHỖ FIX LỖI CHUÔNG! UI Dropdown được bọc trực tiếp trong thẻ relative của cái chuông.
+            document.getElementById('nav-auth').innerHTML = `
+                <!-- KHỐI CHUÔNG THÔNG BÁO -->
+                <div class="relative" id="notif-bell-wrap">
+                    <button class="notif-bell-btn" id="notif-bell" onclick="toggleNotifDropdown(event)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 01-3 3H9a3 3 0 01-3-3v-1m6 0h6"/></svg>
+                        <span class="notif-badge" id="notif-badge"></span>
+                    </button>
+                    
+                    <!-- MENU THÔNG BÁO THẢ XUỐNG -->
+                    <div id="notif-dropdown" class="notif-dropdown">
+                        <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100 bg-white/50">
+                            <span class="font-bold text-slate-800 text-sm">Thông báo</span>
+                            <button onclick="markAllRead()" class="text-xs text-blue-600 hover:text-blue-700 font-medium">Đánh dấu đã đọc</button>
+                        </div>
+                        <div id="notif-list" class="custom-scroll" style="max-height:380px; overflow-y:auto;">
+                            <div class="text-center py-8 text-slate-400 text-sm">Đang tải...</div>
+                        </div>
+                        <div class="border-t border-slate-100 px-4 py-3 text-center bg-white/50">
+                            <div class="border-t border-slate-100 px-4 py-3 text-center bg-white/50" id="notif-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI USER PROFILE -->
+                <div class="relative" id="user-dropdown-wrap">
+                    <button onclick="toggleUserDropdown(event)" class="flex items-center gap-2 px-2 py-1 rounded-full border border-slate-600 hover:bg-slate-700 transition click-effect">
+                        <div class="w-7 h-7 rounded-full overflow-hidden bg-blue-500 flex items-center justify-center text-sm font-bold text-white" id="nav-avatar-wrap">
+                            ${_authUser.avatar_url 
+                                ? `<img id="nav-avatar-img" src="${_authUser.avatar_url}" class="w-full h-full object-cover">`
+                                : `<span id="nav-avatar-initial">${_initial}</span>`
+                            }
+                        </div>
+                        <span class="text-sm font-medium text-white hidden sm:block pr-1">${_name}</span>
+                    </button>
+                    <div id="user-dropdown-menu" class="nav-dropdown-menu" style="right:0; left:auto; transform:none;">
+                        <div class="px-3 py-2 mb-1 border-b border-slate-100">
+                            <p class="text-[11px] text-slate-500 font-medium uppercase">Xin chào</p>
+                            <p class="text-slate-800 font-bold text-sm truncate">${_name}</p>
+                        </div>
+                        <a href="/profile" class="dropdown-item">Hồ sơ của tôi</a>
+                        <a href="/bookings" class="dropdown-item">Đơn phòng của tôi</a>
+                        <a href="/itineraries" class="dropdown-item">Lịch trình AI</a>
+                        ${_adminItem}
+                        <button onclick="logout()" class="dropdown-item w-full text-left text-red-500 hover:text-red-600 hover:bg-red-50">Đăng xuất</button>
+                    </div>
+                </div>
             `;
         }
 
-        async function logout() {
-            await fetch('/api/logout', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                    'Accept': 'application/json'
-                }
-            });
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            window.location.href = '/';
+        // ===== CÁC SỰ KIỆN DROPDOWN =====
+        let _notifOpen = false;
+        let _userDropOpen = false;
+
+        function toggleNotifDropdown(e) {
+            e.stopPropagation();
+            if(_userDropOpen) closeUserDropdown();
+            const dd = document.getElementById('notif-dropdown');
+            _notifOpen = !_notifOpen;
+            dd.classList.toggle('open', _notifOpen);
+            if (_notifOpen && typeof loadNotifications === 'function') loadNotifications();
         }
 
+        function toggleUserDropdown(e) {
+            e.stopPropagation();
+            if(_notifOpen) { _notifOpen = false; document.getElementById('notif-dropdown').classList.remove('open'); }
+            _userDropOpen = !_userDropOpen;
+            const menu = document.getElementById('user-dropdown-menu');
+            if (menu) menu.style.display = _userDropOpen ? 'block' : 'none';
+        }
+
+        function closeUserDropdown() {
+            _userDropOpen = false;
+            const menu = document.getElementById('user-dropdown-menu');
+            if (menu) menu.style.display = 'none';
+        }
+
+        document.addEventListener('click', function(e) {
+            const userWrap = document.getElementById('user-dropdown-wrap');
+            if (userWrap && !userWrap.contains(e.target)) closeUserDropdown();
+            
+            const notifWrap = document.getElementById('notif-bell-wrap');
+            if (notifWrap && !notifWrap.contains(e.target)) {
+                _notifOpen = false;
+                const dd = document.getElementById('notif-dropdown');
+                if(dd) dd.classList.remove('open');
+            }
+        });
+
+        // ===== CÁC HÀM TIỆN ÍCH KHÁC =====
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+        function showGlobalLoading() { document.getElementById('global-loading').classList.add('show'); }
+        function hideGlobalLoading() { document.getElementById('global-loading').classList.remove('show'); }
         function showToast(msg, duration = 3000) {
-            const toast    = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-msg');
-            toastMsg.innerHTML = `
-                <svg class="w-4 h-4 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>${msg}</span>
-            `;
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = msg;
             toast.classList.remove('hidden');
             setTimeout(() => toast.classList.add('hidden'), duration);
         }
-
         async function api(url, options = {}) {
             const token = localStorage.getItem('token');
-            return fetch('/api' + url, {
-                ...options,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    ...(token ? { 'Authorization': 'Bearer ' + token } : {}),
-                    ...options.headers,
-                }
-            });
+            return fetch('/api' + url, { ...options, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', ...(token ? { 'Authorization': 'Bearer ' + token } : {}), ...options.headers } });
         }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('open');
+        async function logout() {
+            await api('/logout', { method: 'POST' });
+            localStorage.removeItem('token'); localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+        
+        // Hàm này sẽ được gọi sau khi người dùng cập nhật thông tin hồ sơ để đồng bộ avatar mới lên navbar mà không cần reload
+        function updateNavAvatar(avatarUrl, name) {
+            const wrap = document.getElementById('nav-avatar-wrap');
+            if (!wrap) return;
+            if (avatarUrl) {
+                wrap.innerHTML = `<img id="nav-avatar-img" src="${avatarUrl}" class="w-full h-full object-cover">`;
+            } else {
+                const initial = (name || '?').charAt(0).toUpperCase();
+                wrap.innerHTML = `<span id="nav-avatar-initial">${initial}</span>`;
+            }
         }
     </script>
 
+    @include('components.notification-script')
+    
+    {{-- Các Script thêm từ trang con --}}
     @stack('scripts')
 </body>
 </html>

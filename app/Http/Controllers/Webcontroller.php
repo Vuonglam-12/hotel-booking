@@ -12,7 +12,7 @@ class WebController extends Controller
     // Trang chủ — hiển thị danh sách KS + search
     public function home(Request $request)
     {
-        $query = Hotel::with(['location', 'images' => fn($q) => $q->where('is_primary', true)])
+        $query = Hotel::with(['location', 'images' => fn($q) => $q->orderByDesc('is_primary')->limit(1)])
             ->where('status', 'active')
             ->withMin(['rooms' => fn($q) => $q->where('status', 'available')], 'price');
 
@@ -43,6 +43,8 @@ class WebController extends Controller
         $hotel = Hotel::with(['location', 'amenities', 'images', 'rooms.roomType'])
             ->where('status', 'active')
             ->findOrFail($id);
+
+        $hotel->review_count = \DB::table('review')->where('hotel_id', $id)->count();
 
         return view('hotel-detail', compact('hotel'));
     }

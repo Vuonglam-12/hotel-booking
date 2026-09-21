@@ -33,7 +33,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Hotel Booking System</h1>
+      <h1>HolidayViet</h1>
     </div>
     <div class="body">
       <p style="font-size:16px; color:#1E3A5F; font-weight:600;">Xin chào {{ $customer->name }},</p>
@@ -45,7 +45,7 @@
       </div>
 
       <div class="warning">
-        ⚠️ <strong>Không chia sẻ mã này</strong> với bất kỳ ai, kể cả nhân viên Hotel Booking.<br>
+        ⚠️ <strong>Không chia sẻ mã này</strong> với bất kỳ ai, kể cả nhân viên HolidayViet.<br>
         Nếu bạn không yêu cầu mã này, hãy bỏ qua email này.
       </div>
 

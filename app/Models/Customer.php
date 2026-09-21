@@ -20,6 +20,7 @@ class Customer extends Authenticatable
         'password_hash',
         'avatar_url',
         'preferred_location_id',
+        'role',
     ];
 
     protected $hidden = [
@@ -49,5 +50,16 @@ class Customer extends Authenticatable
     public function chatSessions()
     {
         return $this->hasMany(ChatSession::class);
+    }
+    public function payments()
+    {
+        return $this->hasManyThrough(
+            \App\Models\Payment::class,
+            \App\Models\Booking::class,
+            'customer_id', // FK trên booking
+            'booking_id',  // FK trên payment
+            'id',          // PK trên customer
+            'id',          // PK trên booking
+        );
     }
 }

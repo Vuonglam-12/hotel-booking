@@ -9,7 +9,7 @@ class Hotel extends Model
     public $timestamps = false;
 
     protected $fillable =[
-        'location',
+        'location_id',
         'name',
         'phone',
         'email',

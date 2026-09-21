@@ -89,7 +89,7 @@ class HotelController extends Controller
             ->where('hotel_id', $id)
             ->selectRaw('
                 AVG(rating) as avg_overall,
-                AVG(rating_cleanliness) as avg_cleanliness,2
+                AVG(rating_cleanliness) as avg_cleanliness,
                 AVG(rating_service) as avg_service,
                 AVG(rating_location) as avg_location
             ')
@@ -98,39 +98,53 @@ class HotelController extends Controller
         return response()->json($hotel);
     }
 
-    // Danh sách phòng của KS — check available theo ngày
+// Danh sách phòng của KS — check available/locked/booked theo ngày
     public function rooms(Request $request, $id)
     {
-        $hotel = Hotel::findOrFail($id);
+        $hotel = \App\Models\Hotel::findOrFail($id);
+        $checkIn = $request->check_in;
+        $checkOut = $request->check_out;
 
+        // Lấy tất cả phòng ra (bỏ hoàn toàn đoạn whereNotIn đi)
         $query = $hotel->rooms()
             ->with(['roomType', 'images'])
-            ->where('status', 'available');
+            ->whereIn('status', ['available', 'locked']);
 
-        // Filter theo số khách
+        if ($request->room_type_id) {
+            $query->where('room_type_id', $request->room_type_id);
+        }
+
         if ($request->guests) {
             $query->where('capacity', '>=', $request->guests);
         }
 
-        // Check phòng trống theo ngày
-        if ($request->check_in && $request->check_out) {
-            $query->whereNotIn('id', function ($q) use ($request) {
-                $q->select('br.room_id')
-                  ->from('booking_room as br')
-                  ->join('booking as b', 'b.id', '=', 'br.booking_id')
-                  ->whereIn('b.status', ['pending', 'confirmed'])
-                  ->where(function ($q2) use ($request) {
-                      $q2->whereBetween('b.check_in',  [$request->check_in, $request->check_out])
-                         ->orWhereBetween('b.check_out', [$request->check_in, $request->check_out])
-                         ->orWhere(function ($q3) use ($request) {
-                             $q3->where('b.check_in',  '<=', $request->check_in)
-                                ->where('b.check_out', '>=', $request->check_out);
-                         });
-                  });
-            });
-        }
+        // Lấy danh sách và biến hóa trạng thái ảo
+        $rooms = $query->get()->map(function ($room) use ($checkIn, $checkOut) {
+            $currentStatus = 'available';
 
-        return response()->json($query->get());
+            if ($checkIn && $checkOut) {
+                // Kiểm tra xem phòng này có vướng booking nào trùng ngày không
+                $overlap = \Illuminate\Support\Facades\DB::table('booking_room as br')
+                    ->join('booking as b', 'b.id', '=', 'br.booking_id')
+                    ->where('br.room_id', $room->id)
+                    ->whereIn('b.status', ['pending', 'confirmed'])
+                    ->where('b.check_in',  '<', $checkOut)
+                    ->where('b.check_out', '>', $checkIn)
+                    ->first();
+
+                // Nếu có người đặt trùng ngày, đổi status ảo báo cho Frontend
+                if ($overlap) {
+                    $currentStatus = ($overlap->status === 'pending') ? 'locked' : 'booked';
+                }
+            }
+
+            // Gắn status đã tính toán lại vào object room
+            $room->status = $currentStatus;
+            
+            return $room;
+        });
+
+        return response()->json($rooms);
     }
 
     // API cho Google Maps — trả về tất cả KS có tọa độ

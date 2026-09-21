@@ -53,20 +53,32 @@ class InvoiceController extends Controller
     // Gọi từ PaymentController sau khi VNPay callback thành công
     public static function createFromPayment(Booking $booking, Payment $payment): Invoice
     {
-        // Tạo số hóa đơn: INV-20260321-0001
-        $invoiceNo = 'INV-' . now()->format('Ymd') . '-' . str_pad($booking->id, 4, '0', STR_PAD_LEFT);
-
-        // Load booking rooms để tính subtotal
         $booking->load('bookingRooms.roomType');
-        $subtotal = 0;
 
-        $invoice = DB::transaction(function () use ($booking, $payment, $invoiceNo, &$subtotal) {
+        return DB::transaction(function () use ($booking, $payment) {
+            // Đếm số invoice trong ngày hôm nay, lock để tránh race condition
+            $todayPrefix = 'INV-' . now()->format('Ymd') . '-';
+            
+            $lastInvoice = Invoice::where('invoice_no', 'like', $todayPrefix . '%')
+                ->lockForUpdate()
+                ->orderBy('invoice_no', 'desc')
+                ->first();
+
+            $nextSeq = $lastInvoice
+                ? (int) substr($lastInvoice->invoice_no, -4) + 1
+                : 1;
+
+            $invoiceNo = $todayPrefix . str_pad($nextSeq, 4, '0', STR_PAD_LEFT);
+
+            // Phần còn lại giữ nguyên
+            $subtotal = 0;
+
             $invoice = Invoice::create([
                 'invoice_no'    => $invoiceNo,
                 'booking_id'    => $booking->id,
                 'payment_id'    => $payment->id,
                 'customer_id'   => $booking->customer_id,
-                'subtotal'      => 0, 
+                'subtotal'      => 0,
                 'service_total' => 0,
                 'discount'      => 0,
                 'tax'           => 0,
@@ -74,7 +86,6 @@ class InvoiceController extends Controller
                 'issued_at'     => now(),
             ]);
 
-            // Tạo invoice_item cho từng booking_room
             foreach ($booking->bookingRooms as $br) {
                 $amount = $br->price_at_booking * $br->nights * $br->quantity;
                 $subtotal += $amount;
@@ -90,13 +101,10 @@ class InvoiceController extends Controller
                 ]);
             }
 
-            // Cập nhật subtotal
             $invoice->update(['subtotal' => $subtotal]);
 
             return $invoice;
         });
-
-        return $invoice;
     }
 
     // Format giá cho response

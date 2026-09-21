@@ -142,7 +142,6 @@
                 <div>
                     <label class="block text-xs font-semibold text-[#3A4A5A] mb-1.5 uppercase tracking-wide">Mật khẩu <span class="text-red-400">*</span></label>
                     <input id="password" type="password" placeholder="Tối thiểu 6 ký tự" class="auth-input" oninput="checkStrength(this.value)">
-                    {{-- Password strength --}}
                     <div class="flex gap-1 mt-2" id="strength-bars">
                         <div class="strength-bar bg-[#E5E7EB]" id="bar-1"></div>
                         <div class="strength-bar bg-[#E5E7EB]" id="bar-2"></div>
@@ -150,6 +149,12 @@
                         <div class="strength-bar bg-[#E5E7EB]" id="bar-4"></div>
                     </div>
                     <p class="text-xs text-[#C9D3DD] mt-1" id="strength-label"></p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-[#3A4A5A] mb-1.5 uppercase tracking-wide">Xác nhận mật khẩu <span class="text-red-400">*</span></label>
+                    <input id="password_confirmation" type="password" placeholder="Nhập lại mật khẩu" class="auth-input" oninput="checkConfirm()">
+                    <p class="text-xs mt-1 hidden" id="confirm-label"></p>
                 </div>
 
                 <button onclick="doRegister()" id="register-btn" class="btn-sky-full mt-2">
@@ -194,6 +199,23 @@ function checkStrength(password) {
     label.textContent = labels[score];
     label.style.color = colors[score] || '#C9D3DD';
 }
+
+    function checkConfirm() {
+        const password = document.getElementById('password').value;
+        const confirm  = document.getElementById('password_confirmation').value;
+        const label    = document.getElementById('confirm-label');
+
+        if (!confirm) { label.classList.add('hidden'); return; }
+
+        if (password === confirm) {
+            label.textContent = '✓ Mật khẩu khớp';
+            label.style.color = '#10B981';
+        } else {
+            label.textContent = '✗ Mật khẩu chưa khớp';
+            label.style.color = '#EF4444';
+        }
+        label.classList.remove('hidden');
+    }
 
 async function handleGoogleLogin(response) {
     const errDiv = document.getElementById('error-msg');
@@ -242,6 +264,14 @@ async function doRegister() {
         return;
     }
 
+    const confirm = document.getElementById('password_confirmation').value;
+    
+    if (password !== confirm) {
+        errDiv.textContent = 'Mật khẩu xác nhận không khớp!';
+        errDiv.classList.remove('hidden');
+        return;
+    }
+
     btn.textContent = 'Đang tạo tài khoản...';
     btn.disabled    = true;
 
@@ -257,7 +287,7 @@ async function doRegister() {
         localStorage.setItem('user', JSON.stringify(data.user));
         showToast('🎉 Chào mừng, ' + data.user.name + '! Tài khoản của bạn đã được tạo thành công.');
         setTimeout(() => {
-            window.location.href = '{{ route("home") }}';
+            window.location.href = '{{ route("login") }}';
         }, 1200);
     } else {
         const errors = data.errors

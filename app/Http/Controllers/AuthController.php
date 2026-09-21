@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -25,6 +26,7 @@ class AuthController extends Controller
             'email'         => $request->email,
             'phone'         => $request->phone,
             'password_hash' => Hash::make($request->password),
+            'role'          => 'user', 
         ]);
 
         $token = $customer->createToken('auth_token')->plainTextToken;
@@ -32,10 +34,16 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Đăng ký thành công',
             'token'   => $token,
-            'user'    => ['id' => $customer->id, 'name' => $customer->name, 'email' => $customer->email],
+            'user'    => [
+                'id'    => $customer->id,
+                'name'  => $customer->name,
+                'email' => $customer->email,
+                'role'  => $customer->role, 
+            ],
         ], 201);
     }
 
+    // Trong AuthController.php — hàm login()
     public function login(Request $request)
     {
         $request->validate([
@@ -49,12 +57,25 @@ class AuthController extends Controller
             return response()->json(['message' => 'Email hoặc mật khẩu không đúng'], 401);
         }
 
-        $token = $customer->createToken('auth_token')->plainTextToken;
+        $customer->tokens()->delete();
+        $token = $customer->createToken('customer_token')->plainTextToken;
+
+        // ✅ THÊM MỚI: Kiểm tra email này có trong bảng staff không
+        $staff = \App\Models\Staff::where('email', $request->email)->first();
+        $isAdmin = $staff && in_array($staff->role, ['superadmin', 'admin', 'manager']);
 
         return response()->json([
-            'message' => 'Đăng nhập thành công',
-            'token'   => $token,
-            'user'    => ['id' => $customer->id, 'name' => $customer->name, 'email' => $customer->email],
+            'token' => $token,
+            'user'  => [
+                'id'       => $customer->id,
+                'name'     => $customer->name,
+                'email'    => $customer->email,
+                'phone'    => $customer->phone,
+                'avatar_url' => $customer->avatar_url,
+                // ✅ THÊM MỚI:
+                'is_admin' => $isAdmin,
+                'admin_role' => $staff?->role, // null nếu không phải admin
+            ],
         ]);
     }
 
@@ -63,10 +84,28 @@ class AuthController extends Controller
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Đăng xuất thành công']);
     }
-
+    
+    // ==========================================
+    // GET /api/me — Lấy thông tin profile
+    // ==========================================
     public function me(Request $request)
     {
-        return response()->json($request->user());
+        $customer = Customer::findOrFail(auth('sanctum')->id()); // ← thay $request->user()
+        
+        return response()->json([
+            'id'         => $customer->id,
+            'name'       => $customer->name,
+            'email'      => $customer->email,
+            'phone'      => $customer->phone,
+            'dob'        => $customer->dob,
+            'gender'     => $customer->gender,
+            'address'    => $customer->address,
+            'avatar_url' => $customer->avatar_url ? Storage::url($customer->avatar_url) : null,
+            'created_at' => $customer->created_at,
+            'points'     => $customer->points ?? 0,
+            'bookings'   => $customer->bookings()->count(), // ← đếm thật từ DB
+            'vouchers'   => $customer->vouchers ?? 0,
+        ]);
     }
 
     // ==========================================
@@ -79,16 +118,15 @@ class AuthController extends Controller
         $request->validate([
             'name'  => 'required|string|max:100',
             'phone' => 'nullable|string|max:20',
-            'email' => 'required|email|unique:customer,email,' . $customer->id,
+            'dob'   => 'nullable|date',
         ]);
 
         $customer->update([
             'name'  => $request->name,
             'phone' => $request->phone,
-            'email' => $request->email,
+            'dob'   => $request->dob,
         ]);
 
-        // Cập nhật lại localStorage user
         return response()->json([
             'message' => 'Cập nhật thông tin thành công',
             'user'    => [
@@ -96,6 +134,7 @@ class AuthController extends Controller
                 'name'  => $customer->name,
                 'email' => $customer->email,
                 'phone' => $customer->phone,
+                'dob'   => $customer->dob,
             ],
         ]);
     }
@@ -142,7 +181,12 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Đăng nhập thành công',
             'token'   => $token,
-            'user'    => ['id' => $customer->id, 'name' => $customer->name, 'email' => $customer->email],
+            'user'    => [
+                'id'    => $customer->id,
+                'name'  => $customer->name,
+                'email' => $customer->email,
+                'role'  => $customer->role ?? 'user', 
+            ],
         ]);
     }
 
@@ -297,14 +341,48 @@ class AuthController extends Controller
         // Tạo token Sanctum để đăng nhập
         $token = $customer->createToken('auth_token')->plainTextToken;
 
+        // ✅ Check staff để xác định is_admin
+        $staff = \App\Models\Staff::where('email', $customer->email)->first();
+        $isAdmin = $staff && in_array($staff->role, ['superadmin', 'admin', 'manager']);
+
         return response()->json([
             'message' => 'Đăng nhập Google thành công',
             'token'   => $token,
             'user'    => [
-                'id'    => $customer->id, 
-                'name'  => $customer->name, 
-                'email' => $customer->email
+                'id'         => $customer->id, 
+                'name'       => $customer->name, 
+                'email'      => $customer->email,
+                'is_admin'   => $isAdmin,
+                'admin_role' => $staff?->role,
             ],
+        ]);
+    }
+    
+    // ==========================================
+    // POST /api/me/avatar — Cập nhật ảnh đại diện
+    // ==========================================
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
+        ]);
+
+    
+    $customer = Customer::findOrFail(auth('sanctum')->id());        
+
+        // ĐÚNG
+        if ($customer->avatar_url && Storage::disk('public')->exists($customer->avatar_url)) {
+            Storage::disk('public')->delete($customer->avatar_url);
+        }
+
+        // Lưu ảnh mới
+        $path = $request->file('avatar')->store('avatars', 'public');
+
+        $customer->update(['avatar_url' => $path]);
+
+        return response()->json([
+            'message'    => 'Cập nhật ảnh thành công!',
+            'avatar_url' => Storage::url($path),
         ]);
     }
 }

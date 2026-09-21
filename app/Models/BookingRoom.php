@@ -13,6 +13,7 @@ class BookingRoom extends Model
     protected $fillable = [
         'booking_id',
         'room_type_id',
+        'room_id', // Thêm cột room_id để liên kết với phòng cụ thể
         'price_at_booking',
         'nights',
         'quantity',
@@ -36,5 +37,9 @@ class BookingRoom extends Model
     public function getBasePriceFormattedAttribute()
     {
         return number_format($this->base_price, 0, '.', ',') . ' VND';
+    }
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id', 'id');
     }
 }

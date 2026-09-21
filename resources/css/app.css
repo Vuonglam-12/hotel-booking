@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* ========== TĂNG ĐỘ ĐẬM CHỮ TOÀN BỘ DỰ ÁN ========== */
+
+/* Tăng weight cho text nhỏ và text cơ bản */
+body, button, input, select, textarea, a, p, span, label, div {
+    font-weight: 500;
+}
+
+/* Đặc biệt cho text-xs và text-sm (chữ nhỏ) */
+.text-xs, 
+.text-sm,
+.text-[#C9D3DD],
+.text-white\/70,
+.text-white\/80,
+.text-gray-500,
+.text-gray-600 {
+    font-weight: 500 !important;
+    letter-spacing: 0.01em;
+}
+
+/* Text trong thông báo */
+.notif-item .text-sm,
+.notif-item .text-xs,
+.notification-text,
+.notification-message {
+    font-weight: 500 !important;
+}
+
+/* Text trong card booking */
+.booking-card .text-xs,
+.booking-card .text-sm {
+    font-weight: 500 !important;
+}
+
+/* Text trong review */
+.review-text,
+.review-comment {
+    font-weight: 500 !important;
+}
+
+/* Menu và nav */
+.nav-link,
+.dropdown-item,
+.mobile-nav-link {
+    font-weight: 500 !important;
+}
+
+/* Giữ nguyên độ đậm cho heading và text đã được set bold */
+h1, h2, h3, h4, 
+.font-bold, 
+.font-semibold, 
+.font-black,
+.font-medium {
+    font-weight: 600 !important;
+}
+
+/* Tăng contrast cho placeholder */
+::placeholder {
+    color: #9CA3AF;
+    font-weight: 400;
+}
+
+/* Input và textarea */
+input, textarea, select {
+    font-weight: 500;
+}

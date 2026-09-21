@@ -13,12 +13,18 @@ return [
             'provider' => 'users',
         ],
 
-        // Guard cho Customer (user thường)
+        // Guard cho Customer (user thường) - dùng sanctum mặc định
         'sanctum' => [
             'driver'   => 'sanctum',
             'provider' => 'customers',
         ],
-    ],
+
+        // ✅ ĐÃ SỬA: Guard cho Staff/Admin - THÊM MỚI
+        'admin' => [
+            'driver'   => 'sanctum',
+            'provider' => 'staff',
+        ],
+    ],  // ✅ ĐÃ SỬA: Đóng mảng guards
 
     'providers' => [
         'users' => [
@@ -26,18 +32,16 @@ return [
             'model'  => App\Models\User::class,
         ],
 
-        // Provider cho Customer
         'customers' => [
             'driver' => 'eloquent',
             'model'  => App\Models\Customer::class,
         ],
 
-        // Provider cho Staff/Admin
         'staff' => [
             'driver' => 'eloquent',
             'model'  => App\Models\Staff::class,
         ],
-    ],
+    ],  // ✅ ĐÃ SỬA: Chỉ còn 1 mảng providers
 
     'passwords' => [
         'users' => [

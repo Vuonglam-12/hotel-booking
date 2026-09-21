@@ -3,57 +3,51 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Customer;  
+use App\Models\Location;
 
 class Itinerary extends Model
 {
-    // Tên bảng trong DB
-    protected $table = 'itinerary';
+    protected $table = 'itinerary'; 
 
-    // Tắt auto timestamps
     public $timestamps = false;
-
+    
     protected $fillable = [
-        'customer_id',       // User tạo lịch trình
-        'session_id',        // Phiên chat tạo ra lịch trình này (nếu có)
-        'title',             // Tên lịch trình VD: "Du lịch Hội An 3N2Đ"
-        'destination_id',    // Điểm đến chính
-        'start_date',        // Ngày bắt đầu
-        'end_date',          // Ngày kết thúc
-        'total_days',        // Tổng số ngày
-        'estimated_budget',  // Ngân sách dự kiến
-        'status',            // draft / confirmed / completed
-        'created_at',
+        'customer_id',     
+        'title',
+        'location_id',   
+        'total_days',
+        'start_date',
+        'end_date',
+        'estimated_budget',
+        'status',
+        'session_id',
     ];
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date'   => 'date',
-        'created_at' => 'datetime',
+        'start_date'       => 'date',
+        'end_date'         => 'date',
+        'estimated_budget' => 'decimal:2',
+        'total_days'       => 'integer',
     ];
 
-    // Quan hệ: 1 lịch trình có nhiều hoạt động
-    public function items()
+    public function customer(): BelongsTo
     {
-        return $this->hasMany(ItineraryItem::class)
-            ->orderBy('day_number')
-            ->orderBy('order_in_day');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    // Quan hệ: lịch trình thuộc về customer nào
-    public function customer()
+    public function items(): HasMany
     {
-        return $this->belongsTo(Customer::class);
+        return $this->hasMany(ItineraryItem::class, 'itinerary_id')
+                    ->orderBy('day_number')
+                    ->orderBy('order_in_day');
     }
 
-    // Quan hệ: điểm đến chính của lịch trình
-    public function destination()
+    // THÊM relationship này — ItineraryController cần nó
+    public function location(): BelongsTo
     {
-        return $this->belongsTo(Destination::class);
-    }
-
-    // Quan hệ: lịch trình được tạo từ phiên chat nào
-    public function chatSession()
-    {
-        return $this->belongsTo(ChatSession::class, 'session_id');
+        return $this->belongsTo(Location::class, 'location_id');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\CustomerNotification as Notification;
 
 class ReviewController extends Controller
 {
@@ -105,6 +106,15 @@ class ReviewController extends Controller
         // Cập nhật avg_rating trong bảng hotel (denormalized để query nhanh)
         $avgRating = Review::where('hotel_id', $request->hotel_id)->avg('rating');
         Hotel::where('id', $request->hotel_id)->update(['avg_rating' => round($avgRating, 1)]);
+
+        // Notification cảm ơn đã review
+        $hotelName = Hotel::where('id', $request->hotel_id)->value('name');
+        Notification::reviewSubmitted(
+            $customerId,
+            $review->id,
+            $hotelName,
+            $request->rating
+        );
 
         return response()->json([
             'message' => 'Cảm ơn bạn đã review!',
