@@ -11,7 +11,7 @@
         margin-bottom: 20px;
     }
     .page-title {
-        font-family: Arial, sans-serif;
+        font-family: 'Nunito Sans', system-ui, sans-serif;
         font-size: 22px; font-weight: 700; color: var(--dark);
     }
     .page-sub { font-size: 13px; color: var(--gray); margin-top: 3px; }
@@ -200,7 +200,7 @@
         border-bottom: 1px solid rgba(135,206,250,0.15);
         display: flex; align-items: center; justify-content: space-between;
     }
-    .modal-title { font-family: Arial, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
+    .modal-title { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
     .modal-close {
         width: 28px; height: 28px; border-radius: 8px;
         background: var(--bg); border: none; cursor: pointer;

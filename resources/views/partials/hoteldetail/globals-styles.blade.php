@@ -10,7 +10,7 @@
     
     /* Font chữ đồng bộ */
     .font-display {
-        font-family: 'Playfair Display', serif;
+        font-family: var(--font-sans, 'Nunito Sans', sans-serif);
     }
     
     /* Hiệu ứng card nổi */

@@ -8,7 +8,7 @@
     <title>Quản trị Admin — HolidayViet</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -30,7 +30,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito Sans', system-ui, sans-serif;
             background: var(--bg);
             min-height: 100vh;
             display: flex;
@@ -114,8 +114,8 @@
         .logo-link:hover { opacity: 0.85; }
         .logo-svg { width: 36px; height: 36px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
         .logo-wordmark { display: flex; align-items: baseline; }
-        .logo-h { font-family: Arial , serif; font-size: 22px; font-weight: 700; color: #fff; }
-        .logo-v { font-family: Arial , serif; font-size: 22px; font-weight: 700; color: var(--gold); }
+        .logo-h { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+        .logo-v { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: var(--gold); }
         .admin-pill {
             background: rgba(241,196,15,0.18);
             border: 1px solid rgba(241,196,15,0.35);
@@ -129,7 +129,7 @@
         /* Hero */
         .hero { margin: auto 0; padding: 32px 0; }
         .hero-title {
-            font-family: arial , serif;
+            font-family: 'Nunito Sans', system-ui, sans-serif;
             font-size: 32px; font-weight: 700;
             color: #fff; line-height: 1.25;
             margin-bottom: 14px;
@@ -168,7 +168,7 @@
         }
 
         .form-title {
-            font-family: Arial , serif;
+            font-family: 'Nunito Sans', system-ui, sans-serif;
             font-size: 26px; font-weight: 700;
             color: var(--dark); margin-bottom: 6px;
         }
@@ -214,7 +214,7 @@
             background: #fff;
             border: 1px solid rgba(135,206,250,0.4);
             border-radius: 12px;
-            color: var(--dark); font-size: 14px; font-family: Arial , sans-serif;
+            color: var(--dark); font-size: 14px; font-family: 'Nunito Sans', system-ui, sans-serif;
             outline: none; transition: all 0.2s;
         }
         .field-input::placeholder { color: var(--gray); }

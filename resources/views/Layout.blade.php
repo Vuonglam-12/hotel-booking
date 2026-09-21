@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'HolidayViet') — Đặt Phòng Thông Minh</title>
 
-    {{-- Google Fonts - Chỉ dùng Inter cho body và Playfair cho Tiêu đề --}}
+    {{-- System typography: friendly, rounded sans-serif --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     {{-- Swiper CSS (Dành cho hiệu ứng Carousel) --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -30,16 +30,14 @@
             --brand-gradient: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
         }
 
-        * { font-family: 'Inter', sans-serif; }
+        :root { --font-sans: 'Nunito Sans', system-ui, -apple-system, sans-serif; }
+        *, *::before, *::after { font-family: var(--font-sans); }
         body { 
             color: var(--text-main);
             background: #F8FAFC; 
             overflow-x: hidden;
         }
-        h1, h2, h3, h4, .font-display { 
-            font-family: 'Playfair Display', serif; 
-            letter-spacing: -0.02em;
-        }
+        h1, h2, h3, h4, .font-display { font-family: var(--font-sans); letter-spacing: 0; }
         /* Chỉ tô màu heading trong content, không ảnh hưởng logo/navbar/footer */
         main h1, main h2, main h3, main h4 {
             color: var(--text-heading);

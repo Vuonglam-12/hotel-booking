@@ -4,15 +4,15 @@
 @section('title', 'Báo cáo doanh thu')
 
 @push('styles')
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
     /* Revenue Dashboard - Main Content Only */
     .revenue-dashboard {
-        font-family: Arial , system-ui, -apple-system, sans-serif;
+        font-family: 'Nunito Sans', system-ui, -apple-system, sans-serif;
     }
 
     .page-title {
-    font-family: Arial, sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 22px; font-weight: 700; color: var(--dark);
     }
 

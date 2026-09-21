@@ -6,7 +6,7 @@
 <style>
     /* ── Layout ── */
     .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; }
-    .page-title  { font-family:Arial,sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
+    .page-title  { font-family:'Nunito Sans',system-ui,sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
     .page-sub    { font-size:13px; color:var(--gray); margin-top:3px; }
 
     .main-cols   { display:grid; grid-template-columns:1fr 300px; gap:20px; align-items:start; }

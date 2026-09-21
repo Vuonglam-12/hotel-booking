@@ -8,8 +8,8 @@
     BOOKING HISTORY - ENHANCED
     ============================================================ */
     :root {
-        --font-heading: 'Inter', 'Segoe UI', sans-serif;
-        --font-body: 'Inter', system-ui, sans-serif;
+        --font-heading: 'Nunito Sans', system-ui, sans-serif;
+        --font-body: 'Nunito Sans', system-ui, sans-serif;
         --primary: #3b82f6;
         --primary-dark: #2563eb;
         --primary-light: #93c5fd;

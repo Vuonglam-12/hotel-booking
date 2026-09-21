@@ -6,7 +6,7 @@
     <title>@yield('title', 'Tài khoản') — HolidayViet</title>
 
     {{-- Fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     {{-- Icons --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -47,8 +47,8 @@
             --radius-sm:   8px;
             --radius-lg:   20px;
 
-            --font-heading: 'Playfair Display', serif;
-            --font-body:    'Poppins', sans-serif;
+            --font-heading: 'Nunito Sans', system-ui, sans-serif;
+            --font-body:    'Nunito Sans', system-ui, sans-serif;
 
             --transition:  all .22s cubic-bezier(.4,0,.2,1);
         }
@@ -114,7 +114,7 @@
             display: flex;
             align-items: baseline;
             letter-spacing: -0.02em;
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-heading);
             font-weight: 700;
             font-size: 20px;
         }

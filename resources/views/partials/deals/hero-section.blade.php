@@ -21,7 +21,7 @@
             </div>
 
             <h1 class="text-white font-black leading-tight drop-shadow-2xl"
-                style="font-family:'Playfair Display',serif; font-size: clamp(2rem, 4vw, 3.5rem);">
+                style="font-family:var(--font-sans, 'Nunito Sans', sans-serif); font-size: clamp(2rem, 4vw, 3.5rem);">
                 MÙA HÈ RỰC RỠ<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FCD34D] to-[#F59E0B]">
                     GIẢM ĐẾN 50%

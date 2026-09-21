@@ -10,7 +10,7 @@
         margin-bottom: 20px;
     }
     .page-title {
-        font-family: Arial, sans-serif;
+        font-family: 'Nunito Sans', system-ui, sans-serif;
         font-size: 22px; font-weight: 700; color: var(--dark);
     }
     .page-sub { font-size: 13px; color: var(--gray); margin-top: 3px; }
@@ -184,7 +184,7 @@
         display: flex; align-items: center; justify-content: space-between;
         position: sticky; top: 0; background: #fff; z-index: 2;
     }
-    .modal-title { font-family: Arial, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
+    .modal-title { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
     .modal-close {
         width: 28px; height: 28px; border-radius: 8px; background: var(--bg);
         border: none; cursor: pointer; display: flex; align-items: center;
@@ -303,7 +303,7 @@
         justify-content: space-between;
     }
     .rt-modal .modal-header h3 {
-        font-family: Arial, serif;
+        font-family: 'Nunito Sans', system-ui, sans-serif;
         font-size: 17px;
         font-weight: 700;
         color: var(--dark);

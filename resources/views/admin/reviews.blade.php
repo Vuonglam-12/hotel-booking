@@ -4,7 +4,7 @@
 @push('styles')
 <style>
     .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; }
-    .page-title { font-family:Arial, sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
+    .page-title { font-family:'Nunito Sans', system-ui, sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
     .page-sub { font-size:13px; color:var(--gray); margin-top:3px; }
 
     .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; }

@@ -12,7 +12,7 @@
         margin-bottom: 24px;
     }
     .page-title {
-        font-family: Arial, sans-serif;
+        font-family: 'Nunito Sans', system-ui, sans-serif;
         font-size: 22px; font-weight: 700; color: var(--dark);
     }
     .page-sub { font-size: 13px; color: #64748B; margin-top: 4px; font-weight: 400; }

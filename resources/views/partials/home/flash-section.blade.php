@@ -11,7 +11,7 @@
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd"></path></svg>
                     Flash Sale Cuối Tuần
                 </div>
-                <h2 class="text-white text-3xl md:text-5xl font-black mb-3 leading-tight" style="font-family: 'Playfair Display', serif;">
+                <h2 class="text-white text-3xl md:text-5xl font-black mb-3 leading-tight" style="font-family: var(--font-sans, 'Nunito Sans', sans-serif);">
                     MÙA HÈ RỰC RỠ<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FCD34D] to-[#F59E0B]">GIẢM ĐẾN 50%</span>
                 </h2>
