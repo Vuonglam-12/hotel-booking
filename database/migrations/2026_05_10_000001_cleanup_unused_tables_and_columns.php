@@ -54,14 +54,10 @@ return new class extends Migration
         Schema::dropIfExists('service');
         Schema::dropIfExists('notifications');
 
-        // BƯỚC 4: hotel — xóa cột tọa độ + google
-        $this->dropColumnSafe('hotel', 'latitude');
-        $this->dropColumnSafe('hotel', 'longitude');
-        $this->dropColumnSafe('hotel', 'google_place_id');
+        // BƯỚC 4: hotel — giữ lại tọa độ vì app hiện tại đang cần cho tìm kiếm/hiển thị map
+        // không xóa google_place_id ở đây vì đa số flow vẫn đang dùng nó
 
-        // BƯỚC 5: location — xóa tọa độ
-        $this->dropColumnSafe('location', 'latitude');
-        $this->dropColumnSafe('location', 'longitude');
+        // BƯỚC 5: location — giữ lại tọa độ vì seeders và UI dùng
 
         // BƯỚC 6: itinerary_item — xóa tọa độ + destination_id
         $this->dropColumnSafe('itinerary_item', 'latitude');

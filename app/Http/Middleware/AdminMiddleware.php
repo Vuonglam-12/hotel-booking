@@ -9,9 +9,9 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $staff = $request->user('admin');
+        $admin = $request->user('admin');
 
-        if (!$staff || !($staff instanceof \App\Models\Staff)) {
+        if (!$admin || !($admin instanceof \App\Models\Customer) || !$admin->isAdmin()) {
             return response()->json(['message' => 'Chỉ admin mới có quyền truy cập'], 403);
         }
 

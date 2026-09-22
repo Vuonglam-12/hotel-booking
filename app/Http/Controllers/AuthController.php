@@ -60,9 +60,7 @@ class AuthController extends Controller
         $customer->tokens()->delete();
         $token = $customer->createToken('customer_token')->plainTextToken;
 
-        // ✅ THÊM MỚI: Kiểm tra email này có trong bảng staff không
-        $staff = \App\Models\Staff::where('email', $request->email)->first();
-        $isAdmin = $staff && in_array($staff->role, ['superadmin', 'admin', 'manager']);
+        $isAdmin = $customer->isAdmin();
 
         return response()->json([
             'token' => $token,
@@ -74,7 +72,7 @@ class AuthController extends Controller
                 'avatar_url' => $customer->avatar_url,
                 // ✅ THÊM MỚI:
                 'is_admin' => $isAdmin,
-                'admin_role' => $staff?->role, // null nếu không phải admin
+                'admin_role' => $isAdmin ? 'admin' : null,
             ],
         ]);
     }
@@ -341,9 +339,7 @@ class AuthController extends Controller
         // Tạo token Sanctum để đăng nhập
         $token = $customer->createToken('auth_token')->plainTextToken;
 
-        // ✅ Check staff để xác định is_admin
-        $staff = \App\Models\Staff::where('email', $customer->email)->first();
-        $isAdmin = $staff && in_array($staff->role, ['superadmin', 'admin', 'manager']);
+        $isAdmin = $customer->isAdmin();
 
         return response()->json([
             'message' => 'Đăng nhập Google thành công',
@@ -353,7 +349,7 @@ class AuthController extends Controller
                 'name'       => $customer->name, 
                 'email'      => $customer->email,
                 'is_admin'   => $isAdmin,
-                'admin_role' => $staff?->role,
+                'admin_role' => $isAdmin ? 'admin' : null,
             ],
         ]);
     }

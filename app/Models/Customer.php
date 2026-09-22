@@ -32,6 +32,11 @@ class Customer extends Authenticatable
         return $this->password_hash;
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
     public function bookings()
     {
         return $this->hasMany(Booking::class);

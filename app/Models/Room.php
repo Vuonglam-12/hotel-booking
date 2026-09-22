@@ -34,4 +34,18 @@ class Room extends Model
     {
         return $this->hasMany(RoomImage::class);
     }
+
+
+    public function getCoverImageUrlAttribute(): string
+    {
+        $img = $this->relationLoaded('images')
+            ? ($this->images->firstWhere('is_primary', true) ?? $this->images->first())
+            : $this->images()->orderByDesc('is_primary')->first();
+
+        if (!$img) {
+            return "https://picsum.photos/seed/room-{$this->id}/400/300";
+        }
+
+        return asset(dirname($img->image_url) . '/' . rawurlencode(basename($img->image_url)));
+    }
 }

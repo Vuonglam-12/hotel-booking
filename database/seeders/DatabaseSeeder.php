@@ -126,9 +126,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('✅ Done! Đã seed: 8 locations, 6 room types, 20 hotels, amenities, rooms.');
 
         $this->call([
+            AdminSeeder::class,
             AttractionSeeder::class,
         ]);
     }
-
-    
 }

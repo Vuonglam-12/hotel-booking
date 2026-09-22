@@ -495,7 +495,7 @@
 
                 // Lưu admin token riêng — không đụng vào customer token
                 localStorage.setItem('admin_token', data.token);
-                localStorage.setItem('admin_staff', JSON.stringify(data.staff));
+                localStorage.setItem('admin_account', JSON.stringify(data.admin));
 
                 window.location.href = '/admin';
 

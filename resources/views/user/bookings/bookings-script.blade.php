@@ -169,7 +169,7 @@
 
         bookingList.innerHTML = list.map(booking => {
             const hotel = booking.hotel || {};
-            const img = hotel.images?.[0]?.image_path || `https://picsum.photos/seed/${hotel.id || 1}/72/72`;
+            const img = hotel.images?.[0]?.image_url || `https://picsum.photos/seed/${hotel.id || 1}/72/72`;
             const status = booking.status; // pending/confirmed/completed/cancelled
             const isReviewed = reviewedBookingIds.has(booking.id);
             let statusClass = '';

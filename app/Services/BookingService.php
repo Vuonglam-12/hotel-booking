@@ -71,7 +71,7 @@ class BookingService
 
     public function myBookings(int $customerId, array $filters): LengthAwarePaginator
     {
-        $bookings = Booking::with(['hotel', 'bookingRooms.roomType', 'bookingRooms.room', 'payment'])
+        $bookings = Booking::with(['hotel.imgaes', 'bookingRooms.roomType', 'bookingRooms.room', 'payment'])
             ->where('customer_id', $customerId)
             ->when(!empty($filters['status']), fn($q) => $q->where('status', $filters['status']))
             ->when(!empty($filters['search']), fn($q) =>
@@ -95,7 +95,7 @@ class BookingService
 
     public function getDetail(int $id, int $customerId): Booking
     {
-        return Booking::with(['hotel', 'bookingRooms.roomType', 'bookingRooms.room', 'payment'])
+        return Booking::with(['hotel.imgaes', 'bookingRooms.roomType', 'bookingRooms.room', 'payment'])
             ->where('customer_id', $customerId)
             ->findOrFail($id);
     }

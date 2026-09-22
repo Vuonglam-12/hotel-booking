@@ -4,13 +4,13 @@ return [
 
     'defaults' => [
         'guard'     => 'web',
-        'passwords' => 'users',
+        'passwords' => 'customers',
     ],
 
     'guards' => [
         'web' => [
             'driver'   => 'session',
-            'provider' => 'users',
+            'provider' => 'customers',
         ],
 
         // Guard cho Customer (user thường) - dùng sanctum mặc định
@@ -19,33 +19,24 @@ return [
             'provider' => 'customers',
         ],
 
-        // ✅ ĐÃ SỬA: Guard cho Staff/Admin - THÊM MỚI
+        // Guard cho Admin dùng chung model Customer
         'admin' => [
             'driver'   => 'sanctum',
-            'provider' => 'staff',
+            'provider' => 'customers',
         ],
     ],  // ✅ ĐÃ SỬA: Đóng mảng guards
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model'  => App\Models\User::class,
-        ],
-
         'customers' => [
             'driver' => 'eloquent',
             'model'  => App\Models\Customer::class,
         ],
 
-        'staff' => [
-            'driver' => 'eloquent',
-            'model'  => App\Models\Staff::class,
-        ],
     ],  // ✅ ĐÃ SỬA: Chỉ còn 1 mảng providers
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'customers' => [
+            'provider' => 'customers',
             'table'    => 'password_reset_tokens',
             'expire'   => 60,
             'throttle' => 60,

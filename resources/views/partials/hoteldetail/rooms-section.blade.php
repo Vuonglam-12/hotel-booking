@@ -28,7 +28,7 @@
                     onclick="viewRoom({{ $room->room_type_id }}, '{{ addslashes($room->roomType->name) }}', {{ $room->price }}, {{ $hotel->id }}, this)">
                     <div class="flex items-center gap-3">
                         <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-[#EAF3FF]">
-                            <img src="https://picsum.photos/seed/room-{{ $hotel->id }}-{{ $room->room_type_id }}/120/120"
+                            <img src="{{ $room->cover_image_url }}"
                                  alt="{{ $room->roomType->name }}" class="w-full h-full object-cover">
                         </div>
                         <div>

@@ -57,5 +57,18 @@ class Hotel extends Model
             ->where('status', 'available')
             ->min('price');
     }
+
+    public function getCoverImageUrlAttribute(): string
+    {
+        $img = $this->relationLoaded('images')
+            ? ($this->images->firstWhere('is_primary', true) ?? $this->images->first())
+            : $this->images()->orderByDesc('is_primary')->first();
+
+        if (!$img) {
+            return "https://picsum.photos/seed/{$this->id}/800/600"; // fallback khi chưa gán ảnh thật
+        }
+
+        return asset(dirname($img->image_url) . '/' . rawurlencode(basename($img->image_url)));
+    }
 }
 ?>

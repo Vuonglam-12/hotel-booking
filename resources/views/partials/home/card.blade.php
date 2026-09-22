@@ -2,7 +2,7 @@
     onclick="window.location.href='/hotels/{{ $hotel->id }}'">
 
     <div class="relative h-52 bg-[#EAF3FF] overflow-hidden">
-        <img src="https://picsum.photos/seed/{{ $hotel->id }}/800/600" alt="{{ $hotel->name }}"
+        <img src="{{ $hotel->cover_image_url }}"
             class="w-full h-full object-cover transition duration-500 hover:scale-110">
         <button onclick="event.stopPropagation(); toggleWishlist({{ $hotel->id }}, this)"
             class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm w-8 h-8 rounded-full flex items-center justify-center text-[#C9D3DD] hover:text-red-500 transition wishlist-btn shadow-sm"

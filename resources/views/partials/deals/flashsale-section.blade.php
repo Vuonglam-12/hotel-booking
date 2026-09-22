@@ -23,7 +23,7 @@
                 <div class="hotel-card deal-card bg-white rounded-2xl overflow-hidden shadow-2xl border border-[#EAF3FF] w-full pointer-events-auto"
                     onclick="handleFlashClick(this, {{ $hotel->id }})">
                     <div class="relative h-44 overflow-hidden bg-[#EAF3FF]">
-                        <img src="https://picsum.photos/seed/{{ $hotel->id }}d/400/300" alt="{{ $hotel->name }}"
+                        <img src="{{ $hotel->cover_image_url }}" alt="{{ $hotel->name }}"
                             class="w-full h-full object-cover pointer-events-none">
                         <div class="discount-badge">-{{ $hotel->discount }}%</div>
                     </div>

@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('notifications', function (Blueprint $table) {
-            $table->json('data')->change();
-        });
+        if (Schema::hasTable('customer_notifications')) {
+            Schema::table('customer_notifications', function (Blueprint $table) {
+                $table->json('data')->nullable()->change();
+            });
+        }
     }
 
     /**
@@ -21,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('notifications', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasTable('customer_notifications')) {
+            Schema::table('customer_notifications', function (Blueprint $table) {
+                $table->json('data')->nullable()->change();
+            });
+        }
     }
 };

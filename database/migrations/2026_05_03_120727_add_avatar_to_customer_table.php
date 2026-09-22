@@ -9,19 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    // 2026_05_03_120727_add_avatar_to_customer_table.php
-
     public function up(): void
     {
-        Schema::table('customer', function (Blueprint $table) {
-            $table->string('avatar_url')->nullable()->after('email'); // ← avatar_url
-        });
+        if (!Schema::hasColumn('customer', 'avatar_url')) {
+            Schema::table('customer', function (Blueprint $table) {
+                $table->string('avatar_url')->nullable()->after('email');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('customer', function (Blueprint $table) {
-            $table->dropColumn('avatar_url');
-        });
+        if (Schema::hasColumn('customer', 'avatar_url')) {
+            Schema::table('customer', function (Blueprint $table) {
+                $table->dropColumn('avatar_url');
+            });
+        }
     }
 };

@@ -659,7 +659,7 @@ async function loadSuggestedHotels(destination) {
 
         const list = document.getElementById('suggestedHotelsList');
         list.innerHTML = hotels.map(h => {
-            const imgSrc = h.images?.[0]?.image_path 
+            const imgSrc = h.images?.[0]?.image_url
                 || `https://picsum.photos/seed/${h.id || 1}/400/140`;
             
             return `

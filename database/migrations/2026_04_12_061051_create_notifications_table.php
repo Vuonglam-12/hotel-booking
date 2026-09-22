@@ -8,18 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('customer_notifications', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('customer_id');
-            $table->string('type', 50)->default('system');
-            $table->json('data')->nullable();
-            $table->timestamp('read_at')->nullable();
-            $table->timestamps();
+        if (!Schema::hasTable('customer_notifications')) {
+            Schema::create('customer_notifications', function (Blueprint $table) {
+                $table->id();
+                $table->integer('customer_id');
+                $table->string('type', 50)->default('system');
+                $table->json('data')->nullable();
+                $table->timestamp('read_at')->nullable();
+                $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
-            $table->index(['customer_id', 'read_at']);
-            $table->index(['customer_id', 'created_at']);
-        });
+                $table->foreign('customer_id')->references('id')->on('customer')->onDelete('cascade');
+                $table->index(['customer_id', 'read_at']);
+                $table->index(['customer_id', 'created_at']);
+            });
+        }
     }
 
     public function down(): void

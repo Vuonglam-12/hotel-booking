@@ -13,7 +13,7 @@
         <div class="hotel-card deal-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#EAF3FF]"
             onclick="window.location.href='/hotels/{{ $hotel->id }}'">
             <div class="relative h-40 overflow-hidden bg-[#EAF3FF]">
-                <img src="https://picsum.photos/seed/{{ $hotel->id }}f/400/300" alt="{{ $hotel->name }}"
+                <img src="{{ $hotel->cover_image_url }}" alt="{{ $hotel->name }}"
                     class="w-full h-full object-cover transition duration-500 hover:scale-110">
                 <div class="discount-badge">-{{ $hotel->discount }}%</div>
             </div>

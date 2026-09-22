@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Staff;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthAdminController extends Controller
 {
     // ==========================================
-    // Staff đăng nhập
+    // Admin đăng nhập bằng Customer có role=admin
     // POST /api/admin/login
     // ==========================================
     public function login(Request $request)
@@ -19,31 +19,32 @@ class AuthAdminController extends Controller
             'password' => 'required|string',
         ]);
 
-        $staff = Staff::where('email', $request->email)->first();
+        $admin = Customer::where('email', $request->email)
+            ->where('role', 'admin')
+            ->first();
 
-        if (!$staff || !Hash::check($request->password, $staff->password_hash)) {
+        if (!$admin || !Hash::check($request->password, $admin->password_hash)) {
             return response()->json([
                 'message' => 'Email hoặc mật khẩu không đúng',
             ], 401);
         }
 
-        $staff->tokens()->delete();
-        $token = $staff->createToken('admin_token', ['admin'])->plainTextToken;
+        $admin->tokens()->delete();
+        $token = $admin->createToken('admin_token', ['admin'])->plainTextToken;
 
         return response()->json([
             'token' => $token,
-            'staff' => [
-                'id'       => $staff->id,
-                'name'     => $staff->name,
-                'email'    => $staff->email,
-                'role'     => $staff->role,
-                'hotel_id' => $staff->hotel_id,
+            'admin' => [
+                'id'    => $admin->id,
+                'name'  => $admin->name,
+                'email' => $admin->email,
+                'role'  => $admin->role,
             ],
         ]);
     }
 
     // ==========================================
-    // Staff đăng xuất
+    // Admin đăng xuất
     // POST /api/admin/logout
     // ==========================================
     public function logout(Request $request)
@@ -55,23 +56,22 @@ class AuthAdminController extends Controller
     }
 
     // ==========================================
-    // Xem thông tin staff hiện tại
+    // Xem thông tin Admin hiện tại
     // GET /api/admin/me
     // ==========================================
     public function me(Request $request)
     {
-        $staff = $request->user('admin');
+        $admin = $request->user('admin');
 
-        if (!$staff) {
+        if (!$admin || !$admin->isAdmin()) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
         return response()->json([
-            'id'       => $staff->id,
-            'name'     => $staff->name,
-            'email'    => $staff->email,
-            'role'     => $staff->role,
-            'hotel_id' => $staff->hotel_id,
+            'id'    => $admin->id,
+            'name'  => $admin->name,
+            'email' => $admin->email,
+            'role'  => $admin->role,
         ]);
     }
 }

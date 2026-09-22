@@ -16,17 +16,17 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     // ==========================================
-    // MIDDLEWARE CHECK — chỉ staff/admin mới vào được
+    // MIDDLEWARE CHECK — chỉ Admin mới vào được
     // ==========================================
     private function checkAdmin(Request $request)
     {
-        $staff = $request->user('admin');
+        $admin = $request->user('admin');
 
-        if (!$staff || !($staff instanceof \App\Models\Staff)) {
+        if (!$admin || !($admin instanceof Customer) || !$admin->isAdmin()) {
             abort(403, 'Chỉ admin mới có quyền truy cập');
         }
 
-        return $staff;
+        return $admin;
     }
 
     // ==========================================

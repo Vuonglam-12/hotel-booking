@@ -15,7 +15,7 @@
         @php $label = $comboLabels[$i] ?? $comboLabels[0]; @endphp
         <div class="combo-card" onclick="window.location.href='/hotels/{{ $hotel->id }}'">
             <div class="relative h-48 overflow-hidden">
-                <img src="https://picsum.photos/seed/combo{{ $hotel->id }}/500/300" alt="{{ $hotel->name }}"
+                <img src="{{ $hotel->cover_image_url }}" alt="{{ $hotel->name }}"
                     class="w-full h-full object-cover transition duration-500 hover:scale-105">
                 <div style="position:absolute;top:12px;left:12px;background:linear-gradient(135deg,#1E3A5F,#0F3460);color:#FCD34D;font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px;">
                     {{ $label['icon'] }} {{ $label['tag'] }}
