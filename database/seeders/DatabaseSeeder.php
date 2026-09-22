@@ -128,6 +128,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             AttractionSeeder::class,
+            ImageAssignSeeder::class,
         ]);
     }
 }
