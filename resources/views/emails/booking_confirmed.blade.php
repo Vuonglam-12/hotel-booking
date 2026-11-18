@@ -6,7 +6,6 @@
     body { font-family: 'Nunito Sans', Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
     .container { max-width: 600px; margin: 30px auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
     .header { background: #1E3A5F; padding: 28px 24px; text-align: center; }
-    .header h1 { color: #fff; margin: 0; font-size: 24px; letter-spacing: 1px; }
     .header p  { color: #87CEFA; margin: 6px 0 0; font-size: 13px; }
     .body { padding: 32px; }
     .body h2 { color: #1E3A5F; font-size: 18px; margin-bottom: 8px; }
@@ -31,7 +30,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>HolidayViet</h1>
+      <img src="{{ isset($message) ? $message->embed(public_path(config('brand.logo'))) : asset(config('brand.logo_url')) }}" alt="Angel" width="130" height="43" style="display: block; width: 130px; max-width: 100%; height: auto; margin: 0 auto; border-radius: 6px;">
       <p>Xác nhận đặt phòng</p>
     </div>
     <div class="body">
@@ -45,11 +44,11 @@
         <tr><td>Địa chỉ</td><td>{{ $booking->hotel->address }}</td></tr>
         <tr>
           <td>Nhận phòng</td>
-          <td>{{ \Carbon\Carbon::parse($booking->check_in)->format('d/m/Y') }} lúc {{ $booking->hotel->check_in_time }}</td>
+          <td>{{ \Carbon\Carbon::parse($booking->check_in)->format('d/m/Y') }}</td>
         </tr>
         <tr>
           <td>Trả phòng</td>
-          <td>{{ \Carbon\Carbon::parse($booking->check_out)->format('d/m/Y') }} lúc {{ $booking->hotel->check_out_time }}</td>
+          <td>{{ \Carbon\Carbon::parse($booking->check_out)->format('d/m/Y') }}</td>
         </tr>
         <tr><td>Số khách</td><td>{{ $booking->num_guests }} người</td></tr>
         <tr><td>Trạng thái</td><td><span class="badge">Đã xác nhận</span></td></tr>
@@ -61,7 +60,7 @@
       @foreach($booking->bookingRooms as $br)
       <div class="room-block">
         <div class="room-title">
-          {{ $br->roomType->name }}
+          {{ $roomNameSnapshot ?? $br->roomType?->name ?? 'Phòng' }}
           @if($br->room)
             — Phòng {{ $br->room->room_number }}
           @endif
@@ -83,11 +82,11 @@
       </div>
 
       <p class="note">
-        Nếu có thắc mắc, vui lòng liên hệ: <a href="mailto:support@holidayviet.vn" style="color:#87CEFA;">support@holidayviet.vn</a>
+        Bạn có thể xem lại thông tin đặt phòng và hóa đơn trong mục Lịch sử đặt phòng trên Angel.
       </p>
     </div>
     <div class="footer">
-      HolidayViet &copy; {{ date('Y') }} — Email này được gửi tự động, vui lòng không reply.
+      Angel &copy; {{ date('Y') }} — Email này được gửi tự động, vui lòng không trả lời.
     </div>
   </div>
 </body>

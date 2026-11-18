@@ -1,0 +1,10 @@
+place_id,rule_type,weekday,date,state,opens_at,closes_at,end_day_offset,timezone,data_quality,source_url,checked_at,notes
+DEMO_PLACE_001,weekly,1,,open,08:00,12:00,0,Asia/Ho_Chi_Minh,reference,,,MẪU MINH HỌA - không phải giờ thật
+DEMO_PLACE_001,weekly,1,,open,14:00,18:00,0,Asia/Ho_Chi_Minh,reference,,,Ca thứ hai cùng thứ Hai
+DEMO_PLACE_001,weekly,2,,24h,,,,Asia/Ho_Chi_Minh,reference,,,Mở cả ngày thứ Ba theo mẫu
+DEMO_PLACE_001,weekly,3,,unknown,,,,Asia/Ho_Chi_Minh,unclear,,,Chưa rõ giờ - không coi là nghỉ
+DEMO_PLACE_001,weekly,5,,open,22:00,02:00,1,Asia/Ho_Chi_Minh,reference,,,Kết thúc lúc 02:00 ngày thứ Bảy
+DEMO_PLACE_001,weekly,6,,open,22:00,02:00,1,Asia/Ho_Chi_Minh,reference,,,Ca qua đêm theo mẫu
+DEMO_PLACE_001,weekly,7,,closed,,,,Asia/Ho_Chi_Minh,reference,,,Nghỉ toàn bộ Chủ nhật - chặn cả ca từ hôm trước
+DEMO_PLACE_001,exception,,2026-11-08,open,10:00,16:00,0,Asia/Ho_Chi_Minh,reference,,,Ngoại lệ mở lại ngày Chủ nhật thường nghỉ
+DEMO_PLACE_001,exception,,2026-11-09,closed,,,,Asia/Ho_Chi_Minh,reference,,,Ngoại lệ nghỉ ngày thứ Hai thường mở

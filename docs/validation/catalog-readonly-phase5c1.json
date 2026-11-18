@@ -1,0 +1,422 @@
+{
+  "date": "2026-10-24",
+  "phase": "5C.1",
+  "conclusion": "BLOCKED_LIVE_DATABASE_REVIEW_NO_APPROVED_DEDICATED_READ_ONLY_CREDENTIAL_PROVIDED",
+  "scope": "OFFLINE_SOURCE_PRIOR_SYNTHETIC_EVIDENCE_AND_WORKSPACE_FILESYSTEM_ONLY",
+  "safety": {
+    "dotenv_read": false,
+    "production_connection_attempted": false,
+    "production_database_accessed": false,
+    "database_queries_executed": 0,
+    "mysql_client_or_artisan_executed": false,
+    "application_bootstrapped": false,
+    "tests_executed": false,
+    "test_mysql_started": false,
+    "application_code_changed": false,
+    "migration_files_changed": false,
+    "source_images_changed": false,
+    "backup_executed": false,
+    "restore_executed": false,
+    "phase5c2_started": false
+  },
+  "access": {
+    "owner_authorization_condition": "Dedicated read-only credential separately approved by project owner",
+    "credential_provided_in_session": false,
+    "target_host": null,
+    "target_port": null,
+    "account": null,
+    "requested_schema": "hotel_booking",
+    "effective_grants": "NOT_CHECKED_NO_CONNECTION",
+    "fallback_laravel_account_used": false
+  },
+  "production_actual": {
+    "mysql_version": null,
+    "sql_mode": null,
+    "session_timezone": null,
+    "global_timezone": null,
+    "system_timezone": null,
+    "engine_collation": null,
+    "schema_status": "UNKNOWN_NOT_READ",
+    "schema_diff": null,
+    "location_count": null,
+    "attraction_count": null,
+    "hotel_count": null,
+    "active_hotel_count": null,
+    "attraction_image_count": null,
+    "hotel_image_count": null,
+    "duplicates": null,
+    "orphan_relationships": null,
+    "incorrect_location_links": null,
+    "missing_images": null,
+    "legacy_guides_publication_states": null
+  },
+  "migration_review": [
+    {
+      "file": "database/migrations/2026_10_23_000001_add_experience_catalog_metadata.php",
+      "sha256": "4b2fdff04fdd4fbb321a2a914e8354404d9648885babbf0fec19dc81362f5abb",
+      "matches_phase5b": true,
+      "planned_order": 1,
+      "production_ledger_status": "UNKNOWN_NOT_QUERIED",
+      "production_schema_status": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "file": "database/migrations/2026_10_23_000002_create_travel_guides.php",
+      "sha256": "eb15695b8cda4cd9ee94846585098f540437904f10ad4cd4e592759cceae879f",
+      "matches_phase5b": true,
+      "planned_order": 2,
+      "production_ledger_status": "UNKNOWN_NOT_QUERIED",
+      "production_schema_status": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "file": "database/migrations/2026_10_23_000003_widen_guide_publication_datetime.php",
+      "sha256": "0d180d48622c6fde0392026f138a044dd06e20f7ad4353e1067a4eb3919ec453",
+      "matches_phase5b": true,
+      "planned_order": 3,
+      "production_ledger_status": "UNKNOWN_NOT_QUERIED",
+      "production_schema_status": "UNKNOWN_NOT_QUERIED"
+    }
+  ],
+  "source_checks": [
+    {
+      "file": "app/Services/LegacyBlogImporter.php",
+      "sha256": "1e9d613f0463d46ffdc80a945b3d0f238837324f47b81e6adf2688bda47cb881",
+      "matches_phase5b": true
+    },
+    {
+      "file": "app/Console/Commands/ImportLegacyGuides.php",
+      "sha256": "52bd807e3974efabf5394d2ad382fb218ed6bc519eeee87f894eb0e4bce18390",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/CatalogDataSafetyMysqlTest.php",
+      "sha256": "b8b3e192165300e31a0bc283f317b54133bd2bd7de1fd3ed44e88df04e2fd157",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/CatalogMysqlIntegrationTest.php",
+      "sha256": "a9417b82f95a23751aa525ce24d44359f5cf1e0ac2a805112e7b500c542bef3c",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/GuideModuleTest.php",
+      "sha256": "10edce38b31986d6442153f3557b1178a1f63fba982c9689f736a539b23c2db8",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/run_catalog_mysql_integration.cjs",
+      "sha256": "50ee933a8c6caac91cee1de3e5d7292b62a141ce23bb8cedd4ae4eb07e5a40b9",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/CatalogMysqlFixture.php",
+      "sha256": "967320ad4051c1794b54a3f7572b4cfba648f0fbaa3bc95f430725bdf0383bae",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/guide_browser_setup.php",
+      "sha256": "53a4050d25945bd1ae361a194a2af53aabd418e723b98e49a6d93a558142b4c3",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Frontend/catalog-mysql.browser.cjs",
+      "sha256": "a0f71f5372ce91c6e2def2b0b96f004ef5dd9aec0ce9557bc0e2b9741d751d53",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Frontend/guides.browser.cjs",
+      "sha256": "5848ea286337df7cd127c94b332ecd14c6bac0432a35c9a5347caae21b064cee",
+      "matches_phase5b": true
+    },
+    {
+      "file": "phpunit.catalog-safety-mysql.xml",
+      "sha256": "f6ae67e2c09ed29beb06694213b70d3331ec10df14d7561ec3100ef2559c9d5b",
+      "matches_phase5b": true
+    }
+  ],
+  "protected_source_checks": [
+    {
+      "file": "database/migrations/2026_10_23_000001_add_experience_catalog_metadata.php",
+      "sha256": "4b2fdff04fdd4fbb321a2a914e8354404d9648885babbf0fec19dc81362f5abb",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000002_create_travel_guides.php",
+      "sha256": "eb15695b8cda4cd9ee94846585098f540437904f10ad4cd4e592759cceae879f",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000003_widen_guide_publication_datetime.php",
+      "sha256": "0d180d48622c6fde0392026f138a044dd06e20f7ad4353e1067a4eb3919ec453",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/seeders/AttractionSeeder.php",
+      "sha256": "f6cc49707b311ae6f7d25918fcfd5b1253825f48e28d24e63588e39b9497a136",
+      "matches_phase5b": true
+    }
+  ],
+  "local_storage": {
+    "scope": "WORKSPACE_ONLY_NOT_PRODUCTION_RUNTIME",
+    "public_storage": {
+      "path": "public/storage",
+      "type": "Junction",
+      "resolved_target": "C:\\laragon\\www\\Hotel-Booking\\storage\\app\\public",
+      "matches_source_default_disk": true
+    },
+    "folders": [
+      {
+        "path": "storage/app/public",
+        "exists": true,
+        "immediate_files": 1,
+        "immediate_directories": 4,
+        "child_directory_names": [
+          "accommodation",
+          "aurel-roomtype-v2-fixtures",
+          "avatars",
+          "sepay-test"
+        ]
+      },
+      {
+        "path": "storage/app/public/accommodation",
+        "exists": true,
+        "immediate_files": 0,
+        "immediate_directories": 2,
+        "child_directory_names": [
+          "hotel_image",
+          "hotel_room_type_image"
+        ]
+      },
+      {
+        "path": "storage/app/public/accommodation/hotel_image",
+        "exists": true,
+        "immediate_files": 0,
+        "immediate_directories": 20
+      },
+      {
+        "path": "storage/app/public/accommodation/attraction_image",
+        "exists": false
+      },
+      {
+        "path": "storage/app/public/guides",
+        "exists": false
+      },
+      {
+        "path": "public/image",
+        "exists": true,
+        "immediate_files": 21,
+        "immediate_directories": 2
+      }
+    ],
+    "expected_experience_upload_root": "storage/app/public/accommodation/attraction_image",
+    "expected_guide_upload_root": "storage/app/public/guides",
+    "missing_upload_roots_are_not_proof_of_missing_database_schema": true,
+    "http_or_write_probe_performed": false,
+    "legacy_image_checks": [
+      {
+        "path": "public/image/L-1.jpg",
+        "exists": true,
+        "sha256": "da948bd521d2451d1dc877ba2a6ffd4767a7c512409d5da50821c9737630fda1",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L-2.jpg",
+        "exists": true,
+        "sha256": "d84aec74272ab9612fc2f65fd6610837290f2740882e65a04b998a8719b39c3c",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L-3.jpg",
+        "exists": true,
+        "sha256": "16078f450cf4842e2ed219c0b69dcd8320a717f14e542ef57741a9a840017f17",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L-4.jpg",
+        "exists": true,
+        "sha256": "d9db3409ed65a4891831b543f3dba5f9a208ba422e8ae64dc21cea88bee27d62",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L5.jpg",
+        "exists": true,
+        "sha256": "60eea13c2499913796975989ff5a3ed8f88f1dea21973e96aa95062ff42bc02a",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L-6.jpg",
+        "exists": true,
+        "sha256": "a6db46ddcdf9bc975f11fbf9a395cfa8ad0e720024cc2631d625828f3703fd2c",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L-7.jpg",
+        "exists": true,
+        "sha256": "e89dbf53c1b274845647f0145464a56ea96b50def990c30d5074d7fe26965b70",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L-8.jpg",
+        "exists": true,
+        "sha256": "58918873c722f9dbd8755ee247dd420d012038fc0eb6d6b72fd8e344baa05995",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      },
+      {
+        "path": "public/image/L-9.jpg",
+        "exists": true,
+        "sha256": "00298b4fce9c55e68c8f3ce15d0f2f64d4fef9dbae25679a3713794361bc9060",
+        "matches_phase5b": true,
+        "rights_status": "UNVERIFIED"
+      }
+    ]
+  },
+  "seed_source_only": {
+    "production_counts_verified": false,
+    "groups": {
+      "vn-ha-noi": 9,
+      "vn-ho-chi-minh": 9,
+      "vn-da-lat": 9,
+      "vn-phu-quoc": 20
+    },
+    "types": {
+      "attraction": 15,
+      "restaurant": 15,
+      "hotel": 9,
+      "activity": 8
+    },
+    "rows": 47,
+    "coordinates_missing": 47,
+    "addresses_missing": 47,
+    "images_missing": 47,
+    "unverified_price_ranges": 47,
+    "zero_price_ranges_not_confirmed_free": 8,
+    "actual_location_ids": null,
+    "stable_keys": [
+      "vn-ha-noi",
+      "vn-ho-chi-minh",
+      "vn-da-lat",
+      "vn-phu-quoc"
+    ],
+    "location_activity_column_in_reviewed_source": false
+  },
+  "prior_test_evidence": {
+    "executed_in_this_phase": false,
+    "phase5b_mysql": {
+      "tests": 24,
+      "assertions": 1134,
+      "result": "PASS",
+      "focused_new_data_safety_cases": 16,
+      "existing_focused_integration_cases": 8,
+      "command": "node tests/Support/run_catalog_mysql_integration.cjs C:\\laragon\\bin\\mysql\\mysql-8.0.30-winx64\\bin\\mysqld.exe --data-safety"
+    },
+    "phase5b_sqlite": {
+      "tests": 4,
+      "assertions": 148,
+      "result": "PASS",
+      "filter": "test_import_|test_command_default|test_legacy_routes",
+      "command": "php -d extension=pdo_sqlite -d extension=sqlite3 vendor/bin/phpunit -c phpunit.guides.xml --filter 'test_import_|test_command_default|test_legacy_routes'"
+    },
+    "phase4_browser_groups": 21,
+    "classification": "HISTORICAL_SYNTHETIC_RESULTS_NOT_PRODUCTION_VERIFICATION"
+  },
+  "prepared_sql": [
+    {
+      "file": "docs/deployment/catalog-readonly-schema.sql",
+      "sha256": "16dc946265d14a5ab319a32d11b61aecf29266092538daeb5d55527acfd583c7",
+      "statement_count": 7,
+      "verbs": [
+        "SELECT",
+        "SHOW"
+      ],
+      "executed": false,
+      "verification": "STATIC_FIRST_VERB_ALLOWLIST_ONLY_NO_DATABASE_SYNTAX_CHECK"
+    },
+    {
+      "file": "docs/deployment/catalog-readonly-location-review.sql",
+      "sha256": "c60bfcb6132844183ac8d926418187d3af2ec6c8ea855c7ba5af705e5e164bb6",
+      "statement_count": 4,
+      "verbs": [
+        "SELECT"
+      ],
+      "executed": false,
+      "verification": "STATIC_FIRST_VERB_ALLOWLIST_ONLY_NO_DATABASE_SYNTAX_CHECK"
+    },
+    {
+      "file": "docs/deployment/catalog-readonly-publication-review.sql",
+      "sha256": "da72468cd91a307e032936df26ee2f37876e99eaa5fcb1b43a1c2422accf6827",
+      "statement_count": 6,
+      "verbs": [
+        "SELECT"
+      ],
+      "executed": false,
+      "verification": "STATIC_FIRST_VERB_ALLOWLIST_ONLY_NO_DATABASE_SYNTAX_CHECK"
+    },
+    {
+      "file": "docs/deployment/catalog-readonly-relations-review.sql",
+      "sha256": "e9f15312e677766da970baa5f023ae02e3e0bf563109b27a803f2b73eec68912",
+      "statement_count": 11,
+      "verbs": [
+        "SELECT"
+      ],
+      "executed": false,
+      "verification": "STATIC_FIRST_VERB_ALLOWLIST_ONLY_NO_DATABASE_SYNTAX_CHECK"
+    }
+  ],
+  "risks": [
+    {
+      "severity": "P0",
+      "issue": "Missing approved dedicated read-only credential for live review",
+      "evidence": "CURRENT_SESSION_ACCESS_INPUT_MISSING"
+    },
+    {
+      "severity": "P1",
+      "issue": "Schema/ledger drift, FK/index/type incompatibility",
+      "evidence": "UNVERIFIED_PRODUCTION_RISK"
+    },
+    {
+      "severity": "P1",
+      "issue": "Historical wrong location mapping or duplicate/orphan rows",
+      "evidence": "UNVERIFIED_PRODUCTION_RISK"
+    },
+    {
+      "severity": "P1",
+      "issue": "Image/content rights and legacy publication approval",
+      "evidence": "SOURCE_REVIEW_PENDING_PRODUCTION_STATES_UNKNOWN"
+    },
+    {
+      "severity": "P2",
+      "issue": "Missing seed address/coordinates/images and unverified price ranges",
+      "evidence": "SOURCE_AND_PRIOR_SYNTHETIC_ONLY"
+    },
+    {
+      "severity": "INFORMATIONAL",
+      "issue": "Catalog upload folders absent locally",
+      "evidence": "CONFIRMED_WORKSPACE_FILESYSTEM_ONLY"
+    }
+  ],
+  "progress": {
+    "percent": 80,
+    "estimated": true,
+    "unchanged_since_phase5b": true,
+    "basis": "Four of five equally weighted work groups have technical evidence; production data and operations remain incomplete.",
+    "not_a_verified_record_percentage": true
+  },
+  "next_step": "Obtain approved dedicated RO connection details through a secure channel and complete live Phase 5C.1; do not start Phase 5C.2 automatically.",
+  "phase5c2_prerequisites": [
+    "Completed actual schema/ledger/counts/location/image/legacy review",
+    "Approved backup and storage scope/operator",
+    "Separately approved isolated restore target and permissions",
+    "Explicit next-phase authorization"
+  ],
+  "report": {
+    "file": "docs/catalog-readonly-phase5c1.md",
+    "sha256": "949f9855d1f6bd98320a5d13e2e4c6bd3ece2322c075d037032884f06fb4103d"
+  }
+}

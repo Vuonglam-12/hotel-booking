@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/experience_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Experiences on isolated in-memory SQLite"><file>tests/Feature/ExperienceModuleTest.php</file></testsuite></testsuites>
+</phpunit>

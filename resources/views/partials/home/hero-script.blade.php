@@ -259,7 +259,7 @@
                 return `
                 <div class="ac-item" onclick="window.location.href='/hotels/${h.id}'">
                     <div class="ac-img-wrap">
-                        <img src="https://picsum.photos/seed/${h.id}/120/90" alt="">
+                        <img src="${window.HolidayVietImages.escapeAttribute(window.HolidayVietImages.cover(h))}" data-accommodation-image alt="">
                     </div>
                     <div class="ac-info">
                         <div class="ac-name">${highlight(h.name, kw)}</div>

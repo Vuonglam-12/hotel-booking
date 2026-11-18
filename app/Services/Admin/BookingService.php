@@ -39,9 +39,15 @@ class BookingService
     // Cập nhật trạng thái của một Booking, trả về mảng chứa message và booking đã cập nhật
     public function updateStatus(int $id, string $status): array
     {
-        $booking   = Booking::findOrFail($id); // tìm Booking theo id, nếu không tìm thấy sẽ ném lỗi
-        $oldStatus = $booking->status; // lưu lại trạng thái cũ để trả về trong message
-        $booking->update(['status' => $status]); // cập nhật trạng thái mới cho Booking
+        [$booking,$oldStatus]=\Illuminate\Support\Facades\DB::transaction(function()use($id,$status){
+            $candidate=Booking::findOrFail($id);
+            \App\Models\Hotel::whereKey($candidate->hotel_id)->lockForUpdate()->firstOrFail();
+            $booking=Booking::whereKey($id)->lockForUpdate()->firstOrFail();
+            \App\Support\BookingLifecyclePolicy::transition(\Illuminate\Support\Facades\DB::connection(),$booking,$status);
+            $oldStatus=$booking->status;
+            $booking->update(['status'=>$status]);
+            return [$booking,$oldStatus];
+        },3);
 
         return [
             'message' => "Đã cập nhật booking #{$id}: {$oldStatus} → {$status}",

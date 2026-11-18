@@ -11,12 +11,24 @@ use App\Models\CustomerNotification as Notification;
 
 class PaymentController extends Controller
 {
+    // Legacy routes stay closed until the approved V2 registrar replaces them.
+    public function retry(Request $request)
+    {
+        return response()->json(['message' => 'Thanh toán tạm thời chưa được mở.'], 503)->header('Cache-Control', 'no-store');
+    }
+
+    public function vnpayReturn(Request $request)
+    {
+        return response()->json(['message' => 'Thanh toán tạm thời chưa được mở.'], 503)->header('Cache-Control', 'no-store');
+    }
+
     // ==========================================
     // POST /api/payments/create
     // Tạo URL thanh toán VNPay
     // ==========================================
     public function createPayment(Request $request)
     {
+        return response()->json(['message' => 'Thanh toán tạm thời chưa được mở.'], 503)->header('Cache-Control', 'no-store');
         $request->validate([
             'booking_id' => 'required|integer|exists:booking,id',
         ]);
@@ -80,6 +92,8 @@ class PaymentController extends Controller
     // ==========================================
     public function createManual(Request $request)
     {
+        // A customer acknowledgement must never complete a Booking or create financial effects.
+        return response()->json(['message' => 'Chưa thể xác nhận thanh toán. Vui lòng chờ xác minh giao dịch.'], 503)->header('Cache-Control', 'no-store');
         $request->validate([
             'booking_id'     => 'required|integer|exists:booking,id',
             'payment_method' => 'required|in:banking,cash',

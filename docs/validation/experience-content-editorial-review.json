@@ -1,0 +1,197 @@
+{
+  "review_date": "2026-10-25",
+  "approval": "PENDING_OWNER_REVIEW",
+  "scope": "Offline content review only; no database writes, uploads or publication.",
+  "supported_categories": ["tham-quan", "am-thuc", "vui-choi", "dia-phuong"],
+  "records": [
+    {
+      "id": 1, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Tìm hiểu Lăng Chủ tịch Hồ Chí Minh và không gian Quảng trường Ba Đình tại Hà Nội, một địa điểm gắn với lịch sử Việt Nam hiện đại.",
+      "visitor_note": "Tra cứu thông báo đón khách và quy định tham quan của Ban Quản lý Lăng trước chuyến đi.",
+      "reference_address": "Khu vực Quảng trường Ba Đình, Hà Nội",
+      "sources": [{"title": "Lăng Bác Hồ — Trang thông tin Hồ Chí Minh", "url": "https://hochiminh.vn/tin-tuc/lang-bac-ho-7778", "supports": "Danh tính địa điểm và vị trí tại Quảng trường Ba Đình, Hà Nội; không xác minh lịch mở cửa hiện tại."}],
+      "changes": ["Giữ thông tin lịch sử và địa phương; không gán giờ mở cửa hoặc khẳng định luôn được vào trong Lăng."],
+      "issues": [], "photo_note": "Ảnh tư liệu tháng 8/2007; không dùng để khẳng định tình trạng phục vụ hiện tại."
+    },
+    {
+      "id": 2, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Khám phá Văn Miếu – Quốc Tử Giám tại Hà Nội, với các khu kiến trúc di tích và bia Tiến sĩ gắn với lịch sử giáo dục, khoa cử Việt Nam.",
+      "visitor_note": "Xem thông tin dành cho du khách từ đơn vị quản lý; tuân thủ quy định tại di tích và không chạm vào bia đá.",
+      "reference_address": "58 Quốc Tử Giám, Hà Nội",
+      "sources": [{"title": "Nội tự — Trung tâm Văn Miếu – Quốc Tử Giám", "url": "https://vanmieu.gov.vn/vi/inner-temple", "supports": "Di tích, bia Tiến sĩ và vị trí Hà Nội."}, {"title": "Thông tin cho du khách — Văn Miếu", "url": "https://vanmieu.gov.vn/vi/visitor-information", "supports": "Cổng vào tại 58 Quốc Tử Giám và thông tin tham quan; không sao chép giá vé."}],
+      "changes": ["Viết lại ngắn, bỏ nhận xét quảng bá; bổ sung nguồn của đơn vị quản lý."],
+      "issues": [], "photo_note": "Giữ nguyên ảnh đã đạt ở vòng trước."
+    },
+    {
+      "id": 3, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Dạo quanh Hồ Hoàn Kiếm và tìm hiểu cụm di tích đền Ngọc Sơn tại trung tâm Hà Nội, với cầu Thê Húc nối vào khu đền trên đảo Ngọc.",
+      "visitor_note": "Phân biệt việc đi dạo quanh hồ với vào tham quan đền; kiểm tra thông báo và quy định tại cụm di tích.",
+      "reference_address": "Khu vực Hồ Hoàn Kiếm – phố Đinh Tiên Hoàng, Hà Nội",
+      "sources": [{"title": "Đền Ngọc Sơn — Sở Văn hóa và Thể thao Hà Nội", "url": "https://sovhtt.hanoi.gov.vn/den-ngoc-son/", "supports": "Quan hệ giữa hồ, đền và cầu Thê Húc."}, {"title": "Thông tin danh thắng — Ban quản lý di tích danh thắng Hà Nội", "url": "https://banqldtdthanoi.vn/lien-he/lien-he-danh-thang/", "supports": "Cụm di tích tại Đinh Tiên Hoàng, Hà Nội; không lấy giá/giờ làm dữ liệu đã duyệt."}],
+      "changes": ["Bỏ suy đoán về vé trong ghi chú, dẫn sang nguồn quản lý; không coi hồ và đền là cùng một phạm vi tiếp cận."],
+      "issues": [], "photo_note": "Ảnh cũ minh họa hồ, không phải ảnh bao quát cả đền."
+    },
+    {
+      "id": 4, "experience_category": "am-thuc", "content_status": "supported",
+      "summary": "Thưởng thức phở bò phong cách miền Bắc tại Phở Gia Truyền ở 49 Bát Đàn, Hà Nội.",
+      "visitor_note": "Xác nhận thời gian phục vụ và thực đơn với quán trước khi ghé; không dùng giá trên ảnh tư liệu làm giá hiện tại.",
+      "reference_address": "49 Bát Đàn, Hà Nội",
+      "sources": [{"title": "Phở Gia Truyền (Hoàn Kiếm) — MICHELIN Guide", "url": "https://guide.michelin.com/en/ha-noi/ha-noi_2974158/restaurant/pho-gia-truyen", "supports": "Tên quán, 49 Bát Đàn, Hà Nội và phở bò miền Bắc."}],
+      "changes": ["Bỏ nhận xét vị đậm, quán lâu năm và gợi ý khung giờ chưa cần thiết; xác định đúng số nhà."],
+      "issues": [], "photo_note": "Ảnh tháng 5/2007, biển hiệu đọc được 49 Bát Đàn; 640×480 px, không phóng lớn file."
+    },
+    {
+      "id": 5, "experience_category": "am-thuc", "content_status": "supported",
+      "summary": "Bún chả Hương Liên tại 24 Lê Văn Hưu, Hà Nội phục vụ bún với thịt nướng, rau và nước chấm theo phong cách bún chả Hà Nội.",
+      "visitor_note": "Kiểm tra thông tin phục vụ trực tiếp với quán. Ảnh sự kiện năm 2016 là ảnh tư liệu, không thể hiện thực đơn hay cơ sở hiện tại.",
+      "reference_address": "24 Lê Văn Hưu, Hà Nội",
+      "sources": [{"title": "Bún Chả Hương Liên — MICHELIN Guide", "url": "https://guide.michelin.com/sg/en/ha-noi/ha-noi_2974158/restaurant/bun-cha-huong-lien", "supports": "Tên quán, địa chỉ và món bún chả."}],
+      "changes": ["Bỏ khẳng định đông khách/phải chờ; không dùng hình người nổi tiếng để ngụ ý bảo trợ AUREL."],
+      "issues": [], "photo_note": "Ảnh tư liệu 23/05/2016. Commons ghi tác phẩm White House Photo Office, public domain tại Hoa Kỳ/PDM; cần chủ dự án duyệt phạm vi dùng ảnh sự kiện. Không gán tác giả cá nhân khi nguồn chỉ ghi bộ sưu tập."
+    },
+    {
+      "id": 6, "experience_category": "am-thuc", "content_status": "partial",
+      "summary": "Tìm hiểu món chả cá Lã Vọng của Hà Nội, với cá chế biến cùng nghệ và thì là. Cơ sở cụ thể của bản ghi cần được xác nhận trước khi công khai.",
+      "visitor_note": "Chưa chốt địa chỉ quán. Không dùng thông tin về món ăn để khẳng định danh tính, thực đơn hay tình trạng hoạt động của một nhà hàng.",
+      "reference_address": null,
+      "sources": [{"title": "Famous Ha Noi Food — Vietnam Tourism", "url": "https://vietnam.travel/node/1479", "supports": "Món chả cá Lã Vọng tại Hà Nội; không đủ xác minh cơ sở hiện tại."}],
+      "changes": ["Phân biệt tên món với nhà hàng; không khẳng định mắm tôm, lạc hoặc thực đơn của cơ sở chưa chốt."],
+      "issues": ["Chủ dự án cần xác nhận bản ghi là quán nào và địa chỉ đang hoạt động; nguồn ảnh ghi 14 Chả Cá vào năm 2008 không thay cho xác minh hiện tại."],
+      "photo_note": "Ảnh món ăn tại 14 Chả Cá theo chú thích tác giả, năm 2008; chỉ là tư liệu minh họa."
+    },
+    {
+      "id": 9, "experience_category": "dia-phuong", "content_status": "supported",
+      "summary": "Tìm hiểu nghệ thuật múa rối nước tại Nhà hát Múa rối Thăng Long, số 57B Đinh Tiên Hoàng, Hà Nội.",
+      "visitor_note": "Tra cứu lịch diễn từ nhà hát và xác nhận chương trình còn chỗ trước khi đến.",
+      "reference_address": "57B Đinh Tiên Hoàng, Hà Nội",
+      "sources": [{"title": "Nhà hát Múa rối Thăng Long", "url": "https://nhahatmuaroithanglong.vn/en/", "supports": "Danh tính nhà hát, nghệ thuật rối nước và địa chỉ; không dùng số buổi diễn/quảng cáo kỷ lục."}],
+      "changes": ["Chuẩn hóa về Hoạt động địa phương, giữ item_type activity; bỏ cam kết về tiết mục và số suất diễn."],
+      "issues": [], "photo_note": "Giữ nguyên ảnh năm 2005 và watermark IanAndWendy.com; ảnh nhỏ, cần duyệt độ phù hợp hiện tại."
+    },
+    {
+      "id": 10, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Tham quan Dinh Độc Lập tại TP.HCM, tìm hiểu công trình kiến trúc và các không gian trưng bày về lịch sử Việt Nam hiện đại.",
+      "visitor_note": "Kiểm tra thông báo tham quan từ Hội trường Thống Nhất trước chuyến đi; từng khu vực có thể có quy định riêng.",
+      "reference_address": "135 Nam Kỳ Khởi Nghĩa, TP.HCM",
+      "sources": [{"title": "Di tích lịch sử Dinh Độc Lập", "url": "https://dinhdoclap.gov.vn/", "supports": "Di tích, trưng bày lịch sử và địa chỉ; không nhập giá/giờ mở cửa trong lượt duyệt này."}],
+      "changes": ["Bổ sung nguồn quản lý trực tiếp; giữ mô tả khái quát thay cho cam kết quyền vào từng phòng."],
+      "issues": [], "photo_note": "Giữ nguyên ảnh đã đạt ở vòng trước."
+    },
+    {
+      "id": 11, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Tìm hiểu tư liệu, hình ảnh và hiện vật về chiến tranh và hậu quả chiến tranh tại Bảo tàng Chứng tích Chiến tranh, TP.HCM.",
+      "visitor_note": "Một số khu trưng bày có nội dung nhạy cảm về chiến tranh; cân nhắc khi đi cùng trẻ nhỏ và tuân thủ nội quy bảo tàng.",
+      "reference_address": "28 Võ Văn Tần, TP.HCM",
+      "sources": [{"title": "Bảo tàng Chứng tích chiến tranh — Visit HCMC", "url": "https://visithcmc.vn/vi/bao-tang-chung-tich-chien-tranh/", "supports": "Tên, địa chỉ và chủ đề trưng bày; không sao chép số liệu khách, giá vé hoặc đánh giá."}],
+      "changes": ["Bỏ tính từ nổi tiếng; làm rõ chủ đề và lưu ý nội dung thay cho nhận xét cảm xúc chung."],
+      "issues": [], "photo_note": "Giữ nguyên ảnh đã đạt ở vòng trước."
+    },
+    {
+      "id": 12, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Khám phá Chợ Bến Thành tại trung tâm TP.HCM, với các gian hàng mua sắm và khu ẩm thực trong chợ.",
+      "visitor_note": "Hỏi rõ giá và thông tin sản phẩm trước khi mua; không coi thông tin chợ đêm là giờ hoạt động của toàn bộ chợ.",
+      "reference_address": null,
+      "sources": [{"title": "Thiên đường ẩm thực đường phố tại Sài Gòn — Visit HCMC", "url": "https://visithcmc.vn/vi/thien-duong-am-thuc-duong-pho-tai-sai-gon/", "supports": "Chợ Bến Thành và khu ẩm thực; địa chỉ từng cổng chưa xác minh trong hồ sơ này."}],
+      "changes": ["Giữ loại attraction và chuẩn hóa danh mục Tham quan; không tạo danh mục mua_sam ngoài enum."],
+      "issues": [], "photo_note": "Giữ nguyên ảnh đã đạt ở vòng trước."
+    },
+    {
+      "id": 13, "experience_category": "am-thuc", "content_status": "supported",
+      "summary": "Ghé Bánh mì Huỳnh Hoa trên đường Lê Thị Riêng, TP.HCM để thưởng thức bánh mì kẹp nhân.",
+      "visitor_note": "Xác nhận đúng chi nhánh Lê Thị Riêng và thông tin phục vụ hiện tại với cửa hàng; bảng giá trong ảnh năm 2017 không phải giá đang áp dụng.",
+      "reference_address": "26–32 Lê Thị Riêng, TP.HCM",
+      "sources": [{"title": "Chính sách cửa hàng — Bánh mì Huỳnh Hoa", "url": "https://banhmihuynhhoa.vn/wp-content/uploads/2026/01/BO-CHINH-SACH-QUY-DINH-BMHH-.pdf", "supports": "Thương hiệu, chi nhánh 26–32 Lê Thị Riêng; không xác nhận thành phần nhân từ ảnh cũ."}],
+      "changes": ["Bỏ khẳng định đông khách và các thành phần nhân chưa đối chiếu thực đơn hiện tại; xác định chi nhánh dùng trong bản duyệt."],
+      "issues": [], "photo_note": "Ảnh quầy bánh mì ngày 23/12/2017; biển giá chỉ có giá trị tư liệu."
+    },
+    {
+      "id": 14, "experience_category": "am-thuc", "content_status": "supported",
+      "summary": "Thưởng thức phở bò phong cách miền Nam tại Phở Lệ trên đường Nguyễn Trãi, TP.HCM.",
+      "visitor_note": "Bản duyệt tham chiếu cơ sở 413–415 Nguyễn Trãi. Kiểm tra thực đơn và thời gian phục vụ hiện tại với quán.",
+      "reference_address": "413–415 Nguyễn Trãi, TP.HCM",
+      "sources": [{"title": "Phở Lệ (An Đông) — MICHELIN Guide", "url": "https://guide.michelin.com/th/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/pho-le-district-5", "supports": "Địa chỉ Nguyễn Trãi tại TP.HCM và phở bò miền Nam."}],
+      "changes": ["Loại ảnh Phở Lệ tại Yuen Long/Hong Kong; không dùng quán trùng tên ở địa phương khác."],
+      "issues": [], "photo_note": "Ảnh Joseph Hunkins năm 2011 tại Phở Lệ/Sài Gòn; biển hiệu đọc được 413/415, khớp cơ sở Nguyễn Trãi."
+    },
+    {
+      "id": 15, "experience_category": "am-thuc", "content_status": "supported",
+      "summary": "Ghé Cơm tấm Ba Ghiền tại 84 Đặng Văn Ngữ, TP.HCM để thưởng thức cơm tấm với sườn nướng và món ăn kèm.",
+      "visitor_note": "Kiểm tra thực đơn và tình trạng phục vụ với quán trước khi đến; chưa có ảnh được phép dùng trong bộ duyệt.",
+      "reference_address": "84 Đặng Văn Ngữ, TP.HCM",
+      "sources": [{"title": "Cơm Tấm Ba Ghiền — MICHELIN Guide", "url": "https://guide.michelin.com/au/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/com-tam-ba-ghien", "supports": "Tên, địa chỉ và cơm tấm sườn nướng; ảnh trên trang không được coi là có quyền tái sử dụng."}],
+      "changes": ["Bỏ nhận xét đậm chất địa phương và gợi ý giờ ăn; thêm địa chỉ có nguồn."],
+      "issues": ["Chưa có ảnh đúng cơ sở với giấy phép tái sử dụng được xác nhận."], "photo_note": null
+    },
+    {
+      "id": 18, "experience_category": "dia-phuong", "content_status": "insufficient",
+      "summary": "Gợi ý tìm hiểu trải nghiệm dùng bữa trên tàu tại sông Sài Gòn, TP.HCM. Chưa xác định đơn vị khai thác và tàu cụ thể cho bản ghi này.",
+      "visitor_note": "Giữ bản nháp đến khi xác nhận tàu, đơn vị khai thác, điểm đón và nguồn thông tin. Không coi đây là một dịch vụ đã được xác minh.",
+      "reference_address": null, "sources": [],
+      "changes": ["Không cam kết chạy ban đêm, hành trình, thực đơn hay quyền đặt vé khi chưa có đơn vị cụ thể."],
+      "issues": ["Tên hoạt động chung, thiếu tàu/đơn vị/bến đón cụ thể và nguồn kiểm chứng.", "Không gán ảnh của một hãng tàu khác hoặc ảnh sông chung làm ảnh địa điểm đã xác minh."], "photo_note": null
+    },
+    {
+      "id": 19, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Khám phá cảnh quan núi Langbiang tại khu vực Lạc Dương, Lâm Đồng, trong hành trình từ điểm đến Đà Lạt.",
+      "visitor_note": "Tham khảo thông tin từ đơn vị quản lý trước chuyến đi; không mặc định mọi tuyến leo núi hay dịch vụ đều đang mở.",
+      "reference_address": "Khu vực Lạc Dương, Lâm Đồng",
+      "sources": [{"title": "Hỏi đáp vị trí Langbiang — Dalattourist", "url": "https://dalattourist.com.vn/faq", "supports": "Langbiang tại Lạc Dương/Lâm Đồng; không xác minh từng tuyến, phương tiện hoặc hoạt động hiện tại."}],
+      "changes": ["Nêu rõ Langbiang thuộc khu vực Lạc Dương; Đà Lạt là nhóm điểm đến hiện có trong hệ thống, không khẳng định địa giới hành chính."],
+      "issues": [], "photo_note": "Giữ nguyên ảnh đã đạt; không sửa location ID hoặc tạo địa phương mới."
+    },
+    {
+      "id": 20, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Dạo quanh không gian hồ nước, cây xanh và vườn hoa tại Thung lũng Tình Yêu, điểm tham quan thuộc nhóm điểm đến Đà Lạt.",
+      "visitor_note": "Kiểm tra thông báo của TTC World trước khi đến; không coi chương trình mùa hè hoặc hoạt động trong ảnh cũ là luôn có sẵn.",
+      "reference_address": null,
+      "sources": [{"title": "Summer In Love 2026 — TTC Group", "url": "https://www.ttcgroup.vn/linh-vuc-hoat-dong/du-lich-1/tin-tuc-khac-1/summer-in-love-2026-mua-he-cua-nhung-trai-nghiem-moi-tai-thung-lung-tinh-yeu", "supports": "Danh tính khu du lịch, cảnh quan hồ/cây/vườn hoa tại Đà Lạt; không hứa chương trình tháng 6 vẫn diễn ra tháng 10."}],
+      "changes": ["Thay nguồn ảnh có cảnh báo bằng ảnh Diane Selwyn chụp năm 2011; không suy từ cảnh cũ ra các hoạt động năm 2026."],
+      "issues": [], "photo_note": "Ảnh tư liệu 2011 được tác giả phát hành public domain toàn cầu theo trang nguồn. Ảnh bị cảnh báo ở vòng trước vẫn bị loại."
+    },
+    {
+      "id": 21, "experience_category": "tham-quan", "content_status": "supported",
+      "summary": "Tham quan các khu trồng và trưng bày hoa tại Vườn hoa Thành phố Đà Lạt trên đường Trần Quốc Toản.",
+      "visitor_note": "Loài hoa và cảnh quan trưng bày có thể thay đổi; kiểm tra thông tin mở cửa từ đơn vị quản lý trước chuyến đi.",
+      "reference_address": "Đường Trần Quốc Toản, Đà Lạt",
+      "sources": [{"title": "Vườn hoa thành phố — Cổng du lịch Đà Lạt", "url": "https://dalat.vn/iv/vuonhoathanhpho", "supports": "Tên vườn, hoa và vị trí đường Trần Quốc Toản; không sao chép địa chỉ phường cũ hoặc số liệu diện tích."}],
+      "changes": ["Bỏ tính từ nhiều màu sắc/ngàn hoa; không nhận định loài hoa đang nở hoặc quy mô nếu chưa kiểm tra tại thời điểm đến."],
+      "issues": [], "photo_note": "Ảnh tư liệu 07/01/2007 của hector garcia; không coi bố trí vườn trong ảnh là hiện trạng 2026."
+    },
+    {
+      "id": 22, "experience_category": "am-thuc", "content_status": "partial",
+      "summary": "Tìm hiểu món lẩu gà lá é gắn với tên Tao Ngộ tại Đà Lạt. Cần chốt cơ sở cụ thể trước khi đưa địa điểm này ra công khai.",
+      "visitor_note": "Không chọn tự động một chi nhánh chỉ từ tên quán. Xác nhận cơ sở, địa chỉ, tình trạng phục vụ và quyền ảnh với chủ dự án.",
+      "reference_address": null,
+      "sources": [{"title": "Danh sách chi nhánh tự công bố trên laugalae.vn", "url": "https://laugalae.vn/dia-chi-an-lau-ga-la-e-tao-ngo-chinh-hieu-o-tphcm", "supports": "Có nhiều địa chỉ mang tên Tao Ngộ, gồm địa chỉ đường 3/4 tại Đà Lạt; chưa đủ xác định cơ sở của bản ghi hoặc thẩm quyền thương hiệu."}],
+      "changes": ["Bỏ đánh giá hương vị, phù hợp nhóm nhỏ/bữa tối; không coi trang tự nhận chính hiệu là bằng chứng độc quyền thương hiệu."],
+      "issues": ["Tên có nhiều cơ sở/chuỗi; cần chủ dự án xác nhận đúng quán tại Đà Lạt.", "Chưa có ảnh hợp lệ gắn với cơ sở được chốt."], "photo_note": null
+    },
+    {
+      "id": 23, "experience_category": "am-thuc", "content_status": "supported",
+      "summary": "Ghé Bánh căn Lệ trong hẻm 27/44 Yersin, Đà Lạt để tìm hiểu món bánh căn và các món ăn kèm của quán.",
+      "visitor_note": "Kiểm tra lịch phục vụ trực tiếp với quán. Giữ số nhà/đường để đối chiếu, chưa chốt tên phường vì các nguồn đang ghi khác nhau.",
+      "reference_address": "27/44 Yersin, Đà Lạt",
+      "sources": [{"title": "Bánh Căn Lệ — Cổng du lịch Đà Lạt", "url": "https://dalat.vn/en/banhcanle", "supports": "Tên quán, 27/44 Yersin và bánh căn; không lấy giá/giờ của trang làm dữ liệu hiện tại đã xác minh."}],
+      "changes": ["Bỏ nhận xét nóng/giòn và gợi ý giờ ăn; tách số nhà/đường khỏi thông tin phường không thống nhất."],
+      "issues": ["Ảnh tìm được của Nam Nguyen trên Flickr ghi All rights reserved; không tải hoặc dùng khi chưa có giấy phép. Cần ảnh khác có quyền rõ ràng hoặc ảnh chủ dự án sở hữu."],
+      "photo_note": "Đã kiểm tra Flickr gốc 29898174333; không dùng ảnh chỉ vì được một blog nhúng lại."
+    },
+    {
+      "id": 24, "experience_category": "am-thuc", "content_status": "partial",
+      "summary": "Tìm hiểu lẩu bò tại Quán Gỗ ở khu vực Ba Toa, Đà Lạt. Cần xác nhận chính xác cơ sở và địa chỉ đang hoạt động trước khi công khai.",
+      "visitor_note": "Tên Ba Toa được nhiều nơi sử dụng. Không gán địa chỉ, ảnh, giờ mở cửa hoặc giá của cơ sở khác cho bản ghi này.",
+      "reference_address": null,
+      "sources": [{"title": "Quán ăn cho ba ngày ở Đà Lạt — Cổng du lịch Đà Lạt", "url": "https://dalat.vn/vi/detailnews/?id=news_673&t=dalat", "supports": "Tư liệu cũ nhắc Quán Gỗ tại hẻm Hoàng Diệu; không đủ xác minh số nhà, sở hữu và hoạt động hiện tại."}],
+      "changes": ["Không lấy giá từ tư liệu năm 2022 hoặc địa chỉ phường cũ làm dữ liệu hiện tại; giữ cảnh báo trùng tên."],
+      "issues": ["Cần chủ dự án chốt đúng cơ sở Quán Gỗ/Ba Toa và nguồn hiện tại.", "Chưa có ảnh đúng cơ sở với quyền sử dụng xác nhận."], "photo_note": null
+    },
+    {
+      "id": 27, "experience_category": "dia-phuong", "content_status": "insufficient",
+      "summary": "Gợi ý tìm hiểu hoạt động tham quan vườn dâu tại nhóm điểm đến Đà Lạt. Chưa có tên vườn và điều kiện hái dâu được xác minh cho bản ghi này.",
+      "visitor_note": "Giữ bản nháp đến khi chọn vườn cụ thể và xác nhận quyền tham quan/hái, mùa vụ, địa chỉ và nguồn thông tin.",
+      "reference_address": null, "sources": [],
+      "changes": ["Không hứa được hái hoặc nếm dâu chỉ từ tên hoạt động; không gán ảnh của một nông trại bất kỳ."],
+      "issues": ["Thiếu vườn cụ thể, địa chỉ, điều kiện tham quan và nguồn kiểm chứng.", "Chưa có ảnh gắn với vườn được chốt và có giấy phép rõ ràng."], "photo_note": null
+    }
+  ]
+}

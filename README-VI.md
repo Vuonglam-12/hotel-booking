@@ -1,7 +1,7 @@
-# 🏨 HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN - HOTEL BOOKING SYSTEM
+# 🏨 AUREL — HỆ THỐNG ĐẶT PHÒNG KHÁCH SẠN
 
 ## 📋 **TỔNG QUAN DỰ ÁN**
-**Hotel Booking** là hệ thống đặt phòng khách sạn hoàn chỉnh được xây dựng bằng **Laravel 10.10** với đầy đủ tính năng từ tìm kiếm, đặt phòng, thanh toán VNPay đến quản trị admin và AI hỗ trợ.
+**AUREL** là hệ thống đặt phòng khách sạn được xây dựng bằng **Laravel 10.10** với tính năng tìm kiếm, đặt phòng, thanh toán VNPay, quản trị và AI hỗ trợ. Hệ thống có hai actor: **Admin** quản trị toàn bộ website và **Customer** tìm kiếm, đăng ký, đăng nhập và đặt khách sạn.
 
 | **Thông tin** | **Chi tiết** |
 |---------------|-------------|
@@ -27,14 +27,14 @@
 ✅ AI Itinerary generator (lịch trình du lịch + map)
 ```
 
-### **2. Admin/Staff Dashboard**
+### **2. Admin Dashboard**
 ```
 ✅ Quản lý tất cả bookings (update status)
 ✅ Quản lý hotels (approve/reject)
 ✅ Quản lý customers
 ✅ Review moderation (delete spam)
 ✅ Revenue reports (monthly)
-✅ Staff auth riêng (sanctum:staff)
+✅ Admin auth riêng bằng Sanctum, role admin và token admin_token
 ```
 
 ## 🏗️ **CẤU TRÚC DỰ ÁN**
@@ -55,7 +55,7 @@
 ├── Hotel, Room, Booking, Payment
 ├── Customer, Review, Wishlist
 ├── ChatSession, Itinerary
-├── Invoice, Staff...
+├── Invoice...
 
 📂 routes/
 ├── web.php (Blade views: home, login, deals...)
@@ -137,10 +137,14 @@ POST /api/chat/start, /api/itineraries/generate
 
 ### **Admin** (`/api/admin/*`)
 ```
-POST /api/admin/login (staff)
+POST /api/admin/login (Customer có role admin)
 GET  /api/admin/dashboard, /api/admin/bookings
 PUT  /api/admin/bookings/{id}/status
 ```
+
+Admin và Customer dùng Model `Customer`, với role lần lượt là `admin` và `user`. API Admin yêu cầu `auth:admin`, `AdminMiddleware` và token `admin_token` có ability `admin`. Thông tin giao diện Admin lưu dưới `admin_account`; login/logout không thu hồi phiên của actor còn lại.
+
+Actor Staff đã được loại khỏi source đang hoạt động. Bảng `staff` và migration lịch sử được giữ nguyên để chờ phê duyệt migration dọn schema riêng. Xem [báo cáo và phương án xử lý database](docs/staff-removal.md).
 
 ## 🎨 **Giao diện**
 - **Design**: Glassmorphism navbar, responsive mobile-first

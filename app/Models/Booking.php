@@ -61,6 +61,16 @@ class Booking extends Model
         return $this->hasOne(Payment::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
+
     public function rooms()
     {
         return $this->belongsToMany(Room::class, 'booking_room')

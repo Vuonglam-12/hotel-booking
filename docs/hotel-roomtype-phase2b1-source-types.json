@@ -1,0 +1,53 @@
+{
+  "basis": "Phase 2A mapping and business fields in database/seeders/HotelBookingSeeder.php; no database was queried to prepare this artifact.",
+  "legacy_types": [
+    {
+      "id": 1,
+      "name": "Standard",
+      "capacity": 2,
+      "base_price": "500000.00",
+      "bed_type": "Double",
+      "description": "Phòng tiêu chuẩn thoải mái với đầy đủ tiện nghi cơ bản."
+    },
+    {
+      "id": 2,
+      "name": "Superior",
+      "capacity": 2,
+      "base_price": "800000.00",
+      "bed_type": "Double",
+      "description": "Phòng superior rộng rãi với view đẹp và nội thất hiện đại."
+    },
+    {
+      "id": 3,
+      "name": "Deluxe",
+      "capacity": 2,
+      "base_price": "1200000.00",
+      "bed_type": "King",
+      "description": "Phòng deluxe sang trọng với ban công và view thành phố."
+    },
+    {
+      "id": 4,
+      "name": "Suite",
+      "capacity": 3,
+      "base_price": "2500000.00",
+      "bed_type": "King",
+      "description": "Phòng suite cao cấp với phòng khách riêng biệt và bồn tắm."
+    },
+    {
+      "id": 5,
+      "name": "Family",
+      "capacity": 4,
+      "base_price": "1800000.00",
+      "bed_type": "Twin",
+      "description": "Phòng gia đình rộng lớn phù hợp cho cả gia đình."
+    },
+    {
+      "id": 6,
+      "name": "Presidential",
+      "capacity": 4,
+      "base_price": "5000000.00",
+      "bed_type": "King",
+      "description": "Phòng tổng thống đẳng cấp nhất với dịch vụ butler riêng."
+    }
+  ]
+}

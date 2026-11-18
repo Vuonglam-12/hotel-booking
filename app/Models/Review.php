@@ -19,6 +19,7 @@ class Review extends Model
         'hotel_id',          // Review KS (1 trong 2 phải có)
         'destination_id',    // Review địa điểm (1 trong 2 phải có)
         'rating',            // Điểm tổng (1-5)
+        'status',
         'rating_cleanliness',// Điểm vệ sinh (1-5)
         'rating_service',    // Điểm dịch vụ (1-5)
         'rating_location',   // Điểm vị trí (1-5)
@@ -26,6 +27,10 @@ class Review extends Model
         'helpful_count',     // Số người thấy hữu ích
         'created_at',
     ];
+
+    protected $casts = ['rating'=>'integer','helpful_count'=>'integer','created_at'=>'datetime'];
+
+    public function scopePublished($query) { return $query->where('status','approved'); }
 
     // Quan hệ: review thuộc về customer nào
     public function customer()

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/Support/booking_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites>
+        <testsuite name="AUREL Hotel and Booking Phase 1">
+            <file>tests/Feature/BookingEligibilityTest.php</file>
+            <file>tests/Feature/HotelBookingPhaseOneTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

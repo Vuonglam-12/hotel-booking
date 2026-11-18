@@ -1,0 +1,11 @@
+{
+  "approval": "PENDING_OWNER_REVIEW",
+  "publication_status": "draft",
+  "reviewed_on": "2026-10-25",
+  "category_name": "Kinh nghiệm du lịch",
+  "records": [
+    {"key":"ha-noi","title":"Hà Nội cho chuyến đi đầu tiên: hồ Gươm, Văn Miếu và nghệ thuật rối nước","excerpt":"Một gợi ý khám phá Hà Nội qua không gian hồ Gươm, di sản giáo dục ở Văn Miếu và nghệ thuật rối nước, kèm những điều cần kiểm tra trước chuyến đi.","location_name":"Hà Nội","country":"Việt Nam","body_file":"ha-noi.html","cover_file":"covers/ha-noi.jpg","cover_attraction_id":3,"author_name":null,"status":"draft","published_at":null,"review_notes":["Chờ chủ dự án duyệt nội dung và xác nhận tên tác giả.","Lịch diễn, giá vé và giờ mở cửa không được cố định trong bài; cần kiểm tra lại trước chuyến đi."]},
+    {"key":"tp-ho-chi-minh","title":"Khám phá TP.HCM qua lịch sử và những địa chỉ ẩm thực có nguồn rõ ràng","excerpt":"Gợi ý tự sắp xếp chuyến đi với Dinh Độc Lập, Bảo tàng Chứng tích Chiến tranh và một bữa ăn địa phương, ưu tiên đúng địa chỉ và thông tin được kiểm chứng.","location_name":"Hồ Chí Minh","country":"Việt Nam","body_file":"tp-ho-chi-minh.html","cover_file":"covers/tp-ho-chi-minh.jpg","cover_attraction_id":10,"author_name":null,"status":"draft","published_at":null,"review_notes":["Chờ chủ dự án duyệt nội dung và xác nhận tên tác giả.","Ảnh bìa phải giữ ghi công và CC BY-SA 4.0 khi sử dụng.","Không coi ảnh hoặc đánh giá cũ là thực đơn, giá hay tình trạng phục vụ hiện tại."]},
+    {"key":"da-lat","title":"Đà Lạt theo nhịp riêng: vườn hoa, Langbiang và cách chọn trải nghiệm","excerpt":"Cách chọn điểm tham quan cho chuyến Đà Lạt, phân biệt Langbiang ở khu vực Lạc Dương với khu trung tâm và kiểm tra điều kiện của các hoạt động theo thời điểm.","location_name":"Đà Lạt","country":"Việt Nam","body_file":"da-lat.html","cover_file":"covers/da-lat.jpg","cover_attraction_id":19,"author_name":null,"status":"draft","published_at":null,"review_notes":["Chờ chủ dự án duyệt nội dung và xác nhận tên tác giả.","Đà Lạt dùng làm nhóm điểm đến, không khẳng định Langbiang thuộc địa giới hành chính trung tâm.","Chương trình mùa hè, tuyến tham quan và việc hái dâu chưa được hứa là đang có sẵn."]}
+  ]
+}

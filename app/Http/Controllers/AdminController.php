@@ -8,13 +8,19 @@ use App\Models\Customer;
 use App\Models\Review;
 use App\Models\Payment;
 use App\Models\Location;
-use App\Models\Attraction;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
+    // Keep the existing protected route explicit while outbound email is unavailable.
+    public function sendEmailToCustomer(Request $request, int $id)
+    {
+        $this->checkAdmin($request);
+        return response()->json(['message' => 'Gửi email cho khách hàng hiện chưa khả dụng.'], 503)->header('Cache-Control', 'no-store');
+    }
+
     // ==========================================
     // MIDDLEWARE CHECK — chỉ Admin mới vào được
     // ==========================================
@@ -50,10 +56,10 @@ class AdminController extends Controller
             : null;
 
         // ── Doanh thu tháng này vs tháng trước ──
-        $revenueThisMonth = Payment::where('payment_status', 'success')
+        $revenueThisMonth = Payment::withoutDemo()->where('payment_status', 'success')
             ->whereMonth('paid_at', $thisMonth)->whereYear('paid_at', $thisYear)
             ->sum('amount');
-        $revenueLastMonth = Payment::where('payment_status', 'success')
+        $revenueLastMonth = Payment::withoutDemo()->where('payment_status', 'success')
             ->whereMonth('paid_at', $lastMonth->month)->whereYear('paid_at', $lastMonth->year)
             ->sum('amount');
         $revenueChange = $revenueLastMonth > 0
@@ -99,7 +105,7 @@ class AdminController extends Controller
         // ── Doanh thu 7 ngày gần nhất ──
         $revenue7days = collect(range(6, 0))->map(function ($daysAgo) {
             $date   = now()->subDays($daysAgo);
-            $amount = Payment::where('payment_status', 'success')
+            $amount = Payment::withoutDemo()->where('payment_status', 'success')
                 ->whereDate('paid_at', $date->toDateString())
                 ->sum('amount');
             $dayNames = ['CN','T2','T3','T4','T5','T6','T7'];
@@ -132,7 +138,7 @@ class AdminController extends Controller
     {
         $this->checkAdmin($request);
 
-        $query = Booking::with(['customer:id,name,email,phone', 'hotel:id,name', 'payment', 'rooms:id,room_number'])
+        $query = Booking::with(['customer:id,name,email,phone', 'hotel:id,name', 'payments', 'rooms:id,room_number', 'bookingRooms.roomType'])
             ->orderBy('created_at', 'desc');
 
         if ($request->status) {
@@ -158,9 +164,16 @@ class AdminController extends Controller
         }
 
         $paginator = $query->paginate($request->per_page ?? 20);
-        $paginator->through(fn($b) => array_merge($b->toArray(), [
+        $paginator->through(function ($b) {
+            app(\App\Services\HotelRoomTypeService::class)->applyToBooking($b);
+            return array_merge($b->toArray(), [
             'room_numbers' => $b->rooms->pluck('room_number')->filter()->join(', '),
-        ]));
+            'room_quantity' => (int) $b->bookingRooms->sum('quantity'),
+            'room_type_summary' => $b->bookingRooms->map(fn($line) => ($line->roomType?->name ?? 'Loại phòng') . ' × ' . $line->quantity . ' phòng')->join(', '),
+            'is_demo' => $b->payments->contains('payment_method','demo'),
+            'payment' => $b->payments->sortByDesc('id')->firstWhere('payment_status','success') ?? $b->payments->sortByDesc('id')->first(),
+            ]);
+        });
         return response()->json($paginator);
     }
 
@@ -168,14 +181,42 @@ class AdminController extends Controller
     public function updateBookingStatus(Request $request, $id)
     {
         $this->checkAdmin($request);
-
         $request->validate([
             'status' => 'required|in:pending,confirmed,cancelled,completed',
         ]);
+        if (\App\Support\LocalBookingDemo::isDemo((int)$id)) {
+            \App\Support\LocalBookingDemo::assertRequest($request);
+            abort_unless($request->status==='completed',422,'Hãy mở “Xử lý thanh toán” để cập nhật kết quả thanh toán.');
+            return response()->json(app(\App\Services\LocalBookingDemoService::class)->completeStay((int)$id,(int)$request->user('admin')->id));
+        }
 
-        $booking = Booking::with(['customer', 'bookingRooms.roomType', 'hotel'])->findOrFail($id);
-        $oldStatus = $booking->status;
-        $booking->update(['status' => $request->status]);
+        $candidate = Booking::select('id', 'hotel_id')->findOrFail($id);
+        [$booking, $oldStatus] = DB::transaction(function () use ($candidate, $request, $id) {
+            Hotel::whereKey($candidate->hotel_id)->lockForUpdate()->firstOrFail();
+            $booking = Booking::with(['customer', 'bookingRooms.roomType', 'hotel'])->whereKey($id)->lockForUpdate()->firstOrFail();
+            $oldStatus = $booking->status;
+            \App\Support\BookingLifecyclePolicy::transition(DB::connection(),$booking,$request->status);
+            if (in_array($oldStatus, ['cancelled', 'expired'], true) && $request->status !== 'cancelled') {
+                foreach ($booking->bookingRooms->groupBy('room_type_id') as $typeId => $lines) {
+                    $inspection = app(\App\Services\RoomAvailabilityService::class)->forTypeWithRooms(
+                        $booking->hotel_id, (int) $typeId, $booking->check_in->format('Y-m-d'), $booking->check_out->format('Y-m-d')
+                    );
+                    $assigned = $lines->whereNotNull('room_id')->groupBy('room_id');
+                    $quantity = (int) $lines->whereNull('room_id')->sum('quantity')
+                        + $assigned->sum(fn($duplicates) => max(0, (int) $duplicates->max('quantity')));
+                    if ($quantity < 1 || $inspection['availability']['available_rooms'] < $quantity) {
+                        throw \Illuminate\Validation\ValidationException::withMessages(['status' => 'Không thể khôi phục Booking: không đủ phòng trong toàn bộ khoảng lưu trú.']);
+                    }
+                    foreach ($assigned->keys() as $roomId) {
+                        if (!($inspection['rooms'][$roomId]['bookable'] ?? false)) {
+                            throw \Illuminate\Validation\ValidationException::withMessages(['status' => 'Không thể khôi phục Booking: phòng cụ thể không còn trống.']);
+                        }
+                    }
+                }
+            }
+            $booking->update(['status' => $request->status]);
+            return [$booking, $oldStatus];
+        });
 
         // Thêm: admin confirm booking cash → tạo Invoice + gửi email
         if ($request->status === 'confirmed' && $oldStatus !== 'confirmed') {
@@ -210,196 +251,338 @@ class AdminController extends Controller
     // QUẢN LÝ KHÁCH SẠN
     // ==========================================
 
+    public function hotelAmenities(Request $request)
+    {
+        $this->checkAdmin($request);
+        try {
+            return response()->json(['amenities' => \App\Support\HotelAmenityCatalog::storedOptions()]);
+        } catch (\Illuminate\Database\QueryException $exception) {
+            report($exception);
+            return response()->json(['message' => 'Không tải được danh mục tiện nghi. Vui lòng thử lại.'], 503);
+        }
+    }
+
+    public function createHotelAmenity(Request $request)
+    {
+        $this->checkAdmin($request);
+        if (is_string($request->input('name'))) $request->merge([
+            'name' => \App\Support\HotelAmenityCatalog::normalize($request->input('name')),
+        ]);
+        $data = $request->validate(['name' => 'required|string|max:100'], [
+            'name.required' => 'Vui lòng nhập tên tiện nghi.',
+            'name.string' => 'Tên tiện nghi phải là chuỗi ký tự.',
+            'name.max' => 'Tên tiện nghi tối đa 100 ký tự.',
+        ]);
+        try {
+            $amenity = \App\Support\HotelAmenityCatalog::remember($data['name']);
+        } catch (\Illuminate\Database\QueryException $exception) {
+            report($exception);
+            return response()->json(['message' => 'Không thể lưu tiện nghi vào danh mục. Vui lòng thử lại.'], 503);
+        }
+        if (!$amenity->wasRecentlyCreated) throw \Illuminate\Validation\ValidationException::withMessages([
+            'name' => 'Tiện nghi đã có trong danh mục. Vui lòng tìm và chọn tiện nghi này.',
+        ]);
+        return response()->json(['message' => 'Đã thêm tiện nghi vào danh mục.',
+            'amenity' => \App\Support\HotelAmenityCatalog::option($amenity)], 201);
+    }
+
     public function hotels(Request $request)
     {
         $this->checkAdmin($request);
+        $query = Hotel::with(['location', 'amenities', 'images' => fn($images) => $images->orderByDesc('is_primary')->orderBy('id')])
+            ->withCount(['rooms'=>fn($rooms)=>$rooms->managed()]);
+        if ($request->search) $query->where('name', 'like', '%' . $request->search . '%');
+        if ($request->status) $query->where('status', $request->status);
+        if ($request->star) $query->where('star_rating', $request->star);
 
-        $query = Hotel::with(['location', 'amenities'])
-            ->withCount('rooms');
-
-        if ($request->search) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-
-        if ($request->status) {
-            $query->where('status', $request->status);
-        }
-
-        if ($request->star) {
-            $query->where('star_rating', $request->star);
-        }
-
-        $query->orderBy('id', 'desc');
-
-        return response()->json($query->paginate($request->per_page ?? 15));
+        $stats = (clone $query)->select([])->selectRaw(
+            "COUNT(*) AS total, COALESCE(SUM(status = 'active'), 0) AS active, "
+            . "COALESCE(SUM(status = 'inactive'), 0) AS inactive, COALESCE(SUM(status = 'closed'), 0) AS closed, AVG(avg_rating) AS average_rating"
+        )->first();
+        $paginator = $query->orderBy('id', 'desc')->paginate($request->per_page ?? 15);
+        $paginator->getCollection()->each(fn($hotel) => $hotel->append('cover_image_url'));
+        return response()->json(array_merge($paginator->toArray(), ['stats' => [
+            'total' => (int) $stats->total, 'active' => (int) $stats->active,
+            'inactive' => (int) $stats->inactive, 'closed' => (int) $stats->closed,
+            'other' => (int) $stats->total - (int) $stats->active - (int) $stats->inactive - (int) $stats->closed,
+            'average_rating' => $stats->average_rating === null ? null : round((float) $stats->average_rating, 1),
+        ]]));
     }
 
+    public function hotelDetail(Request $request, int $id)
+    {
+        $this->checkAdmin($request);
+        $hotel = Hotel::with(['location', 'amenities', 'images' => fn($images) => $images->orderByDesc('is_primary')->orderBy('id')])
+            ->findOrFail($id);
+        $hotel->append('cover_image_url');
 
-    // Tạo khách sạn mới
+        return response()->json(['hotel' => $hotel]);
+    }
+
+    private function validateHotelInput(Request $request, bool $creating, ?Hotel $hotel = null): array
+    {
+        // Multipart has no representation for an empty array; preserve the existing amenities=[] contract.
+        if ($request->input('amenities') === '[]' && str_starts_with($request->header('Content-Type', ''), 'multipart/form-data')) $request->merge(['amenities' => []]);
+        $presence = $creating ? 'required' : 'sometimes|required';
+        if (is_array($request->input('amenities'))) $request->merge(['amenities' => array_map(
+            fn($name) => is_string($name) ? \App\Support\HotelAmenityCatalog::normalize($name) : $name,
+            $request->input('amenities'))]);
+        $data = $request->validate([
+            'name' => $presence . '|string|max:200',
+            'location_id' => $presence . '|integer|exists:location,id',
+            'star_rating' => $presence . '|integer|between:1,5',
+            'address' => $presence . '|string|max:300',
+            'phone' => 'sometimes|nullable|string|max:20',
+            'email' => 'sometimes|nullable|email|max:100',
+            'description' => ['bail', 'sometimes', 'nullable', 'string', function ($attribute, $value, $fail) {
+                if (strlen($value) > 65535) $fail('Mô tả khách sạn vượt giới hạn 65.535 byte.');
+            }],
+            'latitude' => 'sometimes|nullable|numeric|between:-90,90',
+            'longitude' => 'sometimes|nullable|numeric|between:-180,180',
+            'status' => 'sometimes|required|in:active,inactive,closed',
+            'amenities' => 'sometimes|array|max:100',
+            'amenities.*' => ['required', 'string', 'max:100'],
+        ], [
+            'name.max' => 'Tên khách sạn tối đa 200 ký tự.',
+            'address.max' => 'Địa chỉ tối đa 300 ký tự.',
+            'phone.max' => 'Số điện thoại tối đa 20 ký tự.',
+            'email.max' => 'Email tối đa 100 ký tự.',
+            'amenities.array' => 'Tiện nghi phải là danh sách; gửi [] nếu muốn xóa tất cả.',
+            'amenities.*.required' => 'Tên tiện nghi không được để trống.',
+        ]);
+        foreach (['latitude', 'longitude'] as $coordinate) {
+            if (array_key_exists($coordinate, $data) && $data[$coordinate] === null) $data[$coordinate] = 0;
+        }
+        if (array_key_exists('amenities', $data)) {
+            $identities = array_map([\App\Support\HotelAmenityCatalog::class, 'identity'], $data['amenities']);
+            if (count(array_unique($identities)) !== count($identities)) throw \Illuminate\Validation\ValidationException::withMessages([
+                'amenities' => 'Tên tiện nghi không được trùng nhau (không phân biệt hoa/thường).',
+            ]);
+        }
+        return $data;
+    }
+
+    private function syncHotelAmenities(Hotel $hotel, array $amenities): void
+    {
+        $query = \App\Models\HotelAmenity::where('hotel_id', $hotel->id);
+        $existing = (clone $query)->lockForUpdate()->get()->groupBy(fn($row) => \App\Support\HotelAmenityCatalog::identity($row->amenity));
+        $keep = [];
+        foreach ($amenities as $amenity) {
+            \App\Support\HotelAmenityCatalog::remember($amenity);
+            $row = $existing->get(\App\Support\HotelAmenityCatalog::identity($amenity))?->first();
+            if ($row) $row->update(['amenity' => $amenity]);
+            else $row = \App\Models\HotelAmenity::create(['hotel_id' => $hotel->id, 'amenity' => $amenity]);
+            $keep[] = $row->id;
+        }
+        // Match identities in PHP, independent of the database's case-insensitive collation.
+        // Keep the existing row/icon and remove only unselected or duplicate links of this hotel.
+        (clone $query)->whereNotIn('id', $keep)->delete();
+    }
+
     public function createHotel(Request $request)
     {
         $this->checkAdmin($request);
-    
-        $request->validate([
-            'name'        => 'required|string|max:255',
-            'location_id' => 'required|exists:location,id',
-            'star_rating' => 'required|integer|between:1,5',
-            'address'     => 'required|string|max:500',
-            'status'      => 'in:active,inactive,closed',
-            'email'       => 'nullable|email',
-            'latitude'    => 'nullable|numeric|between:-90,90',   // ← rule đúng
-            'longitude'   => 'nullable|numeric|between:-180,180', // ← rule đúng
-        ]);
-
-        $hotel = Hotel::create([
-            'name'           => $request->name,
-            'location_id'    => $request->location_id,
-            'star_rating'    => $request->star_rating,
-            'address'        => $request->address,
-            'description'    => $request->description,
-            'phone'          => $request->phone,
-            'email'          => $request->email,
-            'check_in_time'  => $request->check_in_time  ?? '14:00:00',
-            'check_out_time' => $request->check_out_time ?? '12:00:00',
-            'latitude'       => $request->latitude  ?? 0, // ← ?? 0 nằm ở đây mới đúng
-            'longitude'      => $request->longitude ?? 0, // ← ?? 0 nằm ở đây mới đúng
-            'status'         => $request->status ?? 'active',
-            'avg_rating'     => 0,
-        ]);
-    
-        if ($request->has('amenities') && is_array($request->amenities)) {
-            foreach ($request->amenities as $amenity) {
-                \App\Models\HotelAmenity::create([
-                    'hotel_id' => $hotel->id,
-                    'amenity'  => $amenity,
-                ]);
-            }
-        }
-    
-        return response()->json([
-            'message' => 'Đã thêm khách sạn mới',
-            'hotel'   => $hotel->load('location', 'amenities'),
-        ], 201);
+        $data = $this->validateHotelInput($request, true);
+        $images = app(\App\Services\AdminAccommodationImageService::class);
+        [$changes, $files] = $images->input($request);
+        $hotel = $images->atomic(DB::connection(), function ($uploads) use ($data, $images, $changes, $files) {
+            $attributes = \Illuminate\Support\Arr::except($data, 'amenities');
+            $hotel = Hotel::create(array_merge([
+                'latitude' => 0, 'longitude' => 0, 'status' => 'active', 'avg_rating' => 0,
+            ], $attributes));
+            if (array_key_exists('amenities', $data)) $this->syncHotelAmenities($hotel, $data['amenities']);
+            $images->apply(DB::connection(), 'hotel_image', 'hotel_id', $hotel->id, $changes, $files, $uploads);
+            return $hotel->load('location', 'amenities', 'images');
+        });
+        return response()->json(['message' => 'Đã thêm khách sạn mới', 'hotel' => $hotel], 201);
     }
 
-    // ==========================================
-    // QUẢN LÝ PHÒNG
-    // ==========================================
     public function createRoomType(Request $request, $hotelId)
     {
         $this->checkAdmin($request);
-
-        $request->validate([
-            'name'       => 'required|string|max:100',
-            'base_price' => 'required|numeric|min:0',
-            'capacity'   => 'required|integer|min:1|max:10',
-            'bed_type'   => 'nullable|string|max:50',
-            'description'=> 'nullable|string|max:500',
-            'room_count' => 'required|integer|min:1|max:100',
-            'floor_start'=> 'nullable|integer|min:1|max:99',
-        ]);
-
-        $hotel = Hotel::findOrFail($hotelId);
-
-        // Tạo room_type
-        $roomType = \App\Models\RoomType::create([
-            'name'        => $request->name,
-            'base_price'  => $request->base_price,
-            'capacity'    => $request->capacity,
-            'bed_type'    => $request->bed_type,
-            'description' => $request->description,
-        ]);
-
-        // Tạo N phòng thật
-        $floorStart = $request->floor_start ?? 1;
-        $count      = $request->room_count;
-
-        for ($i = 1; $i <= $count; $i++) {
-            $floor      = $floorStart + intdiv($i - 1, 10);
-            $roomNumber = $floor . str_pad($i, 2, '0', STR_PAD_LEFT);
-
-            \App\Models\Room::create([
-                'hotel_id'     => $hotel->id,
-                'room_type_id' => $roomType->id,
-                'room_number'  => $roomNumber,
-                'floor'        => $floor,
-                'price'        => $request->base_price,
-                'capacity'     => $request->capacity,
-                'status'       => 'available',
-            ]);
+        if ($this->roomTypeUsesV2($request)) {
+            // The quick Admin form uses owned Types; retain the V2 connection/deployment guard.
+            [$changes, $files] = app(\App\Services\AdminAccommodationImageService::class)->input($request);
+            $type = app(\App\Services\RoomTypeAdminServiceV2::class)->save('mysql', (int) $hotelId, null, $request->all(), $changes, $files);
+            return response()->json(['room_type' => $type], 201);
         }
-
-        return response()->json([
-            'message'   => "Đã tạo loại phòng và {$count} phòng thành công",
-            'room_type' => $roomType,
-            'rooms_created' => $count,
-        ], 201);
+        if (\App\Services\HotelRoomTypeService::enabled()) {
+            $result = app(\App\Services\HotelRoomTypeService::class)->create((int)$hotelId, $request);
+            return response()->json(['message'=>'Đã tạo loại phòng và phòng cho khách sạn.', ...$result], 201);
+        }
+        $data = $request->validate([
+            'inventory_model' => 'sometimes|in:legacy',
+            'total_rooms' => 'prohibited', 'status' => 'prohibited',
+            'images' => 'prohibited', 'image_changes' => 'prohibited',
+            'name' => 'required|string|max:100', 'base_price' => 'required|numeric|min:0|max:9999999999.99',
+            'capacity' => 'required|integer|min:1|max:10', 'bed_type' => 'nullable|string|max:50',
+            'description' => 'nullable|string|max:500', 'room_count' => 'required|integer|min:1|max:100',
+            'floor_start' => 'nullable|integer|min:1|max:99',
+        ], \App\Support\RoomTypeValidationMessages::all());
+        $result = DB::transaction(function () use ($hotelId, $data) {
+            $hotel = Hotel::whereKey($hotelId)->lockForUpdate()->firstOrFail();
+            $roomType = \App\Models\RoomType::create(\Illuminate\Support\Arr::only($data, ['name', 'base_price', 'capacity', 'bed_type', 'description']));
+            $used = array_fill_keys($hotel->rooms()->pluck('room_number')->all(), true);
+            $floorStart = $data['floor_start'] ?? 1;
+            $candidate = 1;
+            for ($created = 0; $created < $data['room_count']; $created++) {
+                do {
+                    $floor = $floorStart + intdiv($candidate - 1, 10);
+                    $number = $floor . str_pad($candidate, 2, '0', STR_PAD_LEFT);
+                    $candidate++;
+                } while (isset($used[$number]));
+                \App\Models\Room::create([
+                    'hotel_id' => $hotel->id, 'room_type_id' => $roomType->id,
+                    'room_number' => $number, 'floor' => $floor, 'price' => $data['base_price'],
+                    'capacity' => $data['capacity'], 'status' => 'available',
+                ]);
+                $used[$number] = true;
+            }
+            return ['room_type' => $roomType, 'rooms_created' => (int) $data['room_count']];
+        });
+        return response()->json(array_merge(['message' => "Đã tạo loại phòng và {$result['rooms_created']} phòng thành công"], $result), 201);
     }
 
-    // Lấy danh sách loại phòng của khách sạn kèm số lượng phòng trống
     public function getRoomTypes(Request $request, $hotelId)
     {
         $this->checkAdmin($request);
 
+        $model = $request->query('inventory_model');
+        $automatic = $model === 'auto';
+        // Select the deployed workflow, never use a failed V2 guard as a reason to fall back.
+        $useV2 = $model === 'v2' || ($automatic && (config('roomtype-v2.production_manifest') !== null
+            || config('roomtype-v2.prepared_routes', false)));
+        if ($useV2) {
+            try {
+                $session = \App\Support\RoomTypeV2Inventory::open('mysql');
+            } catch (\RuntimeException $exception) {
+                \Illuminate\Support\Facades\Log::warning('Admin RoomType V2 catalog is unavailable.', [
+                    'reason' => $exception->getMessage(),
+                ]);
+
+                return response()->json([
+                    'code' => 'room_type_v2_unavailable',
+                    'message' => 'Quản lý loại phòng V2 chưa được cấp quyền cho môi trường này. Cần hoàn tất cấu hình database kiểm thử cô lập hoặc deployment manifest đã được phê duyệt; hệ thống chưa thay đổi schema hay bật cutover.',
+                ], 503);
+            }
+
+            $session->hotel((int) $hotelId);
+            $roomTypes = $session->db->table('room_type')->where('hotel_id', $hotelId)->orderBy('id')->get();
+            $typeIds = $roomTypes->pluck('id')->all();
+            $primaryImages = $typeIds
+                ? $session->db->table('room_type_image')->whereIn('room_type_id', $typeIds)
+                    ->orderByDesc('is_primary')->orderBy('id')->get()->groupBy('room_type_id')
+                : collect();
+            $roomTypes->transform(function ($type) use ($primaryImages) {
+                $primary = $primaryImages->get($type->id)?->first();
+                $type->cover_image_url = $primary
+                    ? (\App\Support\AccommodationImage::localUrl($primary->image_url) ?? \App\Support\AccommodationImage::placeholder())
+                    : \App\Support\AccommodationImage::placeholder();
+                return $type;
+            });
+
+            return response()->json(['room_types' => $roomTypes, 'inventory_model' => 'v2']);
+        }
+
+        if (\App\Services\HotelRoomTypeService::enabled()) {
+            $types = app(\App\Services\HotelRoomTypeService::class)->index((int)$hotelId);
+            return $automatic ? response()->json(['inventory_model'=>'scoped','room_types'=>$types])
+                : response()->json(array_map(fn($type)=>[...$type,'rooms_count'=>$type['total_rooms']],$types));
+        }
+        if ($automatic) Hotel::findOrFail($hotelId);
         $roomTypes = \App\Models\RoomType::whereHas('rooms', fn($q) => $q->where('hotel_id', $hotelId))
             ->withCount(['rooms' => fn($q) => $q->where('hotel_id', $hotelId)])
+            ->when($automatic, fn($q) => $q->with(['rooms' => fn($rooms) => $rooms->where('hotel_id', $hotelId)
+                ->orderBy('id')->with('images')]))
             ->get();
+
+        if ($automatic) {
+            return response()->json([
+                'inventory_model' => 'legacy',
+                'room_types' => $roomTypes->map(fn($type) => [
+                    'id' => $type->id, 'hotel_id' => (int) $hotelId,
+                    'name' => $type->name, 'base_price' => $type->base_price, 'capacity' => $type->capacity,
+                    'bed_type' => $type->bed_type, 'description' => $type->description,
+                    'total_rooms' => $type->rooms_count, 'status' => null,
+                    'cover_image_url' => $type->rooms->map(fn($room) => $room->gallery_image_urls[0] ?? null)
+                        ->filter()->first() ?? \App\Support\AccommodationImage::placeholder(),
+                ]),
+            ]);
+        }
 
         return response()->json($roomTypes);
     }
 
+    private function roomTypeUsesV2(Request $request): bool
+    {
+        return $request->input('inventory_model') === 'v2' || config('roomtype-v2.production_manifest') !== null || config('roomtype-v2.prepared_routes', false);
+    }
+
+    public function roomTypeDetail(Request $request, int $hotel, int $type)
+    {
+        $this->checkAdmin($request);
+        if ($this->roomTypeUsesV2($request)) {
+            $session = \App\Support\RoomTypeV2Inventory::open('mysql');
+            $session->hotel($hotel);
+            return response()->json(['room_type'=>$session->types($hotel,[$type])[$type]]);
+        }
+        abort_unless(\App\Services\HotelRoomTypeService::enabled(),503,'Cấu hình quản lý loại phòng riêng chưa hoàn tất.');
+        $service = app(\App\Services\HotelRoomTypeService::class);
+        return response()->json(['room_type'=>$service->dto($service->record($hotel,$type))]);
+    }
+
+    public function updateRoomType(Request $request, int $hotel, int $type)
+    {
+        $this->checkAdmin($request);
+        if ($this->roomTypeUsesV2($request)) return app(\App\Http\Controllers\PreparedV2\AdminRoomTypeController::class)
+            ->update($request,$hotel,$type,app(\App\Services\RoomTypeAdminServiceV2::class));
+        abort_unless(\App\Services\HotelRoomTypeService::enabled(),503,'Cấu hình quản lý loại phòng riêng chưa hoàn tất.');
+        return response()->json(['room_type'=>app(\App\Services\HotelRoomTypeService::class)->save($hotel,$type,$request)]);
+    }
+
+    public function roomTypeImages(Request $request, int $hotel, int $type)
+    {
+        $this->checkAdmin($request);
+        if ($this->roomTypeUsesV2($request)) return app(\App\Http\Controllers\PreparedV2\AdminRoomTypeController::class)
+            ->images($hotel,$type,app(\App\Services\RoomTypeAdminServiceV2::class));
+        abort_unless(\App\Services\HotelRoomTypeService::enabled(),503,'Cấu hình quản lý loại phòng riêng chưa hoàn tất.');
+        return response()->json(app(\App\Services\HotelRoomTypeService::class)->gallery($hotel,$type));
+    }
+
+    public function deleteRoomType(Request $request, int $hotel, int $type)
+    {
+        $this->checkAdmin($request);
+        abort_if($this->roomTypeUsesV2($request), 503, 'Thao tác này chỉ hỗ trợ danh mục loại phòng theo khách sạn đang hoạt động.');
+        abort_unless(\App\Services\HotelRoomTypeService::enabled(), 503, 'Cấu hình quản lý loại phòng riêng chưa hoàn tất.');
+        return response()->json(app(\App\Services\HotelRoomTypeService::class)->delete($hotel, $type));
+    }
+
     // Cập nhật thông tin khách sạn (có thể cập nhật từng phần)
+
     public function updateHotel(Request $request, $id)
     {
         $this->checkAdmin($request);
-    
-        $request->validate([
-            'name'        => 'sometimes|string|max:255',
-            'location_id' => 'sometimes|exists:location,id',
-            'star_rating' => 'sometimes|integer|between:1,5',
-            'address'     => 'sometimes|string|max:500',
-            'status'      => 'sometimes|in:active,inactive,closed',
-            'email'       => 'nullable|email',
-            'latitude'    => 'nullable|numeric|between:-90,90',
-            'longitude'   => 'nullable|numeric|between:-180,180',
-        ]);
-    
         $hotel = Hotel::findOrFail($id);
-    
-        $hotel->update(array_filter([
-            'name'           => $request->name,
-            'location_id'    => $request->location_id,
-            'star_rating'    => $request->star_rating,
-            'address'        => $request->address,
-            'description'    => $request->description,
-            'phone'          => $request->phone,
-            'email'          => $request->email,
-            'check_in_time'  => $request->check_in_time,
-            'check_out_time' => $request->check_out_time,
-            'latitude'       => $request->latitude,
-            'longitude'      => $request->longitude,
-            'status'         => $request->status,
-        ], fn($v) => !is_null($v)));
-    
-        if ($request->has('amenities')) {
-            \App\Models\HotelAmenity::where('hotel_id', $id)->delete();
-            foreach ((array) $request->amenities as $amenity) {
-                \App\Models\HotelAmenity::create([
-                    'hotel_id' => $hotel->id,
-                    'amenity'  => $amenity,
-                ]);
-            }
-        }
-    
-        return response()->json([
-            'message' => 'Đã cập nhật khách sạn',
-            'hotel'   => $hotel->load('location', 'amenities'),
-        ]);
+        $data = $this->validateHotelInput($request, false, $hotel);
+        $images = app(\App\Services\AdminAccommodationImageService::class);
+        [$changes, $files] = $images->input($request);
+        $hotel = $images->atomic(DB::connection(), function ($uploads) use ($id, $data, $images, $changes, $files) {
+            $hotel = Hotel::whereKey($id)->lockForUpdate()->firstOrFail();
+            $hotel->update(\Illuminate\Support\Arr::except($data, 'amenities'));
+            if (array_key_exists('amenities', $data)) $this->syncHotelAmenities($hotel, $data['amenities']);
+            $images->apply(DB::connection(), 'hotel_image', 'hotel_id', (int) $id, $changes, $files, $uploads);
+            return $hotel->load('location', 'amenities', 'images');
+        });
+        return response()->json(['message' => 'Đã cập nhật khách sạn', 'hotel' => $hotel]);
     }
 
-    // ==========================================
-    // CẬP NHẬT TRẠNG THÁI KHÁCH SẠN
-    // ==========================================
+    public function hotelImages(Request $request, int $id)
+    {
+        $this->checkAdmin($request);
+        Hotel::findOrFail($id);
+        $images = app(\App\Services\AdminAccommodationImageService::class);
+        return response()->json(['images' => $images->gallery(DB::connection(), 'hotel_image', 'hotel_id', $id), 'image_validation' => $images::limits()]);
+    }
 
     public function updateHotelStatus(Request $request, $id)
     {
@@ -434,7 +617,7 @@ class AdminController extends Controller
 
         $query = Customer::withCount(['bookings', 'reviews', 'wishlist'])
             ->withSum(['payments as total_spent' => function($q) {
-                $q->where('payment_status', 'success');
+                $q->withoutDemo()->where('payment_status', 'success');
             }], 'amount')
             ->orderBy('created_at', 'desc');
 
@@ -450,7 +633,7 @@ class AdminController extends Controller
             'total'       => Customer::count(),
             'new_month'   => Customer::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count(),
             'total_booking' => \App\Models\Booking::count(),
-            'total_revenue' => \App\Models\Payment::where('payment_status','success')->sum('amount'),
+            'total_revenue' => \App\Models\Payment::withoutDemo()->where('payment_status','success')->sum('amount'),
         ];
 
         $customers = $query->paginate($request->per_page ?? 20);
@@ -475,7 +658,7 @@ class AdminController extends Controller
 
         $customer = Customer::withCount(['bookings', 'reviews'])
             ->withSum(['payments as total_spent' => function($q) {
-                $q->where('payment_status', 'success');
+                $q->withoutDemo()->where('payment_status', 'success');
             }], 'amount')
             ->findOrFail($id);
             $customer->avatar_url = $customer->avatar_url
@@ -511,26 +694,22 @@ class AdminController extends Controller
     {
         $this->checkAdmin($request);
 
-        $query = Review::with(['customer:id,name', 'hotel:id,name'])
-            ->orderBy('created_at', 'desc');
+        $data=$request->validate(['search'=>'nullable|string|max:120','status'=>'nullable|in:pending,approved,hidden','rating'=>'nullable|integer|between:1,5','max_rating'=>'nullable|integer|between:1,5','per_page'=>'sometimes|integer|between:1,100','page'=>'sometimes|integer|min:1']);
+        $service=app(\App\Services\Admin\ReviewService::class);
+        return response()->json(array_merge($service->getList($data)->toArray(),['stats'=>$service->stats()]));
+    }
 
-        if ($request->max_rating) {
-            $query->where('rating', '<=', $request->max_rating);
-        }
-
-        return response()->json($query->paginate($request->per_page ?? 20));
+    public function updateReviewStatus(Request $request,int $id)
+    {
+        $this->checkAdmin($request);$data=$request->validate(['status'=>'required|in:pending,approved,hidden']);
+        return response()->json(['message'=>'Đã cập nhật trạng thái đánh giá.','review'=>app(\App\Services\ReviewService::class)->moderate($id,$data['status'])]);
     }
 
     public function deleteReview(Request $request, $id)
     {
         $this->checkAdmin($request);
 
-        $review = Review::findOrFail($id);
-        $hotelId = $review->hotel_id;
-        $review->delete();
-
-        $avg = Review::where('hotel_id', $hotelId)->avg('rating') ?? 0;
-        Hotel::where('id', $hotelId)->update(['avg_rating' => round($avg, 1)]);
+        app(\App\Services\ReviewService::class)->delete((int)$id);
 
         return response()->json(['message' => 'Đã xóa review']);
     }
@@ -542,29 +721,9 @@ class AdminController extends Controller
     public function revenue(Request $request)
     {
         $this->checkAdmin($request);
-
-        $monthlyRevenue = Payment::where('payment_status', 'success')
-            ->whereYear('paid_at', now()->year)
-            ->selectRaw('MONTH(paid_at) as month, SUM(amount) as total, COUNT(*) as count')
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
-
-        $topHotels = DB::table('payment as p')
-            ->join('booking as b', 'b.id', '=', 'p.booking_id')
-            ->join('hotel as h', 'h.id', '=', 'b.hotel_id')
-            ->where('p.payment_status', 'success')
-            ->selectRaw('h.id, h.name, SUM(p.amount) as revenue, COUNT(p.id) as transactions')
-            ->groupBy('h.id', 'h.name')
-            ->orderByDesc('revenue')
-            ->take(5)
-            ->get();
-
-        return response()->json([
-            'monthly_revenue' => $monthlyRevenue,
-            'top_hotels'      => $topHotels,
-            'total_revenue'   => Payment::where('payment_status', 'success')->sum('amount'),
-        ]);
+        return response()->json(app(\App\Services\Admin\RevenueService::class)->getSummary($request->only([
+            'period', 'date_from', 'date_to', 'payment_scope', 'page',
+        ])))->header('Cache-Control', 'no-store');
     }
     
     // ==========================================
@@ -595,67 +754,13 @@ class AdminController extends Controller
         return response()->json(Location::create($validated), 201);
     }
 
-    public function attractions(int $locId): JsonResponse
-    {
-        $attractions = Attraction::where('location_id', $locId)
-            ->orderBy('item_type')
-            ->orderBy('name')
-            ->get();
-        return response()->json($attractions);
-    }
-
-    public function createAttraction(Request $request, int $locId): JsonResponse
-    {
-        $validated = $request->validate([
-            'item_type'      => 'required|in:hotel,restaurant,attraction,activity,transport,shopping',
-            'name'           => 'required|string|max:200',
-            'description'    => 'nullable|string',
-            'address'        => 'nullable|string|max:300',
-            'price_min'      => 'nullable|integer|min:0',
-            'price_max'      => 'nullable|integer|min:0',
-            'duration_hours' => 'nullable|integer|min:0|max:24',
-            'open_time'      => 'nullable|string',
-            'close_time'     => 'nullable|string',
-        ]);
-
-        Location::findOrFail($locId); // check tồn tại
-
-        $attraction = Attraction::create(array_merge($validated, [
-            'location_id' => $locId,
-        ]));
-
-        return response()->json($attraction, 201);
-    }
-
-    public function toggleAttraction(int $id): JsonResponse
-    {
-        $attraction = Attraction::findOrFail($id);
-        $attraction->update(['is_active' => !$attraction->is_active]);
-        return response()->json(['is_active' => $attraction->is_active]);
-    }
-
-    public function updateAttraction(Request $request, int $id): JsonResponse
-    {
-        $attraction = Attraction::findOrFail($id);
-        $attraction->update($request->only([
-            'name', 'description', 'address',
-            'price_min', 'price_max', 'duration_hours',
-            'open_time', 'close_time', 'item_type',
-        ]));
-        return response()->json($attraction);
-    }
-
-    public function deleteAttraction(int $id): JsonResponse
-    {
-        Attraction::findOrFail($id)->delete();
-        return response()->json(['message' => 'Đã xóa!']);
-    }
-
     public function updateDestination(Request $request, int $id): JsonResponse
     {
+        if ($request->has('code')) app(\App\Support\ExperienceSchema::class)->ensureReady();
         $location = Location::findOrFail($id);
 
         $validated = $request->validate([
+            'code' => ['sometimes', 'string', 'max:80', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/D', \Illuminate\Validation\Rule::unique('location', 'code')->ignore($id)],
             'name'      => 'sometimes|string|max:100',
             'region'    => 'sometimes|string|max:50',
             'country'   => 'nullable|string|max:100',
@@ -663,6 +768,10 @@ class AdminController extends Controller
             'longitude' => 'nullable|numeric',
         ]);
 
+        if (isset($validated['code'])) {
+            $location = \App\Support\LocationIdentity::assignCode($id, $validated['code']);
+            unset($validated['code']);
+        }
         $location->update($validated);
 
         return response()->json($location);

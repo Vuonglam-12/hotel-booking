@@ -6,7 +6,7 @@
 <style>
     /* ── Layout ── */
     .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; }
-    .page-title  { font-family:'Nunito Sans',system-ui,sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
+    .page-title  { font-family:'Be Vietnam Pro',system-ui,sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
     .page-sub    { font-size:13px; color:var(--gray); margin-top:3px; }
 
     .main-cols   { display:grid; grid-template-columns:1fr 300px; gap:20px; align-items:start; }
@@ -122,7 +122,7 @@
 {{-- Header --}}
 <div class="page-header">
     <div>
-        <div class="page-title">Quản lý khách hàng</div>
+        <h1 class="page-title">Quản lý khách hàng</h1>
         <div class="page-sub">Xem và theo dõi thông tin khách hàng trong hệ thống</div>
     </div>
 </div>
@@ -130,18 +130,22 @@
 {{-- Stats --}}
 <div class="stats-grid">
     <div class="stat-card">
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'users-round'])</div>
         <div class="stat-label">Tổng khách hàng</div>
         <div class="stat-value" id="kpi-total">—</div>
     </div>
     <div class="stat-card">
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'user-round-plus'])</div>
         <div class="stat-label">Khách mới tháng này</div>
         <div class="stat-value" id="kpi-new">—</div>
     </div>
     <div class="stat-card">
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'calendar-check'])</div>
         <div class="stat-label">Tổng booking</div>
         <div class="stat-value" id="kpi-booking">—</div>
     </div>
     <div class="stat-card">
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'wallet'])</div>
         <div class="stat-label">Tổng doanh thu</div>
         <div class="stat-value" id="kpi-revenue">—</div>
     </div>
@@ -166,6 +170,7 @@
                 <span class="table-title">Danh sách khách hàng</span>
                 <span class="table-count" id="tableCount">—</span>
             </div>
+            <div class="admin-table-scroll">
             <table class="cust-table">
                 <thead>
                     <tr>
@@ -182,6 +187,7 @@
                     <tr><td colspan="7" class="empty-state">Đang tải...</td></tr>
                 </tbody>
             </table>
+            </div>
             <div class="pagination" id="paginationWrap" style="display:none;">
                 <span class="pagination-info" id="paginationInfo"></span>
                 <div class="pagination-btns" id="paginationBtns"></div>
@@ -214,7 +220,7 @@
     <div class="modal-box">
         <div class="modal-header">
             <h3>Chi tiết khách hàng</h3>
-            <button class="modal-close" onclick="closeModal()">✕</button>
+            <button class="modal-close" aria-label="Đóng thông tin khách hàng" onclick="closeModal()">✕</button>
         </div>
         <div class="modal-body" id="modalBody">
             <div class="empty-state">Đang tải...</div>

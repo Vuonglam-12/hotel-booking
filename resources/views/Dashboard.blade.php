@@ -248,6 +248,10 @@
         color: #94A3B8;
         font-size: 14px;
     }
+    #tab-wishlist svg, #stat-wishlist + p svg { color:#DC2626; }
+    .dashboard-wishlist-remove { color:#DC2626; }
+    .dashboard-wishlist-remove:hover { color:#B91C1C; }
+    .dashboard-wishlist-remove:focus-visible { outline:2px solid #DC2626; outline-offset:2px; }
 </style>
 
 {{-- HERO --}}
@@ -519,7 +523,8 @@
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-[#3A4A5A] mb-1.5 uppercase tracking-wide">Ngày sinh</label>
-                        <input id="profile-dob" type="date" class="profile-input">
+                        <input id="profile-dob" type="date" class="profile-input" max="{{ now()->toDateString() }}" disabled aria-describedby="profile-dob-hint">
+                        <small id="profile-dob-hint">Ngày sinh tạm thời chưa thể cập nhật.</small>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-[#3A4A5A] mb-1.5 uppercase tracking-wide">Giới tính</label>
@@ -549,7 +554,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-[#3A4A5A] mb-1.5 uppercase tracking-wide">Mật khẩu mới</label>
-                        <input id="pw-new" type="password" class="profile-input" placeholder="Tối thiểu 6 ký tự">
+                        <input id="pw-new" type="password" class="profile-input" placeholder="Tối thiểu 8 ký tự">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-[#3A4A5A] mb-1.5 uppercase tracking-wide">Xác nhận mật khẩu mới</label>
@@ -826,7 +831,7 @@ async function loadBookings() {
         return `
         <div class="booking-card bg-white rounded-2xl p-5 shadow-sm border border-[#EAF3FF] flex items-start gap-4">
             <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-[#EAF3FF]">
-                <img src="https://picsum.photos/seed/${b.hotel_id}/100/100" class="w-full h-full object-cover">
+                <img src="${HolidayVietImages.escapeAttribute(HolidayVietImages.cover(b.hotel))}" data-accommodation-image class="w-full h-full object-cover">
             </div>
             <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-1 flex-wrap">
@@ -834,7 +839,7 @@ async function loadBookings() {
                     <span class="text-xs px-2 py-0.5 rounded-full font-medium ${s.c}">${s.l}</span>
                     ${methodLabel}
                 </div>
-                <h3 class="font-semibold text-[#1E3A5F] truncate">${b.hotel?.name || 'Khách sạn'}</h3>
+                <h3 class="font-semibold text-[#1E3A5F] truncate">${dashboardText(b.hotel?.name || 'Khách sạn')}</h3>
                 <p class="text-xs text-[#C9D3DD] mt-1 flex items-center gap-3">
                     <span>${b.check_in?.split('T')[0]} → ${b.check_out?.split('T')[0]}</span>
                     <span>${b.num_guests} khách</span>
@@ -845,7 +850,7 @@ async function loadBookings() {
                         : (b.status==='completed' || pm==='banking')
                             ? `<button onclick="downloadInvoice(${b.id})" class="btn-invoice">📄 Hóa đơn PDF</button>`
                             : ''}
-                    ${canReview ? `<button onclick="openReviewModal(${b.id}, ${b.hotel_id}, '${(b.hotel?.name||'').replace(/'/g,"\'")}')"
+                    ${canReview ? `<button onclick="openReviewModal(${b.id}, ${b.hotel_id}, ${dashboardText(JSON.stringify(b.hotel?.name||''))})"
                         class="text-xs px-3 py-1 rounded-lg bg-amber-50 text-amber-600 border border-amber-200 hover:bg-amber-100 transition flex items-center gap-1">
                         ⭐ Viết đánh giá
                     </button>` : ''}
@@ -898,12 +903,12 @@ async function loadWishlist() {
     list.innerHTML = data.map(w => `
         <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#EAF3FF] booking-card">
             <div class="relative h-36 overflow-hidden bg-[#EAF3FF]">
-                <img src="https://picsum.photos/seed/${w.hotel_id}/400/200" class="w-full h-full object-cover">
-                <button onclick="removeWishlist(${w.hotel_id},this)" class="absolute top-2 right-2 bg-white/90 w-7 h-7 rounded-full flex items-center justify-center text-red-400 shadow hover:bg-red-50 transition">♥</button>
+                <img src="${HolidayVietImages.escapeAttribute(HolidayVietImages.cover(w.hotel))}" data-accommodation-image class="w-full h-full object-cover">
+                <button onclick="removeWishlist(${w.hotel_id},this)" class="dashboard-wishlist-remove absolute top-2 right-2 bg-white/90 w-7 h-7 rounded-full flex items-center justify-center shadow hover:bg-red-50 transition" aria-label="Bỏ khách sạn khỏi yêu thích">♥</button>
             </div>
             <div class="p-4">
-                <h3 class="font-semibold text-[#1E3A5F] text-sm truncate">${w.hotel?.name||''}</h3>
-                <p class="text-xs text-[#C9D3DD] mt-1">📍 ${w.hotel?.location?.name||''}</p>
+                <h3 class="font-semibold text-[#1E3A5F] text-sm truncate">${dashboardText(w.hotel?.name||'')}</h3>
+                <p class="text-xs text-[#C9D3DD] mt-1">📍 ${dashboardText(w.hotel?.location?.name||'')}</p>
                 <a href="/hotels/${w.hotel_id}" class="btn-sky text-xs px-3 py-1.5 rounded-lg mt-3 inline-block">Xem phòng →</a>
             </div>
         </div>`).join('');
@@ -930,16 +935,16 @@ async function loadReviews() {
             <div class="flex items-start justify-between gap-4">
                 <div class="flex items-start gap-3 flex-1">
                     <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-[#EAF3FF]">
-                        <img src="https://picsum.photos/seed/${r.hotel_id||r.id}/80/80" class="w-full h-full object-cover">
+                        <img src="${HolidayVietImages.escapeAttribute(HolidayVietImages.cover(r.hotel))}" data-accommodation-image class="w-full h-full object-cover">
                     </div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-[#1E3A5F]">${r.hotel?.name||'Khách sạn'}</h3>
+                        <h3 class="font-semibold text-[#1E3A5F]">${dashboardText(r.hotel?.name||'Khách sạn')}</h3>
                         <div class="flex items-center gap-0.5 mt-1">
                             ${Array(r.rating).fill('<span class="text-amber-400 text-sm">★</span>').join('')}
                             ${Array(5-r.rating).fill('<span class="text-[#C9D3DD] text-sm">★</span>').join('')}
                             <span class="text-xs text-[#C9D3DD] ml-1">${r.rating}/5</span>
                         </div>
-                        ${r.comment ? `<p class="text-xs text-[#3A4A5A] mt-1.5 leading-relaxed">"${r.comment}"</p>` : ''}
+                        ${r.comment ? `<p class="text-xs text-[#3A4A5A] mt-1.5 leading-relaxed">"${dashboardText(r.comment)}"</p>` : ''}
                         <p class="text-xs text-[#C9D3DD] mt-1">${r.created_at?.split('T')[0]||''}</p>
                     </div>
                 </div>
@@ -1025,10 +1030,10 @@ async function loadNotificationsPanel() {
 
     list.innerHTML = `<div class="space-y-2">` + items.map(n => `
         <div class="notif-panel-item ${n.read_at ? '' : 'unread'} bg-white rounded-2xl shadow-sm border border-[#EAF3FF] cursor-pointer flex items-start justify-between gap-3 p-4"
-             onclick="handleNotifPanelClick(${n.id},'${n.data?.link||'/dashboard'}')">
+             onclick="handleNotifPanelClick(${n.id},${dashboardText(JSON.stringify(n.data?.link||'/dashboard'))})">
             <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-[#1E3A5F]">${stripEmoji(n.data?.title)||'Thông báo'}</p>
-                <p class="text-xs text-[#C9D3DD] mt-0.5 leading-relaxed">${n.data?.message||''}</p>
+                <p class="text-sm font-semibold text-[#1E3A5F]">${dashboardText(stripEmoji(n.data?.title)||'Thông báo')}</p>
+                <p class="text-xs text-[#C9D3DD] mt-0.5 leading-relaxed">${dashboardText(n.data?.message||'')}</p>
                 <p class="text-xs text-[#87CEFA] mt-1">${formatNotifTime(n.created_at)}</p>
             </div>
             <div class="flex items-center gap-2 shrink-0 mt-0.5">
@@ -1146,7 +1151,7 @@ async function fetchHotelsForPanel(city) {
             location: h.location?.name || city,
             stars:    h.star_rating || 0,
             price:    h.rooms_min_price || 0,
-            image:    `https://picsum.photos/seed/${h.id}/120/90`
+            image:    HolidayVietImages.cover(h)
         }));
 
         allHotels = hotels;
@@ -1184,7 +1189,7 @@ function renderPanelHotelList(hotels, city) {
         return `
         <div class="ac-item" onclick="selectHotelFromPanel('${esc(h.name).replace(/'/g, "\\'")}')">
             <div class="ac-img-wrap">
-                <img src="${h.image}" alt="${esc(h.name)}" loading="lazy" onerror="this.style.display='none'">
+                <img src="${HolidayVietImages.escapeAttribute(h.image)}" data-accommodation-image alt="${esc(h.name)}" loading="lazy">
             </div>
             <div class="ac-info">
                 <div class="ac-name">${esc(h.name)}</div>
@@ -1227,7 +1232,7 @@ async function fetchHotelsByCity(city) {
             location: h.location?.name || city,
             stars:    h.star_rating || 0,
             price:    h.rooms_min_price || 0,
-            image:    `https://picsum.photos/seed/${h.id}/120/90`
+            image:    HolidayVietImages.cover(h)
         }));
         allHotels = hotels;
         renderHotelDropdown(city, hotels.slice(0, 7));
@@ -1259,8 +1264,7 @@ function renderHotelDropdown(keyword, hotels) {
         html += `
         <div class="ac-item" onclick="selectHotel('${escapeHtml(h.name).replace(/'/g, "\'")}')">
             <div class="ac-img-wrap">
-                <img src="${h.image}" alt="${escapeHtml(h.name)}" loading="lazy"
-                     onerror="this.style.display='none'">
+                <img src="${HolidayVietImages.escapeAttribute(h.image)}" data-accommodation-image alt="${escapeHtml(h.name)}" loading="lazy">
             </div>
             <div class="ac-info">
                 <div class="ac-name">${escapeHtml(h.name)}</div>
@@ -1374,6 +1378,10 @@ async function generateItinerary() {
 // =====================
 // ITINERARIES LIST
 // =====================
+function dashboardText(value) {
+    return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
 async function loadItineraries() {
     const list = document.getElementById('itineraries-list');
     list.innerHTML = '<div class="text-center py-16 text-[#C9D3DD]"><div class="spinner"></div>Đang tải...</div>';
@@ -1388,16 +1396,16 @@ async function loadItineraries() {
     list.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">` + data.map(it => {
         const s = sc[it.status] || sc.draft;
         const budgetFmt = it.estimated_budget ? new Intl.NumberFormat('vi-VN').format(it.estimated_budget)+'đ' : 'Linh hoạt';
-        const itJson = JSON.stringify(it).replace(/"/g,'&quot;');
+        const itJson = dashboardText(JSON.stringify(it));
         return `
         <div class="bg-white rounded-2xl shadow-sm border border-[#EAF3FF] hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden">
             <div class="h-1.5 w-full" style="background:linear-gradient(90deg,#87CEFA,#5BB8F5);"></div>
             <div class="p-5">
                 <div class="flex items-start justify-between gap-3 mb-3">
                     <div>
-                        <h3 class="font-semibold text-[#1E3A5F] text-base">${it.title || 'Lịch trình'}</h3>
+                        <h3 class="font-semibold text-[#1E3A5F] text-base">${dashboardText(it.title || 'Lịch trình')}</h3>
                         <div class="flex flex-wrap gap-2 text-xs text-[#C9D3DD] mt-1">
-                            <span>${it.total_days} ngày</span>
+                            <span>${dashboardText(it.total_days)} ngày</span>
                             <span>💰 ${budgetFmt}</span>
                             <span>🗂 ${it.items?.length||0} hoạt động</span>
                         </div>
@@ -1454,8 +1462,8 @@ function openItineraryModal(it) {
             }
             return `<div>
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold shrink-0" style="background:linear-gradient(135deg,#87CEFA,#5BB8F5);">${day}</div>
-                    <div><p class="font-bold text-[#1E3A5F] text-sm">Ngày ${day}</p>${dateLabel?`<p class="text-xs text-[#C9D3DD]">${dateLabel}</p>`:''}</div>
+                    <div class="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold shrink-0" style="background:linear-gradient(135deg,#87CEFA,#5BB8F5);">${dashboardText(day)}</div>
+                    <div><p class="font-bold text-[#1E3A5F] text-sm">Ngày ${dashboardText(day)}</p>${dateLabel?`<p class="text-xs text-[#C9D3DD]">${dateLabel}</p>`:''}</div>
                 </div>
                 <div class="ml-4 border-l-2 border-[#EAF3FF] pl-4 space-y-2.5">
                     ${byDay[day].map(item => `
@@ -1464,13 +1472,13 @@ function openItineraryModal(it) {
                             <span class="text-base shrink-0 mt-0.5">${TYPE_ICON[item.type]||'📌'}</span>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2 flex-wrap">
-                                    <p class="font-semibold text-[#1E3A5F] text-sm">${item.name||item.title||''}</p>
-                                    ${item.time?`<span class="text-xs text-[#87CEFA] bg-[#EAF3FF] px-2 py-0.5 rounded-full">🕐 ${item.time}</span>`:''}
+                                    <p class="font-semibold text-[#1E3A5F] text-sm">${dashboardText(item.name||item.title||'')}</p>
+                                    ${item.time?`<span class="text-xs text-[#87CEFA] bg-[#EAF3FF] px-2 py-0.5 rounded-full">🕐 ${dashboardText(item.time)}</span>`:''}
                                 </div>
-                                ${item.description?`<p class="text-xs text-[#C9D3DD] mt-1 leading-relaxed">${item.description}</p>`:''}
+                                ${item.description?`<p class="text-xs text-[#C9D3DD] mt-1 leading-relaxed">${dashboardText(item.description)}</p>`:''}
                                 <div class="flex flex-wrap gap-3 mt-1">
                                     ${item.cost?`<span class="text-xs text-[#87CEFA] font-semibold">💰 ${new Intl.NumberFormat('vi-VN').format(item.cost)}đ</span>`:''}
-                                    ${item.address?`<span class="text-xs text-[#C9D3DD]">📍 ${item.address}</span>`:''}
+                                    ${item.address?`<span class="text-xs text-[#C9D3DD]">📍 ${dashboardText(item.address)}</span>`:''}
                                 </div>
                             </div>
                         </div>
@@ -1560,10 +1568,10 @@ function printItinerary() {
     const days = Object.keys(byDay).sort((a,b)=>a-b);
     const startDate = it.start_date ? new Date(it.start_date) : null;
     const win = window.open('','_blank');
-    win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${it.title}</title><style>body{font-family:'Nunito Sans',Arial,sans-serif;max-width:700px;margin:0 auto;padding:32px;color:#1E3A5F;}h1{font-size:22px;margin-bottom:4px;}.meta{color:#94A3B8;font-size:12px;margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid #EAF3FF;}.day-wrap{margin-bottom:24px;}.day-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.day-num{background:linear-gradient(135deg,#87CEFA,#5BB8F5);color:#fff;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}.day-title{font-weight:700;font-size:15px;}.day-date{color:#94A3B8;font-size:11px;}.item{border:1px solid #EAF3FF;border-radius:10px;padding:10px 14px;margin-bottom:7px;margin-left:40px;}.item-name{font-weight:600;font-size:13px;}.item-sub{color:#94A3B8;font-size:11px;margin-top:3px;}@media print{body{padding:16px;}}</style></head><body>
-    <h1>${it.title}</h1>
-    <div class="meta">${it.total_days} ngày${it.start_date?' · Từ '+it.start_date.split('T')[0]:''}${it.estimated_budget?' · '+new Intl.NumberFormat('vi-VN').format(it.estimated_budget)+'đ':''}</div>
-    ${days.map(day=>{let dl='';if(startDate){const d=new Date(startDate);d.setDate(d.getDate()+parseInt(day)-1);dl=d.toLocaleDateString('vi-VN',{weekday:'long',day:'2-digit',month:'2-digit'});}return`<div class="day-wrap"><div class="day-head"><div class="day-num">${day}</div><div><div class="day-title">Ngày ${day}</div>${dl?`<div class="day-date">${dl}</div>`:''}</div></div>${byDay[day].map(item=>`<div class="item"><div class="item-name">${TYPE_ICON[item.type]||'📌'} ${item.name||item.title||''} ${item.time?'· 🕐 '+item.time:''}</div>${item.description?`<div class="item-sub">${item.description}</div>`:''}${item.cost?`<div class="item-sub">💰 ${new Intl.NumberFormat('vi-VN').format(item.cost)}đ</div>`:''}${item.address?`<div class="item-sub">📍 ${item.address}</div>`:''}</div>`).join('')}</div>`;}).join('')}
+    win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${dashboardText(it.title)}</title><style>body{font-family:'Nunito Sans',Arial,sans-serif;max-width:700px;margin:0 auto;padding:32px;color:#1E3A5F;}h1{font-size:22px;margin-bottom:4px;}.meta{color:#94A3B8;font-size:12px;margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid #EAF3FF;}.day-wrap{margin-bottom:24px;}.day-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.day-num{background:linear-gradient(135deg,#87CEFA,#5BB8F5);color:#fff;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}.day-title{font-weight:700;font-size:15px;}.day-date{color:#94A3B8;font-size:11px;}.item{border:1px solid #EAF3FF;border-radius:10px;padding:10px 14px;margin-bottom:7px;margin-left:40px;}.item-name{font-weight:600;font-size:13px;}.item-sub{color:#94A3B8;font-size:11px;margin-top:3px;}@media print{body{padding:16px;}}</style></head><body>
+    <h1>${dashboardText(it.title)}</h1>
+    <div class="meta">${dashboardText(it.total_days)} ngày${it.start_date?' · Từ '+dashboardText(it.start_date.split('T')[0]):''}${it.estimated_budget?' · '+new Intl.NumberFormat('vi-VN').format(it.estimated_budget)+'đ':''}</div>
+    ${days.map(day=>{let dl='';if(startDate){const d=new Date(startDate);d.setDate(d.getDate()+parseInt(day)-1);dl=d.toLocaleDateString('vi-VN',{weekday:'long',day:'2-digit',month:'2-digit'});}return`<div class="day-wrap"><div class="day-head"><div class="day-num">${dashboardText(day)}</div><div><div class="day-title">Ngày ${dashboardText(day)}</div>${dl?`<div class="day-date">${dl}</div>`:''}</div></div>${byDay[day].map(item=>`<div class="item"><div class="item-name">${TYPE_ICON[item.type]||'📌'} ${dashboardText(item.name||item.title||'')} ${item.time?'· 🕐 '+dashboardText(item.time):''}</div>${item.description?`<div class="item-sub">${dashboardText(item.description)}</div>`:''}${item.cost?`<div class="item-sub">💰 ${new Intl.NumberFormat('vi-VN').format(item.cost)}đ</div>`:''}${item.address?`<div class="item-sub">📍 ${dashboardText(item.address)}</div>`:''}</div>`).join('')}</div>`;}).join('')}
     </body></html>`);
     win.document.close(); win.focus(); setTimeout(()=>win.print(),400);
 }
@@ -1577,7 +1585,9 @@ async function loadProfile() {
     document.getElementById('profile-name').value   = data.name   || '';
     document.getElementById('profile-email').value  = data.email  || '';
     document.getElementById('profile-phone').value  = data.phone  || '';
-    document.getElementById('profile-dob').value    = data.dob    || '';
+    document.getElementById('profile-dob').value = data.dob || '';
+    document.getElementById('profile-dob').disabled = data.profile_fields?.dob !== true;
+    document.getElementById('profile-dob-hint').hidden = data.profile_fields?.dob === true;
     document.getElementById('profile-gender').value = data.gender || '';
 }
 
@@ -1593,7 +1603,7 @@ async function saveProfile() {
     succ.classList.add('hidden'); err.classList.add('hidden');
     if (!name||!email) { err.textContent='Vui lòng nhập họ tên và email!'; err.classList.remove('hidden'); return; }
     btn.textContent='Đang lưu...'; btn.disabled=true;
-    const res  = await api('/me',{method:'PUT',body:JSON.stringify({name,email,phone,dob,gender})});
+    const res  = await api('/me',{method:'PUT',body:JSON.stringify({name,phone,...(!document.getElementById('profile-dob').disabled ? {dob} : {})})});
     const data = await res.json();
     btn.textContent='Lưu thay đổi'; btn.disabled=false;
     if (res.ok) {
@@ -1613,7 +1623,7 @@ async function savePassword() {
     const err=document.getElementById('pw-error');
     succ.classList.add('hidden'); err.classList.add('hidden');
     if (!current||!newPw||!confirm) { err.textContent='Vui lòng nhập đầy đủ!'; err.classList.remove('hidden'); return; }
-    if (newPw.length<6) { err.textContent='Mật khẩu tối thiểu 6 ký tự!'; err.classList.remove('hidden'); return; }
+    if (newPw.length<8) { err.textContent='Mật khẩu tối thiểu 8 ký tự!'; err.classList.remove('hidden'); return; }
     if (newPw!==confirm) { err.textContent='Mật khẩu xác nhận không khớp!'; err.classList.remove('hidden'); return; }
     btn.textContent='Đang đổi...'; btn.disabled=true;
     const res=await api('/me/password',{method:'POST',body:JSON.stringify({current_password:current,new_password:newPw,new_password_confirmation:confirm})});
@@ -1642,7 +1652,7 @@ function showCustomToast(message, type = 'info', duration = 4000) {
     
     toast.innerHTML = `
         <div class="custom-toast-icon">${icons[type] || 'i'}</div>
-        <div class="custom-toast-content">${message}</div>
+        <div class="custom-toast-content">${dashboardText(message)}</div>
         <div class="custom-toast-close" onclick="this.closest('.custom-toast').remove()">✕</div>
     `;
     

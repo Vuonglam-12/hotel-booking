@@ -1,0 +1,66 @@
+{
+    "synthetic_only": true,
+    "isolated_database": "aurel_roomtype_v2_test_1a12b37fdb8b",
+    "isolated_port": "59398",
+    "passed": 12,
+    "checks": [
+        "Owned separate MySQL identity verified; no access to main DB",
+        "Customer baseline uses synthetic base400000,3nights,2rooms=2400000",
+        "Admin saves season; database and already-open customer tab update to3200000",
+        "Admin saves day within season; day overrides season,total3800000",
+        "Duplicate day rejected422; saved values and customer total stay unchanged",
+        "Overlapping season at inclusive boundary rejected422 without changing data",
+        "Admin edits season; customer tab updates3900000 while day priority is preserved",
+        "Admin edits day; customer tab updates4000000 without reload",
+        "Saved day+season layouts fit390px; screenshots captured on real unchanged UI",
+        "Changing quantity\/date updates totals and excludes checkout day override",
+        "Admin deletes day; customer automatically falls back to season,total3400000",
+        "Admin deletes season; customer automatically falls back to base,total2400000"
+    ],
+    "rate_writes": [
+        {
+            "method": "POST",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates",
+            "status": 201
+        },
+        {
+            "method": "POST",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates",
+            "status": 201
+        },
+        {
+            "method": "POST",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates",
+            "status": 422
+        },
+        {
+            "method": "POST",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates",
+            "status": 422
+        },
+        {
+            "method": "PUT",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates\/1",
+            "status": 200
+        },
+        {
+            "method": "PUT",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates\/2",
+            "status": 200
+        },
+        {
+            "method": "DELETE",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates\/2",
+            "status": 200
+        },
+        {
+            "method": "DELETE",
+            "path": "\/api\/admin\/hotels\/1\/room-types\/1\/rates\/1",
+            "status": 200
+        }
+    ],
+    "exceptions": [],
+    "main_prices_unchanged": true,
+    "phpunit_tests_passed": 7,
+    "phpunit_assertions": 100
+}

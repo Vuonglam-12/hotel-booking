@@ -42,8 +42,6 @@ class HotelService
             'description'    => $data['description']    ?? null,
             'phone'          => $data['phone']           ?? null,
             'email'          => $data['email']           ?? null,
-            'check_in_time'  => $data['check_in_time']  ?? '14:00:00',
-            'check_out_time' => $data['check_out_time'] ?? '12:00:00',
             'status'         => $data['status']         ?? 'active',
             'avg_rating'     => 0,
         ]);
@@ -70,8 +68,6 @@ class HotelService
             'description'    => $data['description']    ?? null,
             'phone'          => $data['phone']          ?? null,
             'email'          => $data['email']          ?? null,
-            'check_in_time'  => $data['check_in_time']  ?? null,
-            'check_out_time' => $data['check_out_time'] ?? null,
             'status'         => $data['status']         ?? null,
         ], fn($v) => !is_null($v)));
 

@@ -89,11 +89,7 @@
         {{-- Logo --}}
         <div class="text-center mb-8">
             <a href="{{ route('home') }}" class="inline-flex items-center gap-2">
-                <svg class="w-9 h-9 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                </svg>
-                <span class="font-display text-3xl font-bold text-[#87CEFA]">Hotel</span>
-                <span class="font-display text-3xl font-light text-[#3A4A5A]">Booking</span>
+                @include('partials.brand-logo')
             </a>
             <p class="text-[#C9D3DD] mt-2 text-sm">Tạo tài khoản miễn phí</p>
         </div>
@@ -103,7 +99,7 @@
             <h2 class="font-display text-2xl font-bold text-[#1E3A5F] mb-6">Đăng ký tài khoản</h2>
 
             <div id="g_id_onload"
-                data-client_id="829842960470-itgpqhmc91rqk4oosurbc1ufvc5el3kq.apps.googleusercontent.com"
+                data-client_id="{{ config('services.google.client_id') }}"
                 data-context="signup"
                 data-ux_mode="popup"
                 data-callback="handleGoogleLogin"
@@ -141,7 +137,7 @@
 
                 <div>
                     <label class="block text-xs font-semibold text-[#3A4A5A] mb-1.5 uppercase tracking-wide">Mật khẩu <span class="text-red-400">*</span></label>
-                    <input id="password" type="password" placeholder="Tối thiểu 6 ký tự" class="auth-input" oninput="checkStrength(this.value)">
+                    <input id="password" type="password" placeholder="Tối thiểu 8 ký tự" class="auth-input" oninput="checkStrength(this.value)">
                     <div class="flex gap-1 mt-2" id="strength-bars">
                         <div class="strength-bar bg-[#E5E7EB]" id="bar-1"></div>
                         <div class="strength-bar bg-[#E5E7EB]" id="bar-2"></div>
@@ -258,8 +254,8 @@ async function doRegister() {
         errDiv.classList.remove('hidden');
         return;
     }
-    if (password.length < 6) {
-        errDiv.textContent = 'Mật khẩu phải có ít nhất 6 ký tự!';
+    if (password.length < 8) {
+        errDiv.textContent = 'Mật khẩu phải có ít nhất 8 ký tự!';
         errDiv.classList.remove('hidden');
         return;
     }

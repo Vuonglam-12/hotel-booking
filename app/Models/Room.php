@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAccommodationImages;
 use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
+    use HasAccommodationImages;
+
     protected $table = 'room';
 
     public $timestamps = false;
@@ -25,6 +28,20 @@ class Room extends Model
         return $this->belongsTo(Hotel::class);
     }
 
+    public function bookingLines() { return $this->hasMany(BookingRoom::class, 'room_id'); }
+
+    public function scopeManaged($query)
+    {
+        return \App\Services\HotelRoomTypeService::enabled() ? $query->where('catalog_retired', false) : $query;
+    }
+
+    public function scopeOffered($query)
+    {
+        if (!\App\Services\HotelRoomTypeService::enabled()) return $query;
+        return $query->managed()->whereNotExists(fn($q) => $q->selectRaw('1')->from('hotel_room_type as catalog')
+            ->whereColumn('catalog.hotel_id', 'room.hotel_id')->whereColumn('catalog.room_type_id', 'room.room_type_id')->whereIn('catalog.status', ['inactive', 'archived']));
+    }
+
     public function roomType()
     {
         return $this->belongsTo(RoomType::class);
@@ -36,16 +53,4 @@ class Room extends Model
     }
 
 
-    public function getCoverImageUrlAttribute(): string
-    {
-        $img = $this->relationLoaded('images')
-            ? ($this->images->firstWhere('is_primary', true) ?? $this->images->first())
-            : $this->images()->orderByDesc('is_primary')->first();
-
-        if (!$img) {
-            return "https://picsum.photos/seed/room-{$this->id}/400/300";
-        }
-
-        return asset(dirname($img->image_url) . '/' . rawurlencode(basename($img->image_url)));
-    }
 }

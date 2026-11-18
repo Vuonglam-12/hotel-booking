@@ -6,7 +6,6 @@
     body { font-family: 'Nunito Sans', Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
     .container { max-width: 600px; margin: 30px auto; background: #fff; border-radius: 8px; overflow: hidden; }
     .header { background: #1E3A5F; padding: 24px; text-align: center; }
-    .header h1 { color: #fff; margin: 0; font-size: 22px; }
     .body { padding: 32px; text-align: center; }
     .otp-box {
         background: #EAF3FF;
@@ -33,11 +32,11 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>HolidayViet</h1>
+      <img src="{{ asset(config('brand.logo_url')) }}" alt="Angel" width="130" height="43" style="display: block; width: 130px; max-width: 100%; height: auto; margin: 0 auto; border-radius: 6px;">
     </div>
     <div class="body">
       <p style="font-size:16px; color:#1E3A5F; font-weight:600;">Xin chào {{ $customer->name }},</p>
-      <p style="color:#5A6A7A; font-size:14px;">Mã OTP đăng nhập bằng số điện thoại của bạn là:</p>
+      <p style="color:#5A6A7A; font-size:14px;">Mã OTP để đặt lại mật khẩu Angel của bạn là:</p>
 
       <div class="otp-box">
         <div class="otp-code">{{ $otp }}</div>
@@ -49,10 +48,10 @@
         Nếu bạn không yêu cầu mã này, hãy bỏ qua email này.
       </div>
 
-      <p style="font-size:13px; color:#888;">Số điện thoại đăng nhập: <strong>{{ $phone }}</strong></p>
+      <p style="font-size:13px; color:#888;">Nếu bạn không yêu cầu đặt lại mật khẩu, hãy bỏ qua email này.</p>
     </div>
     <div class="footer">
-      Hotel Booking System &copy; {{ date('Y') }} — Email này được gửi tự động, vui lòng không reply.
+      Angel &copy; {{ date('Y') }} — Email này được gửi tự động, vui lòng không reply.
     </div>
   </div>
 </body>

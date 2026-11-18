@@ -1,0 +1,48 @@
+source_key,canonical_name,name,item_type,actual_id,actual_location_id,actual_location_name,expected_existing_location_id,source_row_matches,location_candidates,comparison,publication_review
+vn-ha-noi,"Hà Nội","Lăng Chủ tịch Hồ Chí Minh",attraction,1,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Văn Miếu - Quốc Tử Giám",attraction,2,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Hồ Hoàn Kiếm & Đền Ngọc Sơn",attraction,3,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Phở Gia Truyền Bát Đàn",restaurant,4,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Bún chả Hương Liên (Bún chả Obama)",restaurant,5,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Chả cá Lã Vọng",restaurant,6,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Hanoi Old Quarter Budget Hotel",hotel,7,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Tirant Hotel Hanoi",hotel,8,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ha-noi,"Hà Nội","Xem Múa Rối Nước Thăng Long",activity,9,2,"Hồ Chí Minh",1,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Dinh Độc Lập",attraction,10,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Bảo tàng Chứng tích Chiến tranh",attraction,11,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Chợ Bến Thành",attraction,12,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Bánh Mì Huỳnh Hoa",restaurant,13,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Phở Lệ",restaurant,14,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Cơm tấm Ba Ghiền",restaurant,15,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Saigonciti Hotel",hotel,16,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Liberty Central Saigon Centre",hotel,17,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-ho-chi-minh,"Hồ Chí Minh","Ăn tối trên du thuyền sông Sài Gòn",activity,18,3,"Đà Nẵng",2,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Khu Du lịch Langbiang",attraction,19,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Thung lũng Tình Yêu",attraction,20,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Vườn hoa Thành phố Đà Lạt",attraction,21,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Lẩu gà lá é Tao Ngộ",restaurant,22,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Bánh căn Lệ",restaurant,23,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Lẩu bò Quán Gỗ (Ba Toa)",restaurant,24,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Tigold Hostel Da Lat",hotel,25,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Hôtel Colline Đà Lạt",hotel,26,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-da-lat,"Đà Lạt","Trải nghiệm hái dâu tây tại vườn",activity,27,4,"Phú Quốc",7,1,1,MISMATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Vườn Quốc gia Phú Quốc",attraction,28,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Bãi Sao",attraction,29,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Dinh Cậu",attraction,30,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Nhà hàng Crab House Phú Quốc",restaurant,31,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Bún Kèn Út Lượm",restaurant,32,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Nhà hàng Thiên Thanh",restaurant,33,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Phú Quốc Budget Hostel",hotel,34,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Salinda Resort Phu Quoc",hotel,35,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Lặn ngắm san hô Hòn Thơm",activity,36,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Chợ đêm Dương Đông",activity,37,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Bãi Dài Phú Quốc",attraction,38,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Nhà thùng nước mắm Khải Hoàn",attraction,39,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Làng chài Hàm Ninh",attraction,40,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Nhà hàng Hải Sản Gành Dầu",restaurant,41,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Nhà hàng Ốc Nhỏ Phú Quốc",restaurant,42,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Quán Ghẹ Hàm Ninh",restaurant,43,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Cáp treo Hòn Thơm",activity,44,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Tour câu cá và lặn ngắm san hô",activity,45,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","VinWonders Phú Quốc",activity,46,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL
+vn-phu-quoc,"Phú Quốc","Vinpearl Resort & Spa Phú Quốc",hotel,47,4,"Phú Quốc",4,1,1,MATCH_SOURCE_LOCATION,HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL

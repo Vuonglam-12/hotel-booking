@@ -1,0 +1,209 @@
+{
+  "date": "2026-10-25",
+  "phase": "5C.2",
+  "status": "PARTIAL_PREPARATION_BLOCKED_APPROVED_BACKUP_AND_CLONE_ACCESS",
+  "ro_preflight": {
+    "result": "PASS",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "database": "hotel_booking",
+    "server_uuid": "7880df8a-92cd-11f0-85c1-a841f442ddbd",
+    "server_host": "QuocAnh",
+    "version": "8.0.30",
+    "account": "aurel_catalog_ro@127.0.0.1",
+    "grants": [
+      "USAGE",
+      "SELECT on escaped hotel_booking schema"
+    ],
+    "active_roles": "NONE",
+    "mandatory_roles": "",
+    "applicable_roles": 0,
+    "enabled_roles": 0,
+    "partial_revokes": 0,
+    "session_timezone": "SYSTEM",
+    "system_timezone": "SE Asia Standard Time",
+    "session_now": "2026-10-25 12:29:40",
+    "utc_now": "2026-10-25 05:29:40",
+    "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+    "default_storage_engine": "InnoDB",
+    "client_closed": true
+  },
+  "backup": {
+    "provided": false,
+    "approved_path": null,
+    "sha256": null,
+    "created": false,
+    "operator_credential_used": false
+  },
+  "clone": {
+    "approved_target_provided": false,
+    "host": null,
+    "port": null,
+    "database": null,
+    "server_uuid": null,
+    "write_credential_provided": false,
+    "created": false,
+    "restored": false,
+    "migration_executed": false,
+    "mapping_update_executed": false
+  },
+  "offline_mapping_proposal": {
+    "result": "PASS_OFFLINE_ONLY_NOT_A_DATABASE_REHEARSAL",
+    "source_snapshot": "docs/validation/catalog-live-readonly-phase5c1-2026-10-25.json",
+    "source_snapshot_sha256": "fdb79398aea1cf6e85a18989af70144d59e0d02c432f14eb73640fa630d114dc",
+    "source_review_sha256": "880ae1efaea8f55f4fa9cb67225d06983fda0296d52d4085b3d73e5dcfd4856f",
+    "proposed_changes": 27,
+    "records_before": 47,
+    "records_after_simulation": 47,
+    "unique_ids": 47,
+    "other_fields_preserved": true,
+    "duplicate_keys_after_simulation": 0,
+    "location_orphans_after_simulation": 0,
+    "source_location_mismatches_after_simulation": 0,
+    "counts_by_existing_location_after_simulation": {
+      "1": 9,
+      "2": 9,
+      "4": 20,
+      "7": 9
+    },
+    "hotel_rows_modified": 0,
+    "execution": "In-memory arrays derived from Phase 5C.1 snapshot only; no new database or SQL write"
+  },
+  "checks": [
+    {
+      "name": "RO target/UUID/account/grants/roles revalidation",
+      "result": "PASS"
+    },
+    {
+      "name": "Offline 27-row mapping proposal and preservation checks",
+      "result": "PASS_OFFLINE"
+    },
+    {
+      "name": "Approved backup provenance/hash",
+      "result": "BLOCKED"
+    },
+    {
+      "name": "Clone ownership and write privileges",
+      "result": "BLOCKED"
+    },
+    {
+      "name": "Restore baseline",
+      "result": "NOT_RUN_BLOCKED"
+    },
+    {
+      "name": "Clone mapping SQL",
+      "result": "NOT_RUN_BLOCKED"
+    },
+    {
+      "name": "Three catalog migrations on approved clone",
+      "result": "NOT_RUN_BLOCKED"
+    },
+    {
+      "name": "Client/Admin/storage checks on clone",
+      "result": "NOT_RUN_BLOCKED"
+    },
+    {
+      "name": "Post-migration duplicate/orphan/preservation checks",
+      "result": "NOT_RUN_BLOCKED"
+    },
+    {
+      "name": "Recovery/rollback drill",
+      "result": "NOT_RUN_BLOCKED"
+    }
+  ],
+  "safety": {
+    "dotenv_read": false,
+    "admin_credential_used": false,
+    "production_data_rows_read_this_turn": false,
+    "main_write_statements": 0,
+    "backup_dump_executed": false,
+    "clone_server_started": false,
+    "test_runner_executed": false,
+    "application_bootstrapped": false,
+    "source_files_modified": false,
+    "deployment_started": false
+  },
+  "source_integrity": [
+    {
+      "file": "app/Services/LegacyBlogImporter.php",
+      "sha256": "1e9d613f0463d46ffdc80a945b3d0f238837324f47b81e6adf2688bda47cb881",
+      "matches_phase5b": true
+    },
+    {
+      "file": "app/Console/Commands/ImportLegacyGuides.php",
+      "sha256": "52bd807e3974efabf5394d2ad382fb218ed6bc519eeee87f894eb0e4bce18390",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/CatalogDataSafetyMysqlTest.php",
+      "sha256": "b8b3e192165300e31a0bc283f317b54133bd2bd7de1fd3ed44e88df04e2fd157",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/CatalogMysqlIntegrationTest.php",
+      "sha256": "a9417b82f95a23751aa525ce24d44359f5cf1e0ac2a805112e7b500c542bef3c",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/GuideModuleTest.php",
+      "sha256": "10edce38b31986d6442153f3557b1178a1f63fba982c9689f736a539b23c2db8",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/run_catalog_mysql_integration.cjs",
+      "sha256": "50ee933a8c6caac91cee1de3e5d7292b62a141ce23bb8cedd4ae4eb07e5a40b9",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/CatalogMysqlFixture.php",
+      "sha256": "967320ad4051c1794b54a3f7572b4cfba648f0fbaa3bc95f430725bdf0383bae",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/guide_browser_setup.php",
+      "sha256": "53a4050d25945bd1ae361a194a2af53aabd418e723b98e49a6d93a558142b4c3",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Frontend/catalog-mysql.browser.cjs",
+      "sha256": "a0f71f5372ce91c6e2def2b0b96f004ef5dd9aec0ce9557bc0e2b9741d751d53",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Frontend/guides.browser.cjs",
+      "sha256": "5848ea286337df7cd127c94b332ecd14c6bac0432a35c9a5347caae21b064cee",
+      "matches_phase5b": true
+    },
+    {
+      "file": "phpunit.catalog-safety-mysql.xml",
+      "sha256": "f6ae67e2c09ed29beb06694213b70d3331ec10df14d7561ec3100ef2559c9d5b",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000001_add_experience_catalog_metadata.php",
+      "sha256": "4b2fdff04fdd4fbb321a2a914e8354404d9648885babbf0fec19dc81362f5abb",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000002_create_travel_guides.php",
+      "sha256": "eb15695b8cda4cd9ee94846585098f540437904f10ad4cd4e592759cceae879f",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000003_widen_guide_publication_datetime.php",
+      "sha256": "0d180d48622c6fde0392026f138a044dd06e20f7ad4353e1067a4eb3919ec453",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/seeders/AttractionSeeder.php",
+      "sha256": "f6cc49707b311ae6f7d25918fcfd5b1253825f48e28d24e63588e39b9497a136",
+      "matches_phase5b": true
+    }
+  ],
+  "progress_estimate": {
+    "module_percent": 85,
+    "estimated": true,
+    "unchanged_since_phase5c1": true,
+    "reason": "Backup/restore milestone not achieved; preparation and offline mapping are not clone execution."
+  }
+}

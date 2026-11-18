@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/catalog_mysql_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Experience and Guide integration on runner-owned MySQL"><file>tests/Feature/CatalogMysqlIntegrationTest.php</file></testsuite></testsuites>
+</phpunit>

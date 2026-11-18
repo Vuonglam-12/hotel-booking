@@ -1,0 +1,50 @@
+{
+  "reviewed_on": "2026-10-28",
+  "review_due": "2026-11-11",
+  "places": [
+    {
+      "location": "Hồ Chí Minh",
+      "names": ["Creative Park", "Công viên Sáng tạo", "Cong vien Sang tao"],
+      "coordinates": [106.71253, 10.78005],
+      "radius_metres": 1500,
+      "ticket": {"status": "free", "label": "Miễn phí vào công viên", "note": "Dịch vụ tiện ích và chương trình riêng có thể tính phí.", "source_url": "https://moc.gov.vn/vn/tin-tuc/1226/92746/cai-tao-bo-dong-song-sai-gon-hinh-thanh-khong-gian-cong-cong-moi.aspx", "source": "Cổng thông tin Bộ Xây dựng"}
+    },
+    {
+      "location": "Hồ Chí Minh",
+      "names": ["Công viên bờ sông Sài Gòn", "Saigon Riverside Park"],
+      "coordinates": [106.71244, 10.77053],
+      "radius_metres": 1500,
+      "ticket": {"status": "free", "label": "Miễn phí vào công viên", "note": "Dịch vụ tiện ích và chương trình riêng có thể tính phí.", "source_url": "https://moc.gov.vn/vn/tin-tuc/1226/92746/cai-tao-bo-dong-song-sai-gon-hinh-thanh-khong-gian-cong-cong-moi.aspx", "source": "Cổng thông tin Bộ Xây dựng"}
+    },
+    {
+      "location": "Hồ Chí Minh",
+      "names": ["Công viên Văn hóa Đầm Sen", "Dam Sen Park", "Đầm Sen Park"],
+      "coordinates": [106.63825, 10.76514],
+      "radius_metres": 1000,
+      "ticket": {"status": "priced", "label": "Vé tham quan", "note": "Vé tham quan không bao gồm trò chơi; vé trọn gói có mức giá riêng. Giá trẻ em theo chiều cao, không quy đổi từ tuổi.", "source_url": "https://damsenpark.vn/", "source": "Công viên Văn hóa Đầm Sen", "tiers": [{"amount": 160000, "min_height_cm": 141, "label": "Khách cao trên 1,4 m"}, {"amount": 100000, "min_height_cm": 100, "max_height_cm": 140, "label": "Khách từ 1 m đến 1,4 m"}, {"amount": 0, "max_height_cm": 99, "label": "Trẻ dưới 1 m, đi cùng người lớn"}], "adult_reference": 160000}
+    },
+    {
+      "location": "Hồ Chí Minh",
+      "names": ["Công viên Nước Đầm Sen", "Dam Sen Water Park", "Đầm Sen Nước"],
+      "coordinates": [106.63622, 10.76798],
+      "radius_metres": 700,
+      "image": {"url": "/image/ai-places/dam-sen-water-park.jpg", "alt": "Cổng Công viên nước Đầm Sen, ảnh năm 2019", "author": "Martin Lewison", "captured_year": 2019, "source": "Wikimedia Commons", "source_url": "https://commons.wikimedia.org/wiki/File:Dam_Sen_Water_Park_(49357916801).jpg", "license": "CC BY 2.0", "license_url": "https://creativecommons.org/licenses/by/2.0/"},
+      "closed_weekdays": [2],
+      "opening": {"start": "09:00", "end": "18:00", "days": [1, 3, 4, 5], "source_url": "https://damsenwaterpark.com.vn/gia-ve-dam-sen-nuoc/"},
+      "ticket": {"status": "priced", "label": "Vé cổng chính, vui chơi trong ngày", "note": "Giá khách lẻ theo chiều cao; dịch vụ gửi đồ, ăn uống và combo mua riêng. Lịch đặc biệt cần kiểm tra với công viên.", "source_url": "https://damsenwaterpark.com.vn/gia-ve-dam-sen-nuoc/", "source": "Công viên nước Đầm Sen", "tiers": [{"amount": 220000, "min_height_cm": 141, "label": "Khách cao trên 1,4 m"}, {"amount": 180000, "min_height_cm": 80, "max_height_cm": 140, "label": "Khách từ 0,8 m đến 1,4 m"}, {"amount": 0, "max_height_cm": 79, "label": "Trẻ dưới 0,8 m, đi cùng người lớn có vé"}], "adult_reference": 220000}
+    },
+    {
+      "location": "Hồ Chí Minh",
+      "names": ["Khu du lịch Suối Tiên", "Khu du lịch Văn hóa Suối Tiên", "Công viên Văn hóa Suối Tiên", "Suối Tiên Theme Park", "Suoi Tien Theme Park", "Suoi Tien Amusement Park"],
+      "coordinates": [106.802173, 10.863885],
+      "radius_metres": 1200,
+      "reviewed_on": "2026-10-29",
+      "review_due": "2026-11-12",
+      "wikidata_id": "Q2930683",
+      "website": "https://suoitien.vn/",
+      "description": "Khu vui chơi văn hóa tại TP.HCM với công trình chủ đề, Suối Tiên Farm và các hoạt động giải trí. Vé công viên khô và khu Biển Tiên Đồng – Ngọc Nữ được bán riêng; nên chọn loại vé theo những khu bạn muốn ghé.",
+      "image": {"url": "/image/ai-places/suoi-tien.jpg", "alt": "Cổng Khu du lịch Văn hóa Suối Tiên, ảnh năm 2023", "author": "Syced", "captured_year": 2023, "source": "Wikimedia Commons", "source_url": "https://commons.wikimedia.org/wiki/File:July_2023_Suoi_Tien_Park.jpg", "identity_url": "https://www.wikidata.org/wiki/Q2930683", "license": "CC0 1.0", "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"},
+      "ticket": {"status": "priced", "label": "Vé cổng + xe lửa · công viên khô", "note": "Bao gồm cổng Thiên Tiên Môn và xe lửa; không phải vé tất cả trò chơi hoặc công viên nước. Trẻ dưới 1 m miễn phí tối đa 1 trẻ/1 người lớn đi cùng, trừ trò chơi Mega Zone. Giờ bán vé công bố 08:00–17:00; kiểm tra lịch hoạt động trước khi đi.", "source": "Du lịch Văn hóa Suối Tiên", "source_url": "https://suoitien.vn/combo-tro-choi", "adult_reference": 180000, "free_child_limit_per_adult": 1, "tiers": [{"amount": 180000, "min_height_cm": 140, "label": "Khách từ 1,4 m trở lên"}, {"amount": 100000, "min_height_cm": 100, "max_height_cm": 139, "label": "Trẻ từ 1 m đến dưới 1,4 m"}, {"amount": 0, "max_height_cm": 99, "label": "Trẻ dưới 1 m · tối đa 1 trẻ/1 người lớn đi cùng"}]}
+    }
+  ]
+}

@@ -1,42 +1,32 @@
-<div class="hotel-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#C9D3DD]/30 click-effect cursor-pointer"
-    onclick="window.location.href='/hotels/{{ $hotel->id }}'">
-
-    <div class="relative h-52 bg-[#EAF3FF] overflow-hidden">
-        <img src="{{ $hotel->cover_image_url }}"
-            class="w-full h-full object-cover transition duration-500 hover:scale-110">
-        <button onclick="event.stopPropagation(); toggleWishlist({{ $hotel->id }}, this)"
-            class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm w-8 h-8 rounded-full flex items-center justify-center text-[#C9D3DD] hover:text-red-500 transition wishlist-btn shadow-sm"
-            data-hotel="{{ $hotel->id }}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-            </svg>
+@php
+    $cardHotel = $hotel ?? null;
+    $cardUrl = $cardHotel ? route('hotel.detail', array_merge(['id' => $cardHotel->id], request()->only(['check_in', 'check_out', 'guests']))) : route('home');
+    if($cardHotel?->search_availability)$cardUrl=route('hotel.detail',array_merge(['id'=>$cardHotel->id],request()->only(['check_in','check_out','guests','adults','children','infants']),['room_type_id'=>$cardHotel->search_availability['room_type_id'],'quantity'=>$cardHotel->search_availability['required_rooms']]));
+    $cardPrice = $cardHotel?->rooms_min_price;
+    // A stored avg_rating alone does not establish a score from actual reviews.
+    $reviewCount = (int) ($cardHotel?->review_count ?? 0);
+    $reviewAverage = data_get($cardHotel?->rating_breakdown, 'avg_overall');
+@endphp
+<article class="hotel-card hv-hotel-card" data-hotel-id="{{ $cardHotel?->id }}">
+    <div class="hv-hotel-photo">
+        <a href="{{ $cardUrl }}" data-hotel-link aria-label="{{ $cardHotel?->name }}">
+            <img src="{{ $cardHotel?->cover_image_url ?? \App\Support\AccommodationImage::placeholder() }}" data-accommodation-image data-card-field="image"
+                alt="{{ $cardHotel?->name }}" width="640" height="480" loading="lazy">
+        </a>
+        <button type="button" class="hv-hotel-wishlist wishlist-btn" data-hotel="{{ $cardHotel?->id }}" aria-label="Lưu khách sạn yêu thích" aria-pressed="false">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0Z"/></svg>
         </button>
     </div>
-
-    <div class="p-5">
-        <div class="flex items-start justify-between gap-2">
-            <div class="flex-1">
-                <h3 class="font-semibold text-[#1E3A5F] text-base leading-snug">{{ $hotel->name }}</h3>
-                <p class="text-[#C9D3DD] text-xs mt-1.5 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                    {{ $hotel->location->name }}
-                </p>
-            </div>
-            <div class="flex items-center gap-1 shrink-0 rating-badge">
-                <svg class="w-4 h-4 rating-star" fill="#F59E0B" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                <span class="text-sm font-bold rating-score">{{ $hotel->avg_rating }}</span>
-            </div>
-        </div>
-        <div class="mt-4 pt-3 border-t border-[#EAF3FF] flex items-center justify-between">
-            <div>
-                @if($hotel->rooms_min_price)
-                    <p class="text-xs text-[#C9D3DD]">Giá từ</p>
-                    <p class="font-bold text-[#87CEFA] text-lg">{{ number_format($hotel->rooms_min_price) }}<span class="text-xs font-normal text-[#C9D3DD]">/đêm</span></p>
-                @else
-                    <p class="text-xs text-[#C9D3DD]">Liên hệ</p>
-                @endif
-            </div>
-            <span class="text-xs btn-primary px-4 py-2 rounded-lg font-semibold inline-flex items-center gap-1">Xem chi tiết <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
-        </div>
-    </div>
-</div>
+    <h3><a href="{{ $cardUrl }}" data-hotel-link data-card-field="name">{{ $cardHotel?->name }}</a></h3>
+    <p class="hv-hotel-location" data-card-field="location">{{ $cardHotel?->location?->name }}</p>
+    <p class="hv-hotel-rating" data-card-field="rating" @if(!$reviewCount || !$reviewAverage) hidden @endif>
+        @if($reviewCount && $reviewAverage) {{ number_format($reviewAverage, 1) }} · {{ $reviewCount }} đánh giá @endif
+    </p>
+    <p class="hv-hotel-availability" data-card-field="availability" @if(!data_get($cardHotel?->search_availability,'dates_checked')) hidden @endif>
+        @if(data_get($cardHotel?->search_availability,'dates_checked')) {{ $cardHotel->search_availability['required_rooms'] }} phòng cho {{ $cardHotel->search_availability['guests'] }} khách · Còn phòng theo ngày đã chọn @endif
+    </p>
+    <p class="hv-hotel-price" data-card-field="price">
+        @if($cardPrice) Từ <strong>{{ number_format($cardPrice, 0, ',', '.') }} ₫</strong> <span>/ đêm</span>
+        @else Liên hệ để biết giá @endif
+    </p>
+</article>

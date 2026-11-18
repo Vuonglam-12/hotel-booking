@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Quản trị Admin — HolidayViet</title>
+    <title>Quản trị Admin — Angel</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="{{ asset('fonts/admin/be-vietnam-pro.css') }}" rel="stylesheet">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
 
     <style>
         :root {
@@ -30,7 +29,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Nunito Sans', system-ui, sans-serif;
+            font-family: 'Be Vietnam Pro', system-ui, sans-serif;
             background: var(--bg);
             min-height: 100vh;
             display: flex;
@@ -112,10 +111,7 @@
             transition: opacity 0.2s;
         }
         .logo-link:hover { opacity: 0.85; }
-        .logo-svg { width: 36px; height: 36px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
-        .logo-wordmark { display: flex; align-items: baseline; }
-        .logo-h { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
-        .logo-v { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 22px; font-weight: 700; color: var(--gold); }
+        .logo-link .hv-brand-logo { border-radius: 6px; }
         .admin-pill {
             background: rgba(241,196,15,0.18);
             border: 1px solid rgba(241,196,15,0.35);
@@ -129,7 +125,7 @@
         /* Hero */
         .hero { margin: auto 0; padding: 32px 0; }
         .hero-title {
-            font-family: 'Nunito Sans', system-ui, sans-serif;
+            font-family: 'Be Vietnam Pro', system-ui, sans-serif;
             font-size: 32px; font-weight: 700;
             color: #fff; line-height: 1.25;
             margin-bottom: 14px;
@@ -168,31 +164,11 @@
         }
 
         .form-title {
-            font-family: 'Nunito Sans', system-ui, sans-serif;
+            font-family: 'Be Vietnam Pro', system-ui, sans-serif;
             font-size: 26px; font-weight: 700;
             color: var(--dark); margin-bottom: 6px;
         }
         .form-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
-
-        /* Role selector */
-        .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
-        .role-opt {
-            border: 1px solid rgba(135,206,250,0.3);
-            border-radius: 12px; padding: 12px 14px;
-            cursor: pointer; transition: all 0.2s;
-            display: flex; align-items: center; gap: 10px;
-            background: rgba(234,243,255,0.6);
-        }
-        .role-opt:hover { background: rgba(135,206,250,0.12); border-color: var(--sky-dark); }
-        .role-opt.selected {
-            border-color: var(--sky);
-            background: rgba(135,206,250,0.15);
-            box-shadow: 0 0 0 3px rgba(135,206,250,0.15);
-        }
-        .role-opt.selected .role-name { color: var(--dark); font-weight: 600; }
-        .role-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-        .role-name { font-size: 13px; font-weight: 500; color: var(--dark); transition: color 0.2s; }
-        .role-desc { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
         /* Field */
         .field { margin-bottom: 16px; }
@@ -214,7 +190,7 @@
             background: #fff;
             border: 1px solid rgba(135,206,250,0.4);
             border-radius: 12px;
-            color: var(--dark); font-size: 14px; font-family: 'Nunito Sans', system-ui, sans-serif;
+            color: var(--dark); font-size: 14px; font-family: 'Be Vietnam Pro', system-ui, sans-serif;
             outline: none; transition: all 0.2s;
         }
         .field-input::placeholder { color: var(--gray); }
@@ -295,26 +271,14 @@
 
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="logo-link">
-                <div class="relative w-9 h-9">
-                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
-                        <path d="M20 80C20 80 25 25 55 10C55 10 45 40 45 80H20Z" fill="white"/>
-                        <path d="M50 75C50 75 55 35 75 20C75 20 65 45 65 75H50Z" fill="#87CEFA"/>
-                        <path d="M40 85C60 85 85 65 85 35" stroke="#F1C40F" stroke-width="3" stroke-linecap="round"/>
-                        <path d="M55 70L65 75M60 60L75 65M68 50L82 52M75 40L88 38" stroke="#F1C40F" stroke-width="3" stroke-linecap="round"/>
-                        <path d="M15 85C35 78 65 78 85 85" stroke="#F1C40F" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div class="logo-wordmark">
-                    <span class="logo-h">Holiday</span>
-                    <span class="logo-v">Viet</span>
-                </div>
+                @include('partials.brand-logo')
                 <span class="admin-pill">Admin</span>
             </a>
 
             {{-- Hero --}}
             <div class="hero">
-                <div class="hero-title">Quản trị hệ thống<br>HolidayViet</div>
-                <div class="hero-sub">Nền tảng quản lý khách sạn &amp; đặt phòng trực tuyến toàn quốc. Chỉ dành cho nhân viên và quản trị viên được uỷ quyền.</div>
+                <div class="hero-title">Quản trị hệ thống<br>Angel</div>
+                <div class="hero-sub">Nền tảng quản lý khách sạn &amp; đặt phòng trực tuyến toàn quốc. Chỉ dành cho quản trị viên được uỷ quyền.</div>
             </div>
 
             {{-- Stats --}}
@@ -341,26 +305,7 @@
         {{-- ══ RIGHT PANEL ══ --}}
         <div class="right">
             <div class="form-title">Đăng nhập</div>
-            <div class="form-sub">Vui lòng chọn vai trò và nhập thông tin tài khoản</div>
-
-            {{-- Role selector --}}
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:rgba(58,74,90,0.6);margin-bottom:8px;">Vai trò của bạn</div>
-            <div class="role-grid" id="roleGrid">
-                <div class="role-opt selected" onclick="selectRole(this)">
-                    <div class="role-dot" style="background:#87CEFA;"></div>
-                    <div>
-                        <div class="role-name">Quản trị viên</div>
-                        <div class="role-desc">Toàn quyền hệ thống</div>
-                    </div>
-                </div>
-                <div class="role-opt" onclick="selectRole(this)">
-                    <div class="role-dot" style="background:#34D399;"></div>
-                    <div>
-                        <div class="role-name">Nhân viên</div>
-                        <div class="role-desc">Quyền vận hành</div>
-                    </div>
-                </div>
-            </div>
+            <div class="form-sub">Nhập email và mật khẩu tài khoản quản trị viên</div>
 
             {{-- Error --}}
             <div class="error-box" id="error-box">
@@ -436,12 +381,6 @@
             }
         })();
 
-        // ── Role selector ──
-        function selectRole(el) {
-            document.querySelectorAll('.role-opt').forEach(o => o.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
         // ── Enter key ──
         document.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
@@ -485,12 +424,18 @@
                     body: JSON.stringify({ email, password })
                 });
 
-                const data = await res.json();
+                const data = await res.json().catch(() => null);
 
                 if (!res.ok) {
-                    errMsg.textContent = data.message || 'Email hoặc mật khẩu không đúng';
+                    errMsg.textContent = data?.message || (res.status >= 500
+                        ? 'Máy chủ đang gặp sự cố. Vui lòng thử lại.'
+                        : 'Không thể đăng nhập. Vui lòng kiểm tra thông tin và thử lại.');
                     errBox.classList.add('show');
                     return;
+                }
+
+                if (!data?.token || data.admin?.role !== 'admin') {
+                    throw new Error('Invalid admin login response');
                 }
 
                 // Lưu admin token riêng — không đụng vào customer token

@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "Owned separate MySQL identity verified; no access to main DB"
+  ],
+  "writes": [],
+  "exceptions": [],
+  "state": {
+    "rows": 0
+  },
+  "error": "UI timeout: location.href===\"http://127.0.0.1:50054/admin/hotels/1\"&&document.readyState==='complete'"
+}

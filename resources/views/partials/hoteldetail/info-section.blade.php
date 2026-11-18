@@ -1,27 +1,22 @@
-<div class="info-card bg-white rounded-2xl p-6 shadow-sm border border-[#C9D3DD]/30">
-    <h2 class="font-display text-xl font-bold text-[#3A4A5A] section-title flex items-center gap-2">
-        <svg class="w-6 h-6 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        Giới thiệu
-    </h2>
-    <p class="text-[#3A4A5A]/80 leading-relaxed">{{ $hotel->description ?? 'Khách sạn ' . $hotel->star_rating . ' sao tại ' . $hotel->location->name . ' với không gian sang trọng.' }}</p>
-    <div class="grid grid-cols-2 gap-4 mt-5 pt-4 border-t border-[#C9D3DD]/30">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-[#EAF3FF] flex items-center justify-center">
-                <svg class="w-5 h-5 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-            <div>
-                <p class="text-xs text-[#C9D3DD]">Check-in</p>
-                <p class="font-semibold text-[#3A4A5A]">{{ substr($hotel->check_in_time, 0, 5) }}</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-[#EAF3FF] flex items-center justify-center">
-                <svg class="w-5 h-5 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-            <div>
-                <p class="text-xs text-[#C9D3DD]">Check-out</p>
-                <p class="font-semibold text-[#3A4A5A]">{{ substr($hotel->check_out_time, 0, 5) }}</p>
-            </div>
-        </div>
+@php
+    $introText = strip_tags($hotel->description ?? '');
+    $shortIntro = Str::limit(strip_tags($introText), 220);
+@endphp
+
+<section class="info-card bg-white rounded-[28px] border border-slate-200/80 shadow-[0_12px_30px_rgba(15,23,42,0.04)] p-6 md:p-7">
+    <div class="mb-4 flex items-center gap-3">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </span>
+        <h2 class="text-2xl font-bold text-slate-900">Giới thiệu</h2>
     </div>
-</div>
+
+    <div class="space-y-4 text-slate-600">
+        <p id="hotel-intro" class="leading-8 text-base">{{ $shortIntro ?: 'Chưa có mô tả khách sạn.' }}</p>
+        @if(mb_strlen($introText) > 220)
+        <button type="button" class="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700 transition hover:bg-blue-100" onclick="document.getElementById('hotel-intro').textContent = @js($introText); this.remove()">
+            Xem thêm
+        </button>
+        @endif
+    </div>
+</section>

@@ -15,6 +15,11 @@ class AdminMiddleware
             return response()->json(['message' => 'Chỉ admin mới có quyền truy cập'], 403);
         }
 
+        $token = $admin->currentAccessToken();
+        if (!($token instanceof \Laravel\Sanctum\PersonalAccessToken) || $token->name !== 'admin_token' || !$token->can('admin')) {
+            return response()->json(['message' => 'Vui lòng đăng nhập bằng phiên Admin'], 403);
+        }
+
         return $next($request);
     }
 }

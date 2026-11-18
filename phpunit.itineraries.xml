@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/itinerary_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Itinerary phase 1 on owned isolated MySQL"><file>tests/Feature/ItineraryV2Test.php</file></testsuite></testsuites>
+</phpunit>

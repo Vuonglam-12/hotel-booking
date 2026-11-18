@@ -1,9 +1,12 @@
 <?php
 namespace App\Models;
 
+use App\Models\Concerns\HasAccommodationImages;
 use Illuminate\Database\Eloquent\Model;
 class Hotel extends Model
 {
+    use HasAccommodationImages;
+
     protected $table ='hotel';
 
     public $timestamps = false;
@@ -19,8 +22,6 @@ class Hotel extends Model
         'google_place_id',
         'star_rating',
         'description',
-        'check_in_time',
-        'check_out_time',
         'status',
         'avg_rating',
     ];
@@ -55,20 +56,9 @@ class Hotel extends Model
     {
         return $this->rooms()
             ->where('status', 'available')
+            ->offered()
             ->min('price');
     }
 
-    public function getCoverImageUrlAttribute(): string
-    {
-        $img = $this->relationLoaded('images')
-            ? ($this->images->firstWhere('is_primary', true) ?? $this->images->first())
-            : $this->images()->orderByDesc('is_primary')->first();
-
-        if (!$img) {
-            return "https://picsum.photos/seed/{$this->id}/800/600"; // fallback khi chưa gán ảnh thật
-        }
-
-        return asset(dirname($img->image_url) . '/' . rawurlencode(basename($img->image_url)));
-    }
 }
 ?>

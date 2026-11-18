@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/itinerary_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Shared Groq configuration on owned MySQL">
+        <file>tests/Feature/GroqModelConfigurationTest.php</file>
+        <file>tests/Feature/ItineraryGeoapifyTest.php</file>
+    </testsuite></testsuites>
+</phpunit>

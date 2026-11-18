@@ -3,56 +3,61 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SaveAttractionRequest;
 use App\Services\Admin\AttractionService;
-use Illuminate\Http\JsonResponse;
+use App\Services\AdminAccommodationImageService;
+use App\Support\ExperienceCategory;
+use App\Support\ExperienceSchema;
 use Illuminate\Http\Request;
 
-class AttractionController extends Controller
+final class AttractionController extends Controller
 {
-    public function __construct(private AttractionService $service) {}
+    public function __construct(private AttractionService $service, private AdminAccommodationImageService $images) {}
 
-    public function index(int $locId): JsonResponse
+    public function page() { return view('admin.experiences'); }
+
+    public function meta(ExperienceSchema $schema)
     {
-        return response()->json($this->service->getByLocation($locId));
+        $schema->ensureReady();
+        return response()->json(['categories' => collect(ExperienceCategory::LABELS)->map(fn ($label, $key) => [
+            'key' => $key, 'label' => $label, 'item_type' => ExperienceCategory::TYPES[$key],
+        ])->values(), 'image_limits' => AdminAccommodationImageService::limits()]);
     }
 
-    public function store(Request $request, int $locId): JsonResponse
+    public function listing(Request $request)
     {
-        $data = $request->validate([
-            'item_type'      => 'required|in:hotel,restaurant,attraction,activity,transport,shopping',
-            'name'           => 'required|string|max:200',
-            'description'    => 'nullable|string',
-            'address'        => 'nullable|string|max:300',
-            'price_min'      => 'nullable|integer|min:0',
-            'price_max'      => 'nullable|integer|min:0',
-            'duration_hours' => 'nullable|integer|min:0|max:24',
-            'open_time'      => 'nullable|string',
-            'close_time'     => 'nullable|string',
-        ]);
-
-        return response()->json($this->service->create($locId, $data), 201);
+        return response()->json($this->service->listing($request->validate([
+            'location_id' => 'nullable|integer|min:1', 'q' => 'nullable|string|max:120',
+            'archived' => 'nullable|boolean', 'page' => 'nullable|integer|min:1',
+        ])));
     }
 
-    public function update(Request $request, int $id): JsonResponse
-    {
-        $data = $request->only([
-            'name', 'description', 'address',
-            'price_min', 'price_max', 'duration_hours',
-            'open_time', 'close_time', 'item_type',
-        ]);
+    public function index(int $locId) { return response()->json($this->service->getByLocation($locId)); }
+    public function show(int $id) { return response()->json($this->service->detail($id)); }
 
-        return response()->json($this->service->update($id, $data));
+    public function store(SaveAttractionRequest $request, int $locId)
+    {
+        [$changes, $files] = $this->images->input($request);
+        return response()->json($this->service->save(null, [...$request->validated(), 'location_id' => $locId], $changes, $files, $request->user('admin')->id), 201);
     }
 
-    public function destroy(int $id): JsonResponse
+    public function update(SaveAttractionRequest $request, int $id)
     {
-        $this->service->delete($id);
-        return response()->json(['message' => 'Đã xóa!']);
+        [$changes, $files] = $this->images->input($request);
+        return response()->json($this->service->save($id, $request->validated(), $changes, $files, $request->user('admin')->id));
     }
 
-    public function toggle(int $id): JsonResponse
+    public function destroy(int $id)
     {
-        $attraction = $this->service->toggle($id);
-        return response()->json(['is_active' => $attraction->is_active]);
+        $this->service->archive($id);
+        return response()->json(['message' => 'Đã lưu trữ trải nghiệm. Dữ liệu và ảnh được giữ lại.']);
     }
+
+    public function restore(int $id)
+    {
+        $this->service->restore($id);
+        return response()->json(['message' => 'Đã khôi phục dưới dạng nháp. Cần xác minh trước khi xuất bản.']);
+    }
+
+    public function toggle(int $id) { return response()->json($this->service->toggle($id)); }
 }

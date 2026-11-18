@@ -1,0 +1,256 @@
+{
+  "phase": "EXPERIENCE_CONTENT_OWNER_REVIEW",
+  "date": "2026-10-25",
+  "approval": "PENDING_OWNER_REVIEW",
+  "summary": {
+    "draft_count": 21,
+    "package_mismatch_count": 0,
+    "pending_live_location_mappings": 21,
+    "categories_requiring_translation": 21,
+    "prepared_photos": 7,
+    "blocked_photo_sources": 1,
+    "without_declared_photo_source": 13,
+    "without_prepared_photo": 14,
+    "optimized_bytes": 1303357,
+    "drafts_without_operational_source": 21,
+    "database_writes": 0,
+    "system_uploads": 0,
+    "live_snapshot_at": "2026-10-25 17:27:24",
+    "zip_sha256": "f0e79f31dad6e88798de9f431a1eadca2ce7534a8414145eddca9ef3279d1d5a"
+  },
+  "preview": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\content-review\\experiences-20261025-a1cebecd\\review\\index.html",
+  "bundle": {
+    "path": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\content-review\\experiences-20261025-a1cebecd\\aurel-experiences-owner-review.zip",
+    "bytes": 1331441,
+    "sha256": "1a079d52d4e244786a687b0022bc7302a402a56b48afbfb53dd134447000c736",
+    "crc_test": "PASS",
+    "file_count": 20
+  },
+  "photo_credits": [
+    {
+      "attraction_id": 2,
+      "photo_title": "Temple of Literature Hanoi.jpg",
+      "author": "Arjunullas",
+      "attribution": "Arjunullas",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Temple_of_Literature_Hanoi.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Temple of Literature Hanoi.jpg — Arjunullas. https://commons.wikimedia.org/wiki/File:Temple_of_Literature_Hanoi.jpg | CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Văn Miếu - Quốc Tử Giám",
+      "photo_date": "2020-02-23",
+      "source_revision": {
+        "revid": 1137436757,
+        "parentid": 650179542,
+        "timestamp": "2025-12-27T07:50:54Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:56Z",
+      "sha256": "4bda723035f1f292de223820bbf014c5dbb2557e8f948550d2f371255f76ae54",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 3,
+      "photo_title": "Hanoi, Vietnam, Hoan Kiem Lake.jpg",
+      "author": "Vyacheslav Argenberg",
+      "attribution": "© Vyacheslav Argenberg",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Hoan_Kiem_Lake.jpg",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Hanoi, Vietnam, Hoan Kiem Lake.jpg — © Vyacheslav Argenberg. https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Hoan_Kiem_Lake.jpg | CC BY 4.0 https://creativecommons.org/licenses/by/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Hồ Hoàn Kiếm & Đền Ngọc Sơn",
+      "photo_date": "2008-03-12 16:44:23",
+      "source_revision": {
+        "revid": 1236309632,
+        "parentid": 1209727801,
+        "timestamp": "2026-06-22T15:54:36Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:57Z",
+      "sha256": "93c7f538b815b03e37e02bdd3164f0f002d40ea7adbe1ed2dcd1ea1eda62e42f",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 9,
+      "photo_title": "Thang long water puppet.JPG",
+      "author": "Ian Sewell",
+      "attribution": "Ian Sewell",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Thang_long_water_puppet.JPG",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Thang long water puppet.JPG — Ian Sewell. https://commons.wikimedia.org/wiki/File:Thang_long_water_puppet.JPG | CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Xem Múa Rối Nước Thăng Long",
+      "photo_date": "2005",
+      "source_revision": {
+        "revid": 1168043739,
+        "parentid": 1014362605,
+        "timestamp": "2026-02-18T07:11:43Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:59Z",
+      "sha256": "5f283bda4de2b8fff2b8e42844ab867fd2eaea39370c0c69398033c78765d1b8",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 10,
+      "photo_title": "Independence Palace, Ho Chi Minh City.jpg",
+      "author": "Trung geo",
+      "attribution": "Trung geo",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Independence_Palace,_Ho_Chi_Minh_City.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Independence Palace, Ho Chi Minh City.jpg — Trung geo. https://commons.wikimedia.org/wiki/File:Independence_Palace,_Ho_Chi_Minh_City.jpg | CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Dinh Độc Lập",
+      "photo_date": "2022-05-23 08:14:55",
+      "source_revision": {
+        "revid": 713573532,
+        "parentid": 705295483,
+        "timestamp": "2022-12-09T02:40:33Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:59Z",
+      "sha256": "53a48351d4bec3666576aeb3771ad4da547a34dc029d863e96a5d5b7c6d49a52",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 11,
+      "photo_title": "War Remnants Museum.jpg",
+      "author": "Christophe95",
+      "attribution": "Christophe95",
+      "source_page": "https://commons.wikimedia.org/wiki/File:War_Remnants_Museum.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "War Remnants Museum.jpg — Christophe95. https://commons.wikimedia.org/wiki/File:War_Remnants_Museum.jpg | CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Bảo tàng Chứng tích Chiến tranh",
+      "photo_date": "2018-07-17 17:51:53",
+      "source_revision": {
+        "revid": 1271726986,
+        "parentid": 711340756,
+        "timestamp": "2026-09-03T12:20:50Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:31:01Z",
+      "sha256": "53b1d5be61e9494492bd85ecac5d722e5d85daf885b7f93a9a0ecd435c44030a",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 12,
+      "photo_title": "Ben Thanh Market, Saigon.jpg",
+      "author": "lightwrite",
+      "attribution": "lightwrite",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Ben_Thanh_Market,_Saigon.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Ben Thanh Market, Saigon.jpg — lightwrite. https://commons.wikimedia.org/wiki/File:Ben_Thanh_Market,_Saigon.jpg | CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Chợ Bến Thành",
+      "photo_date": "2014-06-21 16:49:02",
+      "source_revision": {
+        "revid": 899106231,
+        "parentid": 820893731,
+        "timestamp": "2024-07-15T13:19:38Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:31:02Z",
+      "sha256": "3eb861342206cb87769769f64238dd155ed38b40db41a076ef641b1b4794d0b9",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 19,
+      "photo_title": "Langbiang Mountain.JPG",
+      "author": "Tilamdong",
+      "attribution": "Tilamdong",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG#Licensing",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Langbiang Mountain.JPG — Tilamdong. https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG | Public domain https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG#Licensing | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Khu Du lịch Langbiang",
+      "photo_date": "2009-03-30",
+      "source_revision": {
+        "revid": 1211204136,
+        "parentid": 1073835392,
+        "timestamp": "2026-05-09T14:07:49Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:31:04Z",
+      "sha256": "2230a96c0bd395db131fe2239348883582fe25082f2b478021667949be20d7c5",
+      "share_alike": false
+    }
+  ],
+  "browser_checks": [
+    {
+      "name": "All 21 draft cards and UTF-8 content render",
+      "status": "PASS"
+    },
+    {
+      "name": "All seven optimized local JPEGs load",
+      "status": "PASS"
+    },
+    {
+      "name": "Each prepared image has source and license links",
+      "status": "PASS"
+    },
+    {
+      "name": "Three destination filters each show seven matching drafts",
+      "status": "PASS"
+    },
+    {
+      "name": "Prepared, missing and held-source filters preserve correct counts",
+      "status": "PASS"
+    },
+    {
+      "name": "Vietnamese search works without accent marks",
+      "status": "PASS"
+    },
+    {
+      "name": "Empty state and reset work",
+      "status": "PASS"
+    },
+    {
+      "name": "All draft details include current/proposed locality and category comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "Full-frame photo dialog, credit, Escape and focus return work",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 1440px",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 768px",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 390px",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 320px",
+      "status": "PASS"
+    },
+    {
+      "name": "No runtime/CSP errors or external/application requests",
+      "status": "PASS"
+    }
+  ],
+  "safety": {
+    "database_writes": 0,
+    "system_uploads": 0,
+    "env_read": false,
+    "bundled_script_executed": false,
+    "application_code_changed": false,
+    "public_assets_changed": false,
+    "original_archive_preserved": true
+  },
+  "progress": {
+    "estimated_percent": 87,
+    "basis": "Existing 80 technical + 5 read-only inventory + 2 verified backup points; owner content approval, restore-test and main integration remain pending."
+  },
+  "final_checks": {
+    "source_zip_unchanged": "PASS",
+    "extracted_files_unchanged": "PASS_5_OF_5",
+    "python_syntax": "PASS",
+    "jpeg_sha256": "PASS_7_OF_7",
+    "review_zip_crc": "PASS"
+  }
+}

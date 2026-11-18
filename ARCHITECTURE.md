@@ -1,4 +1,10 @@
-# **COMPREHENSIVE UML DOCUMENTATION - HOTEL BOOKING SYSTEM**
+# **AUREL — UML AND ACTIVE ARCHITECTURE**
+
+AUREL có đúng hai actor nghiệp vụ: **Admin** quản trị toàn bộ website và **Customer** tìm kiếm, đăng ký, đăng nhập, đặt khách sạn. Truy cập ẩn danh là trạng thái chưa đăng nhập của Customer. Cron và cổng thanh toán là thành phần kỹ thuật, không phải vai trò người dùng.
+
+Hai actor dùng Model `Customer`: `role = admin` cho Admin và `role = user` cho Customer. Admin dùng guard Sanctum `admin`, token `admin_token` với ability `admin`; API quản trị dùng cả `auth:admin` và `AdminMiddleware`. Các phiên Customer và Admin được giữ riêng.
+
+Các sơ đồ dưới đây mô tả kiến trúc đang hoạt động. Bảng `staff` và migration lịch sử còn được giữ ở database để chờ phê duyệt xử lý riêng; source đang hoạt động không sử dụng chúng. Xem [báo cáo loại bỏ actor](docs/staff-removal.md).
 
 ## **1. USE CASE DIAGRAM**
 
@@ -6,8 +12,10 @@
 graph TB
     subgraph Actors
         Customer[Customer]
-        Guest[Anonymous Guest]
-        Staff[Staff/Admin]
+        Admin[Admin]
+    end
+
+    subgraph Infrastructure
         System[System/Cron]
         PaymentGW[Payment Gateway]
     end
@@ -30,15 +38,15 @@ graph TB
         UC15[Update Profile]
     end
     
-    subgraph GuestUseCases
+    subgraph PublicCustomerUseCases
         UC16[Browse Hotels]
         UC17[View Hotel Details]
         UC18[View Reviews]
         UC19[View Locations]
     end
     
-    subgraph StaffUseCases
-        UC20[Login as Staff]
+    subgraph AdminUseCases
+        UC20[Login as Admin]
         UC21[View Dashboard]
         UC22[Manage Bookings]
         UC23[Update Booking Status]
@@ -72,20 +80,20 @@ graph TB
     Customer --> UC14
     Customer --> UC15
     
-    Guest --> UC16
-    Guest --> UC17
-    Guest --> UC18
-    Guest --> UC19
-    
-    Staff --> UC20
-    Staff --> UC21
-    Staff --> UC22
-    Staff --> UC23
-    Staff --> UC24
-    Staff --> UC25
-    Staff --> UC26
-    Staff --> UC27
-    Staff --> UC28
+    Customer --> UC16
+    Customer --> UC17
+    Customer --> UC18
+    Customer --> UC19
+
+    Admin --> UC20
+    Admin --> UC21
+    Admin --> UC22
+    Admin --> UC23
+    Admin --> UC24
+    Admin --> UC25
+    Admin --> UC26
+    Admin --> UC27
+    Admin --> UC28
     
     System --> UC29
     System --> UC30
@@ -111,16 +119,6 @@ graph TB
 ```mermaid
 classDiagram
     %% Authentication Models
-    class User {
-        -int id
-        -string name
-        -string email
-        -string password
-        -datetime email_verified_at
-        -datetime created_at
-        +getAuthPassword()
-    }
-    
     class Customer {
         -int id
         -string name
@@ -128,28 +126,15 @@ classDiagram
         -string phone
         -string password_hash
         -string avatar_url
+        -string role
         -int preferred_location_id
         -datetime created_at
         +getAuthPassword()
+        +isAdmin()
         +bookings()
         +wishlist()
         +reviews()
         +chatSessions()
-    }
-    
-    class Staff {
-        -int id
-        -int hotel_id
-        -string name
-        -string email
-        -string phone
-        -string password_hash
-        -string role
-        -datetime created_at
-        +getAuthPassword()
-        +hotel()
-        +isSuperAdmin()
-        +isAdmin()
     }
     
     %% Location & Destination Models
@@ -459,8 +444,6 @@ classDiagram
     Customer ||--o{ Itinerary : "has many"
     Customer ||--o{ CustomerNotification : "has many"
     
-    Staff ||--o{ Hotel : "manages (if not superadmin)"
-    
     Location ||--o{ Hotel : "contains"
     Location ||--o{ Destination : "contains"
     Location ||--o{ Room : "has many through hotels"
@@ -594,7 +577,7 @@ classDiagram
     }
     
     class AdminController {
-        -checkAdmin(Request): Staff
+        -checkAdmin(Request): Customer
         +dashboard(Request): JsonResponse
         +bookings(Request): JsonResponse
         +updateBookingStatus(Request, int id): JsonResponse
@@ -909,9 +892,6 @@ erDiagram
     CUSTOMER ||--o{ CHAT_SESSION : starts
     CUSTOMER ||--o{ ITINERARY : creates
     CUSTOMER ||--o{ NOTIFICATION : receives
-    
-    STAFF ||--|| HOTEL : manages
-    STAFF ||--o{ HOTEL : "supervises multiple"
     
     LOCATION ||--o{ HOTEL : contains
     LOCATION ||--o{ DESTINATION : contains

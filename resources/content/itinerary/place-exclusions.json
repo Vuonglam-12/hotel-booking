@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "location_name": "Đà Nẵng",
+      "names": ["Thành cổ Điện Hải", "Thành Điện Hải", "Dien Hai Citadel", "Dien Hai Fortress"],
+      "status": "reported_closed",
+      "source": "user_report",
+      "reported_on": "2026-10-30",
+      "note": "Người dùng cung cấp ảnh mục Google Maps đánh dấu Bị đóng vĩnh viễn. Ngừng gợi ý mục này trong khi chờ xác minh lại; không kết luận tình trạng của mọi cơ sở trong khu di tích."
+    }
+  ]
+}

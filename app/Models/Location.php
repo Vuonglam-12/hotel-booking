@@ -16,6 +16,7 @@ class Location extends Model
         'country',
         'latitude',
         'longitude',
+        'code',
     ];
 
     public function hotels()

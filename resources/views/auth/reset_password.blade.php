@@ -22,7 +22,7 @@
         <div class="space-y-4">
             <div>
                 <label class="text-xs font-medium text-[#3A4A5A] block mb-1">Mật khẩu mới</label>
-                <input type="password" id="password" placeholder="Tối thiểu 6 ký tự"
+                <input type="password" id="password" placeholder="Tối thiểu 8 ký tự"
                     class="w-full border border-[#C9D3DD] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#87CEFA]">
             </div>
             <div>
@@ -47,8 +47,8 @@
 
 <script>
     // Lấy token và email từ URL
-    const token = '{{ $token }}';
-    const email = '{{ $email }}';
+    const token = {{ Illuminate\Support\Js::from($token) }};
+    const email = {{ Illuminate\Support\Js::from($email) }};
 
     async function submitReset() {
         const password             = document.getElementById('password').value;
@@ -60,8 +60,8 @@
         errDiv.classList.add('hidden');
         succDiv.classList.add('hidden');
 
-        if (!password || password.length < 6) {
-            errDiv.textContent = 'Mật khẩu phải có ít nhất 6 ký tự!';
+        if (!password || password.length < 8) {
+            errDiv.textContent = 'Mật khẩu phải có ít nhất 8 ký tự!';
             errDiv.classList.remove('hidden');
             return;
         }

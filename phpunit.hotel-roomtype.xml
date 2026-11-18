@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/roomtype_v2_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Hotel-scoped RoomType on isolated MySQL"><file>tests/Feature/HotelScopedRoomTypeTest.php</file></testsuite></testsuites>
+</phpunit>

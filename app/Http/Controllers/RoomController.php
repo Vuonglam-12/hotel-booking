@@ -2,62 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
-use App\Models\Booking;
+use App\Models\Hotel;
+use App\Services\RoomAvailabilityService;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    /**
-     * ====================================================================
-     * KIỂM TRA PHÒNG CÒN TRỐNG TRONG KHOẢNG THỜI GIAN
-     * ====================================================================
-     * Mục đích: Kiểm tra xem một loại phòng có còn phòng trống
-     *           trong khoảng check_in đến check_out không
-     * ====================================================================
-     */
+    public function __construct(private RoomAvailabilityService $roomAvailability) {}
+
     public function checkAvailability(Request $request)
     {
-        // Validate dữ liệu đầu vào
-        $request->validate([
-            'room_type_id' => 'required|exists:room_types,id',
+        $data = $request->validate([
+            'hotel_id'     => 'required|integer|exists:hotel,id',
+            'room_type_id' => 'required|integer|exists:room_type,id',
             'check_in'     => 'required|date',
             'check_out'    => 'required|date|after:check_in',
+            'quantity'     => 'required|integer|min:1|max:10',
+            'num_guests'   => 'required|integer|min:1',
+            'room_id'      => 'nullable|integer|exists:room,id',
         ]);
 
-        // Lấy danh sách tất cả phòng thuộc loại phòng này
-        $rooms = Room::where('room_type_id', $request->room_type_id)->get();
+        $hotel = Hotel::findOrFail($data['hotel_id']);
+        if (!empty($data['room_id']) && (int) $data['quantity'] !== 1) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['quantity' => 'Mỗi phòng cụ thể chỉ có thể đặt số lượng 1.']);
+        }
+        $this->roomAvailability->validateCapacity(
+            $hotel->id, (int) $data['room_type_id'], (int) $data['quantity'], (int) $data['num_guests'],
+            isset($data['room_id']) ? (int) $data['room_id'] : null
+        );
+        $inspection = $this->roomAvailability->forTypeWithRooms(
+            $hotel->id, (int) $data['room_type_id'], $data['check_in'], $data['check_out']
+        );
+        $availability = $inspection['availability'];
 
-        if ($rooms->isEmpty()) {
-            return response()->json([
+        if ($hotel->status !== 'active') {
+            return response()->json(array_merge($availability, [
                 'available' => false,
-                'message' => 'Không có phòng nào thuộc loại này'
-            ]);
+                'available_rooms' => 0,
+                'message' => 'Khách sạn hiện không nhận đặt phòng.',
+            ]));
         }
 
-        // Lấy danh sách ID của các phòng đã được đặt trong khoảng thời gian
-        $bookedRoomIds = Booking::whereIn('room_id', $rooms->pluck('id'))
-            ->where('status', '!=', 'cancelled')  // Không tính booking đã hủy
-            ->where(function ($query) use ($request) {
-                $query->whereBetween('check_in', [$request->check_in, $request->check_out])
-                      ->orWhereBetween('check_out', [$request->check_in, $request->check_out])
-                      ->orWhere(function ($subQuery) use ($request) {
-                          $subQuery->where('check_in', '<=', $request->check_in)
-                                   ->where('check_out', '>=', $request->check_out);
-                      });
-            })
-            ->pluck('room_id')
-            ->unique()
-            ->toArray();
-
-        // Tính số phòng còn trống
-        $availableRooms = $rooms->whereNotIn('id', $bookedRoomIds);
-
-        return response()->json([
-            'available'        => $availableRooms->isNotEmpty(),
-            'available_rooms'  => $availableRooms->count(),
-            'total_rooms'      => $rooms->count(),
-            'booked_rooms'     => count($bookedRoomIds),
-        ]);
+        $available = $availability['available_rooms'] >= $data['quantity']
+            && (empty($data['room_id']) || ($inspection['rooms'][$data['room_id']]['bookable'] ?? false));
+        return response()->json(array_merge($availability, [
+            'available' => $available,
+            'message' => $available ? null : 'Không đủ số phòng đã chọn trong toàn bộ khoảng lưu trú.',
+        ]));
     }
 }

@@ -1,0 +1,2381 @@
+{
+  "checked_on": "2026-10-31",
+  "purpose": "One verified real hotel room-category photograph for each previously empty gallery. Existing galleries, inventory, prices, booking logic and UI are preserved.",
+  "records": [
+    {
+      "id": 239,
+      "hotel_id": 14,
+      "room_type_id": 146,
+      "name": "Suite Room Sea View (Double/Twin)",
+      "key": "14-suite-room-sea-view-double-twin",
+      "page_url": "https://brilliantbaynhatrang.com/product/suite/",
+      "source_url": "https://brilliantbaynhatrang.com/wp-content/uploads/2024/08/z6770244669434_3780517544d1b9a75095c644e9125d59.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "suite-room-sea-view-double-twin",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/239-14-suite-room-sea-view-double-twin.jpg",
+      "sha256": "66cb3ee071c57d4ed4601d428302c2ef5dbe309b86b95724dcc6664af72d43ff",
+      "bytes": 160432,
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "id": 240,
+      "hotel_id": 14,
+      "room_type_id": 147,
+      "name": "Family Room",
+      "key": "14-family-room",
+      "page_url": "https://brilliantbaynhatrang.com/product/family/",
+      "source_url": "https://brilliantbaynhatrang.com/wp-content/uploads/2024/03/2-3.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "family-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/240-14-family-room.jpg",
+      "sha256": "eb0c5fdd48baebf0e6ba22d8d01b1b99fcf70301186332527f6299afdf3ae85b",
+      "bytes": 62566,
+      "dimensions": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": 241,
+      "hotel_id": 14,
+      "room_type_id": 148,
+      "name": "Superior Room (Window/No Window – Twin/Double)",
+      "key": "14-superior-room-window-no-window-twin-double",
+      "page_url": "https://brilliantbaynhatrang.com/product/superior/",
+      "source_url": "https://brilliantbaynhatrang.com/wp-content/uploads/2024/03/3.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "superior-room-window-no-window-twin-double",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/241-14-superior-room-window-no-window-twin-double.jpg",
+      "sha256": "d104c4d21c0007e57b567d6b86f94df8880d89fdaaf4ebbad23e3410bbb04943",
+      "bytes": 50419,
+      "dimensions": [
+        960,
+        540
+      ]
+    },
+    {
+      "id": 242,
+      "hotel_id": 14,
+      "room_type_id": 149,
+      "name": "Deluxe Room (Triple/Double – Window/Balcony)",
+      "key": "14-deluxe-room-triple-double-window-balcony",
+      "page_url": "https://brilliantbaynhatrang.com/product/deluxe/",
+      "source_url": "https://brilliantbaynhatrang.com/wp-content/uploads/2024/03/z6810759456897_a132b2de6022f2bf1bc66c1db46dbb9c.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "deluxe-room-triple-double-window-balcony",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/242-14-deluxe-room-triple-double-window-balcony.jpg",
+      "sha256": "17aa3e6af50e5e547de32c19be23a548a2a9cbe3181d92a0af0a8a9dab80fd3d",
+      "bytes": 140590,
+      "dimensions": [
+        1280,
+        853
+      ]
+    },
+    {
+      "id": 243,
+      "hotel_id": 14,
+      "room_type_id": 150,
+      "name": "Senior Room with Balcony (Double/Twin)",
+      "key": "14-senior-room-with-balcony-double-twin",
+      "page_url": "https://brilliantbaynhatrang.com/product/senior/",
+      "source_url": "https://brilliantbaynhatrang.com/wp-content/uploads/2024/03/z6811456426269_1a40f020fdfca2ea57b85fe566dd309c.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "senior-room-with-balcony-double-twin",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/243-14-senior-room-with-balcony-double-twin.jpg",
+      "sha256": "9a8b06b0a884a9a1e5aae119c572d8cfcc76127d812969edea47d2b7aae8ea85",
+      "bytes": 175405,
+      "dimensions": [
+        1280,
+        853
+      ]
+    },
+    {
+      "id": 274,
+      "hotel_id": 21,
+      "room_type_id": 181,
+      "name": "Family Superior",
+      "key": "21-family-superior",
+      "page_url": "https://pilgrimagevillage.com/villas?type=Honeymoon-Bungalows-and-Huts&name=Family-Superior",
+      "source_url": "https://pilgrimagevillage.com/images/villas/Honeymoon-Bungalows-and-Huts/Family-Superior/family%20superior-1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "family-superior",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/274-21-family-superior.jpg",
+      "sha256": "c70c904df1ece5308915024770e36fb956578f9567763ee42e6f3d2b0d4d143e",
+      "bytes": 172685,
+      "dimensions": [
+        1280,
+        960
+      ]
+    },
+    {
+      "id": 275,
+      "hotel_id": 21,
+      "room_type_id": 182,
+      "name": "Family Superior Plus",
+      "key": "21-family-superior-plus",
+      "page_url": "https://pilgrimagevillage.com/villas?type=Honeymoon-Bungalows-and-Huts&name=Family-Superior-Plus",
+      "source_url": "https://pilgrimagevillage.com/images/villas/Honeymoon-Bungalows-and-Huts/Family-Superior-Plus/Family%20superior%20plus%20%281%29.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "family-superior-plus",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/275-21-family-superior-plus.jpg",
+      "sha256": "f16664cd7be393984718354895f1ec4ccda97777c90e792effb629b31ae70e32",
+      "bytes": 274943,
+      "dimensions": [
+        1920,
+        1440
+      ]
+    },
+    {
+      "id": 276,
+      "hotel_id": 21,
+      "room_type_id": 183,
+      "name": "Family Deluxe",
+      "key": "21-family-deluxe",
+      "page_url": "https://pilgrimagevillage.com/villas?type=Honeymoon-Bungalows-and-Huts&name=Family-Deluxe",
+      "source_url": "https://pilgrimagevillage.com/images/villas/Honeymoon-Bungalows-and-Huts/Family-Deluxe/Family-Deluxe-Double%20%281%29.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "family-deluxe",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/276-21-family-deluxe.webp",
+      "sha256": "10cd7c727d7385450fa1e9b05ab97bb46bda95228c512c87584e88f3ea121f45",
+      "bytes": 91588,
+      "dimensions": [
+        1920,
+        861
+      ]
+    },
+    {
+      "id": 277,
+      "hotel_id": 21,
+      "room_type_id": 184,
+      "name": "Family Villa",
+      "key": "21-family-villa",
+      "page_url": "https://pilgrimagevillage.com/villas?type=Honeymoon-Bungalows-and-Huts&name=Family-Villa",
+      "source_url": "https://pilgrimagevillage.com/images/villas/Honeymoon-Bungalows-and-Huts/Family-Villa/1BR-Family-Villa%20%281%29.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "family-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/277-21-family-villa.webp",
+      "sha256": "fe8f7c6a81165d207f6e036946f3aa601f7688d4fdd0c017b72f7e897335cba1",
+      "bytes": 130938,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 278,
+      "hotel_id": 21,
+      "room_type_id": 185,
+      "name": "Tropical Villa",
+      "key": "21-tropical-villa",
+      "page_url": "https://pilgrimagevillage.com/villas?type=Villas-and-Traditional-Houses&name=Tropical-Villa",
+      "source_url": "https://pilgrimagevillage.com/images/villas/Villas-and-Traditional-Houses/Tropical-Villa/Honeymoon-Bungalow%20%20%281%29.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "tropical-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/278-21-tropical-villa.webp",
+      "sha256": "679b2449c87dfc3c743c2d1213b4acfbb18af0515b71475d49137264cd691b5a",
+      "bytes": 103970,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 279,
+      "hotel_id": 21,
+      "room_type_id": 186,
+      "name": "Pool Access Villa",
+      "key": "21-pool-access-villa",
+      "page_url": "https://pilgrimagevillage.com/villas?type=Villas-and-Traditional-Houses&name=Pool-Access-Villa",
+      "source_url": "https://pilgrimagevillage.com/images/villas/Villas-and-Traditional-Houses/Pool-Access-Villa/Pool-Access-Villa%20%281%29.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "pool-access-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/279-21-pool-access-villa.webp",
+      "sha256": "460ef6efb3071ce2cc02567ded6cf44465edf542603f58c7e56281c1ba5ef286",
+      "bytes": 269586,
+      "dimensions": [
+        1920,
+        1211
+      ]
+    },
+    {
+      "id": 280,
+      "hotel_id": 21,
+      "room_type_id": 187,
+      "name": "Plunge Pool Villa",
+      "key": "21-plunge-pool-villa",
+      "page_url": "https://pilgrimagevillage.com/villas?type=Villas-and-Traditional-Houses&name=Plunge-Pool-Villa",
+      "source_url": "https://pilgrimagevillage.com/images/villas/Villas-and-Traditional-Houses/Plunge-Pool-Villa/Honeymoon-Pool-Hut-Double%20%281%29.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "plunge-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/280-21-plunge-pool-villa.webp",
+      "sha256": "64078811b3c40b698292b53224e3d7be4e1574d7385b484b0e88477ca6e39703",
+      "bytes": 181064,
+      "dimensions": [
+        1920,
+        1282
+      ]
+    },
+    {
+      "id": 281,
+      "hotel_id": 43,
+      "room_type_id": 188,
+      "name": "Superior Twin/King Ocean View",
+      "key": "43-superior-twin-king-ocean-view",
+      "page_url": "https://thepearlhoian.vn/en/hotel",
+      "source_url": "https://thepearlhoian.vn/uploads/article/acc-superior-twin-king-ocean-view-1743392463.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing card labelled with this exact category.",
+      "source_key": "superior-twin-king-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/281-43-superior-twin-king-ocean-view.jpg",
+      "sha256": "f9dba7c87f58ceacea7287c807fb750a27301d363ce99d0db61914f000bbf311",
+      "bytes": 127845,
+      "dimensions": [
+        600,
+        304
+      ]
+    },
+    {
+      "id": 282,
+      "hotel_id": 43,
+      "room_type_id": 189,
+      "name": "Deluxe King/Twin Ocean View",
+      "key": "43-deluxe-king-twin-ocean-view",
+      "page_url": "https://thepearlhoian.vn/en/hotel",
+      "source_url": "https://thepearlhoian.vn/uploads/article/acc-deluxe-king-twin-ocean-view-1779941436.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing card labelled with this exact category.",
+      "source_key": "deluxe-king-twin-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/282-43-deluxe-king-twin-ocean-view.jpg",
+      "sha256": "7068b74b64b0d415c76c6c9f26547c896ff07d788cdf1090a6e56d96480f771d",
+      "bytes": 137032,
+      "dimensions": [
+        600,
+        304
+      ]
+    },
+    {
+      "id": 283,
+      "hotel_id": 43,
+      "room_type_id": 190,
+      "name": "Premier Ocean View",
+      "key": "43-premier-ocean-view",
+      "page_url": "https://thepearlhoian.vn/en/hotel",
+      "source_url": "https://thepearlhoian.vn/uploads/article/acc-premier-ocean-view-1743393083.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing card labelled with this exact category.",
+      "source_key": "premier-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/283-43-premier-ocean-view.jpg",
+      "sha256": "51dc52af7c3fb8a1a1e86de48e728b7abf3d8427fbcaf879114501cad3b38875",
+      "bytes": 115760,
+      "dimensions": [
+        600,
+        304
+      ]
+    },
+    {
+      "id": 284,
+      "hotel_id": 43,
+      "room_type_id": 191,
+      "name": "Three-Bedroom Premier Suite",
+      "key": "43-three-bedroom-premier-suite",
+      "page_url": "https://thepearlhoian.vn/en/appartment",
+      "source_url": "https://thepearlhoian.vn/uploads/article/acc-three-bedroom-premier-suite-1783313386.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing card labelled with this exact category.",
+      "source_key": "three-bedroom-premier-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/284-43-three-bedroom-premier-suite.jpg",
+      "sha256": "12a7737533a956c2ddb674dac74187235ec6b6dbbed37ccf8d20186e5df4e5e0",
+      "bytes": 140073,
+      "dimensions": [
+        600,
+        304
+      ]
+    },
+    {
+      "id": 285,
+      "hotel_id": 43,
+      "room_type_id": 192,
+      "name": "Three-Bedroom Executive Suite",
+      "key": "43-three-bedroom-executive-suite",
+      "page_url": "https://thepearlhoian.vn/en/appartment",
+      "source_url": "https://thepearlhoian.vn/uploads/article/acc-three-bedroom-executive-suite-1783313605.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing card labelled with this exact category.",
+      "source_key": "three-bedroom-executive-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/285-43-three-bedroom-executive-suite.jpg",
+      "sha256": "8399d5a9ce68fd0f19d3fe3889f4e3b674ec5f693a2b12afaa8c4c359247a108",
+      "bytes": 118265,
+      "dimensions": [
+        600,
+        304
+      ]
+    },
+    {
+      "id": 286,
+      "hotel_id": 43,
+      "room_type_id": 193,
+      "name": "Three-Bedroom Deluxe Suite",
+      "key": "43-three-bedroom-deluxe-suite",
+      "page_url": "https://thepearlhoian.vn/en/appartment",
+      "source_url": "https://thepearlhoian.vn/uploads/article/acc-three-bedroom-deluxe-suite-1743393513.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing card labelled with this exact category.",
+      "source_key": "three-bedroom-deluxe-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/286-43-three-bedroom-deluxe-suite.jpg",
+      "sha256": "4907193e9627cbbf2598502000cbcf7a29f7140621d5f2f6a21bc5c08fd710d7",
+      "bytes": 103615,
+      "dimensions": [
+        600,
+        304
+      ]
+    },
+    {
+      "id": 287,
+      "hotel_id": 43,
+      "room_type_id": 194,
+      "name": "One-Bedroom Deluxe",
+      "key": "43-one-bedroom-deluxe",
+      "page_url": "https://thepearlhoian.vn/en/appartment",
+      "source_url": "https://thepearlhoian.vn/uploads/article/acc-one-bedroom-deluxe-1780640484.webp",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing card labelled with this exact category.",
+      "source_key": "one-bedroom-deluxe",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/287-43-one-bedroom-deluxe.jpg",
+      "sha256": "006770e4dbbe648b100ff6523cc5f252b02177e8e17694e971a2d5589afd2a24",
+      "bytes": 117356,
+      "dimensions": [
+        600,
+        304
+      ]
+    },
+    {
+      "id": 311,
+      "hotel_id": 48,
+      "room_type_id": 218,
+      "name": "Ana Mandara Suite",
+      "key": "48-ana-mandara-suite",
+      "page_url": "https://anamandara-resort.com/rooms-suites/ana-mandara-suite/",
+      "source_url": "https://www.anamandara-resort.com/wp-content/uploads/sites/233/2026/09/Room-606.png",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "ana-mandara-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/311-48-ana-mandara-suite.png",
+      "sha256": "d5a40762c5f23f83e4bd1389eab73e4231dfbf9279d0e792003808d3f5735279",
+      "bytes": 2223576,
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "id": 312,
+      "hotel_id": 49,
+      "room_type_id": 219,
+      "name": "Villa 05 phòng ngủ hướng hồ",
+      "key": "49-villa-05-phong-ngu-huong-ho",
+      "page_url": "https://dalat.terracottaresort.com/phong-nghi-biet-thu/villa-05-phong-ngu-huong-ho-43.html",
+      "source_url": "https://dalat.terracottaresort.com/static/upload/images/phong-nghi/5-Bedroom-Villa-Lake-View/1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "villa-05-phong-ngu-huong-ho",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/312-49-villa-05-phong-ngu-huong-ho.jpg",
+      "sha256": "42c7c7848e1678cfe012d890ba41b8f18dc92ed514a34270698b780c0e89e9c9",
+      "bytes": 1898424,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 313,
+      "hotel_id": 49,
+      "room_type_id": 220,
+      "name": "Villa 04 phòng ngủ hướng hồ",
+      "key": "49-villa-04-phong-ngu-huong-ho",
+      "page_url": "https://dalat.terracottaresort.com/phong-nghi-biet-thu/villa-04-phong-ngu-huong-ho-42.html",
+      "source_url": "https://dalat.terracottaresort.com/static/upload/images/phong-nghi/4-Bedroom-Villa-Lake-View/2.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "villa-04-phong-ngu-huong-ho",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/313-49-villa-04-phong-ngu-huong-ho.jpg",
+      "sha256": "0b1afb11cdb38b98d4486441fa60bfafc895ecfd710625f78a98ba83426c496c",
+      "bytes": 737918,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 314,
+      "hotel_id": 49,
+      "room_type_id": 221,
+      "name": "Villa 03 phòng ngủ hướng hồ",
+      "key": "49-villa-03-phong-ngu-huong-ho",
+      "page_url": "https://dalat.terracottaresort.com/phong-nghi-biet-thu/villa-03-phong-ngu-huong-ho-41.html",
+      "source_url": "https://dalat.terracottaresort.com/static/upload/images/phong-nghi/3-Bedroom-Villa-Lake-View/Villa-3-Bedroom.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "villa-03-phong-ngu-huong-ho",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/314-49-villa-03-phong-ngu-huong-ho.jpg",
+      "sha256": "1bc07237e362531c51a83293dbb1c90847bf6e279ff790d6d445fc7025d4413c",
+      "bytes": 1643908,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 315,
+      "hotel_id": 49,
+      "room_type_id": 222,
+      "name": "Phòng Premium Villa - Hướng Hồ",
+      "key": "49-phong-premium-villa-huong-ho",
+      "page_url": "https://dalat.terracottaresort.com/phong-nghi-biet-thu/phong-premium-villa-huong-ho-55.html",
+      "source_url": "https://dalat.terracottaresort.com/static/upload/images/phong-nghi/Premier-Villa-Lake-View/Z3303361652237-51A14Dcf8167Ec267475Af95D19Bf308.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "phong-premium-villa-huong-ho",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/315-49-phong-premium-villa-huong-ho.jpg",
+      "sha256": "39f98252d2d071974308dc01961e159c81908a97479099b97e4481b2356becdb",
+      "bytes": 238378,
+      "dimensions": [
+        1600,
+        1200
+      ]
+    },
+    {
+      "id": 316,
+      "hotel_id": 49,
+      "room_type_id": 223,
+      "name": "Phòng Classic Hướng Hồ",
+      "key": "49-phong-classic-huong-ho",
+      "page_url": "https://dalat.terracottaresort.com/phong-nghi-biet-thu/phong-classic-huong-ho-40.html",
+      "source_url": "https://dalat.terracottaresort.com/static/upload/images/phong-nghi/Classic-Villa-Lake-View/Z3300480742945-3999Bc1Ba202Fa4E3E65D69De119B54D.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "phong-classic-huong-ho",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/316-49-phong-classic-huong-ho.jpg",
+      "sha256": "86088e173de2231a55ed4820ee861a229cebebc7db30f2032d9ae26f323d7b30",
+      "bytes": 153794,
+      "dimensions": [
+        1281,
+        961
+      ]
+    },
+    {
+      "id": 356,
+      "hotel_id": 57,
+      "room_type_id": 263,
+      "name": "Family Suite 2-Bedroom Garden View",
+      "key": "57-family-suite-2-bedroom-garden-view",
+      "page_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/accommodation/family-suite-2-bedroom-garden-view",
+      "source_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/wp-content/uploads/sites/2/2024/06/21.png",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "family-suite-2-bedroom-garden-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/356-57-family-suite-2-bedroom-garden-view.png",
+      "sha256": "83a300bac77c5f556682b5f7adf8817fc090727a490d7983dd9366330858c4ed",
+      "bytes": 343649,
+      "dimensions": [
+        1170,
+        550
+      ]
+    },
+    {
+      "id": 357,
+      "hotel_id": 57,
+      "room_type_id": 264,
+      "name": "Family Suite 2-Bedroom Ocean View",
+      "key": "57-family-suite-2-bedroom-ocean-view",
+      "page_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/accommodation/family-suite-2-bedroom-ocean-view",
+      "source_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/wp-content/uploads/sites/2/2024/06/31.png",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "family-suite-2-bedroom-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/357-57-family-suite-2-bedroom-ocean-view.png",
+      "sha256": "9188d1c752ba856ea8935a906a52ce0774049eb90aa5f01632f3dd605dfa75ff",
+      "bytes": 343783,
+      "dimensions": [
+        1170,
+        550
+      ]
+    },
+    {
+      "id": 358,
+      "hotel_id": 57,
+      "room_type_id": 265,
+      "name": "Deluxe Villa Garden View",
+      "key": "57-deluxe-villa-garden-view",
+      "page_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/accommodation/deluxe-villa-garden-view",
+      "source_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/wp-content/uploads/sites/2/2024/06/AmianaNhaTrang_DeluxeTwin03-1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "deluxe-villa-garden-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/358-57-deluxe-villa-garden-view.jpg",
+      "sha256": "5e6b91bdfff4ab83bb996dc2e7cdd3fd3766206c840a929edc6f2f629f8eb3d7",
+      "bytes": 143066,
+      "dimensions": [
+        1169,
+        550
+      ]
+    },
+    {
+      "id": 359,
+      "hotel_id": 57,
+      "room_type_id": 266,
+      "name": "Premier Deluxe Villa Garden View",
+      "key": "57-premier-deluxe-villa-garden-view",
+      "page_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/accommodation/premier-deluxe-villa-garden-view",
+      "source_url": "https://amianaresortsandhotels.com/amianaresortnhatrang/wp-content/uploads/sites/2/2024/06/AmianaNhaTrang_DeluxeKing01-1-1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "premier-deluxe-villa-garden-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/359-57-premier-deluxe-villa-garden-view.jpg",
+      "sha256": "0755d48ecf10fd590a1f5b57005ee40f6a40255e811f7294eabb056902431e83",
+      "bytes": 105351,
+      "dimensions": [
+        1170,
+        550
+      ]
+    },
+    {
+      "id": 364,
+      "hotel_id": 58,
+      "room_type_id": 271,
+      "name": "Presidential Suite",
+      "key": "58-presidential-suite",
+      "page_url": "https://www.marriott.com/en-us/hotels/nhasi-sheraton-nha-trang-hotel-and-spa/rooms/premium-rooms/",
+      "source_url": "https://cache.marriott.com/is/image/marriotts7prod/si-nhasi-presidential-suite-32738:Feature-Hor?wid=1920&fit=constrain",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "presidential-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/364-58-presidential-suite.jpg",
+      "sha256": "4133d03ccd55102bf89eb1ed1ae6dd904dded24e49023b934aa26437b5ff6c94",
+      "bytes": 147538,
+      "dimensions": [
+        1920,
+        769
+      ]
+    },
+    {
+      "id": 365,
+      "hotel_id": 58,
+      "room_type_id": 272,
+      "name": "Deluxe Twin Room",
+      "key": "58-deluxe-twin-room",
+      "page_url": "https://www.marriott.com/en-us/hotels/nhasi-sheraton-nha-trang-hotel-and-spa/photos/",
+      "source_url": "https://cache.marriott.com/is/image/marriotts7prod/si-nhasi-deluxe-twin-room28046-49651:Wide-Hor?wid=1200&fit=constrain",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "deluxe-twin-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/365-58-deluxe-twin-room.jpg",
+      "sha256": "504bc75753544aeef446103bcc252c5e316c6a9f2ecac4a4d4290ffcc3f7f638",
+      "bytes": 68678,
+      "dimensions": [
+        1200,
+        677
+      ]
+    },
+    {
+      "id": 366,
+      "hotel_id": 58,
+      "room_type_id": 273,
+      "name": "Premium Guest Room",
+      "key": "58-premium-guest-room",
+      "page_url": "https://www.marriott.com/en-us/hotels/nhasi-sheraton-nha-trang-hotel-and-spa/photos/",
+      "source_url": "https://cache.marriott.com/content/dam/marriott-renditions/NHASI/nhasi-grand-deluxe-7116-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1200px:%2A",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the exact official room category gallery; reviewed visually before import.",
+      "source_key": "premium-guest-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/366-58-premium-guest-room.jpg",
+      "sha256": "7291902797db5fbeceef2e0182bd2b2d3bafd4886dc8aa4f8adaeab7a96247b2",
+      "bytes": 103417,
+      "dimensions": [
+        1200,
+        675
+      ]
+    },
+    {
+      "id": 379,
+      "hotel_id": 61,
+      "room_type_id": 286,
+      "name": "King Beach Pool Villa",
+      "key": "61-king-beach-pool-villa",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/King-Bed-Club-Beach-Pool-Villa-min_1985x1104?fmt=png-alpha",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "king-beach-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/379-61-king-beach-pool-villa.png",
+      "sha256": "e0ae025944186b8870a7876612a6a238e9aa3b2deb37cdd4f1c5c91e917e2f7a",
+      "bytes": 6424978,
+      "dimensions": [
+        3000,
+        1669
+      ]
+    },
+    {
+      "id": 380,
+      "hotel_id": 61,
+      "room_type_id": 287,
+      "name": "King Terrace Pool Villa",
+      "key": "61-king-terrace-pool-villa",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/regent-pqcrr-phuquoc-one-bedroom-terrace-pool-villa-1985x1304?extend=0%2C-100%2C0%2C-100",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "king-terrace-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/380-61-king-terrace-pool-villa.jpg",
+      "sha256": "dcbe6fa309575663dd844a26e73f31f81acfec01c6bb9fa941e553ad2376d609",
+      "bytes": 307144,
+      "dimensions": [
+        1985,
+        1104
+      ]
+    },
+    {
+      "id": 381,
+      "hotel_id": 61,
+      "room_type_id": 288,
+      "name": "Garden Pool Suite",
+      "key": "61-garden-pool-suite",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/regent-pqcrr-phuquoc-garden-pool-suite-king-bedroom-1933x1289?fit=hfit&hei=562&wid=1000",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "garden-pool-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/381-61-garden-pool-suite.jpg",
+      "sha256": "355a1a0dc7ea89fc9e5b0fa485df55d5813bb8965ef098a7fb9d29e2e399c8c2",
+      "bytes": 73949,
+      "dimensions": [
+        1000,
+        562
+      ]
+    },
+    {
+      "id": 382,
+      "hotel_id": 61,
+      "room_type_id": 289,
+      "name": "Three Bedroom Beach Pool Villa",
+      "key": "61-three-bedroom-beach-pool-villa",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/regent-pqcrr-phuquoc-four-bedroom-beach-pool-villa-1330x886?fit=hfit&hei=562&wid=1000",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "three-bedroom-beach-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/382-61-three-bedroom-beach-pool-villa.jpg",
+      "sha256": "3ce1c3e13d1336c48796fc49019ba54632bf5afeed96005881b9e3019d8ef057",
+      "bytes": 70976,
+      "dimensions": [
+        1000,
+        562
+      ]
+    },
+    {
+      "id": 383,
+      "hotel_id": 61,
+      "room_type_id": 290,
+      "name": "Two Bedroom Lagoon Pool Villa",
+      "key": "61-two-bedroom-lagoon-pool-villa",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/Three-Bedroom-Lagoon-Pool-Villa-livingroom1?fit=hfit&hei=562&wid=1000",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "two-bedroom-lagoon-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/383-61-two-bedroom-lagoon-pool-villa.jpg",
+      "sha256": "42809972007b559c4f018b23abd4311bb7487f80e902e1230355fc3d511052df",
+      "bytes": 102290,
+      "dimensions": [
+        1000,
+        562
+      ]
+    },
+    {
+      "id": 384,
+      "hotel_id": 61,
+      "room_type_id": 291,
+      "name": "Two Bedroom Sky Pool Villa",
+      "key": "61-two-bedroom-sky-pool-villa",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/Sky-Pool-Villa-Living-Room?fit=hfit&hei=562&wid=1000",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "two-bedroom-sky-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/384-61-two-bedroom-sky-pool-villa.jpg",
+      "sha256": "0d9476b8dc15d66ce65ed5e7e06ae952626783b7feb08efbcb31359d982e0429",
+      "bytes": 75994,
+      "dimensions": [
+        1000,
+        562
+      ]
+    },
+    {
+      "id": 385,
+      "hotel_id": 61,
+      "room_type_id": 292,
+      "name": "Two Bedroom Terrace Pool Villa",
+      "key": "61-two-bedroom-terrace-pool-villa",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/regent-pqcrr-phuquoc-two-bedroom-terrace-pool-villa-1901x1267?fit=hfit&hei=562&wid=1000",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "two-bedroom-terrace-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/385-61-two-bedroom-terrace-pool-villa.jpg",
+      "sha256": "51eef4e48503e16a83ed21f7c5b68320dd314ce11f92f8fe2ee9e993c5fe8e5f",
+      "bytes": 115632,
+      "dimensions": [
+        1000,
+        562
+      ]
+    },
+    {
+      "id": 386,
+      "hotel_id": 61,
+      "room_type_id": 293,
+      "name": "Three Bedroom Lagoon Pool Villa",
+      "key": "61-three-bedroom-lagoon-pool-villa",
+      "page_url": "https://www.ihg.com/regent/hotels/us/en/phu-quoc/pqcrr/hoteldetail/rooms-and-suites",
+      "source_url": "https://digital.ihg.com/is/image/ihg/regent-pqcrr-phuquoc-four-bedroom-lagoon-pool-villa-outdoor-1878x1234?fit=hfit&hei=562&wid=1000",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn535091view0.",
+      "source_key": "three-bedroom-lagoon-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/386-61-three-bedroom-lagoon-pool-villa.jpg",
+      "sha256": "7a9da7afb10824d2e1ed2becb6ac0a84688ed560b3db9f9178c3cac42f044ba6",
+      "bytes": 107195,
+      "dimensions": [
+        1000,
+        562
+      ]
+    },
+    {
+      "id": 320,
+      "hotel_id": 51,
+      "room_type_id": 227,
+      "name": "2 Twin Beds Ocean View",
+      "key": "51-2-twin-beds-ocean-view",
+      "page_url": "https://www.hyatt.com/hyatt-regency/en-US/danhr-hyatt-regency-danang-resort-and-spa/rooms",
+      "source_url": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/01/02/1120/Hyatt-Regency-Danang-Resort-and-Spa-P373-Ocean-View-Twin-Guestroom.jpg/Hyatt-Regency-Danang-Resort-and-Spa-P373-Ocean-View-Twin-Guestroom.16x9.jpg?imwidth=2560",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn661961view0.",
+      "source_key": "2-twin-beds-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/320-51-2-twin-beds-ocean-view.jpg",
+      "sha256": "7bb3249a29eecfa4ae4f9c25cb5949f43d21de932290c2cc766473679d38fa3a",
+      "bytes": 419085,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "id": 321,
+      "hotel_id": 51,
+      "room_type_id": 228,
+      "name": "2 Twin Beds with Garden",
+      "key": "51-2-twin-beds-with-garden",
+      "page_url": "https://www.hyatt.com/hyatt-regency/en-US/danhr-hyatt-regency-danang-resort-and-spa/rooms",
+      "source_url": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2025/05/07/0120/DANHR-P1216-Twin-Beds-with-Garden.jpg/DANHR-P1216-Twin-Beds-with-Garden.16x9.jpg?imwidth=2560",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn661961view0.",
+      "source_key": "2-twin-beds-with-garden",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/321-51-2-twin-beds-with-garden.jpg",
+      "sha256": "1e15b4031bc4389e874fc2a250dcd29f526eb78002897d872ee0dd79ebd64df7",
+      "bytes": 344118,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "id": 322,
+      "hotel_id": 51,
+      "room_type_id": 229,
+      "name": "1 Bedroom Residence",
+      "key": "51-1-bedroom-residence",
+      "page_url": "https://www.hyatt.com/hyatt-regency/en-US/danhr-hyatt-regency-danang-resort-and-spa/rooms",
+      "source_url": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2024/04/09/2352/DANHR-P1060-One-Bedroom-Residence.jpg/DANHR-P1060-One-Bedroom-Residence.16x9.jpg?imwidth=2560",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn661961view0.",
+      "source_key": "1-bedroom-residence",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/322-51-1-bedroom-residence.jpg",
+      "sha256": "b7ef7fab7e695ddf399420dd71e48b4a2e05885420b6565c7d72955e26907f33",
+      "bytes": 355012,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "id": 323,
+      "hotel_id": 51,
+      "room_type_id": 230,
+      "name": "1 Bedroom Ocean View Residence",
+      "key": "51-1-bedroom-ocean-view-residence",
+      "page_url": "https://www.hyatt.com/hyatt-regency/en-US/danhr-hyatt-regency-danang-resort-and-spa/rooms",
+      "source_url": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2019/01/02/1121/Hyatt-Regency-Danang-Resort-and-Spa-P379-Residence-One-Bedroom-Ocean-View.jpg/Hyatt-Regency-Danang-Resort-and-Spa-P379-Residence-One-Bedroom-Ocean-View.16x9.jpg?imwidth=2560",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn661961view0.",
+      "source_key": "1-bedroom-ocean-view-residence",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/323-51-1-bedroom-ocean-view-residence.jpg",
+      "sha256": "41332f41ff11906d55c21014047362c7810d5ea8416897536adbf594f8da5fac",
+      "bytes": 302064,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "id": 324,
+      "hotel_id": 51,
+      "room_type_id": 231,
+      "name": "Regency Ocean View Suite",
+      "key": "51-regency-ocean-view-suite",
+      "page_url": "https://www.hyatt.com/hyatt-regency/en-US/danhr-hyatt-regency-danang-resort-and-spa/rooms",
+      "source_url": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2024/04/09/2352/DANHR-P1069-Regency-Suite-Ocean-View-Bedroom.jpg/DANHR-P1069-Regency-Suite-Ocean-View-Bedroom.16x9.jpg?imwidth=2560",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn661961view0.",
+      "source_key": "regency-ocean-view-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/324-51-regency-ocean-view-suite.jpg",
+      "sha256": "ab7182ba4a5919ced982bdddfbb8a09222a3f19c0a7a66587606f3853f0674f3",
+      "bytes": 346661,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "id": 325,
+      "hotel_id": 51,
+      "room_type_id": 232,
+      "name": "Regency Suite",
+      "key": "51-regency-suite",
+      "page_url": "https://www.hyatt.com/hyatt-regency/en-US/danhr-hyatt-regency-danang-resort-and-spa/rooms",
+      "source_url": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2024/04/09/2352/DANHR-P1067-Regency-Suite-Bedroom.jpg/DANHR-P1067-Regency-Suite-Bedroom.16x9.jpg?imwidth=2560",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn661961view0.",
+      "source_key": "regency-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/325-51-regency-suite.jpg",
+      "sha256": "5f999dfd869ff690ac7fa97d70e21704e4c0e08921afcf77067c08941ae4173b",
+      "bytes": 228404,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "id": 326,
+      "hotel_id": 51,
+      "room_type_id": 233,
+      "name": "2 Bedroom Residence",
+      "key": "51-2-bedroom-residence",
+      "page_url": "https://www.hyatt.com/hyatt-regency/en-US/danhr-hyatt-regency-danang-resort-and-spa/rooms",
+      "source_url": "https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2024/04/09/2352/DANHR-P1060-One-Bedroom-Residence.jpg/DANHR-P1060-One-Bedroom-Residence.16x9.jpg?imwidth=2560",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official room listing: linked photograph immediately precedes this room heading; source reference turn661961view0.",
+      "source_key": "2-bedroom-residence",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/326-51-2-bedroom-residence.jpg",
+      "sha256": "b7ef7fab7e695ddf399420dd71e48b4a2e05885420b6565c7d72955e26907f33",
+      "bytes": 355012,
+      "dimensions": [
+        2560,
+        1440
+      ]
+    },
+    {
+      "id": 197,
+      "hotel_id": 9,
+      "room_type_id": 104,
+      "name": "Resort Classic Room Oceanview",
+      "key": "9-resort-classic-room-oceanview",
+      "page_url": "https://www.danang.intercontinental.com/room-suites/resort-classic-room-oceanview/",
+      "source_url": "https://cdn-anleb.nitrocdn.com/tCRkDCsbycMpcUNHfNUFRoXsIImxjOzf/assets/images/optimized/rev-4178f68/www.danang.intercontinental.com/wp-content/uploads/2021/06/Resort-Classic-Room-Twin-low-res-Web.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph from the exact room page gallery, including its original background image URL.",
+      "source_key": "resort-classic-room-oceanview",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/197-9-resort-classic-room-oceanview.jpg",
+      "sha256": "c948f0f45e523238f06efd010b716a051c895f191c83a51b8d3fa98bd270058c",
+      "bytes": 562239,
+      "dimensions": [
+        2523,
+        1661
+      ]
+    },
+    {
+      "id": 198,
+      "hotel_id": 9,
+      "room_type_id": 105,
+      "name": "Resort Classic Panoramic Room Oceanview",
+      "key": "9-resort-classic-panoramic-room-oceanview",
+      "page_url": "https://www.danang.intercontinental.com/room-suites/resort-classic-panoramic-room-oceanview/",
+      "source_url": "https://cdn-anleb.nitrocdn.com/tCRkDCsbycMpcUNHfNUFRoXsIImxjOzf/assets/images/optimized/rev-4178f68/www.danang.intercontinental.com/wp-content/uploads/2022/10/Resort-Classic-Panoramic-bedroom-web.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph from the exact room page gallery, including its original background image URL.",
+      "source_key": "resort-classic-panoramic-room-oceanview",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/198-9-resort-classic-panoramic-room-oceanview.jpg",
+      "sha256": "c3c8591bf722e06187e11e822278dd08c54962930cd7468d18fdbad83880b430",
+      "bytes": 506337,
+      "dimensions": [
+        2508,
+        1672
+      ]
+    },
+    {
+      "id": 307,
+      "hotel_id": 47,
+      "room_type_id": 214,
+      "name": "Presidential Suite",
+      "key": "47-presidential-suite",
+      "page_url": "https://silkpathhotel.com/accommondationhanoi/#accordion-item-presidential-suite",
+      "source_url": "https://silkpathhotel.com/wp-content/uploads/2026/07/IMG_2036-scaled.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph within the specifically labelled official room accordion.",
+      "source_key": "presidential-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/307-47-presidential-suite.jpg",
+      "sha256": "98c2ea7544803b6e1bce4c94eed44b9483a2eb7f2fdfc4298dad4c35bf6b6022",
+      "bytes": 808764,
+      "dimensions": [
+        2560,
+        1920
+      ]
+    },
+    {
+      "id": 317,
+      "hotel_id": 50,
+      "room_type_id": 224,
+      "name": "Family Deluxe Mountain View",
+      "key": "50-family-deluxe-mountain-view",
+      "page_url": "https://samtuyenlamhotel.com.vn/category-stay/accommodation/?lang=en",
+      "source_url": "https://samtuyenlamhotel.com.vn/wp-content/uploads/2017/07/Executive-Room-1-652x405.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official listing image alt text equals the room category name.",
+      "source_key": "family-deluxe-mountain-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/317-50-family-deluxe-mountain-view.jpg",
+      "sha256": "1de2f0dd290021b3d46cf07d508d5a770f9f5286a585f200c9c68a7efa77e4f1",
+      "bytes": 90596,
+      "dimensions": [
+        652,
+        421
+      ]
+    },
+    {
+      "id": 318,
+      "hotel_id": 50,
+      "room_type_id": 225,
+      "name": "King Suite Mountain View",
+      "key": "50-king-suite-mountain-view",
+      "page_url": "https://samtuyenlamhotel.com.vn/category-stay/accommodation/page/2/?lang=en",
+      "source_url": "https://samtuyenlamhotel.com.vn/wp-content/uploads/2017/07/Exacutive-Suite-Bedroom-652x381.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official listing image alt text equals the room category name.",
+      "source_key": "king-suite-mountain-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/318-50-king-suite-mountain-view.jpg",
+      "sha256": "de3d6119a993321c3e979237e80963e9c15f3a99ea383a48c9b93c13035defb3",
+      "bytes": 149425,
+      "dimensions": [
+        652,
+        419
+      ]
+    },
+    {
+      "id": 319,
+      "hotel_id": 50,
+      "room_type_id": 226,
+      "name": "Royal Suite Mountain View",
+      "key": "50-royal-suite-mountain-view",
+      "page_url": "https://samtuyenlamhotel.com.vn/category-stay/accommodation/page/2/?lang=en",
+      "source_url": "https://samtuyenlamhotel.com.vn/wp-content/uploads/2017/07/5D3_0212-652x420.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Official listing image alt text equals the room category name.",
+      "source_key": "royal-suite-mountain-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/319-50-royal-suite-mountain-view.jpg",
+      "sha256": "f13f84ba2d451f9cf78fdaadaaf766e523fee1d3d6e4d09b0b93ffedcc10cb9d",
+      "bytes": 194845,
+      "dimensions": [
+        652,
+        421
+      ]
+    },
+    {
+      "id": 327,
+      "hotel_id": 52,
+      "room_type_id": 234,
+      "name": "Deluxe Room, City View - 2 Single Beds",
+      "key": "52-deluxe-room-city-view-2-single-beds",
+      "page_url": "https://all.accor.com/hotel/8287/index.en.shtml",
+      "source_url": "https://www.ahstatic.com/photos/8287_rotwa_00_p_1024x768.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Accor hotel 8287 room card TWA contains this exact category photograph.",
+      "source_key": "deluxe-room-city-view-2-single-beds",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/327-52-deluxe-room-city-view-2-single-beds.jpg",
+      "sha256": "f447f41fa09d1ade0919d8404a41e43b11ae93bdfcf0ee64da68220f8fd0eb9a",
+      "bytes": 50901,
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "id": 328,
+      "hotel_id": 52,
+      "room_type_id": 235,
+      "name": "Superior Room, Balcony, Han River View/Bay View - 2 Single Beds",
+      "key": "52-superior-room-balcony-han-river-view-bay-view-2-single-beds",
+      "page_url": "https://all.accor.com/hotel/8287/index.en.shtml",
+      "source_url": "https://www.ahstatic.com/photos/8287_rotwbrv_00_p_1024x768.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Accor hotel 8287 room card TWBRV contains this exact category photograph.",
+      "source_key": "superior-room-balcony-han-river-view-bay-view-2-single-beds",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/328-52-superior-room-balcony-han-river-view-bay-view-2-single-beds.jpg",
+      "sha256": "025e7b1b6d84db42c2393c33bf47d30b0799e357468f9c096eca04ab892f0711",
+      "bytes": 48555,
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "id": 329,
+      "hotel_id": 52,
+      "room_type_id": 236,
+      "name": "Deluxe Room, Balcony, Dragon Bridge View - 2 Single Beds",
+      "key": "52-deluxe-room-balcony-dragon-bridge-view-2-single-beds",
+      "page_url": "https://all.accor.com/hotel/8287/index.en.shtml",
+      "source_url": "https://www.ahstatic.com/photos/8287_rotwb_00_p_1024x768.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Accor hotel 8287 room card TWB contains this exact category photograph.",
+      "source_key": "deluxe-room-balcony-dragon-bridge-view-2-single-beds",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/329-52-deluxe-room-balcony-dragon-bridge-view-2-single-beds.jpg",
+      "sha256": "4e7edaa1d0ae5b7b22343ff38d7e4bffdcfc7c919ff91a0cee8a3f900653022d",
+      "bytes": 52321,
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "id": 330,
+      "hotel_id": 52,
+      "room_type_id": 237,
+      "name": "Novotel Suite, Balcony, Han River View",
+      "key": "52-novotel-suite-balcony-han-river-view",
+      "page_url": "https://all.accor.com/hotel/8287/index.en.shtml",
+      "source_url": "https://www.ahstatic.com/photos/8287_roska_00_p_1024x768.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Accor hotel 8287 room card SKA contains this exact category photograph.",
+      "source_key": "novotel-suite-balcony-han-river-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/330-52-novotel-suite-balcony-han-river-view.jpg",
+      "sha256": "864bbbe0ee5bd7fd93778524c5698230303b0cd70342fda7d9d17f830ce3e7a0",
+      "bytes": 59871,
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "id": 331,
+      "hotel_id": 52,
+      "room_type_id": 238,
+      "name": "Corner Suite, Panoramic Han River View",
+      "key": "52-corner-suite-panoramic-han-river-view",
+      "page_url": "https://all.accor.com/hotel/8287/index.en.shtml",
+      "source_url": "https://www.ahstatic.com/photos/8287_roskb_00_p_1024x768.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Accor hotel 8287 room card SKB contains this exact category photograph.",
+      "source_key": "corner-suite-panoramic-han-river-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/331-52-corner-suite-panoramic-han-river-view.jpg",
+      "sha256": "74744413f3f0c1336c5db6404c2c96e483ef8891c6acad8b0e8fdde5b890596f",
+      "bytes": 61509,
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "id": 332,
+      "hotel_id": 52,
+      "room_type_id": 239,
+      "name": "Studio Apartment, Balcony, Han River View",
+      "key": "52-studio-apartment-balcony-han-river-view",
+      "page_url": "https://all.accor.com/hotel/8287/index.en.shtml",
+      "source_url": "https://www.ahstatic.com/photos/8287_roawc_00_p_1024x768.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Accor hotel 8287 room card AWC contains this exact category photograph.",
+      "source_key": "studio-apartment-balcony-han-river-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/332-52-studio-apartment-balcony-han-river-view.jpg",
+      "sha256": "8ac268b17141d2ddb0d44f51bdb71f584b67efc78c7fdb4d3644981860b981aa",
+      "bytes": 85156,
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "id": 333,
+      "hotel_id": 52,
+      "room_type_id": 240,
+      "name": "1 Bedroom Apartment, Balcony",
+      "key": "52-1-bedroom-apartment-balcony",
+      "page_url": "https://all.accor.com/hotel/8287/index.en.shtml",
+      "source_url": "https://www.ahstatic.com/photos/8287_roa1c_00_p_1024x768.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Accor hotel 8287 room card A1C contains this exact category photograph.",
+      "source_key": "1-bedroom-apartment-balcony",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/333-52-1-bedroom-apartment-balcony.jpg",
+      "sha256": "6c63875b34cd82c9d18a166fb2ff2c2404868496778871e677fd48f8f3f74d8b",
+      "bytes": 104357,
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "id": 334,
+      "hotel_id": 53,
+      "room_type_id": 241,
+      "name": "Deluxe",
+      "key": "53-deluxe",
+      "page_url": "https://silkpathhotel.com/slphueaccommonation/#accordion-item-deluxe",
+      "source_url": "https://silkpathhotel.com/wp-content/uploads/2023/11/t-1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph within the specifically labelled official room accordion.",
+      "source_key": "deluxe",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/334-53-deluxe.jpg",
+      "sha256": "c052af607ffab48956cc911b3d1ad1ca0cbd18ab62b0dd729dad324bf8b97290",
+      "bytes": 101547,
+      "dimensions": [
+        500,
+        333
+      ]
+    },
+    {
+      "id": 335,
+      "hotel_id": 53,
+      "room_type_id": 242,
+      "name": "Family Connecting Room",
+      "key": "53-family-connecting-room",
+      "page_url": "https://silkpathhotel.com/slphueaccommonation/#accordion-item-family-connecting",
+      "source_url": "https://silkpathhotel.com/wp-content/uploads/2023/11/tt-1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph within the specifically labelled official room accordion.",
+      "source_key": "family-connecting-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/335-53-family-connecting-room.jpg",
+      "sha256": "7c164eb73f543b11e81affe7690a20c877ae8c4e7f1c33a1f004759b2022bbb6",
+      "bytes": 94690,
+      "dimensions": [
+        500,
+        333
+      ]
+    },
+    {
+      "id": 249,
+      "hotel_id": 16,
+      "room_type_id": 156,
+      "name": "Beachfront One-Bedroom Villa",
+      "key": "16-beachfront-one-bedroom-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.0%2C0000-208%2C8816-3000%2C0000-1687%2C5000/publish/content/dam/fourseasons/images/web/NMH/NMH_1527_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "beachfront-one-bedroom-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/249-16-beachfront-one-bedroom-villa.jpg",
+      "sha256": "786ad788da5da0ed476e73c488d6a54df1d11e935c0f71ea52d1294b8caf8fb4",
+      "bytes": 50282,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 250,
+      "hotel_id": 16,
+      "room_type_id": 157,
+      "name": "Family Villa",
+      "key": "16-family-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.0%2C0000-223%2C7772-3000%2C0000-1687%2C5000/publish/content/dam/fourseasons/images/web/NMH/NMH_1469_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "family-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/250-16-family-villa.jpg",
+      "sha256": "764dd940fb91e8c5661fc1665df1dcba16d007c97fb8e110eadf9675ac82b064",
+      "bytes": 29571,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 251,
+      "hotel_id": 16,
+      "room_type_id": 158,
+      "name": "Ocean-View One-Bedroom Pool Villa",
+      "key": "16-ocean-view-one-bedroom-pool-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.0%2C0000-245%2C6591-3000%2C0000-1687%2C5000/publish/content/dam/fourseasons/images/web/NMH/NMH_603_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "ocean-view-one-bedroom-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/251-16-ocean-view-one-bedroom-pool-villa.jpg",
+      "sha256": "53d548acb568afcb49bf9d69079067b9ba4e93f09812a84a0106c39c2163c94e",
+      "bytes": 54098,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 252,
+      "hotel_id": 16,
+      "room_type_id": 159,
+      "name": "Garden-View One-Bedroom Pool Villa",
+      "key": "16-garden-view-one-bedroom-pool-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.0%2C0000-156%2C2500-3000%2C0000-1687%2C5000/publish/content/dam/fourseasons/images/web/NMH/NMH_1455_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "garden-view-one-bedroom-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/252-16-garden-view-one-bedroom-pool-villa.jpg",
+      "sha256": "ec0e868b5b550c3f8b1b19672e90838e7348a59d55945678099957bceb70e930",
+      "bytes": 59529,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 253,
+      "hotel_id": 16,
+      "room_type_id": 160,
+      "name": "Ocean-View Two-Bedroom Pool Villa",
+      "key": "16-ocean-view-two-bedroom-pool-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.75%2C0000-198%2C4375-2850%2C0000-1603%2C1250/publish/content/dam/fourseasons/images/web/NMH/NMH_1523_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "ocean-view-two-bedroom-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/253-16-ocean-view-two-bedroom-pool-villa.jpg",
+      "sha256": "187b2dfdf30ca4637dd9457ed9d179d3b0eccd9dc14f1765a82de15412af32a6",
+      "bytes": 63704,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 254,
+      "hotel_id": 16,
+      "room_type_id": 161,
+      "name": "Garden-View Two-Bedroom Pool Villa",
+      "key": "16-garden-view-two-bedroom-pool-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.0%2C0000-156%2C2500-3000%2C0000-1687%2C5000/publish/content/dam/fourseasons/images/web/NMH/NMH_1458_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "garden-view-two-bedroom-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/254-16-garden-view-two-bedroom-pool-villa.jpg",
+      "sha256": "b89b5b6b158030e06887d61bd8646ce5bff09ba8ece71e178a11092fa71e3f43",
+      "bytes": 61313,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 255,
+      "hotel_id": 16,
+      "room_type_id": 162,
+      "name": "Garden-View Three-Bedroom Pool Villa",
+      "key": "16-garden-view-three-bedroom-pool-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.0%2C0000-27%2C5000-3000%2C0000-1687%2C5000/publish/content/dam/fourseasons/images/web/NMH/NMH_139_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "garden-view-three-bedroom-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/255-16-garden-view-three-bedroom-pool-villa.jpg",
+      "sha256": "e26e940a05fa0252ada231dfe6f9c48b1a2e3978621285edc2b6269e489d2efa",
+      "bytes": 51109,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 256,
+      "hotel_id": 16,
+      "room_type_id": 163,
+      "name": "Ocean-View Three-Bedroom Pool Villa",
+      "key": "16-ocean-view-three-bedroom-pool-villa",
+      "page_url": "https://www.fourseasons.com/hoian/accommodations/",
+      "source_url": "https://www.fourseasons.com/alt/img-opt/~75.701.0%2C0000-156%2C2500-3000%2C0000-1687%2C5000/publish/content/dam/fourseasons/images/web/NMH/NMH_608_original.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "ocean-view-three-bedroom-pool-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/256-16-ocean-view-three-bedroom-pool-villa.jpg",
+      "sha256": "888054abf87cd4749dd7cbc21108c537f889dbc0bb2efa44c23245180f9450ba",
+      "bytes": 54407,
+      "dimensions": [
+        701,
+        394
+      ]
+    },
+    {
+      "id": 257,
+      "hotel_id": 17,
+      "room_type_id": 164,
+      "name": "Thu Bon River Suite",
+      "key": "17-thu-bon-river-suite",
+      "page_url": "https://www.anantara.com/en/hoi-an/rooms/thu-bon-river-suite",
+      "source_url": "https://assets.anantara.com/image/upload/q_auto%2Cf_auto%2Cc_limit%2Cw_1045/media/minor/anantara/images/anantara-hoi-an-resort/accommodation/room-type/suites/thu-bon-river-suite/highlights_944x510/anantara_hoi_an_resort_thu_bon_river_suite_bed_to_view_944x510.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "thu-bon-river-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/257-17-thu-bon-river-suite.jpg",
+      "sha256": "4d80f8e5645767c1e756ee3316700deb78a12c10e06dcf12d48bc376d08b434d",
+      "bytes": 94235,
+      "dimensions": [
+        944,
+        510
+      ]
+    },
+    {
+      "id": 265,
+      "hotel_id": 19,
+      "room_type_id": 172,
+      "name": "Two-Bedroom Chalet",
+      "key": "19-two-bedroom-chalet",
+      "page_url": "https://www.hotel.com.au/da-lat/le-r%C3%A9cit-boutique-h%C3%B4tel-de-dalat.htm",
+      "source_url": "https://q-xx.bstatic.com/xdata/images/hotel/max500/436764010.jpg?a=1925256&k=6dbbba38d0d513cfea3f65019f2330842ad3051ac6e6ddda094c7e467355046a&o=",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Image linked from the gallery of the exact named room category.",
+      "source_key": "two-bedroom-chalet",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/265-19-two-bedroom-chalet.jpg",
+      "sha256": "4c92cee382b408ad1ef5cf70617d33db909ecf9a8f55606143533ccfc26da97a",
+      "bytes": 26401,
+      "dimensions": [
+        500,
+        333
+      ]
+    },
+    {
+      "id": 258,
+      "hotel_id": 17,
+      "room_type_id": 165,
+      "name": "Anantara Two Bedroom River Suite",
+      "key": "17-anantara-two-bedroom-river-suite",
+      "page_url": "https://www.anantara.com/en/hoi-an/rooms/anantara-two-bedroom-river-suite",
+      "source_url": "https://assets.anantara.com/image/upload/q_auto%2Cf_auto%2Cc_limit%2Cw_1045/media/minor/anantara/images/anantara-hoi-an-resort/accommodation/room-type/suites/anantara-two-bedroom-river-suite/highlights_944x510/anantara_hoi_an_resort_anantara_two_bedroom_river_suite_terrace_sunset_944x510.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph linked in the Anantara Two Bedroom River Suite official gallery.",
+      "source_key": "anantara-two-bedroom-river-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/258-17-anantara-two-bedroom-river-suite.jpg",
+      "sha256": "67e13804c65670cd91e5588d4a81724c65025cd4aa66064f0d5d5e6f0dc8f284",
+      "bytes": 75841,
+      "dimensions": [
+        943,
+        510
+      ]
+    },
+    {
+      "id": 349,
+      "hotel_id": 56,
+      "room_type_id": 256,
+      "name": "King Suite City View",
+      "key": "56-king-suite-city-view",
+      "page_url": "https://nhatrang.intercontinental.com/rooms/1-king-1-bedroom-suite-city-view/",
+      "source_url": "https://nhatrang.intercontinental.com/wp-content/uploads/sites/100/2025/05/1_King-Suite-Living-Room-2.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Actual photograph in the exact official suite detail gallery; excludes related-room cards and erroneous generic listing thumbnails.",
+      "source_key": "king-suite-city-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/349-56-king-suite-city-view.jpg",
+      "sha256": "8e66057e614b3668682160d1624eb50c4a8486e3eec0a4229b82ba87b9e3271e",
+      "bytes": 464711,
+      "dimensions": [
+        1799,
+        1200
+      ]
+    },
+    {
+      "id": 350,
+      "hotel_id": 56,
+      "room_type_id": 257,
+      "name": "1 Bedroom Family Ocean View Bunkbeds",
+      "key": "56-1-bedroom-family-ocean-view-bunkbeds",
+      "page_url": "https://nhatrang.intercontinental.com/rooms/1-bedroom-suite-ocean-view-bunkbeds/",
+      "source_url": "https://nhatrang.intercontinental.com/wp-content/uploads/sites/100/2025/05/Family-Suite-Bunk-Bed-1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Actual photograph in the exact official suite detail gallery; excludes related-room cards and erroneous generic listing thumbnails.",
+      "source_key": "1-bedroom-family-ocean-view-bunkbeds",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/350-56-1-bedroom-family-ocean-view-bunkbeds.jpg",
+      "sha256": "365a7620c0ad582b626fc75684b2a2484ed9fcac1ff0cb5f73be71c28fee4882",
+      "bytes": 109764,
+      "dimensions": [
+        2200,
+        1200
+      ]
+    },
+    {
+      "id": 351,
+      "hotel_id": 56,
+      "room_type_id": 258,
+      "name": "Panorama Ocean View 1 Bedroom Suite",
+      "key": "56-panorama-ocean-view-1-bedroom-suite",
+      "page_url": "https://nhatrang.intercontinental.com/rooms/1-bedroom-suite-panorama-ocean-view/",
+      "source_url": "https://nhatrang.intercontinental.com/wp-content/uploads/sites/100/2025/05/Suites-3.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Actual photograph in the exact official suite detail gallery; excludes related-room cards and erroneous generic listing thumbnails.",
+      "source_key": "panorama-ocean-view-1-bedroom-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/351-56-panorama-ocean-view-1-bedroom-suite.jpg",
+      "sha256": "afb9f8cf5cac3e72e91a08ca2fb8769d239d13c681347c7c19a5fa085f59bc9b",
+      "bytes": 124944,
+      "dimensions": [
+        2200,
+        1200
+      ]
+    },
+    {
+      "id": 352,
+      "hotel_id": 56,
+      "room_type_id": 259,
+      "name": "Presidential Suite with Panoramic Ocean View",
+      "key": "56-presidential-suite-with-panoramic-ocean-view",
+      "page_url": "https://nhatrang.intercontinental.com/rooms/presidential-suite/",
+      "source_url": "https://nhatrang.intercontinental.com/wp-content/uploads/sites/100/2025/05/Press-Suite-Room-1.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Actual photograph in the exact official suite detail gallery; excludes related-room cards and erroneous generic listing thumbnails.",
+      "source_key": "presidential-suite-with-panoramic-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/352-56-presidential-suite-with-panoramic-ocean-view.jpg",
+      "sha256": "819ef80a4750869e5479a9bed78f2605570980e7e667fc3680de99f048e4a049",
+      "bytes": 151881,
+      "dimensions": [
+        2200,
+        1200
+      ]
+    },
+    {
+      "id": 339,
+      "hotel_id": 54,
+      "room_type_id": 246,
+      "name": "Premium Room With View",
+      "key": "54-premium-room-with-view",
+      "page_url": "https://my.trip.com/hotels/hue-hotel-detail-23780615/melia-vinpearl-hue/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0200612000a3c3giw47D7.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com room map 99939462 explicitly labelled Premium Room with View.",
+      "source_key": "premium-room-with-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/339-54-premium-room-with-view.jpg",
+      "sha256": "fc581a63295b59362a3e580b4c542ea94365348ad1affa5a88491eb86c6b4e53",
+      "bytes": 236007,
+      "dimensions": [
+        1920,
+        1279
+      ]
+    },
+    {
+      "id": 340,
+      "hotel_id": 54,
+      "room_type_id": 247,
+      "name": "Suite, 2 Bedrooms",
+      "key": "54-suite-2-bedrooms",
+      "page_url": "https://my.trip.com/hotels/hue-hotel-detail-23780615/melia-vinpearl-hue/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0203x12000a3c343vD205.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com room map 360117632 explicitly labelled Two Bedroom Suite.",
+      "source_key": "suite-2-bedrooms",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/340-54-suite-2-bedrooms.jpg",
+      "sha256": "247f02c5bc6276257277de2c1094c51dfc4beac8a538011bfae3c35e1dc035f3",
+      "bytes": 308192,
+      "dimensions": [
+        1920,
+        1279
+      ]
+    },
+    {
+      "id": 342,
+      "hotel_id": 54,
+      "room_type_id": 249,
+      "name": "Deluxe Room, 2 Bedrooms",
+      "key": "54-deluxe-room-2-bedrooms",
+      "page_url": "https://my.trip.com/hotels/hue-hotel-detail-23780615/melia-vinpearl-hue/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0201u12000a3c2o3s23E2.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com room map 360117567 explicitly labelled Two Bedroom Deluxe.",
+      "source_key": "deluxe-room-2-bedrooms",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/342-54-deluxe-room-2-bedrooms.jpg",
+      "sha256": "ba34fd280504252757d01c7d7f86e47585ab7b2aba4f627f0ef6ba2d725f3c88",
+      "bytes": 215769,
+      "dimensions": [
+        1920,
+        1279
+      ]
+    },
+    {
+      "id": 183,
+      "hotel_id": 5,
+      "room_type_id": 90,
+      "name": "Century Presidential Suite",
+      "key": "5-century-presidential-suite",
+      "page_url": "https://www.hotel.com.au/ho-chi-minh-city/hotel-majestic-saigon.htm",
+      "source_url": "https://q-xx.bstatic.com/xdata/images/hotel/max500/866709178.jpg?a=1925256&k=4a9e9d61031b63fd8eae617039285f8b5c4be7f350ca6ec071634c54b451c8cf&o=",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Booking platform photo explicitly captioned Presidential Suite at Hotel Majestic Saigon; same property at 1 Dong Khoi.",
+      "source_key": "century-presidential-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/183-5-century-presidential-suite.jpg",
+      "sha256": "f4ffb0908815a2efbe3c8f87784829b70c260d50b9d5aff8bbe990413fce603e",
+      "bytes": 27691,
+      "dimensions": [
+        500,
+        333
+      ]
+    },
+    {
+      "id": 341,
+      "hotel_id": 54,
+      "room_type_id": 248,
+      "name": "Presidential Suite",
+      "key": "54-presidential-suite",
+      "page_url": "https://www.expedia.co.uk/Hue-Hotels-Melia-Vinpearl-Hue.h29267758.Hotel-Information",
+      "source_url": "https://images.trvl-media.com/lodging/30000000/29270000/29267800/29267758/78a3689c.jpg?h=800&impolicy=fcrop&w=1200",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in Expedia's Presidential Suite gallery for Meliá Vinpearl Hue; original suite without occupancy/package variants.",
+      "source_key": "presidential-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/341-54-presidential-suite.jpg",
+      "sha256": "11e8b664479078adf1b1d7a70b81ccb1c9d46cbfe8d3f07ccfff54f15dd26f5f",
+      "bytes": 187540,
+      "dimensions": [
+        1200,
+        800
+      ]
+    },
+    {
+      "id": 234,
+      "hotel_id": 13,
+      "room_type_id": 141,
+      "name": "Deluxe Twin",
+      "key": "13-deluxe-twin",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-spa-phu-quoc/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/e48506e3041541138fba26a5444bf09d_DSC_5342.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "deluxe-twin",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/234-13-deluxe-twin.jpg",
+      "sha256": "02280df651e13f7b245d3966bafd0d0e10613addc9aa77a5da02d76445622b93",
+      "bytes": 68244,
+      "dimensions": [
+        800,
+        533
+      ]
+    },
+    {
+      "id": 235,
+      "hotel_id": 13,
+      "room_type_id": 142,
+      "name": "Deluxe King",
+      "key": "13-deluxe-king",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-spa-phu-quoc/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/1481b202a6f5463892baf186e83087b0_DSC_5952.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "deluxe-king",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/235-13-deluxe-king.jpg",
+      "sha256": "12f48c19b78548aa06a21616c1de88c996a908c97f76271769315e8b3a16107d",
+      "bytes": 68197,
+      "dimensions": [
+        800,
+        533
+      ]
+    },
+    {
+      "id": 236,
+      "hotel_id": 13,
+      "room_type_id": 143,
+      "name": "Junior Suite King",
+      "key": "13-junior-suite-king",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-spa-phu-quoc/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/1c506bdba8384e9ebc885492d56faed5_2.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "junior-suite-king",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/236-13-junior-suite-king.jpg",
+      "sha256": "3a854826cb3158807bfd4fab32315e8ee4ac879e9b4bda89ec514d63b0196c84",
+      "bytes": 63152,
+      "dimensions": [
+        800,
+        533
+      ]
+    },
+    {
+      "id": 237,
+      "hotel_id": 13,
+      "room_type_id": 144,
+      "name": "Deluxe King Ocean View",
+      "key": "13-deluxe-king-ocean-view",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-spa-phu-quoc/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/05e8c97504a14124b2d1ceb95f71f01b_DSC_5502.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "deluxe-king-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/237-13-deluxe-king-ocean-view.jpg",
+      "sha256": "a0d594e6b095d986aa8991ca82a82c9a5affc3b20586ba062295dc18a43f0809",
+      "bytes": 55028,
+      "dimensions": [
+        800,
+        526
+      ]
+    },
+    {
+      "id": 238,
+      "hotel_id": 13,
+      "room_type_id": 145,
+      "name": "Deluxe Twin Ocean View",
+      "key": "13-deluxe-twin-ocean-view",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-spa-phu-quoc/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/46f71624fa5e4e7c88e9a88a673a3bf8_DSC_5373.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "deluxe-twin-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/238-13-deluxe-twin-ocean-view.jpg",
+      "sha256": "fa947597d5a78ed12f5c9d03be34b559d8abc47701ba018da9d6dd78611f0f4c",
+      "bytes": 64115,
+      "dimensions": [
+        800,
+        533
+      ]
+    },
+    {
+      "id": 387,
+      "hotel_id": 13,
+      "room_type_id": 294,
+      "name": "Villa 3-Bedroom",
+      "key": "13-villa-3-bedroom",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-spa-phu-quoc/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/e16d3f3748c1469ea3bfc9ba64bc2e87_DSC_5622.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "villa-3-bedroom",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/387-13-villa-3-bedroom.jpg",
+      "sha256": "748891f21a94816baaa9f3acd465b876f0386485e91085c058a8b051a4df82f4",
+      "bytes": 137604,
+      "dimensions": [
+        800,
+        511
+      ]
+    },
+    {
+      "id": 388,
+      "hotel_id": 13,
+      "room_type_id": 295,
+      "name": "Villa 3-Bedroom Ocean View",
+      "key": "13-villa-3-bedroom-ocean-view",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-spa-phu-quoc/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/4be7b13304a54ec486874f9622b70605_DSC_5622.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "villa-3-bedroom-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/388-13-villa-3-bedroom-ocean-view.jpg",
+      "sha256": "58328b4af921d47fa5ad23c96753ad88507729d21f6658d521d74a92e22449d5",
+      "bytes": 137412,
+      "dimensions": [
+        800,
+        511
+      ]
+    },
+    {
+      "id": 296,
+      "hotel_id": 45,
+      "room_type_id": 203,
+      "name": "Deluxe King Ocean View",
+      "key": "45-deluxe-king-ocean-view",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-golf-nam-hoi-an/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/Vinhoian5040%20%281%29.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "deluxe-king-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/296-45-deluxe-king-ocean-view.jpg",
+      "sha256": "4c42c12820928b47037acea9f75c0e23ae2b9de53b066b655f22b9c1dec8e439",
+      "bytes": 2323721,
+      "dimensions": [
+        7812,
+        5211
+      ]
+    },
+    {
+      "id": 297,
+      "hotel_id": 45,
+      "room_type_id": 204,
+      "name": "Deluxe Twin Ocean View",
+      "key": "45-deluxe-twin-ocean-view",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-golf-nam-hoi-an/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/Vinhoian0851.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "deluxe-twin-ocean-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/297-45-deluxe-twin-ocean-view.jpg",
+      "sha256": "8cecba530b49a965d3ac840d8476496bc39481cf477fae4ffec18cbe21762746",
+      "bytes": 184338,
+      "dimensions": [
+        1920,
+        1281
+      ]
+    },
+    {
+      "id": 389,
+      "hotel_id": 45,
+      "room_type_id": 296,
+      "name": "Executive Suite King",
+      "key": "45-executive-suite-king",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-golf-nam-hoi-an/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/Vinhoian2465%20%281%29.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "executive-suite-king",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/389-45-executive-suite-king.jpg",
+      "sha256": "b95feb7240dbdbc0b7fbbb722c508ab14d2e1cfedbce4858bf35057562265958",
+      "bytes": 1220800,
+      "dimensions": [
+        1920,
+        1281
+      ]
+    },
+    {
+      "id": 390,
+      "hotel_id": 45,
+      "room_type_id": 297,
+      "name": "2-Bedroom Garden View Villa",
+      "key": "45-2-bedroom-garden-view-villa",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-golf-nam-hoi-an/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/Vinhoian9900%20%281%29.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "2-bedroom-garden-view-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/390-45-2-bedroom-garden-view-villa.jpg",
+      "sha256": "1b0636fc385c39280e5c8af2ec03f4c9b928e3f0d9cd669060ccbd8a90539f5c",
+      "bytes": 624647,
+      "dimensions": [
+        3976,
+        2652
+      ]
+    },
+    {
+      "id": 391,
+      "hotel_id": 45,
+      "room_type_id": 298,
+      "name": "3-Bedroom Garden View Villa",
+      "key": "45-3-bedroom-garden-view-villa",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-golf-nam-hoi-an/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/Vinhoian6470%20%281%29.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "3-bedroom-garden-view-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/391-45-3-bedroom-garden-view-villa.jpg",
+      "sha256": "83f793377d05a495d771f741e857b382fdd575999096377393932cd4afc765ab",
+      "bytes": 1213772,
+      "dimensions": [
+        3906,
+        2606
+      ]
+    },
+    {
+      "id": 392,
+      "hotel_id": 45,
+      "room_type_id": 299,
+      "name": "3-Bedroom Ocean View Villa",
+      "key": "45-3-bedroom-ocean-view-villa",
+      "page_url": "https://vinpearl.com/en/hotels/vinpearl-resort-golf-nam-hoi-an/rooms",
+      "source_url": "https://booking-static.vinpearl.com/room_types/Vinhoian1064%201%20%281%29.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Photograph in the officially labelled room card/gallery.",
+      "source_key": "3-bedroom-ocean-view-villa",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/392-45-3-bedroom-ocean-view-villa.jpg",
+      "sha256": "ac5cfb96e097730e88abf6ce06752c6175fc15b22b14bc4d24f583d61b9e271e",
+      "bytes": 1683536,
+      "dimensions": [
+        1920,
+        1281
+      ]
+    },
+    {
+      "id": 170,
+      "hotel_id": 3,
+      "room_type_id": 77,
+      "name": "Deluxe Triple",
+      "key": "3-deluxe-triple",
+      "page_url": "https://my.trip.com/hotels/hanoi-hotel-detail-2083705/la-siesta-classic-ma-may/",
+      "source_url": "https://aw-d.tripcdn.com/images/0580112000sndvfxq36B8.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap category 5967205 labelled Deluxe Triple Room.",
+      "source_key": "deluxe-triple",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/170-3-deluxe-triple.jpg",
+      "sha256": "0d54b13979f24a01f253a5549af59ddbd1304525419d4645aaee6c8f03c20e7d",
+      "bytes": 266294,
+      "dimensions": [
+        1280,
+        854
+      ]
+    },
+    {
+      "id": 171,
+      "hotel_id": 3,
+      "room_type_id": 78,
+      "name": "Club Junior Suite",
+      "key": "3-club-junior-suite",
+      "page_url": "https://my.trip.com/hotels/hanoi-hotel-detail-2083705/la-siesta-classic-ma-may/",
+      "source_url": "https://aw-d.tripcdn.com/images/0203q120009e0m2tb09AC.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap category 264713533 labelled Club Junior Suite.",
+      "source_key": "club-junior-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/171-3-club-junior-suite.jpg",
+      "sha256": "820121920e38899e40dca36e3ecc40c939cd60344c43e1fb2039b08fd936450e",
+      "bytes": 281156,
+      "dimensions": [
+        1500,
+        1001
+      ]
+    },
+    {
+      "id": 172,
+      "hotel_id": 3,
+      "room_type_id": 79,
+      "name": "La Siesta Suite",
+      "key": "3-la-siesta-suite",
+      "page_url": "https://my.trip.com/hotels/hanoi-hotel-detail-2083705/la-siesta-classic-ma-may/",
+      "source_url": "https://aw-d.tripcdn.com/images/0206u120008hdl6zr06B0.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap category 264713503 labelled La Siesta Suite.",
+      "source_key": "la-siesta-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/172-3-la-siesta-suite.jpg",
+      "sha256": "a830ecbd8314f1dd373515d74417ed784f6e631cc8a5d3fecc24ec333fec7b8c",
+      "bytes": 238200,
+      "dimensions": [
+        1920,
+        1281
+      ]
+    },
+    {
+      "id": 173,
+      "hotel_id": 3,
+      "room_type_id": 80,
+      "name": "Duplex Suite",
+      "key": "3-duplex-suite",
+      "page_url": "https://my.trip.com/hotels/hanoi-hotel-detail-2083705/la-siesta-classic-ma-may/",
+      "source_url": "https://aw-d.tripcdn.com/images/0585i12000sptyhfnAA0B.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap category 5967207 labelled Duplex Suite.",
+      "source_key": "duplex-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/173-3-duplex-suite.jpg",
+      "sha256": "543c7fab2acb108ff1f1a5e988414ae7add2daadfe868763d3e6471db5b20619",
+      "bytes": 297012,
+      "dimensions": [
+        1280,
+        853
+      ]
+    },
+    {
+      "id": 174,
+      "hotel_id": 3,
+      "room_type_id": 81,
+      "name": "Family Suite",
+      "key": "3-family-suite",
+      "page_url": "https://my.trip.com/hotels/hanoi-hotel-detail-2083705/la-siesta-classic-ma-may/",
+      "source_url": "https://aw-d.tripcdn.com/images/0204u120009e0lwc64A5B.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap category 5967210 labelled Family Suite.",
+      "source_key": "family-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/174-3-family-suite.jpg",
+      "sha256": "0fdbb920e1e5129c15667a6ae353c9536663c5a27a110a7fbd7c26731b0af8a9",
+      "bytes": 215895,
+      "dimensions": [
+        1500,
+        1001
+      ]
+    },
+    {
+      "id": 175,
+      "hotel_id": 3,
+      "room_type_id": 82,
+      "name": "Club Duplex Suite",
+      "key": "3-club-duplex-suite",
+      "page_url": "https://my.trip.com/hotels/hanoi-hotel-detail-2083705/la-siesta-classic-ma-may/",
+      "source_url": "https://aw-d.tripcdn.com/images/200t0f0000007a8u55CB9.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap category 264713652 labelled Club Duplex Suite.",
+      "source_key": "club-duplex-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/175-3-club-duplex-suite.jpg",
+      "sha256": "a83cf0d35c000e989ac8bfcc39fae87c1866eb0d06b947d76b3c973a86f2322f",
+      "bytes": 222561,
+      "dimensions": [
+        1920,
+        1234
+      ]
+    },
+    {
+      "id": 180,
+      "hotel_id": 5,
+      "room_type_id": 87,
+      "name": "Century Deluxe",
+      "key": "5-century-deluxe",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993081/hotel-majestic-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc5y12000tkg2xta3FEB.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 6154394 labelled Century Deluxe Double; matched to the existing category at the same hotel.",
+      "source_key": "century-deluxe",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/180-5-century-deluxe.jpg",
+      "sha256": "5a2aaa862e0fba6ec733203e5f693f99befd6b14a89faf0172c696315bb988a9",
+      "bytes": 336461,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 181,
+      "hotel_id": 5,
+      "room_type_id": 88,
+      "name": "Century Pool Deluxe",
+      "key": "5-century-pool-deluxe",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993081/hotel-majestic-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc5912000tkg60bzD8EA.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 6154367 labelled Century Pool Deluxe Double or Twin; matched to the existing category at the same hotel.",
+      "source_key": "century-pool-deluxe",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/181-5-century-pool-deluxe.jpg",
+      "sha256": "d80e3f25144ed5fffb5131f6d8aabbcb945394b41fea7cd0702b846b4d004576",
+      "bytes": 348730,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 182,
+      "hotel_id": 5,
+      "room_type_id": 89,
+      "name": "Century Majestic Suite",
+      "key": "5-century-majestic-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993081/hotel-majestic-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc3h12000tfphzlnB671.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 18387553 labelled Century Majestic Suite; matched to the existing category at the same hotel.",
+      "source_key": "century-majestic-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/182-5-century-majestic-suite.jpg",
+      "sha256": "a6ede1eb184f92e6599c6c778fc33690cad42372b6156de23104276720edd604",
+      "bytes": 294080,
+      "dimensions": [
+        1919,
+        1209
+      ]
+    },
+    {
+      "id": 184,
+      "hotel_id": 6,
+      "room_type_id": 91,
+      "name": "Deluxe Connecting Room",
+      "key": "6-deluxe-connecting-room",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-120437423/la-siesta-premium-saigon-central/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0226i12000kxa36m661BB.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 491137780 labelled Deluxe Connecting Room; matched to the existing category at the same hotel.",
+      "source_key": "deluxe-connecting-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/184-6-deluxe-connecting-room.jpg",
+      "sha256": "5bd8217ff62dec874f01ae19c37f7523463e93314a418cc635a91a278c0e94f4",
+      "bytes": 295950,
+      "dimensions": [
+        2000,
+        1240
+      ]
+    },
+    {
+      "id": 185,
+      "hotel_id": 6,
+      "room_type_id": 92,
+      "name": "Executive Triple Room",
+      "key": "6-executive-triple-room",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-120437423/la-siesta-premium-saigon-central/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc5612000egmupgl14B5.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 490810302 labelled Window Executive Triple Room; matched to the existing category at the same hotel.",
+      "source_key": "executive-triple-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/185-6-executive-triple-room.jpg",
+      "sha256": "1407cf9780919aaea49e34c4ecbb31696df168a3255ce681cd3a301a2211ee4f",
+      "bytes": 295410,
+      "dimensions": [
+        1920,
+        1279
+      ]
+    },
+    {
+      "id": 186,
+      "hotel_id": 6,
+      "room_type_id": 93,
+      "name": "Executive Connecting Room",
+      "key": "6-executive-connecting-room",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-120437423/la-siesta-premium-saigon-central/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0222m12000kxa2zh36723.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 491137875 labelled Executive Connecting Room; matched to the existing category at the same hotel.",
+      "source_key": "executive-connecting-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/186-6-executive-connecting-room.jpg",
+      "sha256": "b007a3b82eb59bf60d6c1deb6de3252f250c28554d887a465974a54d72c450ef",
+      "bytes": 350736,
+      "dimensions": [
+        2000,
+        1240
+      ]
+    },
+    {
+      "id": 187,
+      "hotel_id": 6,
+      "room_type_id": 94,
+      "name": "The Owner’s Suite",
+      "key": "6-the-owners-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-120437423/la-siesta-premium-saigon-central/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc4012000iuijgrfB489.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 518208874 labelled The Owner’s Suite; matched to the existing category at the same hotel.",
+      "source_key": "the-owners-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/187-6-the-owners-suite.jpg",
+      "sha256": "426f04f3304158a89a37ef226ddda6c714538e5b044ca7c54678c581ca33e06f",
+      "bytes": 164846,
+      "dimensions": [
+        1920,
+        1310
+      ]
+    },
+    {
+      "id": 188,
+      "hotel_id": 7,
+      "room_type_id": 95,
+      "name": "Deluxe Connecting Room",
+      "key": "7-deluxe-connecting-room",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-102316758/la-siesta-premium-sai-gon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc0b12000bfdtzm8BC19.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 443811285 labelled Deluxe Connecting Room; matched to the existing category at the same hotel.",
+      "source_key": "deluxe-connecting-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/188-7-deluxe-connecting-room.jpg",
+      "sha256": "efbc763d77843c260bcfc910a99dba58ec390b80fecb6e0801a5af50d76855f7",
+      "bytes": 291272,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 189,
+      "hotel_id": 7,
+      "room_type_id": 96,
+      "name": "Executive Connecting Room",
+      "key": "7-executive-connecting-room",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-102316758/la-siesta-premium-sai-gon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc3512000bfdp6k4C578.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 443538263 labelled Executive Connecting Room; matched to the existing category at the same hotel.",
+      "source_key": "executive-connecting-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/189-7-executive-connecting-room.jpg",
+      "sha256": "41cccd3c4febbb37edd11122fe4665709c2e74e574c235b51ca5ae893a3da3cf",
+      "bytes": 287343,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 190,
+      "hotel_id": 7,
+      "room_type_id": 97,
+      "name": "Grand Suite",
+      "key": "7-grand-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-102316758/la-siesta-premium-sai-gon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc3o12000bfe45rpA2E3.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 386208736 labelled Grand Suite; matched to the existing category at the same hotel.",
+      "source_key": "grand-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/190-7-grand-suite.jpg",
+      "sha256": "e1589feed39a55d3d2ea76123f06641d54d6f226f6f5057a87ffd8ee00f413cf",
+      "bytes": 229094,
+      "dimensions": [
+        1920,
+        1215
+      ]
+    },
+    {
+      "id": 191,
+      "hotel_id": 7,
+      "room_type_id": 98,
+      "name": "La Siesta Suite",
+      "key": "7-la-siesta-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-102316758/la-siesta-premium-sai-gon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc4612000bf8lhw115B5.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 386208739 labelled La Siesta Suite; matched to the existing category at the same hotel.",
+      "source_key": "la-siesta-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/191-7-la-siesta-suite.jpg",
+      "sha256": "52af084e1bec10c009868300c461ae4cc0eca89bc660b66a0efdabe99470ca1e",
+      "bytes": 232674,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 192,
+      "hotel_id": 8,
+      "room_type_id": 99,
+      "name": "Deluxe",
+      "key": "8-deluxe",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993221/hotel-grand-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc5212000d9d0bemD018.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 250709944 labelled Deluxe King Room; matched to the existing category at the same hotel.",
+      "source_key": "deluxe",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/192-8-deluxe.jpg",
+      "sha256": "afa6489f36f77990028fff693b54cac4c25155f8bb3e97daa394efcc26600670",
+      "bytes": 233414,
+      "dimensions": [
+        1920,
+        1280
+      ]
+    },
+    {
+      "id": 193,
+      "hotel_id": 8,
+      "room_type_id": 100,
+      "name": "Luxury Suite",
+      "key": "8-luxury-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993221/hotel-grand-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/1mc1w12000d9df6v18920.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 21121668 labelled Luxury Suite King; matched to the existing category at the same hotel.",
+      "source_key": "luxury-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/193-8-luxury-suite.jpg",
+      "sha256": "69f112dd9206a01a46dddf8708d50aa9f5111b5012fe0600f14e18a2c6086ccb",
+      "bytes": 363618,
+      "dimensions": [
+        1920,
+        1277
+      ]
+    },
+    {
+      "id": 194,
+      "hotel_id": 8,
+      "room_type_id": 101,
+      "name": "Royal Suite",
+      "key": "8-royal-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993221/hotel-grand-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0204q1200088a1r9pE72B.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 21121832 labelled Royal Suite; matched to the existing category at the same hotel.",
+      "source_key": "royal-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/194-8-royal-suite.jpg",
+      "sha256": "84f4e5f8c54bd538d2d0f1ba18dbc3b3e45043fc087e63d81d8f511c70f1f942",
+      "bytes": 269836,
+      "dimensions": [
+        1920,
+        1281
+      ]
+    },
+    {
+      "id": 195,
+      "hotel_id": 8,
+      "room_type_id": 102,
+      "name": "Grand Executive Suite",
+      "key": "8-grand-executive-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993221/hotel-grand-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0200o1200086m4d8sF944.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 250713415 labelled Grand Executive Suite King; matched to the existing category at the same hotel.",
+      "source_key": "grand-executive-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/195-8-grand-executive-suite.jpg",
+      "sha256": "2b51adda377cb58e4cf0d07b43d4382912cbfb56b7bcafa4a94a89c8c991c196",
+      "bytes": 242225,
+      "dimensions": [
+        1920,
+        1281
+      ]
+    },
+    {
+      "id": 196,
+      "hotel_id": 8,
+      "room_type_id": 103,
+      "name": "Grand Suite",
+      "key": "8-grand-suite",
+      "page_url": "https://my.trip.com/hotels/ho-chi-minh-city-hotel-detail-993221/hotel-grand-saigon/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0205p1200088b8ppcF286.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 4255619 labelled Grand Suite; matched to the existing category at the same hotel.",
+      "source_key": "grand-suite",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/196-8-grand-suite.jpg",
+      "sha256": "6a36bb9478f9b158060f3b38f962cefa849b0978945889ce46296f576760fbd4",
+      "bytes": 406443,
+      "dimensions": [
+        1920,
+        1281
+      ]
+    },
+    {
+      "id": 288,
+      "hotel_id": 44,
+      "room_type_id": 195,
+      "name": "King Guest Room",
+      "key": "44-king-guest-room",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0223j12000sigky8z8399.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 577858594 labelled King Room; matched to the existing category at the same hotel.",
+      "source_key": "king-guest-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/288-44-king-guest-room.jpg",
+      "sha256": "a9ea6355ea036e4980c0d2cd5b9bfde0aeaea64f6cadb3a9a3346b8e42f187cb",
+      "bytes": 802271,
+      "dimensions": [
+        4312,
+        2880
+      ]
+    },
+    {
+      "id": 289,
+      "hotel_id": 44,
+      "room_type_id": 196,
+      "name": "King Deluxe Room Pool Access",
+      "key": "44-king-deluxe-room-pool-access",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0223t12000sigl0snEDD0.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 574695106 labelled Deluxe King Room with Pool Access; matched to the existing category at the same hotel.",
+      "source_key": "king-deluxe-room-pool-access",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/289-44-king-deluxe-room-pool-access.jpg",
+      "sha256": "9887fa723f294ceaff19e82d0f4bc7ebbfcc7fc99e1842cafd45e77cc175e858",
+      "bytes": 1071286,
+      "dimensions": [
+        3839,
+        2880
+      ]
+    },
+    {
+      "id": 290,
+      "hotel_id": 44,
+      "room_type_id": 197,
+      "name": "King Premium Suite with Riverside View",
+      "key": "44-king-premium-suite-with-riverside-view",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0226x12000sigl2x55D22.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 574695164 labelled King Premium Suite Riverside View; matched to the existing category at the same hotel.",
+      "source_key": "king-premium-suite-with-riverside-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/290-44-king-premium-suite-with-riverside-view.jpg",
+      "sha256": "7b6c161f7ae2843655e38078c6b9c4dd8d7204b7893228b841e156929b2ee088",
+      "bytes": 761661,
+      "dimensions": [
+        3840,
+        2880
+      ]
+    },
+    {
+      "id": 291,
+      "hotel_id": 44,
+      "room_type_id": 198,
+      "name": "Deluxe King Room with Balcony",
+      "key": "44-deluxe-king-room-with-balcony",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0220q12000tpb7ch6B911.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 574695311 labelled Deluxe King Room with Balcony; matched to the existing category at the same hotel.",
+      "source_key": "deluxe-king-room-with-balcony",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/291-44-deluxe-king-room-with-balcony.jpg",
+      "sha256": "0317c665f617801dee859f518d68c5740355fc80b67f199a28d3ce986b030a7b",
+      "bytes": 1087767,
+      "dimensions": [
+        4414,
+        2880
+      ]
+    },
+    {
+      "id": 292,
+      "hotel_id": 44,
+      "room_type_id": 199,
+      "name": "Premium King Room - River Side View",
+      "key": "44-premium-king-room-river-side-view",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0222612000tpb7yhxF8BD.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 574695259 labelled King Premium Room Riverside View; matched to the existing category at the same hotel.",
+      "source_key": "premium-king-room-river-side-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/292-44-premium-king-room-river-side-view.jpg",
+      "sha256": "675e2b28cea60065f035ba1bedca25152262158c772ae362e792e999683c2619",
+      "bytes": 1127043,
+      "dimensions": [
+        4421,
+        2880
+      ]
+    },
+    {
+      "id": 293,
+      "hotel_id": 44,
+      "room_type_id": 200,
+      "name": "King Guest Room with Balcony",
+      "key": "44-king-guest-room-with-balcony",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0220712000tpb7smxA99A.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 574695165 labelled King Room with Balcony; matched to the existing category at the same hotel.",
+      "source_key": "king-guest-room-with-balcony",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/293-44-king-guest-room-with-balcony.jpg",
+      "sha256": "39a1b14d387918881445a91af9dd8e15432230ed640feed69ed995cc53776ff7",
+      "bytes": 1185911,
+      "dimensions": [
+        4414,
+        2880
+      ]
+    },
+    {
+      "id": 294,
+      "hotel_id": 44,
+      "room_type_id": 201,
+      "name": "Premium Corner King Room",
+      "key": "44-premium-corner-king-room",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0225n12000tpayu8bDD86.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 574695260 labelled Premium Corner King Room; matched to the existing category at the same hotel.",
+      "source_key": "premium-corner-king-room",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/294-44-premium-corner-king-room.jpg",
+      "sha256": "aaf01526a7c4dd36a3b4ccaa9e15ef95e868bd946c4d5a5a067f38c10a2dbf88",
+      "bytes": 3928916,
+      "dimensions": [
+        7761,
+        5064
+      ]
+    },
+    {
+      "id": 295,
+      "hotel_id": 44,
+      "room_type_id": 202,
+      "name": "King Room with Riverside View",
+      "key": "44-king-room-with-riverside-view",
+      "page_url": "https://my.trip.com/hotels/hoi-an-hotel-detail-116777004/nhaan-resort-and-spa-hoi-an-tapestry-collection-by-hilton/?locale=en-MY",
+      "source_url": "https://aw-d.tripcdn.com/images/0224g12000tpb82p76BCF.jpg",
+      "checked_on": "2026-10-31",
+      "evidence_note": "Trip.com public physicRoomMap 574695489 labelled King Guest Room Riverside View; matched to the existing category at the same hotel.",
+      "source_key": "king-room-with-riverside-view",
+      "local_path": "storage/accommodations/verified-room-types/photos-20261031/295-44-king-room-with-riverside-view.jpg",
+      "sha256": "d0d88e943813b6b153c95513492c282a98484db89ad26c9e1363a01046d3ca7f",
+      "bytes": 1075650,
+      "dimensions": [
+        4318,
+        2880
+      ]
+    }
+  ]
+}

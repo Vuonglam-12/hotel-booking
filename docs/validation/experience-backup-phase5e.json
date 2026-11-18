@@ -1,0 +1,262 @@
+{
+  "date": "2026-10-25",
+  "phase": "5E",
+  "status": "DONE_BACKUP_FILE_VERIFICATION_PARTIAL_RESTORE_PENDING",
+  "current_workflow": {
+    "method": "Owner metadata results accepted; actual database/storage/code backup created with the existing RO account.",
+    "owner_results_received": true,
+    "owner_results": {
+      "triggers": 0,
+      "routines": 0,
+      "events": 0,
+      "source": "Owner confirmation from phpMyAdmin with appropriate privileges"
+    },
+    "metadata_types_requeried": false,
+    "new_grants": false,
+    "completed_audit_repeated": false,
+    "backup_runtime_target_and_stability_checks": true,
+    "custom_select_show_queries": 24,
+    "mysql_client_marker_selects": 24,
+    "mysqldump_internal_statement_count_not_recorded": true,
+    "source_data_schema_writes": 0
+  },
+  "tools": {
+    "directory": "C:\\laragon\\bin\\mysql\\mysql-8.0.30-winx64\\bin",
+    "mysql_version": "8.0.30",
+    "mysqldump_version": "8.0.30",
+    "available": [
+      "mysql.exe",
+      "mysqldump.exe",
+      "mysql_config_editor.exe",
+      "mysqlcheck.exe"
+    ]
+  },
+  "readonly_preflight": {
+    "status": "PASS_RO_PREFLIGHT",
+    "identity": {
+      "host": "QuocAnh",
+      "port": 3306,
+      "role": "NONE",
+      "uuid": "7880df8a-92cd-11f0-85c1-a841f442ddbd",
+      "account": "aurel_catalog_ro@127.0.0.1",
+      "version": "8.0.30",
+      "database": "hotel_booking",
+      "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+      "gtid_mode": "OFF",
+      "observed_at": "2026-10-25 16:08:51",
+      "observed_utc": "2026-10-25 09:08:51",
+      "mandatory_roles": "",
+      "partial_revokes": 0,
+      "system_time_zone": "SE Asia Standard Time",
+      "session_time_zone": "SYSTEM"
+    },
+    "grants": [
+      "GRANT USAGE ON *.* TO `aurel_catalog_ro`@`127.0.0.1`",
+      "GRANT SELECT ON `hotel\\_booking`.* TO `aurel_catalog_ro`@`127.0.0.1`"
+    ],
+    "roles": {
+      "enabled": 0,
+      "applicable": 0
+    },
+    "engines": [
+      {
+        "count": 29,
+        "engine": "InnoDB",
+        "table_type": "BASE TABLE",
+        "estimated_bytes": 1753088
+      }
+    ],
+    "object_visibility": {
+      "visible_events": 0,
+      "visible_routines": 0,
+      "visible_triggers": 0
+    },
+    "object_absence_verified": false,
+    "catalog_tables": [
+      {
+        "name": "attraction",
+        "type": "BASE TABLE"
+      },
+      {
+        "name": "hotel",
+        "type": "BASE TABLE"
+      },
+      {
+        "name": "location",
+        "type": "BASE TABLE"
+      },
+      {
+        "name": "migrations",
+        "type": "BASE TABLE"
+      }
+    ],
+    "counts": {
+      "hotel": 24,
+      "location": 8,
+      "attraction": 47,
+      "migrations": 69
+    },
+    "catalog_ledger": [],
+    "queries_select_show_only": true,
+    "database_writes": 0,
+    "backup_executed": false,
+    "client_closed": true
+  },
+  "storage_inventory": {
+    "root": "C:\\laragon\\www\\Hotel-Booking\\storage\\app\\public",
+    "files": 447,
+    "bytes": 40591954,
+    "reparse_points": 0,
+    "public_storage_target": [
+      "C:\\laragon\\www\\Hotel-Booking\\storage\\app\\public"
+    ],
+    "snapshot_created": false
+  },
+  "private_backup_directory": {
+    "status": "PASS_PRIVATE_DIRECTORY_CREATED",
+    "directory": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\backups\\experience-phase5e-20261025-057fe2d6",
+    "owner": "QUOCANH\\ASUS",
+    "inheritance_disabled": true,
+    "access": [
+      {
+        "sid": "S-1-5-18",
+        "rights": "FullControl",
+        "type": "Allow",
+        "inherited": false
+      },
+      {
+        "sid": "S-1-5-21-2873856134-3016355433-1345141024-1001",
+        "rights": "FullControl",
+        "type": "Allow",
+        "inherited": false
+      }
+    ],
+    "children": [
+      "database",
+      "storage-public",
+      "evidence"
+    ],
+    "free_bytes": 145292881920,
+    "database_dump_created": false,
+    "storage_copied": false,
+    "database_connection_used": false
+  },
+  "proposal": {
+    "status": "ON_HOLD_BY_OWNER_NOT_PART_OF_CURRENT_WORKFLOW",
+    "type": "Owner-created scoped SQL SECURITY DEFINER metadata view",
+    "schema": "aurel_backup_audit_057fe2d6",
+    "view": "catalog_objects_v1",
+    "reader_account": "aurel_catalog_ro@127.0.0.1",
+    "reader_additional_privileges": [
+      "SELECT on exactly the new view",
+      "SHOW VIEW on exactly the new view"
+    ],
+    "business_schema_changed": false,
+    "approved": false,
+    "created": false,
+    "granted": false,
+    "runtime_verified": false,
+    "setup_file": "docs/deployment/experience-backup-metadata-view-setup-phase5e.sql"
+  },
+  "backup": {
+    "dump_created": true,
+    "dump_file": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\backups\\experience-phase5e-20261025-057fe2d6\\database\\hotel_booking-20261025.sql",
+    "dump_bytes": 298645,
+    "dump_sha256": "ba0130dffefcfe4153bb85ed1900ec1faea171a9a2ada166cbe1ed36f88fb875",
+    "dump_tables": 29,
+    "strict_utf8": true,
+    "header_present": true,
+    "footer_present": true,
+    "dump_started_utc": "2026-10-25T10:01:38.334Z",
+    "dump_finished_utc": "2026-10-25T10:01:38.637Z",
+    "source_account": "aurel_catalog_ro@127.0.0.1",
+    "source_uuid": "7880df8a-92cd-11f0-85c1-a841f442ddbd",
+    "source_catalog_counts": {
+      "location": 8,
+      "attraction": 47,
+      "hotel": 24,
+      "hotel_image": 142,
+      "migrations": 69
+    },
+    "source_client_closed": true,
+    "storage_copied": true,
+    "storage_files": 447,
+    "storage_bytes": 40591954,
+    "storage_hashes_match_source": true,
+    "storage_manifest_file_sha256": "07f201a55a9ffed4f1d9ba610854584b4130b080898802a9214d836a24216824",
+    "code_snapshot_files": 25,
+    "code_manifest_file_sha256": "7ab7ebaf08b44204ed1f00ce3b849c843abd556cef9cade2ac540944ad8c8fd8",
+    "verification_file_sha256": "fe8e68e5d5fbb989b625c80ff422acb7dee715995b91795e172cbaa92d659a7a",
+    "verified": true,
+    "verification_scope": "FILES_AND_STABLE_CATALOG_BASELINE_ONLY_SQL_RESTORE_PENDING",
+    "private_verification_file": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\backups\\experience-phase5e-20261025-057fe2d6\\evidence\\backup-verification.json",
+    "acl_paths_checked": 586,
+    "unexpected_acl_rules": 0,
+    "total_files": 478,
+    "total_bytes": 41242147,
+    "stability": {
+      "schema_unchanged": true,
+      "catalog_unchanged": true,
+      "images_unchanged": true,
+      "operational_maintenance_enforced": false
+    },
+    "restore_target_created": false,
+    "restore_test_run": false
+  },
+  "safety": {
+    "project_dotenv_read": false,
+    "admin_credentials_used": false,
+    "mysql_writes": 0,
+    "privileges_changed": false,
+    "migrations_executed": false,
+    "seed_or_importer_run": false,
+    "full_database_rows_copied_by_mysqldump": true,
+    "customer_or_transaction_payload_printed_or_analyzed": false,
+    "custom_source_queries_catalog_and_schema_only": true,
+    "private_backup_filesystem_writes": true,
+    "source_schema_data_unchanged_observed": true
+  },
+  "report": "docs/deployment/experience-backup-phase5e.md",
+  "progress": {
+    "estimated_module_percent": 87,
+    "previous_estimate": 85,
+    "basis": "80 technical points + 5 read-only live-data inventory + 2 for actual verified backup files. Recovery test, live data correction and deployment approval remain incomplete."
+  },
+  "readonly_metadata_limitations": [
+    {
+      "owner_inventory_block": 3,
+      "object": "TRIGGER",
+      "direct_privilege": "TRIGGER",
+      "scope": "table or schema-wide coverage",
+      "modifies_objects": true
+    },
+    {
+      "owner_inventory_block": 4,
+      "object": "ROUTINE",
+      "direct_privilege": "SHOW_ROUTINE",
+      "scope": "global, MySQL 8.0.20+",
+      "modifies_objects": false,
+      "broader_read_scope": true
+    },
+    {
+      "owner_inventory_block": 5,
+      "object": "EVENT",
+      "direct_privilege": "EVENT",
+      "scope": "schema",
+      "modifies_objects": true
+    }
+  ],
+  "execution_script": "tools/backup-experience-phase5e.cjs",
+  "restore_proposal": {
+    "approved": false,
+    "created": false,
+    "source_sql_sha256": "ba0130dffefcfe4153bb85ed1900ec1faea171a9a2ada166cbe1ed36f88fb875",
+    "host": "127.0.0.1",
+    "port": 63317,
+    "database": "aurel_experience_restore_20261025_057fe2d6",
+    "runtime": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\restore-tests\\experience-phase5e-20261025-057fe2d6",
+    "main_admin_credentials_required": false,
+    "description": "A new isolated MySQL 8.0.30 instance, not the source server; requires separate owner approval/account setup before any write.",
+    "document": "docs/deployment/experience-restore-test-phase5e.md"
+  }
+}

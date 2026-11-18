@@ -14,7 +14,14 @@ class HotelAmenity extends Model
         'hotel_id',
         'amenity',
         'icon',
+        'catalog_identity',
     ];
+
+    // Catalog entries have no hotel; assigned amenities keep their existing hotel_id.
+    public function scopeCatalog($query)
+    {
+        return $query->whereNull('hotel_id')->whereNotNull('catalog_identity');
+    }
 
     public function hotel()
     {

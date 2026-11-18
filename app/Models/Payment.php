@@ -33,4 +33,9 @@ class Payment extends Model
     {
         return $this->belongsTo(Booking::class);
     }
+
+    public function scopeWithoutDemo($query)
+    {
+        return $query->where(fn($q) => $q->whereNull('payment_method')->orWhere('payment_method','!=','demo'));
+    }
 }

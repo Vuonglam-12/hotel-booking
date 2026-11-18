@@ -1,43 +1,76 @@
-<section class="max-w-7xl mx-auto px-4 py-10 border-t border-[#EAF3FF]">
-    <div class="flex items-center justify-between mb-8">
-        <h2 class="font-display text-2xl font-bold text-[#1E3A5F]">Khám phá tất cả khách sạn</h2>
-        @if(request()->hasAny(['search', 'city', 'star']))
-            <a href="{{ route('home') }}" class="text-sm text-[#C9D3DD] underline flex items-center gap-1 transition">Xóa bộ lọc</a>
-        @endif
-    </div>
-
-    <!-- Đã thêm id="allHotelsGrid" ở đây để JS nhận diện đúng -->
-    <div id="allHotelsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @forelse($hotels as $hotel)
-            @include('partials.home.card', ['hotel' => $hotel])
+@php
+    $hasPaginator = $hotels instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator;
+    $cityLabel = fn($name) => in_array(trim($name), ['Hồ Chí Minh', 'TP. Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'TP.HCM'], true) ? 'TP.HCM' : $name;
+    $priorityCities = ['TP.HCM', 'Hà Nội', 'Đà Lạt', 'Đà Nẵng'];
+    $initialSections = $hasPaginator
+        ? $hotels->getCollection()->groupBy('location_id')->map(fn($rows) => ['location' => $rows->first()->location, 'hotels' => $rows])
+        : $hotelSections;
+    $initialSections = $initialSections->map(function ($section) {
+        $section['hotels'] = $section['hotels']->where('status', 'active')->unique('id')->values();
+        return $section;
+    })->filter(fn($section) => $section['location'] && $section['hotels']->isNotEmpty())
+        ->sortBy(function ($section) use ($cityLabel, $priorityCities) {
+            $name = $cityLabel($section['location']->name);
+            $priority = array_search($name, $priorityCities, true);
+            return [$priority === false ? count($priorityCities) : $priority, $name];
+        })->values();
+    $initialCount = $initialSections->sum(fn($section) => $section['hotels']->count());
+@endphp
+<section class="hv-shell-container" aria-labelledby="home-hotels-heading">
+    <h2 id="home-hotels-heading" class="sr-only">Khám phá khách sạn</h2>
+    <p id="hotelLoadError" class="hv-home-error" role="alert" hidden>Chưa tải được danh sách khách sạn. <button type="button" id="retryHotelLoad">Thử lại</button></p>
+    <div id="allHotelsGrid" class="hv-home-sections" aria-busy="false" data-home-url="{{ route('home') }}">
+        @forelse($initialSections as $section)
+            @php
+                $sectionName = $cityLabel($section['location']->name);
+                $sectionKey = 'id:' . $section['location']->id;
+            @endphp
+            <section class="hv-destination-section" data-location-key="{{ $sectionKey }}" data-location-name="{{ $section['location']->name }}" aria-labelledby="destination-heading-{{ $loop->index }}">
+                <div class="hv-destination-heading">
+                    <h2 id="destination-heading-{{ $loop->index }}">Những ngôi nhà ở {{ $sectionName }}</h2>
+                    <div class="hv-destination-controls" data-row-controls hidden>
+                        <button type="button" class="hv-row-arrow" data-row-direction="-1" aria-label="Xem các khách sạn trước ở {{ $sectionName }}" aria-controls="destination-row-{{ $loop->index }}" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m14 6-6 6 6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button type="button" class="hv-row-arrow" data-row-direction="1" aria-label="Xem các khách sạn tiếp theo ở {{ $sectionName }}" aria-controls="destination-row-{{ $loop->index }}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m10 6 6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="hv-destination-row" id="destination-row-{{ $loop->index }}" tabindex="0" role="group" aria-label="Khách sạn ở {{ $sectionName }}">
+                    @foreach($section['hotels'] as $hotel)
+                        @include('partials.home.card', ['hotel' => $hotel])
+                    @endforeach
+                </div>
+            </section>
         @empty
-            <div class="col-span-3 text-center py-20 text-[#C9D3DD]">Không tìm thấy khách sạn phù hợp</div>
+            <p class="hv-home-empty">Không tìm thấy khách sạn phù hợp.</p>
         @endforelse
     </div>
-
-    {{-- KHÔI PHỤC FULL NÚT LOAD MORE & TRẠNG THÁI --}}
-    @if($hotels->hasMorePages())
-    <div class="mt-10 text-center" id="loadMoreContainer">
-        <button id="loadMoreBtn" 
-                data-next-page="{{ $hotels->currentPage() + 1 }}"
-                data-last-page="{{ $hotels->lastPage() }}"
-                data-total="{{ $hotels->total() }}"
-                data-per-page="{{ $hotels->perPage() }}"
-                class="load-more-btn bg-white border-2 border-[#0E5ED8] text-[#0E5ED8] hover:bg-[#0E5ED8] hover:text-white font-bold px-8 py-3.5 rounded-full transition-all">
-            XEM THÊM KHÁCH SẠN
-        </button>
-        <div class="mt-3 text-sm text-[#94A3B8]" id="loadMoreStatus">
-            Đã hiển thị <span id="shownCount">{{ $hotels->count() }}</span>/<span id="totalCount">{{ $hotels->total() }}</span> khách sạn
-        </div>
-    </div>
-    @elseif($hotels->total() > 0)
-    <div class="mt-10 text-center text-[#C9D3DD] text-sm">
-        <div class="inline-flex items-center gap-2 bg-[#F8FAFC] px-6 py-3 rounded-full">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-            Đã hiển thị tất cả <span id="totalCount">{{ $hotels->total() }}</span> khách sạn
-        </div>
-    </div>
+    <p class="sr-only" id="homeHotelStatus" role="status">Đã hiển thị {{ $initialCount }} khách sạn theo địa điểm.</p>
+    @if($hasPaginator)
+        <noscript>
+            <nav class="hv-home-pagination" aria-label="Trang kết quả">
+                @if($hotels->currentPage() > 1)<a href="{{ route('home', array_merge(request()->except('page'), ['page' => $hotels->currentPage() - 1])) }}">Trang trước</a>@endif
+                @if($hotels->hasMorePages())<a href="{{ route('home', array_merge(request()->except('page'), ['page' => $hotels->currentPage() + 1])) }}">Trang tiếp theo</a>@endif
+            </nav>
+        </noscript>
     @endif
+    <template id="hotelCardTemplate">@include('partials.home.card', ['hotel' => null])</template>
+    <template id="hotelSectionTemplate">
+        <section class="hv-destination-section">
+            <div class="hv-destination-heading">
+                <h2></h2>
+                <div class="hv-destination-controls" data-row-controls hidden>
+                    <button type="button" class="hv-row-arrow" data-row-direction="-1" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m14 6-6 6 6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button type="button" class="hv-row-arrow" data-row-direction="1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m10 6 6 6-6 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="hv-destination-row" tabindex="0" role="group"></div>
+        </section>
+    </template>
 </section>

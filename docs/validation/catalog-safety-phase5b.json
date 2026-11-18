@@ -1,0 +1,303 @@
+{
+  "date": "2026-10-24",
+  "phase": "5B",
+  "production_database_accessed": false,
+  "dotenv_read": false,
+  "primary_write_or_publication": false,
+  "conclusion": "PASS_CODE_AND_SYNTHETIC_DATA_SAFETY_NO_GO_PRODUCTION",
+  "mysql": {
+    "runtime": "C:/Users/ASUS/AppData/Local/Temp/aurel-catalog-mysql-402113e2cf40",
+    "synthetic_only": true,
+    "identity": {
+      "db": "aurel_catalog_test_402113e2cf40",
+      "port": 62211,
+      "datadir": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-402113e2cf40\\data\\",
+      "uuid": "774d69bb-cf5f-11f1-9c5d-901bd7e6fc39",
+      "version": "8.0.30",
+      "account": "aurel_402113e2cf40@127.0.0.1",
+      "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+      "bind_address": "127.0.0.1",
+      "log_bin": 0,
+      "event_scheduler": "OFF"
+    },
+    "grants": [
+      "GRANT USAGE ON *.* TO `aurel_402113e2cf40`@`127.0.0.1`",
+      "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER ON `aurel\\_catalog\\_test\\_402113e2cf40`.* TO `aurel_402113e2cf40`@`127.0.0.1`"
+    ],
+    "project_env_loaded": false,
+    "config_cache_loaded": false,
+    "other_connections": [],
+    "result": "PASS",
+    "server_stopped": true,
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "server_pid": 2440,
+    "guard_count": 17,
+    "all_migration_targets_owned": true,
+    "migration": {
+      "apply": "PASS",
+      "repeat": "PASS",
+      "rollback": "PASS",
+      "reapply": "PASS",
+      "legacy_row_preserved": true,
+      "existing_guide_preserved_on_datetime_upgrade": true,
+      "upgrade_rollback_preserved_future_date": true,
+      "published_at_type": "datetime"
+    }
+  },
+  "tests": {
+    "mysql": {
+      "tests": 24,
+      "assertions": 1134,
+      "result": "PASS",
+      "focused_new_data_safety_cases": 16,
+      "existing_focused_integration_cases": 8,
+      "command": "node tests/Support/run_catalog_mysql_integration.cjs C:\\laragon\\bin\\mysql\\mysql-8.0.30-winx64\\bin\\mysqld.exe --data-safety"
+    },
+    "sqlite": {
+      "tests": 4,
+      "assertions": 148,
+      "result": "PASS",
+      "filter": "test_import_|test_command_default|test_legacy_routes",
+      "command": "php -d extension=pdo_sqlite -d extension=sqlite3 vendor/bin/phpunit -c phpunit.guides.xml --filter 'test_import_|test_command_default|test_legacy_routes'"
+    },
+    "browser": {
+      "executed_in_phase5b": false,
+      "previous_phase4_groups": 21,
+      "previous_result": "PASS_HISTORICAL",
+      "fixtures_updated_for_draft_import": true
+    },
+    "initial_run": {
+      "result": "FAIL_TEST_HARNESS",
+      "issues": [
+        "Laravel 10 has no useResourcePath method",
+        "MySQL JSON object key order differs"
+      ],
+      "resolved": true,
+      "owned_server_stopped": true
+    }
+  },
+  "import_policy": {
+    "new_status": "draft",
+    "new_featured": false,
+    "new_published_at": null,
+    "existing_posts": "KEPT_UNCHANGED",
+    "automatic_publish_option": false,
+    "source_files_unchanged": true,
+    "expected_new_imports": 9,
+    "content_complete_but_not_approved": 1,
+    "incomplete_content_drafts": 8
+  },
+  "seed_summary": {
+    "rows": 47,
+    "by_location": {
+      "vn-ha-noi": 9,
+      "vn-ho-chi-minh": 9,
+      "vn-da-lat": 9,
+      "vn-phu-quoc": 20
+    },
+    "by_type": {
+      "attraction": 15,
+      "restaurant": 15,
+      "hotel": 9,
+      "activity": 8
+    },
+    "coordinates_missing": 47,
+    "addresses_missing": 47,
+    "descriptions_present": 47,
+    "images_missing": 47,
+    "price_fields_missing": 0,
+    "zero_price_ranges_unverified": 8,
+    "inverted_price_ranges": 0,
+    "all_sample_rows_inactive_unverified_unpublished": true,
+    "public_type_candidates": 38,
+    "legacy_hotel_type_excluded": 9,
+    "missing_or_ambiguous_identity": "FAILS_BEFORE_WRITING",
+    "location_has_activity_column": false,
+    "production_rows_verified": false
+  },
+  "protected_source_checks": [
+    {
+      "file": "database/migrations/2026_10_23_000001_add_experience_catalog_metadata.php",
+      "sha256": "4b2fdff04fdd4fbb321a2a914e8354404d9648885babbf0fec19dc81362f5abb",
+      "matches_phase5a": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000002_create_travel_guides.php",
+      "sha256": "eb15695b8cda4cd9ee94846585098f540437904f10ad4cd4e592759cceae879f",
+      "matches_phase5a": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000003_widen_guide_publication_datetime.php",
+      "sha256": "0d180d48622c6fde0392026f138a044dd06e20f7ad4353e1067a4eb3919ec453",
+      "matches_phase5a": true
+    },
+    {
+      "file": "database/seeders/AttractionSeeder.php",
+      "sha256": "f6cc49707b311ae6f7d25918fcfd5b1253825f48e28d24e63588e39b9497a136",
+      "matches_phase5a": true
+    }
+  ],
+  "image_rights": [
+    {
+      "legacy_id": 1,
+      "path": "public/image/L-1.jpg",
+      "sha256": "da948bd521d2451d1dc877ba2a6ffd4767a7c512409d5da50821c9737630fda1",
+      "content_sha256": "5160478b3133806a2cacb7aa3091cf5608b2ee4668ae86f885734ac0aaaa4254",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 2,
+      "path": "public/image/L-2.jpg",
+      "sha256": "d84aec74272ab9612fc2f65fd6610837290f2740882e65a04b998a8719b39c3c",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 3,
+      "path": "public/image/L-3.jpg",
+      "sha256": "16078f450cf4842e2ed219c0b69dcd8320a717f14e542ef57741a9a840017f17",
+      "content_sha256": null,
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 4,
+      "path": "public/image/L-4.jpg",
+      "sha256": "d9db3409ed65a4891831b543f3dba5f9a208ba422e8ae64dc21cea88bee27d62",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 5,
+      "path": "public/image/L5.jpg",
+      "sha256": "60eea13c2499913796975989ff5a3ed8f88f1dea21973e96aa95062ff42bc02a",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 6,
+      "path": "public/image/L-6.jpg",
+      "sha256": "a6db46ddcdf9bc975f11fbf9a395cfa8ad0e720024cc2631d625828f3703fd2c",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 7,
+      "path": "public/image/L-7.jpg",
+      "sha256": "e89dbf53c1b274845647f0145464a56ea96b50def990c30d5074d7fe26965b70",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 8,
+      "path": "public/image/L-8.jpg",
+      "sha256": "58918873c722f9dbd8755ee247dd420d012038fc0eb6d6b72fd8e344baa05995",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    },
+    {
+      "legacy_id": 9,
+      "path": "public/image/L-9.jpg",
+      "sha256": "00298b4fce9c55e68c8f3ce15d0f2f64d4fef9dbae25679a3713794361bc9060",
+      "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_unchanged": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL",
+      "author_status": "UNVERIFIED",
+      "license_evidence": "NOT_PROVIDED",
+      "action": "REVIEW_SOURCE_LICENSE_CREDIT_SCOPE_BEFORE_PUBLICATION"
+    }
+  ],
+  "source_hashes": [
+    {
+      "file": "app/Services/LegacyBlogImporter.php",
+      "sha256": "1e9d613f0463d46ffdc80a945b3d0f238837324f47b81e6adf2688bda47cb881"
+    },
+    {
+      "file": "app/Console/Commands/ImportLegacyGuides.php",
+      "sha256": "52bd807e3974efabf5394d2ad382fb218ed6bc519eeee87f894eb0e4bce18390"
+    },
+    {
+      "file": "tests/Feature/CatalogDataSafetyMysqlTest.php",
+      "sha256": "b8b3e192165300e31a0bc283f317b54133bd2bd7de1fd3ed44e88df04e2fd157"
+    },
+    {
+      "file": "tests/Feature/CatalogMysqlIntegrationTest.php",
+      "sha256": "a9417b82f95a23751aa525ce24d44359f5cf1e0ac2a805112e7b500c542bef3c"
+    },
+    {
+      "file": "tests/Feature/GuideModuleTest.php",
+      "sha256": "10edce38b31986d6442153f3557b1178a1f63fba982c9689f736a539b23c2db8"
+    },
+    {
+      "file": "tests/Support/run_catalog_mysql_integration.cjs",
+      "sha256": "50ee933a8c6caac91cee1de3e5d7292b62a141ce23bb8cedd4ae4eb07e5a40b9"
+    },
+    {
+      "file": "tests/Support/CatalogMysqlFixture.php",
+      "sha256": "967320ad4051c1794b54a3f7572b4cfba648f0fbaa3bc95f430725bdf0383bae"
+    },
+    {
+      "file": "tests/Support/guide_browser_setup.php",
+      "sha256": "53a4050d25945bd1ae361a194a2af53aabd418e723b98e49a6d93a558142b4c3"
+    },
+    {
+      "file": "tests/Frontend/catalog-mysql.browser.cjs",
+      "sha256": "a0f71f5372ce91c6e2def2b0b96f004ef5dd9aec0ce9557bc0e2b9741d751d53"
+    },
+    {
+      "file": "tests/Frontend/guides.browser.cjs",
+      "sha256": "5848ea286337df7cd127c94b332ecd14c6bac0432a35c9a5347caae21b064cee"
+    },
+    {
+      "file": "phpunit.catalog-safety-mysql.xml",
+      "sha256": "f6ae67e2c09ed29beb06694213b70d3331ec10df14d7561ec3100ef2559c9d5b"
+    }
+  ],
+  "progress_estimate": {
+    "percent": 80,
+    "estimated": true,
+    "basis": "Four equally weighted groups complete: Client, Admin, API/schema integration, focused safety tests. Production data and operations group is not complete.",
+    "not_a_verified_production_record_percentage": true
+  },
+  "pending": [
+    "Approved read-only production schema/data export or connection in Phase 5C",
+    "Verified location mapping and any historical correction separately approved",
+    "Image/content/author rights review",
+    "Backup and approved clone restore rehearsal",
+    "Production schema/storage/timezone verification and separate write approval"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "places": [
+    {
+      "names": ["Thương Bạc", "Thương Bạc Đình", "Đình Thương Bạc"],
+      "coordinates": [107.5855685, 16.46803325],
+      "radius_metres": 150,
+      "reviewed_on": "2026-10-31",
+      "image": {
+        "url": "/image/ai-places/thuong-bac-hue.jpg",
+        "alt": "Đình Thương Bạc tại Huế",
+        "author": "Lưu Ly at Vietnamese Wikipedia",
+        "source": "Wikimedia Commons",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Th%C6%B0%C6%A1ng_B%E1%BA%A1c_%C4%90%C3%ACnh.JPG",
+        "license": "Public domain",
+        "attribution_note": "Ảnh nguồn được đăng năm 2008; cảnh quan hiện tại có thể thay đổi.",
+        "verification": "Đối chiếu trang mô tả ảnh Thương Bạc tại Huế; chỉ ghép khi tên và tọa độ địa điểm khớp."
+      }
+    }
+  ]
+}

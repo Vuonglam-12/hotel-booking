@@ -10,7 +10,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Chạy mỗi phút — check booking hết hạn
-        $schedule->command('bookings:cancel-expired')->everyMinute();
+        $schedule->command('bookings:cancel-expired')->everyMinute()->withoutOverlapping(2)
+            ->appendOutputTo(storage_path('logs/booking-expiry-scheduler.log'));
+        $schedule->command('hotel-room-types:cleanup-assets')->hourly()->withoutOverlapping();
+        $schedule->command('places:sync-sheet')->everyFifteenMinutes()->withoutOverlapping(10)
+            ->appendOutputTo(storage_path('logs/place-sheet-sync.log'));
     }
 
     protected function commands()

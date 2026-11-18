@@ -14,19 +14,23 @@ class BookingConfirmed extends Mailable
     use Queueable, SerializesModels;
 
     public Booking $booking;
+    public ?string $roomNameSnapshot;
+    private bool $built = false;
 
-    public function __construct(Booking $booking)
+    public function __construct(Booking $booking, ?string $roomNameSnapshot = null)
     {
         $this->booking = $booking;
+        $this->roomNameSnapshot = $roomNameSnapshot;
     }
 
     public function build()
     {
+        if ($this->built) return $this;
         // Load đủ relations cần thiết cho blade email + PDF
-        $this->booking->load(['hotel', 'customer', 'bookingRooms.roomType']);
+        $this->booking->loadMissing(['hotel', 'customer', 'bookingRooms.roomType', 'bookingRooms.room']);
 
         $mail = $this
-            ->subject('Xác nhận đặt phòng #' . $this->booking->id . ' — Hotel Booking')
+            ->subject('Xác nhận đặt phòng #' . $this->booking->id . ' — Angel')
             ->view('emails.booking_confirmed');
 
         // Attach PDF invoice nếu đã có invoice trong DB
@@ -44,7 +48,9 @@ class BookingConfirmed extends Mailable
                 'isRemoteEnabled'      => false,
             ]);
 
-            $filename = 'HoaDon_' . $invoice->invoice_no . '.pdf';
+            $filename = str_starts_with($invoice->invoice_no, 'DEMO-INV-')
+                ? 'AUREL-Hoa-don-'.str_pad((string)$this->booking->id, 6, '0', STR_PAD_LEFT).'.pdf'
+                : 'HoaDon_' . $invoice->invoice_no . '.pdf';
 
             // attachData: attach trực tiếp từ binary, không cần lưu file
             $mail->attachData(
@@ -54,6 +60,7 @@ class BookingConfirmed extends Mailable
             );
         }
 
+        $this->built = true;
         return $mail;
     }
 }

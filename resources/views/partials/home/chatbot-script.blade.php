@@ -32,7 +32,7 @@
     async function startChatSession() {
         const token = localStorage.getItem('token');
         if (!token) { 
-            addChatMessage('bot', 'Vui lòng <a href="/login" class="text-[#87CEFA] underline font-semibold">đăng nhập</a> để chat với AI!'); 
+            addChatMessage('bot', 'Vui lòng đăng nhập tại /login để chat với AI!');
             return; 
         }
         try {
@@ -58,7 +58,7 @@
         input.value = '';
         
         if (!chatSessionId) { 
-            addChatMessage('bot', 'Vui lòng <a href="/login" class="text-[#87CEFA] underline font-semibold">đăng nhập</a>!'); 
+            addChatMessage('bot', 'Vui lòng đăng nhập tại /login!');
             return; 
         }
         
@@ -125,7 +125,10 @@
         div.className  = `flex gap-2 ${isBot ? '' : 'flex-row-reverse'}`;
         div.innerHTML  = `
             ${isBot ? '<div class="w-8 h-8 bg-[#87CEFA] rounded-full flex items-center justify-center shrink-0"><span class="text-sm">🤖</span></div>' : ''}
-            <div class="px-3 py-2 text-sm max-w-[85%] shadow-sm rounded-2xl ${isBot ? 'bg-white border border-[#EAF3FF] text-[#1E3A5F] rounded-tl-sm' : 'bg-[#0E5ED8] text-white rounded-tr-sm'}">${text}</div>`;
+            <div class="px-3 py-2 text-sm max-w-[85%] shadow-sm rounded-2xl ${isBot ? 'bg-white border border-[#EAF3FF] text-[#1E3A5F] rounded-tl-sm' : 'bg-[#0E5ED8] text-white rounded-tr-sm'}"></div>`;
+        const bubble = div.lastElementChild;
+        bubble.style.whiteSpace = 'pre-wrap';
+        bubble.textContent = String(text ?? '');
         messages.appendChild(div);
         messages.scrollTop = messages.scrollHeight;
     }

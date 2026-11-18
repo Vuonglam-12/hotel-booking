@@ -1,0 +1,493 @@
+{
+  "date": "2026-10-25",
+  "approval": "PENDING_OWNER_REVIEW",
+  "summary": {
+    "draft_count": 21,
+    "package_mismatch_count": 0,
+    "pending_live_location_mappings": 21,
+    "categories_requiring_translation": 0,
+    "normalized_categories": 21,
+    "original_photos_preserved": 7,
+    "new_photos": 8,
+    "prepared_photos": 15,
+    "blocked_photo_sources": 0,
+    "without_usable_photo_source": 6,
+    "without_prepared_photo": 6,
+    "optimized_bytes": 2684142,
+    "drafts_without_operational_source": 5,
+    "content_supported": 16,
+    "content_partial": 3,
+    "content_insufficient": 2,
+    "ready_for_owner_review": 14,
+    "needs_additional_material_ids": [
+      6,
+      15,
+      18,
+      22,
+      23,
+      24,
+      27
+    ],
+    "unapproved_by_owner": 21,
+    "database_writes": 0,
+    "system_uploads": 0,
+    "live_snapshot_at": "2026-10-25 17:27:24",
+    "zip_sha256": "f0e79f31dad6e88798de9f431a1eadca2ce7534a8414145eddca9ef3279d1d5a"
+  },
+  "new_image_ids": [
+    1,
+    4,
+    5,
+    6,
+    13,
+    14,
+    20,
+    21
+  ],
+  "preserved_image_ids": [
+    2,
+    3,
+    9,
+    10,
+    11,
+    12,
+    19
+  ],
+  "preview": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\content-review\\experiences-20261025-a1cebecd\\review\\index.html",
+  "bundle": {
+    "path": "C:\\Users\\ASUS\\AppData\\Local\\AUREL\\content-review\\experiences-20261025-a1cebecd\\aurel-experiences-owner-review.zip",
+    "bytes": 2748808,
+    "sha256": "8f75dbd9f5dd985d073e9a7e81bd6c7c0b27013c683706ce03e80c2c83964ffa",
+    "files": 40,
+    "crc": "PASS"
+  },
+  "photo_credits": [
+    {
+      "attraction_id": 1,
+      "photo_title": "Ho chi minh mausoleum.jpg",
+      "author": "Gregor Dodson",
+      "attribution": "Gregor Dodson",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Ho_chi_minh_mausoleum.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Ho chi minh mausoleum.jpg — Gregor Dodson. https://commons.wikimedia.org/wiki/File:Ho_chi_minh_mausoleum.jpg | CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Lăng Chủ tịch Hồ Chí Minh",
+      "photo_date": "2007-08-08 10:47:03",
+      "source_revision": {
+        "revid": 1177115519,
+        "parentid": 1122165948,
+        "timestamp": "2026-03-07T07:23:01Z"
+      },
+      "reviewed_at_utc": "2026-10-25T12:44:22.205521+00:00",
+      "sha256": "dd2887e0cf1fd64cf98ca37af27828e04397c1b85508354bda2326fc87f30140",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 2,
+      "photo_title": "Temple of Literature Hanoi.jpg",
+      "author": "Arjunullas",
+      "attribution": "Arjunullas",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Temple_of_Literature_Hanoi.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Temple of Literature Hanoi.jpg — Arjunullas. https://commons.wikimedia.org/wiki/File:Temple_of_Literature_Hanoi.jpg | CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Văn Miếu - Quốc Tử Giám",
+      "photo_date": "2020-02-23",
+      "source_revision": {
+        "revid": 1137436757,
+        "parentid": 650179542,
+        "timestamp": "2025-12-27T07:50:54Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:56Z",
+      "sha256": "4bda723035f1f292de223820bbf014c5dbb2557e8f948550d2f371255f76ae54",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 3,
+      "photo_title": "Hanoi, Vietnam, Hoan Kiem Lake.jpg",
+      "author": "Vyacheslav Argenberg",
+      "attribution": "© Vyacheslav Argenberg",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Hoan_Kiem_Lake.jpg",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Hanoi, Vietnam, Hoan Kiem Lake.jpg — © Vyacheslav Argenberg. https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Hoan_Kiem_Lake.jpg | CC BY 4.0 https://creativecommons.org/licenses/by/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Hồ Hoàn Kiếm & Đền Ngọc Sơn",
+      "photo_date": "2008-03-12 16:44:23",
+      "source_revision": {
+        "revid": 1236309632,
+        "parentid": 1209727801,
+        "timestamp": "2026-06-22T15:54:36Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:57Z",
+      "sha256": "93c7f538b815b03e37e02bdd3164f0f002d40ea7adbe1ed2dcd1ea1eda62e42f",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 4,
+      "photo_title": "Phở Gia Truyền.jpg",
+      "author": "User: (WT-shared) Shoestring at  wts wikivoyage",
+      "attribution": "User: (WT-shared) Shoestring at  wts wikivoyage",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Ph%E1%BB%9F_Gia_Truy%E1%BB%81n.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Ph%E1%BB%9F_Gia_Truy%E1%BB%81n.jpg#Licensing",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Phở Gia Truyền.jpg — User: (WT-shared) Shoestring at  wts wikivoyage. https://commons.wikimedia.org/wiki/File:Ph%E1%BB%9F_Gia_Truy%E1%BB%81n.jpg | Public domain https://commons.wikimedia.org/wiki/File:Ph%E1%BB%9F_Gia_Truy%E1%BB%81n.jpg#Licensing | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Phở Gia Truyền Bát Đàn",
+      "photo_date": "2007-05",
+      "source_revision": {
+        "revid": 1284698711,
+        "parentid": 1151759485,
+        "timestamp": "2026-10-08T18:40:13Z"
+      },
+      "reviewed_at_utc": "2026-10-25T12:44:59.512536+00:00",
+      "sha256": "24b414d1f0bce23e3693d8d469275587c70dfa2ada59b18e6a5a3919b2399953",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 5,
+      "photo_title": "President Barack Obama with Anthony Bourdain at Bún cha Huong Lien Restaurant in Hanoi, Vietnam.jpg",
+      "author": "Series: Presidential Photographs, 1/20/2009 - 1/20/2017\n\nCollection: Records of the White House Photo Office (Obama Administration), 1/20/2009 - 1/20/2017",
+      "attribution": "White House Photo Office (Obama Administration), NARA",
+      "source_page": "https://commons.wikimedia.org/wiki/File:President_Barack_Obama_with_Anthony_Bourdain_at_B%C3%BAn_cha_Huong_Lien_Restaurant_in_Hanoi,_Vietnam.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "President Barack Obama with Anthony Bourdain at Bún cha Huong Lien Restaurant in Hanoi, Vietnam.jpg — White House Photo Office (Obama Administration), NARA. https://commons.wikimedia.org/wiki/File:President_Barack_Obama_with_Anthony_Bourdain_at_B%C3%BAn_cha_Huong_Lien_Restaurant_in_Hanoi,_Vietnam.jpg | Public domain https://creativecommons.org/publicdomain/mark/1.0/ | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Bún chả Hương Liên (Bún chả Obama)",
+      "photo_date": "2016-05-23",
+      "source_revision": {
+        "revid": 1219487775,
+        "parentid": 1036877730,
+        "timestamp": "2026-05-24T13:40:14Z"
+      },
+      "reviewed_at_utc": "2026-10-25T12:45:05.293963+00:00",
+      "sha256": "0151b8ff640e809d9cc1734f4ce2884c438304d63b367f65f673369b85bafa10",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 6,
+      "photo_title": "Grilled fish @ Cha Ca La Vong.jpg",
+      "author": "Yun Huang Yong",
+      "attribution": "Yun Huang Yong",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Grilled_fish_@_Cha_Ca_La_Vong.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Grilled fish @ Cha Ca La Vong.jpg — Yun Huang Yong. https://commons.wikimedia.org/wiki/File:Grilled_fish_@_Cha_Ca_La_Vong.jpg | CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Chả cá Lã Vọng",
+      "photo_date": "2008-11-20 19:56:02",
+      "source_revision": {
+        "revid": 1285303049,
+        "parentid": 1073856280,
+        "timestamp": "2026-10-10T05:54:30Z"
+      },
+      "reviewed_at_utc": "2026-10-25T12:44:28.238113+00:00",
+      "sha256": "6b8985ecaf39a60a192d62a702ed1f4b6c97a728ebece928e3c871c7ac900d76",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 9,
+      "photo_title": "Thang long water puppet.JPG",
+      "author": "Ian Sewell",
+      "attribution": "Ian Sewell",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Thang_long_water_puppet.JPG",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Thang long water puppet.JPG — Ian Sewell. https://commons.wikimedia.org/wiki/File:Thang_long_water_puppet.JPG | CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Xem Múa Rối Nước Thăng Long",
+      "photo_date": "2005",
+      "source_revision": {
+        "revid": 1168043739,
+        "parentid": 1014362605,
+        "timestamp": "2026-02-18T07:11:43Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:59Z",
+      "sha256": "5f283bda4de2b8fff2b8e42844ab867fd2eaea39370c0c69398033c78765d1b8",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 10,
+      "photo_title": "Independence Palace, Ho Chi Minh City.jpg",
+      "author": "Trung geo",
+      "attribution": "Trung geo",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Independence_Palace,_Ho_Chi_Minh_City.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Independence Palace, Ho Chi Minh City.jpg — Trung geo. https://commons.wikimedia.org/wiki/File:Independence_Palace,_Ho_Chi_Minh_City.jpg | CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Dinh Độc Lập",
+      "photo_date": "2022-05-23 08:14:55",
+      "source_revision": {
+        "revid": 713573532,
+        "parentid": 705295483,
+        "timestamp": "2022-12-09T02:40:33Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:30:59Z",
+      "sha256": "53a48351d4bec3666576aeb3771ad4da547a34dc029d863e96a5d5b7c6d49a52",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 11,
+      "photo_title": "War Remnants Museum.jpg",
+      "author": "Christophe95",
+      "attribution": "Christophe95",
+      "source_page": "https://commons.wikimedia.org/wiki/File:War_Remnants_Museum.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "War Remnants Museum.jpg — Christophe95. https://commons.wikimedia.org/wiki/File:War_Remnants_Museum.jpg | CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Bảo tàng Chứng tích Chiến tranh",
+      "photo_date": "2018-07-17 17:51:53",
+      "source_revision": {
+        "revid": 1271726986,
+        "parentid": 711340756,
+        "timestamp": "2026-09-03T12:20:50Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:31:01Z",
+      "sha256": "53b1d5be61e9494492bd85ecac5d722e5d85daf885b7f93a9a0ecd435c44030a",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 12,
+      "photo_title": "Ben Thanh Market, Saigon.jpg",
+      "author": "lightwrite",
+      "attribution": "lightwrite",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Ben_Thanh_Market,_Saigon.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Ben Thanh Market, Saigon.jpg — lightwrite. https://commons.wikimedia.org/wiki/File:Ben_Thanh_Market,_Saigon.jpg | CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Chợ Bến Thành",
+      "photo_date": "2014-06-21 16:49:02",
+      "source_revision": {
+        "revid": 899106231,
+        "parentid": 820893731,
+        "timestamp": "2024-07-15T13:19:38Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:31:02Z",
+      "sha256": "3eb861342206cb87769769f64238dd155ed38b40db41a076ef641b1b4794d0b9",
+      "share_alike": true
+    },
+    {
+      "attraction_id": 13,
+      "photo_title": "Huỳnh Hoa bread stall 23-12-2017.jpg",
+      "author": "Vinnie Cartabiano",
+      "attribution": "Vinnie Cartabiano",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hu%E1%BB%B3nh_Hoa_bread_stall_23-12-2017.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Huỳnh Hoa bread stall 23-12-2017.jpg — Vinnie Cartabiano. https://commons.wikimedia.org/wiki/File:Hu%E1%BB%B3nh_Hoa_bread_stall_23-12-2017.jpg | CC BY 2.0 https://creativecommons.org/licenses/by/2.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Bánh Mì Huỳnh Hoa",
+      "photo_date": "2017-12-23 17:38",
+      "source_revision": {
+        "revid": 1181901796,
+        "parentid": 1181901776,
+        "timestamp": "2026-03-16T03:29:11Z"
+      },
+      "reviewed_at_utc": "2026-10-25T12:45:11.333941+00:00",
+      "sha256": "716d96fa0105dcc116df878aedbd95dd7e91128e5ad265ec60a40be69d19b9a4",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 14,
+      "photo_title": "Ho Chi Minh City / Saigon Vietnam. Pho Le Restaurant",
+      "author": "Joseph Hunkins (JoeDuck)",
+      "attribution": "Joseph Hunkins",
+      "source_page": "https://www.flickr.com/photos/joeduck/5417074682",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0/",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Ho Chi Minh City / Saigon Vietnam. Pho Le Restaurant — Joseph Hunkins. https://www.flickr.com/photos/joeduck/5417074682 | CC BY 2.0 https://creativecommons.org/licenses/by/2.0/ | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Phở Lệ",
+      "photo_date": "2011 (source description)",
+      "source_revision": {
+        "type": "Flickr source HTML",
+        "sha256": "7b6e9d429843e41e86726f942e4b14cc01b62c93c762c6eaf90bdd02eb369c55",
+        "timestamp": "2026-10-25T12:50:41.392753+00:00"
+      },
+      "reviewed_at_utc": "2026-10-25T12:50:41.392753+00:00",
+      "sha256": "a0765357c1e43ce51d557e11229d473fde31077d9e71baddd4e415b1e2b69594",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 19,
+      "photo_title": "Langbiang Mountain.JPG",
+      "author": "Tilamdong",
+      "attribution": "Tilamdong",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG#Licensing",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Langbiang Mountain.JPG — Tilamdong. https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG | Public domain https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG#Licensing | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Khu Du lịch Langbiang",
+      "photo_date": "2009-03-30",
+      "source_revision": {
+        "revid": 1211204136,
+        "parentid": 1073835392,
+        "timestamp": "2026-05-09T14:07:49Z"
+      },
+      "reviewed_at_utc": "2026-10-25T10:31:04Z",
+      "sha256": "2230a96c0bd395db131fe2239348883582fe25082f2b478021667949be20d7c5",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 20,
+      "photo_title": "Valley of Love 02.jpg",
+      "author": "Diane Selwyn",
+      "attribution": "Diane Selwyn",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Valley_of_Love_02.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Valley_of_Love_02.jpg#Licensing",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Valley of Love 02.jpg — Diane Selwyn. https://commons.wikimedia.org/wiki/File:Valley_of_Love_02.jpg | Public domain https://commons.wikimedia.org/wiki/File:Valley_of_Love_02.jpg#Licensing | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Thung lũng Tình Yêu",
+      "photo_date": "2011",
+      "source_revision": {
+        "revid": 671548687,
+        "parentid": 472529407,
+        "timestamp": "2022-07-05T11:33:48Z"
+      },
+      "reviewed_at_utc": "2026-10-25T12:44:42.753369+00:00",
+      "sha256": "06b9590eae6c383035e22573d43d5abbd01a6dbba7f6f0a0ccbef2cee1f9897d",
+      "share_alike": false
+    },
+    {
+      "attraction_id": 21,
+      "photo_title": "Da Lat Flower Park 1.jpg",
+      "author": "hector garcia",
+      "attribution": "hector garcia",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Da_Lat_Flower_Park_1.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_source_note": "Da Lat Flower Park 1.jpg — hector garcia. https://commons.wikimedia.org/wiki/File:Da_Lat_Flower_Park_1.jpg | CC BY-SA 2.0 https://creativecommons.org/licenses/by-sa/2.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+      "image_caption": "Vườn hoa Thành phố Đà Lạt",
+      "photo_date": "2007-01-07",
+      "source_revision": {
+        "revid": 1121243987,
+        "parentid": 882466489,
+        "timestamp": "2025-11-25T12:28:35Z"
+      },
+      "reviewed_at_utc": "2026-10-25T12:44:35.220419+00:00",
+      "sha256": "27c9705336ecaa4359f6761c12c2eb48c9de35e986080fdc09a8e43510b2504a",
+      "share_alike": true
+    }
+  ],
+  "excluded_sources": {
+    "not_downloaded_or_used": [
+      {
+        "attraction_id": 20,
+        "url": "https://commons.wikimedia.org/wiki/File:The_Valley_of_Love_in_Dalat,_Vietnam.jpg",
+        "reason": "Unreviewed Wikivoyage transfer warning. Replaced by a different, reviewed source; original remains excluded."
+      },
+      {
+        "attraction_id": 14,
+        "url": "https://commons.wikimedia.org/wiki/File:Beef_Vietnamese_Noodle_Soup_in_the_Pho_Le.jpg",
+        "reason": "Source identifies Pho Le in Yuen Long, Hong Kong; does not match Ho Chi Minh City."
+      },
+      {
+        "attraction_id": 23,
+        "url": "https://www.flickr.com/photos/120994144@N04/29898174333/",
+        "reason": "Original photographer Nam Nguyen: All rights reserved. Blog embedding is not a reuse license."
+      }
+    ]
+  },
+  "browser_checks": [
+    {
+      "name": "All 21 draft cards and UTF-8 content render",
+      "status": "PASS"
+    },
+    {
+      "name": "All fifteen optimized local JPEGs load",
+      "status": "PASS"
+    },
+    {
+      "name": "Each prepared image has source and license links",
+      "status": "PASS"
+    },
+    {
+      "name": "All categories normalized, all records remain draft, original seven photo hashes preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "Replacement photo and blocked/missing sources are correctly distinguished",
+      "status": "PASS"
+    },
+    {
+      "name": "Three destination filters each show seven matching drafts",
+      "status": "PASS"
+    },
+    {
+      "name": "Prepared and missing photo filters show fifteen and six records",
+      "status": "PASS"
+    },
+    {
+      "name": "Editorial readiness filter lists all seven incomplete records",
+      "status": "PASS"
+    },
+    {
+      "name": "Vietnamese search works without accent marks",
+      "status": "PASS"
+    },
+    {
+      "name": "Empty state and reset work",
+      "status": "PASS"
+    },
+    {
+      "name": "All draft details include current/proposed locality and category comparison",
+      "status": "PASS"
+    },
+    {
+      "name": "Full-frame photo dialog, credit, Escape and focus return work",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 1440px",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 768px",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 390px",
+      "status": "PASS"
+    },
+    {
+      "name": "Responsive layout without horizontal overflow at 320px",
+      "status": "PASS"
+    },
+    {
+      "name": "No runtime/CSP errors or external/application requests",
+      "status": "PASS"
+    }
+  ],
+  "checks": {
+    "original_7_jpeg_hashes_and_mtime": "PASS",
+    "original_7_downloads_hashes": "PASS",
+    "all_15_jpeg_hashes": "PASS",
+    "source_zip_and_5_original_files_unchanged": "PASS",
+    "categories_9_9_3": "PASS",
+    "all_21_draft": "PASS",
+    "zip_crc_and_asset_inventory": "PASS",
+    "new_commons_provider_sha1": "PASS_7_OF_7",
+    "new_flickr_license": "PASS_ORIGINAL_PAGE_JSONLD_AND_VISIBLE_LICENSE_LINK",
+    "flickr_provider_sha1": "NOT_PROVIDED_BY_SOURCE; local SHA256 verified"
+  },
+  "safety": {
+    "database_connections": 0,
+    "database_writes": 0,
+    "system_uploads": 0,
+    "env_read": false,
+    "application_code_changed": false,
+    "source_zip_script_executed": false
+  },
+  "category_contract_sha256": "77723b6498475e8ad5bd05d2c3eeb8b7f19cf4efd52274a820dbb5dca2687ec8",
+  "estimated_module_percent": 87,
+  "module_estimate_basis": "Existing 80 technical + 5 RO inventory + 2 verified backups; review preparation does not replace owner approval, restore-test or main integration."
+}

@@ -1,43 +1,6 @@
 <script>
-/* ============================================================
-    password-script.blade.php
-    Xử lý đổi mật khẩu + thanh đo độ mạnh mật khẩu
-    Dùng: api(), showToast() từ user.blade.php
-============================================================ */
+let passwordSubmitting = false;
 
-// ---- Hiển thị/ẩn mật khẩu ----
-function togglePw(inputId, iconEl) {
-    const input = document.getElementById(inputId);
-    if (input.type === 'password') {
-        input.type = 'text';
-        iconEl.classList.remove('fa-eye');
-        iconEl.classList.add('fa-eye-slash');
-    } else {
-        input.type = 'password';
-        iconEl.classList.remove('fa-eye-slash');
-        iconEl.classList.add('fa-eye');
-    }
-}
-
-// ---- Alert inline ----
-function _showAlert(prefix, type, msg) {
-    const el = document.getElementById(prefix + (type === 'success' ? 'Success' : 'Error'));
-    const msg_el = document.getElementById(prefix + (type === 'success' ? 'SuccessMsg' : 'ErrorMsg'));
-    if (!el) return;
-    el.classList.remove('show');
-    void el.offsetWidth;
-    if (msg_el) msg_el.textContent = msg;
-    el.classList.add('show');
-}
-
-function _clearAlerts(prefix) {
-    ['Success', 'Error'].forEach(t => {
-        const el = document.getElementById(prefix + t);
-        if (el) el.classList.remove('show');
-    });
-}
-
-// ---- Độ mạnh mật khẩu ----
 function checkPasswordStrength(password) {
     let score = 0;
     if (password.length >= 8) score++;
@@ -48,104 +11,127 @@ function checkPasswordStrength(password) {
 }
 
 function updateStrengthBar(password) {
-    const segments = document.querySelectorAll('.strength-segment');
-    const strengthText = document.getElementById('strengthText');
-    if (!segments.length || !strengthText) return;
-
     const score = checkPasswordStrength(password);
-    // Xóa tất cả class active cũ
-    segments.forEach(seg => {
-        seg.classList.remove('active-1', 'active-2', 'active-3', 'active-4');
-    });
-    // Set màu cho các đoạn tương ứng
-    for (let i = 0; i < segments.length; i++) {
-        if (i < score) {
-            segments[i].classList.add(`active-${score}`);
-        } else {
-            segments[i].style.background = '#e2e8f0';
-        }
-    }
-    // Cập nhật label
-    if (score <= 1) strengthText.textContent = 'Yếu';
-    else if (score === 2) strengthText.textContent = 'Trung bình';
-    else if (score === 3) strengthText.textContent = 'Khá mạnh';
-    else strengthText.textContent = 'Mạnh';
-
-    // Đảm bảo màu cho từng thanh active (fix hiển thị)
-    for (let i = 0; i < score; i++) {
-        if (score === 1) segments[i].style.background = '#EF4444';
-        if (score === 2) segments[i].style.background = '#F97316';
-        if (score === 3) segments[i].style.background = '#EAB308';
-        if (score === 4) segments[i].style.background = '#22C55E';
-    }
+    document.querySelectorAll('.strength-segment').forEach((segment, index) => segment.classList.toggle('active', index < score));
+    document.getElementById('strengthText').textContent = !password ? 'Chưa nhập' : ['Yếu', 'Yếu', 'Trung bình', 'Khá mạnh', 'Mạnh'][score];
 }
 
-// ---- API: Đổi mật khẩu ----
-async function savePassword() {
-    const current = document.getElementById('pwCurrent').value;
-    const newPw = document.getElementById('pwNew').value;
-    const confirm = document.getElementById('pwConfirm').value;
-    const btn = document.getElementById('btnSavePw');
-
+function clearPasswordErrors() {
+    ['pwCurrent', 'pwNew'].forEach(id => {
+        const input = document.getElementById(id);
+        input.removeAttribute('aria-invalid');
+        document.getElementById(id + 'Error').textContent = '';
+    });
     _clearAlerts('pw');
+}
 
-    if (!current || !newPw || !confirm) {
-        _showAlert('pw', 'error', 'Vui lòng nhập đầy đủ thông tin!');
-        return;
+function setPasswordError(inputId, message) {
+    const input = document.getElementById(inputId);
+    input.setAttribute('aria-invalid', 'true');
+    document.getElementById(inputId + 'Error').textContent = message;
+}
+
+function validatePasswordForm(current, newPassword) {
+    let firstInvalid = null;
+    const invalid = (id, message) => {
+        setPasswordError(id, message);
+        if (!firstInvalid) firstInvalid = document.getElementById(id);
+    };
+
+    if (!current) invalid('pwCurrent', 'Vui lòng nhập mật khẩu hiện tại.');
+    else if (current.length > 4096) invalid('pwCurrent', 'Mật khẩu hiện tại không hợp lệ.');
+    if (!newPassword) invalid('pwNew', 'Vui lòng nhập mật khẩu mới.');
+    else if (newPassword.length < 8) invalid('pwNew', 'Mật khẩu mới phải có ít nhất 8 ký tự.');
+    else if (newPassword.length > 72) invalid('pwNew', 'Mật khẩu mới không được vượt quá 72 ký tự.');
+    else if (newPassword === current) invalid('pwNew', 'Mật khẩu mới phải khác mật khẩu hiện tại.');
+
+    firstInvalid?.focus();
+    return !firstInvalid;
+}
+
+function applyPasswordApiErrors(data) {
+    const errors = data?.errors || {};
+    const mapping = {current_password: 'pwCurrent', new_password: 'pwNew', new_password_confirmation: 'pwNew'};
+    let firstInvalid = null;
+    Object.entries(mapping).forEach(([field, inputId]) => {
+        const message = Array.isArray(errors[field]) ? errors[field][0] : errors[field];
+        if (message) {
+            setPasswordError(inputId, message);
+            if (!firstInvalid) firstInvalid = document.getElementById(inputId);
+        }
+    });
+    if (!firstInvalid && typeof data?.message === 'string' && data.message.toLowerCase().includes('mật khẩu hiện tại')) {
+        setPasswordError('pwCurrent', data.message);
+        firstInvalid = document.getElementById('pwCurrent');
     }
-    if (newPw.length < 6) {
-        _showAlert('pw', 'error', 'Mật khẩu mới tối thiểu 6 ký tự!');
-        return;
-    }
-    if (newPw !== confirm) {
-        _showAlert('pw', 'error', 'Mật khẩu xác nhận không khớp!');
+    firstInvalid?.focus();
+    return Boolean(firstInvalid);
+}
+
+async function savePassword() {
+    if (passwordSubmitting) return;
+    const current = document.getElementById('pwCurrent').value;
+    const newPassword = document.getElementById('pwNew').value;
+    const form = document.getElementById('passwordForm');
+    const button = document.getElementById('btnSavePw');
+
+    clearPasswordErrors();
+    if (!validatePasswordForm(current, newPassword)) {
+        _showAlert('pw', 'error', 'Vui lòng kiểm tra lại các trường được đánh dấu.');
         return;
     }
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang cập nhật...';
+    passwordSubmitting = true;
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+    form.setAttribute('aria-busy', 'true');
+    button.textContent = 'Đang cập nhật…';
 
     try {
-        const res = await api('/me/password', {
+        const response = await api('/me/password', {
             method: 'POST',
             body: JSON.stringify({
                 current_password: current,
-                new_password: newPw,
-                new_password_confirmation: confirm
+                new_password: newPassword,
+                new_password_confirmation: newPassword
             })
         });
-        const data = await res.json();
+        const data = await response.json().catch(() => ({}));
 
-        if (res.ok) {
-            document.getElementById('pwCurrent').value = '';
-            document.getElementById('pwNew').value = '';
-            document.getElementById('pwConfirm').value = '';
-            // Reset strength bars
-            updateStrengthBar('');
-            _showAlert('pw', 'success', data.message || 'Đổi mật khẩu thành công!');
-            showToast('Đổi mật khẩu thành công!', 'success');
-        } else {
-            _showAlert('pw', 'error', data.message || 'Đổi mật khẩu thất bại!');
-            showToast(data.message || 'Đổi mật khẩu thất bại', 'error');
+        if (!response.ok) {
+            applyPasswordApiErrors(data);
+            const message = accountErrorMessage(data, 'Chưa thể cập nhật mật khẩu.');
+            _showAlert('pw', 'error', message);
+            showToast(message, 'error');
+            return;
         }
-    } catch (e) {
-        _showAlert('pw', 'error', 'Lỗi kết nối, vui lòng thử lại!');
-        showToast('Lỗi kết nối', 'error');
+
+        ['pwCurrent', 'pwNew'].forEach(id => { document.getElementById(id).value = ''; });
+        updateStrengthBar('');
+        _showAlert('pw', 'success', data.message || 'Đổi mật khẩu thành công!');
+        showToast('Đổi mật khẩu thành công!', 'success');
+    } catch (error) {
+        const message = 'Lỗi kết nối. Dữ liệu đã nhập được giữ lại để bạn thử lại.';
+        _showAlert('pw', 'error', message);
+        showToast(message, 'error');
     } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-lock"></i> Cập nhật mật khẩu';
+        passwordSubmitting = false;
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        form.removeAttribute('aria-busy');
+        button.innerHTML = 'Cập nhật mật khẩu ' + accountIcon('arrow-right');
     }
 }
 
-// ---- Khởi tạo lắng nghe sự kiện cho strength meter ----
 document.addEventListener('DOMContentLoaded', function() {
-    const pwNew = document.getElementById('pwNew');
-    if (pwNew) {
-        pwNew.addEventListener('input', function() {
-            updateStrengthBar(this.value);
+    const newPassword = document.getElementById('pwNew');
+    newPassword.addEventListener('input', function() { updateStrengthBar(this.value); });
+    ['pwCurrent', 'pwNew'].forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+            this.removeAttribute('aria-invalid');
+            document.getElementById(id + 'Error').textContent = '';
         });
-        // Gọi lần đầu để hiển thị mặc định (Yếu)
-        updateStrengthBar(pwNew.value);
-    }
+    });
+    updateStrengthBar(newPassword.value);
 });
 </script>

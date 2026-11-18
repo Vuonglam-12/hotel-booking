@@ -112,8 +112,8 @@ class CustomerNotification extends Model
             'type'        => 'review_submitted',
             'data'        => [
                 'title'     => '⭐ Cảm ơn bạn đã đánh giá!',
-                'message'   => "Bạn vừa đánh giá {$starDisplay} cho {$hotelName}. Cảm ơn bạn đã chia sẻ trải nghiệm!",
-                'link'      => '/dashboard#reviews',
+                'message'   => "Đánh giá {$starDisplay} của bạn cho {$hotelName} đang chờ Admin duyệt.",
+                'link'      => '/bookings',
                 'review_id' => $reviewId,
                 'hotel_name'=> $hotelName,
                 'rating'    => $rating,

@@ -1,0 +1,2 @@
+{{-- Existing local Lucide artwork and simple account symbols; no remote icon font. --}}
+<svg class="account-icon {{ $iconClass ?? '' }}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="{{ asset('vendor/aurel-account/icons.svg') }}#{{ $name }}"></use></svg>

@@ -1,50 +1,48 @@
 <?php
 
-namespace App\Services\Wishlist;
+namespace App\Services;
 
+use App\Models\Customer;
+use App\Models\Hotel;
 use App\Models\Wishlist;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class WishlistService
 {
-    public function getList(int $customerId): Collection
+    public function getList(int $customerId): \Illuminate\Database\Eloquent\Collection
     {
-        return Wishlist::with(['hotel' => fn($q) =>
-            $q->with(['images' => fn($q) => $q->where('is_primary', true), 'location', 'amenities'])
-        ])
-        ->where('customer_id', $customerId)
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $items=Wishlist::with(['hotel'=>fn($q)=>$q->with(['images'=>fn($q)=>$q->orderByDesc('is_primary')->orderBy('id'),'location','amenities'])])
+            ->where('customer_id',$customerId)->whereHas('hotel',fn($q)=>$q->where('status','active'))->orderByDesc('created_at')->get();
+        $items->each(fn($item)=>$item->hotel?->append('cover_image_url'));
+        return $items;
     }
 
-    public function add(int $customerId, int $hotelId): void
+    public function add(int $customerId,int $hotelId): void
     {
-        if (Wishlist::where('customer_id', $customerId)->where('hotel_id', $hotelId)->exists()) {
-            throw new \Exception('KS đã có trong danh sách yêu thích');
-        }
-
-        Wishlist::create(['customer_id' => $customerId, 'hotel_id' => $hotelId, 'created_at' => now()]);
+        DB::transaction(function()use($customerId,$hotelId){
+            Customer::whereKey($customerId)->lockForUpdate()->firstOrFail();
+            Hotel::where('status','active')->findOrFail($hotelId);
+            Wishlist::firstOrCreate(['customer_id'=>$customerId,'hotel_id'=>$hotelId],['created_at'=>now()]);
+        },3);
     }
 
-    public function remove(int $customerId, int $hotelId): void
+    public function remove(int $customerId,int $hotelId): void
     {
-        $deleted = Wishlist::where('customer_id', $customerId)->where('hotel_id', $hotelId)->delete();
-
-        if (!$deleted) {
-            throw new \Exception('KS không có trong danh sách yêu thích');
-        }
+        DB::transaction(function()use($customerId,$hotelId){
+            Customer::whereKey($customerId)->lockForUpdate()->firstOrFail();
+            Wishlist::where('customer_id',$customerId)->where('hotel_id',$hotelId)->delete();
+        },3);
     }
 
-    public function toggle(int $customerId, int $hotelId): bool
+    public function toggle(int $customerId,int $hotelId): bool
     {
-        $wishlist = Wishlist::where('customer_id', $customerId)->where('hotel_id', $hotelId)->first();
-
-        if ($wishlist) {
-            $wishlist->delete();
-            return false;
-        }
-
-        Wishlist::create(['customer_id' => $customerId, 'hotel_id' => $hotelId, 'created_at' => now()]);
-        return true;
+        return DB::transaction(function()use($customerId,$hotelId){
+            Customer::whereKey($customerId)->lockForUpdate()->firstOrFail();
+            $item=Wishlist::where('customer_id',$customerId)->where('hotel_id',$hotelId)->first();
+            if($item){$item->delete();return false;}
+            Hotel::where('status','active')->findOrFail($hotelId);
+            Wishlist::create(['customer_id'=>$customerId,'hotel_id'=>$hotelId,'created_at'=>now()]);
+            return true;
+        },3);
     }
 }

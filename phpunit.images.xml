@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/Support/image_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites>
+        <testsuite name="Read-only accommodation images">
+            <file>tests/Feature/AccommodationImagesTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

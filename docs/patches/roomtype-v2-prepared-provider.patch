@@ -1,0 +1,11 @@
+diff --git a/config/app.php b/config/app.php
+--- a/config/app.php
++++ b/config/app.php
+@@ -168,6 +168,7 @@
+         // App\Providers\BroadcastServiceProvider::class,
+         App\Providers\EventServiceProvider::class,
+         App\Providers\RouteServiceProvider::class,
++        App\Providers\RoomTypeV2PreparedProvider::class,
+     ])->toArray(),
+ 
+     /*

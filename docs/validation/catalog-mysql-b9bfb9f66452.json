@@ -1,0 +1,475 @@
+{
+  "date": "2026-10-23",
+  "stage": 4,
+  "status": "PASS",
+  "isolation": {
+    "synthetic_only": true,
+    "identity": {
+      "db": "aurel_catalog_test_b9bfb9f66452",
+      "port": 51806,
+      "datadir": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\data\\",
+      "uuid": "fb23d8a1-cec8-11f1-96b5-5428cd8d5b1f",
+      "version": "8.0.30",
+      "account": "aurel_b9bfb9f66452@127.0.0.1",
+      "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+      "bind_address": "127.0.0.1",
+      "log_bin": 0,
+      "event_scheduler": "OFF"
+    },
+    "grants": [
+      "GRANT USAGE ON *.* TO `aurel_b9bfb9f66452`@`127.0.0.1`",
+      "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER ON `aurel\\_catalog\\_test\\_b9bfb9f66452`.* TO `aurel_b9bfb9f66452`@`127.0.0.1`"
+    ],
+    "project_env_loaded": false,
+    "config_cache_loaded": false,
+    "other_connections": []
+  },
+  "migrations": {
+    "apply": "PASS",
+    "repeat": "PASS",
+    "rollback": "PASS",
+    "reapply": "PASS",
+    "legacy_row_preserved": true,
+    "existing_guide_preserved_on_datetime_upgrade": true,
+    "upgrade_rollback_preserved_future_date": true,
+    "published_at_type": "datetime",
+    "tables": [
+      "_catalog_test_owner",
+      "attraction",
+      "attraction_image",
+      "customer",
+      "guide_category",
+      "guide_post",
+      "hotel",
+      "hotel_image",
+      "location",
+      "migrations",
+      "personal_access_tokens"
+    ],
+    "indexes": [
+      {
+        "TABLE_NAME": "_catalog_test_owner",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "attraction",
+        "INDEX_NAME": "attraction_experience_public",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "is_active"
+      },
+      {
+        "TABLE_NAME": "attraction",
+        "INDEX_NAME": "attraction_experience_public",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "experience_published_at"
+      },
+      {
+        "TABLE_NAME": "attraction",
+        "INDEX_NAME": "attraction_location_id_foreign",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "location_id"
+      },
+      {
+        "TABLE_NAME": "attraction",
+        "INDEX_NAME": "attraction_slug_unique",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "slug"
+      },
+      {
+        "TABLE_NAME": "attraction",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "attraction_image",
+        "INDEX_NAME": "attraction_image_attraction_id_foreign",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "attraction_id"
+      },
+      {
+        "TABLE_NAME": "attraction_image",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "customer",
+        "INDEX_NAME": "idx_customer_location",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "preferred_location_id"
+      },
+      {
+        "TABLE_NAME": "customer",
+        "INDEX_NAME": "idx_customer_role",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "role"
+      },
+      {
+        "TABLE_NAME": "customer",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "customer",
+        "INDEX_NAME": "uq_customer_email",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "email"
+      },
+      {
+        "TABLE_NAME": "guide_category",
+        "INDEX_NAME": "guide_category_name_unique",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "name"
+      },
+      {
+        "TABLE_NAME": "guide_category",
+        "INDEX_NAME": "guide_category_slug_unique",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "slug"
+      },
+      {
+        "TABLE_NAME": "guide_category",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "guide_post_category_id_foreign",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "category_id"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "guide_post_legacy_id_unique",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "legacy_id"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "guide_post_location_id_foreign",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "location_id"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "guide_post_slug_unique",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "slug"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "guide_publication_index",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "status"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "guide_publication_index",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "archived_at"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "guide_publication_index",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "published_at"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "hotel",
+        "INDEX_NAME": "idx_hotel_coords",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "latitude"
+      },
+      {
+        "TABLE_NAME": "hotel",
+        "INDEX_NAME": "idx_hotel_coords",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "longitude"
+      },
+      {
+        "TABLE_NAME": "hotel",
+        "INDEX_NAME": "idx_hotel_location",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "location_id"
+      },
+      {
+        "TABLE_NAME": "hotel",
+        "INDEX_NAME": "idx_hotel_star",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "star_rating"
+      },
+      {
+        "TABLE_NAME": "hotel",
+        "INDEX_NAME": "idx_hotel_status",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "status"
+      },
+      {
+        "TABLE_NAME": "hotel",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "hotel_image",
+        "INDEX_NAME": "idx_hotel_image",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "hotel_id"
+      },
+      {
+        "TABLE_NAME": "hotel_image",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "location",
+        "INDEX_NAME": "location_code_unique",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "code"
+      },
+      {
+        "TABLE_NAME": "location",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "migrations",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "personal_access_tokens",
+        "INDEX_NAME": "personal_access_tokens_token_unique",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "token"
+      },
+      {
+        "TABLE_NAME": "personal_access_tokens",
+        "INDEX_NAME": "personal_access_tokens_tokenable_type_tokenable_id_index",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "tokenable_type"
+      },
+      {
+        "TABLE_NAME": "personal_access_tokens",
+        "INDEX_NAME": "personal_access_tokens_tokenable_type_tokenable_id_index",
+        "NON_UNIQUE": 1,
+        "COLUMN_NAME": "tokenable_id"
+      },
+      {
+        "TABLE_NAME": "personal_access_tokens",
+        "INDEX_NAME": "PRIMARY",
+        "NON_UNIQUE": 0,
+        "COLUMN_NAME": "id"
+      }
+    ],
+    "foreign_keys": [
+      {
+        "TABLE_NAME": "attraction",
+        "COLUMN_NAME": "location_id",
+        "REFERENCED_TABLE_NAME": "location",
+        "REFERENCED_COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "attraction_image",
+        "COLUMN_NAME": "attraction_id",
+        "REFERENCED_TABLE_NAME": "attraction",
+        "REFERENCED_COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "COLUMN_NAME": "category_id",
+        "REFERENCED_TABLE_NAME": "guide_category",
+        "REFERENCED_COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "guide_post",
+        "COLUMN_NAME": "location_id",
+        "REFERENCED_TABLE_NAME": "location",
+        "REFERENCED_COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "hotel",
+        "COLUMN_NAME": "location_id",
+        "REFERENCED_TABLE_NAME": "location",
+        "REFERENCED_COLUMN_NAME": "id"
+      },
+      {
+        "TABLE_NAME": "hotel_image",
+        "COLUMN_NAME": "hotel_id",
+        "REFERENCED_TABLE_NAME": "hotel",
+        "REFERENCED_COLUMN_NAME": "id"
+      }
+    ]
+  },
+  "migration_start_guards": 17,
+  "phpunit": {
+    "assertions": 376,
+    "status": "PASS",
+    "tests": 8
+  },
+  "browser": {
+    "js_errors": [],
+    "origin": "http://127.0.0.1:51837",
+    "storage_realpath": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\uploads",
+    "screenshots": [
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-experiences-desktop.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-guides-desktop.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-experiences-768.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-guides-768.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-experiences-390.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-guides-390.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-experiences-320.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-guides-320.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-experience-admin-mobile.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-b9bfb9f66452\\mysql-guide-admin-mobile.png"
+    ],
+    "checks": [
+      "Owned MySQL identity and actual public/storage junction",
+      "Both catalogs coexist on one MySQL schema",
+      "Guide MySQL filtering, pagination and empty state",
+      "Real MySQL schema fault and Guide 503/retry",
+      "Experience MySQL location, pagination and empty state",
+      "Real MySQL schema fault and Experience 503/retry",
+      "Experience detail/gallery and matching hotel on MySQL",
+      "Guide reuses same-location experiences/hotels and actual image bytes",
+      "Blog legacy redirects on MySQL",
+      "Shared Header/Footer and both Client layouts 768",
+      "Shared Header/Footer and both Client layouts 390",
+      "Shared Header/Footer and both Client layouts 320",
+      "Admin Experience upload, chosen cover, verification and publication on MySQL",
+      "Admin Guide draft/publication with independent cover and same-location links",
+      "Client Guide reflects newly managed Experience and matching hotel",
+      "Admin Experience edit is reflected in Guide without changing slug",
+      "Experience active state immediately updates Guide suggestions",
+      "Experience archive/restore keeps images and clears publication/verification",
+      "Guide edit/archive/restore keeps slug and actual cover while returning to draft",
+      "Both Admin editors render MySQL metadata on mobile",
+      "No JavaScript exceptions or real external side effects"
+    ]
+  },
+  "legacy_import": [
+    {
+      "id": 1,
+      "result": "imported",
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "result": "imported",
+      "status": "draft"
+    },
+    {
+      "id": 3,
+      "result": "imported",
+      "status": "draft"
+    },
+    {
+      "id": 4,
+      "result": "imported",
+      "status": "draft"
+    },
+    {
+      "id": 5,
+      "result": "imported",
+      "status": "draft"
+    },
+    {
+      "id": 6,
+      "result": "imported",
+      "status": "draft"
+    },
+    {
+      "id": 7,
+      "result": "imported",
+      "status": "draft"
+    },
+    {
+      "id": 8,
+      "result": "imported",
+      "status": "draft"
+    },
+    {
+      "id": 9,
+      "result": "imported",
+      "status": "draft"
+    }
+  ],
+  "http_boundary": {
+    "statuses": [
+      {
+        "status": "200",
+        "count": 108
+      },
+      {
+        "status": "503",
+        "count": 2
+      },
+      {
+        "status": "302",
+        "count": 2
+      },
+      {
+        "status": "301",
+        "count": 1
+      },
+      {
+        "status": "201",
+        "count": 2
+      },
+      {
+        "status": "404",
+        "count": 1
+      }
+    ],
+    "requests": 116,
+    "violations": 0
+  },
+  "cleanup": {
+    "mysql_stopped": true,
+    "owned_processes_remaining": 0,
+    "exit": {
+      "code": 0,
+      "signal": null
+    }
+  },
+  "source_hashes": [
+    {
+      "file": "database/migrations/2026_10_23_000001_add_experience_catalog_metadata.php",
+      "sha256": "4b2fdff04fdd4fbb321a2a914e8354404d9648885babbf0fec19dc81362f5abb"
+    },
+    {
+      "file": "database/migrations/2026_10_23_000002_create_travel_guides.php",
+      "sha256": "eb15695b8cda4cd9ee94846585098f540437904f10ad4cd4e592759cceae879f"
+    },
+    {
+      "file": "database/migrations/2026_10_23_000003_widen_guide_publication_datetime.php",
+      "sha256": "0d180d48622c6fde0392026f138a044dd06e20f7ad4353e1067a4eb3919ec453"
+    },
+    {
+      "file": "tests/Feature/CatalogMysqlIntegrationTest.php",
+      "sha256": "988f703d398dccf271871bc42ed18b439c5182ed700546db4f2b2e1199a551d4"
+    },
+    {
+      "file": "tests/Support/CatalogMysqlEnvironment.php",
+      "sha256": "ccc11e0f0d0d8292baea7d60c0c309697dd5e596ed07b410e17101484c44779e"
+    },
+    {
+      "file": "tests/Frontend/catalog-mysql.browser.cjs",
+      "sha256": "96086ea7bee8ba104d249a89948929cc01c6639e512808686a69ae2f410cb2d3"
+    }
+  ]
+}

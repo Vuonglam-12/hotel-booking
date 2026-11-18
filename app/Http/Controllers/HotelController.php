@@ -4,69 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Hotel;
 use App\Models\Location;
+use App\Services\RoomAvailabilityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HotelController extends Controller
 {
+    public function __construct(private RoomAvailabilityService $roomAvailability) {}
+
     // Danh sách KS — có filter + search
     public function index(Request $request)
     {
-        $query = Hotel::with(['location', 'amenities', 'images' => function ($q) {
-            $q->where('is_primary', true);
-        }])
-        ->where('status', 'active')
-        ->withMin(['rooms' => function ($q) {
-            $q->where('status', 'available');
-        }], 'price');
+        $search=app(\App\Services\HotelSearchService::class);
+        return response()->json($search->search($search->validate($request->all())));
+    }
 
-        // Filter theo city
-        if ($request->city) {
-            $query->whereHas('location', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->city . '%');
-            });
-        }
-
-        // Filter theo location_id
-        if ($request->location_id) {
-            $query->where('location_id', $request->location_id);
-        }
-
-        // Filter theo số sao
-        if ($request->star) {
-            $query->where('star_rating', $request->star);
-        }
-
-        // Filter theo giá tối đa
-        if ($request->max_price) {
-            $query->whereHas('rooms', function ($q) use ($request) {
-                $q->where('price', '<=', $request->max_price)
-                  ->where('status', 'available');
-            });
-        }
-
-        // Filter theo tiện ích
-        if ($request->amenity) {
-            $query->whereHas('amenities', function ($q) use ($request) {
-                $q->where('amenity', $request->amenity);
-            });
-        }
-
-        // Tìm kiếm theo tên
-        if ($request->search) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-
-        // Sort
-        $sort = $request->sort ?? 'avg_rating';
-        $dir  = $request->dir  ?? 'desc';
-        if (in_array($sort, ['avg_rating', 'star_rating', 'name'])) {
-            $query->orderBy($sort, $dir);
-        }
-
-        $hotels = $query->paginate($request->per_page ?? 10);
-
-        return response()->json($hotels);
+    public function suggestions(Request $request)
+    {
+        $data=$request->validate(['q'=>'nullable|string|max:100']);
+        return response()->json(app(\App\Services\HotelSearchService::class)->suggestions(trim($data['q']??'')));
     }
 
     // Chi tiết 1 KS
@@ -79,14 +35,19 @@ class HotelController extends Controller
             'rooms.roomType',
             'rooms.images',
         ])->where('status', 'active')->findOrFail($id);
+        $hotel->append('cover_image_url');
+        $hotel->setRelation('rooms', app(\App\Services\HotelRoomTypeService::class)->applyToRooms($hotel->rooms));
+        $hotel->rooms->each(fn($room) => $room->append('cover_image_url'));
 
         // Thêm thông tin review
         $hotel->review_count = DB::table('review')
             ->where('hotel_id', $id)
+            ->where('status','approved')
             ->count();
 
         $hotel->rating_breakdown = DB::table('review')
             ->where('hotel_id', $id)
+            ->where('status','approved')
             ->selectRaw('
                 AVG(rating) as avg_overall,
                 AVG(rating_cleanliness) as avg_cleanliness,
@@ -98,50 +59,76 @@ class HotelController extends Controller
         return response()->json($hotel);
     }
 
-// Danh sách phòng của KS — check available/locked/booked theo ngày
+    // Danh sách phòng giữ dạng JSON array; tồn kho loại phòng được trả riêng trên từng dòng.
     public function rooms(Request $request, $id)
     {
-        $hotel = \App\Models\Hotel::findOrFail($id);
-        $checkIn = $request->check_in;
-        $checkOut = $request->check_out;
+        $hotel = Hotel::where('status', 'active')->findOrFail($id);
+        $data = $request->validate([
+            'check_in' => 'nullable|required_with:check_out|date_format:Y-m-d',
+            'check_out' => 'nullable|required_with:check_in|date_format:Y-m-d|after:check_in',
+            'room_type_id' => 'nullable|integer|exists:room_type,id',
+            'guests' => 'nullable|integer|min:1',
+            'num_guests' => 'nullable|integer|min:1',
+            'quantity' => 'nullable|integer|min:1|max:10',
+        ]);
+        $guests = $data['num_guests'] ?? $data['guests'] ?? null;
+        $quantity = $data['quantity'] ?? 1;
+        if ($guests !== null && !empty($data['room_type_id'])) {
+            $this->roomAvailability->validateCapacity($hotel->id, (int) $data['room_type_id'], (int) $quantity, (int) $guests);
+        }
+        $checkIn = $data['check_in'] ?? null;
+        $checkOut = $data['check_out'] ?? null;
 
-        // Lấy tất cả phòng ra (bỏ hoàn toàn đoạn whereNotIn đi)
         $query = $hotel->rooms()
             ->with(['roomType', 'images'])
-            ->whereIn('status', ['available', 'locked']);
+            ->whereIn('status', ['available', 'locked'])->offered();
 
         if ($request->room_type_id) {
             $query->where('room_type_id', $request->room_type_id);
         }
 
-        if ($request->guests) {
-            $query->where('capacity', '>=', $request->guests);
+        if ($guests !== null && !\App\Services\HotelRoomTypeService::enabled()) {
+            $query->whereHas('roomType', fn($type) => $type->where('capacity', '>=', (int) ceil($guests / $quantity)));
         }
 
-        // Lấy danh sách và biến hóa trạng thái ảo
-        $rooms = $query->get()->map(function ($room) use ($checkIn, $checkOut) {
-            $currentStatus = 'available';
-
-            if ($checkIn && $checkOut) {
-                // Kiểm tra xem phòng này có vướng booking nào trùng ngày không
-                $overlap = \Illuminate\Support\Facades\DB::table('booking_room as br')
-                    ->join('booking as b', 'b.id', '=', 'br.booking_id')
-                    ->where('br.room_id', $room->id)
-                    ->whereIn('b.status', ['pending', 'confirmed'])
-                    ->where('b.check_in',  '<', $checkOut)
-                    ->where('b.check_out', '>', $checkIn)
-                    ->first();
-
-                // Nếu có người đặt trùng ngày, đổi status ảo báo cho Frontend
-                if ($overlap) {
-                    $currentStatus = ($overlap->status === 'pending') ? 'locked' : 'booked';
-                }
+        $rooms = app(\App\Services\HotelRoomTypeService::class)->applyToRooms($query->get());
+        if ($guests !== null) $rooms = $rooms->filter(fn($room) => $room->roomType->capacity >= (int)ceil($guests/$quantity))->values();
+        $byType = [];
+        $physicalStock = $checkIn ? null : $hotel->rooms()->managed()->get(['id', 'room_type_id', 'status'])->groupBy('room_type_id');
+        foreach ($rooms->pluck('room_type_id')->unique() as $roomTypeId) {
+            if ($checkIn) {
+                $byType[$roomTypeId] = $this->roomAvailability->forTypeWithRooms(
+                    $hotel->id, (int) $roomTypeId, $checkIn, $checkOut
+                );
+            } else {
+                $stock = $physicalStock[$roomTypeId];
+                $byType[$roomTypeId] = ['availability' => [
+                    'available_rooms' => $stock->where('status', 'available')->count(),
+                    'total_rooms' => $stock->count(),
+                    'booked_rooms' => 0,
+                ], 'rooms' => []];
             }
+        }
 
-            // Gắn status đã tính toán lại vào object room
-            $room->status = $currentStatus;
-            
-            return $room;
+        $rooms->each(function ($room) use ($byType) {
+            $room->append('cover_image_url');
+            $inspection = $byType[$room->room_type_id];
+            $state = $inspection['rooms'][$room->id] ?? [
+                'physical_status' => $room->status,
+                'occupancy_status' => $room->status,
+                'bookable' => $room->status === 'available',
+            ];
+            $room->physical_status = $state['physical_status'];
+            $room->occupancy_status = $state['occupancy_status'];
+            $room->bookable = $state['bookable'];
+            $room->available_rooms = $inspection['availability']['available_rooms'];
+            $room->total_rooms = $inspection['availability']['total_rooms'];
+            $room->booked_rooms = $inspection['availability']['booked_rooms'];
+
+            // 'unavailable' is a booking restriction, not an invented physical assignment.
+            // Existing clients checking status === 'available' cannot select a sold-out type.
+            $room->status = $state['bookable'] ? 'available'
+                : ($state['occupancy_status'] === 'available' ? 'unavailable' : $state['occupancy_status']);
         });
 
         return response()->json($rooms);

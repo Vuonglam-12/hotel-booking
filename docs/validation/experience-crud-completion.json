@@ -1,0 +1,151 @@
+{
+  "scope": "Experience CRUD completion; backup/clone rehearsal paused",
+  "date": "2026-10-25",
+  "status": "DONE_ISOLATED_CRUD_PARTIAL_PRIMARY_READINESS",
+  "mysql": {
+    "status": "PASS",
+    "tests": 6,
+    "assertions": 134,
+    "runtime": "C:/Users/ASUS/AppData/Local/Temp/aurel-catalog-mysql-811da79a1c9d",
+    "identity": {
+      "db": "aurel_catalog_test_811da79a1c9d",
+      "port": 62893,
+      "datadir": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\data\\",
+      "uuid": "b9d013b7-d04b-11f1-b208-89fe61ea7279",
+      "version": "8.0.30",
+      "account": "aurel_811da79a1c9d@127.0.0.1",
+      "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+      "bind_address": "127.0.0.1",
+      "log_bin": 0,
+      "event_scheduler": "OFF"
+    },
+    "server_stopped": true,
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "project_env_loaded": false,
+    "production_connection_available": false,
+    "migration": {
+      "mode": "experience-crud",
+      "catalog_migrations": [
+        "C:\\laragon\\www\\Hotel-Booking\\database/migrations/2026_10_23_000001_add_experience_catalog_metadata.php"
+      ],
+      "seed_ran": false,
+      "importer_ran": false,
+      "guide_migrations_ran": false
+    }
+  },
+  "browser": {
+    "status": "PASS",
+    "driver": "mysql",
+    "groups": 20,
+    "checks": [
+      "Client loading state",
+      "Client listing and official Header route",
+      "Stable location filter",
+      "Category filter",
+      "Client empty state",
+      "Client error and retry",
+      "Client pagination",
+      "Client responsive 768",
+      "Client responsive 390",
+      "Client responsive 320",
+      "Detail gallery, source, hotel relation and Escape focus",
+      "Admin saves a draft with uploaded image and Customer cannot view it",
+      "Admin creates, uploads, verifies and publishes through protected APIs",
+      "Customer detail renders the newly published Admin content and image",
+      "Admin replaces image and edits an existing location without creating any location",
+      "Customer reload shows updated content and replacement cover on the same URL",
+      "Admin disables public visibility",
+      "Archive/restore preserves record and image while returning to draft",
+      "Admin mobile editor",
+      "No browser JavaScript exceptions"
+    ],
+    "errors": [],
+    "screenshots": [
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\experiences-desktop.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\experiences-768.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\experiences-390.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\experiences-320.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\experience-detail.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\experiences-admin.png",
+      "C:\\Users\\ASUS\\AppData\\Local\\Temp\\aurel-catalog-mysql-811da79a1c9d\\experiences-admin-mobile.png"
+    ],
+    "http_requests": 65,
+    "databases": [
+      "aurel_catalog_test_811da79a1c9d"
+    ],
+    "external_effects": 0
+  },
+  "sqlite_browser": {
+    "status": "PASS",
+    "groups": 20,
+    "runtime": "C:/Users/ASUS/AppData/Local/Temp/aurel-experience-tests-e4381473d7aa"
+  },
+  "initial_test_failure": {
+    "runtime": "C:/Users/ASUS/AppData/Local/Temp/aurel-catalog-mysql-11f5ceea72ca",
+    "tests": 5,
+    "assertions": 123,
+    "failures": 1,
+    "cause": "A new test switched from a Customer token to an Admin token within one Laravel application while its guard remained cached.",
+    "fix": "Separated permission checks and upload atomicity into independent tests. Application authentication was unchanged."
+  },
+  "existing_data_review": {
+    "source": "docs/validation/attraction-live-location-review-phase5c1.csv",
+    "source_sha256": "880ae1efaea8f55f4fa9cb67225d06983fda0296d52d4085b3d73e5dcfd4856f",
+    "total": 47,
+    "match": 20,
+    "mismatch": 27,
+    "experience_types_mismatch": 21,
+    "legacy_hotel_type_mismatch": 6,
+    "proposal": "docs/validation/attraction-clone-mapping-plan-phase5c2.csv",
+    "proposal_sha256": "b0a4a102dfdf8cbf897c0ec4e4296dd112c0d1dd0a07deddfad39197e7a44b26",
+    "changes_executed": false,
+    "reconnected_to_primary": false,
+    "groups": [
+      {
+        "ids": "1-9",
+        "from": 2,
+        "to": 1
+      },
+      {
+        "ids": "10-18",
+        "from": 3,
+        "to": 2
+      },
+      {
+        "ids": "19-27",
+        "from": 4,
+        "to": 7
+      }
+    ]
+  },
+  "safety": {
+    "primary_database_accessed": false,
+    "primary_database_changed": false,
+    "primary_credentials_used": false,
+    "project_dotenv_read": false,
+    "application_migrations_changed": false,
+    "new_application_migrations_created": false,
+    "seed_executed": false,
+    "importer_executed": false,
+    "clone_rehearsal_performed": false,
+    "deployment_performed": false,
+    "full_test_suite_run": false
+  },
+  "source_hashes": {
+    "resources/views/admin/experiences.blade.php": "670d8e0342eda81242c9787a397282d7135eb0811bfac30fe7ba02eb5b7bdeca",
+    "resources/views/admin/partials/experiences-script.blade.php": "bad291fe14a3d0e2c39229fca1177297020c3855a2da805e528e6724bee6eb02",
+    "tests/Feature/CatalogMysqlIntegrationTest.php": "7b68a664a1ffca41eddacfaefbf55963fee824185c74ef5394b51539494476d2",
+    "tests/Support/catalog_mysql_control.php": "a39998e220a7aa6d15b6039f83dc356efc57895458b06b081ab849e6612ce467",
+    "tests/Support/run_catalog_mysql_integration.cjs": "9dbcdd17f67cb2eafaba20c2873c524eaa59d260b4a88a2a7845af8c68bc74e1",
+    "tests/Support/experience_browser_setup.php": "98252f9bb31241cbb22cc8ffcaf934ee1d70ebd570029621eec6f450d29aac0f",
+    "tests/Frontend/experiences.browser.cjs": "c308c3c535225e81dc536c112bcd9e44398dbb96590b9e8455c9ac8586ed760f"
+  },
+  "progress": {
+    "estimated_percent": 85,
+    "unchanged_from_phase5c1": true,
+    "basis": "Existing four technical groups account for 80 points, read-only live-data inventory for 5. Data approval/correction, operational preparation and production approval remain incomplete."
+  }
+}

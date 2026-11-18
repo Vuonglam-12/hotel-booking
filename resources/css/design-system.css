@@ -1,0 +1,93 @@
+/* Opt-in foundations: existing page styles retain their current values. */
+:root {
+    --hv-bg: #FFFFFF;
+    --hv-shell-bg: #F8F8F8;
+    --hv-bg-secondary: #F8F9FA;
+    --hv-text: #111827;
+    --hv-text-secondary: #4B5563;
+    --hv-border: #E5E7EB;
+    --hv-accent: #2563EB;
+    --hv-accent-hover: #1D4ED8;
+    --hv-font: 'Nunito Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --hv-text-body: 16px;
+    --hv-text-small: 14px;
+    --hv-heading-1: 32px;
+    --hv-heading-2: 24px;
+    --hv-heading-3: 20px;
+    --hv-space-1: 4px;
+    --hv-space-2: 8px;
+    --hv-space-3: 12px;
+    --hv-space-4: 16px;
+    --hv-space-6: 24px;
+    --hv-space-8: 32px;
+    --hv-space-12: 48px;
+    --hv-space-16: 64px;
+    --hv-radius-control: 8px;
+    --hv-radius-button: 10px;
+    --hv-radius-card: 12px;
+    --hv-radius-image: 16px;
+    --hv-duration: 180ms;
+}
+
+.hv-ui {
+    font-family: var(--hv-font);
+    font-size: var(--hv-text-body);
+    line-height: 1.5;
+    color: var(--hv-text);
+}
+
+.hv-ui .hv-heading-1 { font-size: var(--hv-heading-1); line-height: 1.25; }
+.hv-ui .hv-heading-2 { font-size: var(--hv-heading-2); line-height: 1.3; }
+.hv-ui .hv-heading-3 { font-size: var(--hv-heading-3); line-height: 1.4; }
+
+.hv-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--hv-space-2);
+    min-height: 40px;
+    padding: var(--hv-space-2) var(--hv-space-4);
+    border: 1px solid var(--hv-border);
+    border-radius: var(--hv-radius-button);
+    background: var(--hv-bg);
+    color: var(--hv-text);
+    font-family: var(--hv-font);
+    font-size: var(--hv-text-small);
+    font-weight: 500;
+    line-height: 1.5;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--hv-duration), border-color var(--hv-duration), color var(--hv-duration);
+}
+
+.hv-button:hover { background: var(--hv-bg-secondary); }
+.hv-button--primary { background: var(--hv-accent); border-color: var(--hv-accent); color: var(--hv-bg); }
+.hv-button--primary:hover { background: var(--hv-accent-hover); border-color: var(--hv-accent-hover); }
+.hv-button:disabled { opacity: .5; cursor: not-allowed; }
+
+.hv-input {
+    width: 100%;
+    min-height: 44px;
+    padding: var(--hv-space-2) var(--hv-space-3);
+    border: 1px solid var(--hv-border);
+    border-radius: var(--hv-radius-control);
+    background: var(--hv-bg);
+    color: var(--hv-text);
+    font-family: var(--hv-font);
+    font-size: var(--hv-text-body);
+    line-height: 1.5;
+    transition: border-color var(--hv-duration);
+}
+
+.hv-card { border: 1px solid var(--hv-border); border-radius: var(--hv-radius-card); background: var(--hv-bg); }
+.hv-image { border-radius: var(--hv-radius-image); object-fit: cover; }
+.hv-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--hv-space-6); }
+.hv-ui :is(a, button, summary, input, select, textarea):focus-visible,
+.hv-button:focus-visible, .hv-input:focus-visible { outline: 2px solid var(--hv-accent); outline-offset: 3px; }
+
+@media (min-width: 768px) { .hv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .hv-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) {
+    :root { --hv-duration: 0ms; }
+    .hv-ui *, .hv-button, .hv-input { transition-duration: 0ms; animation: none; }
+}

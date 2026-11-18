@@ -1,0 +1,469 @@
+﻿hotel_id,hotel,hotel_room_type_id,room_type_id,room_type,base_price_vnd,managed_rooms,price_state,source_url,checked_on,reference_check_in,reference_check_out,source_room,source_conditions
+1,MEANDER Sai Gon,26,5,Superior Double,1800000.00,2,Giữ giá đã có,,,,,,
+1,MEANDER Sai Gon,27,4,Studio Double,1600000.00,2,Giữ giá đã có,,,,,,
+1,MEANDER Sai Gon,28,3,Phòng Studio giường đơn (Twin),1200000.00,3,Giữ giá đã có,,,,,,
+1,MEANDER Sai Gon,29,2,Phòng tập thể nam nữ,400000.00,2,Giữ giá đã có,,,,,,
+1,MEANDER Sai Gon,30,1,Phòng tập thể nam nữ,500000.00,5,Giữ giá đã có,,,,,,
+1,MEANDER Sai Gon,159,66,Deluxe Double,2597172.50,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIj_Sfnd3Un_YpGg0vZy8xMWZ3eGRqcThwEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQrb2Gi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Double Bed Private,Deluxe Double Bed Private1 double bed · Free cancellation until Nov 11
+1,MEANDER Sai Gon,160,67,MEANDER Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+1,MEANDER Sai Gon,161,68,Deluxe Triple,,3,Chưa có giá xác minh khớp hạng,,,,,,
+1,MEANDER Sai Gon,162,69,Quadruple Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+1,MEANDER Sai Gon,163,70,8 Beds Female Dorm,,3,Chưa có giá xác minh khớp hạng,,,,,,
+2,The Hanoi Signature Hotel,33,3,Family Room with Large Window,1200000.00,3,Giữ giá đã có,,,,,,
+2,The Hanoi Signature Hotel,34,2,Phòng Superior (Superior Room),800000.00,4,Giữ giá đã có,,,,,,
+2,The Hanoi Signature Hotel,35,1,superior double room with window,1201343.00,5,Giữ giá đã có,,,,,,
+2,The Hanoi Signature Hotel,164,71,Deluxe Double or Twin Room with Window,,3,Chưa có giá xác minh khớp hạng,,,,,,
+2,The Hanoi Signature Hotel,165,72,Premium Suite Large Balcony City View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+2,The Hanoi Signature Hotel,166,73,Royal Panorama Suite City View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+2,The Hanoi Signature Hotel,167,74,"Family Suite, 1 Double and 2 Single Beds, City View",,3,Chưa có giá xác minh khớp hạng,,,,,,
+2,The Hanoi Signature Hotel,168,75,"Royal Suite, 2 Double and 1 Single Bed",,3,Chưa có giá xác minh khớp hạng,,,,,,
+2,The Hanoi Signature Hotel,169,76,Premier Royal Suite City View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+3,La Siesta Classic Ma May,2,4,Phòng Junior Suite,2833333.00,2,Giữ giá đã có,,,,,,
+3,La Siesta Classic Ma May,3,3,Executive,2555556.00,3,Giữ giá đã có,,,,,,
+3,La Siesta Classic Ma May,4,2,Phòng Loại Sang (Deluxe Room),1961667.00,3,Giữ giá đã có,,,,,,
+3,La Siesta Classic Ma May,5,1,Phòng Superior không có cửa sổ (Superior Room without Window),1666667.00,2,Giữ giá đã có,,,,,,
+3,La Siesta Classic Ma May,170,77,Deluxe Triple,4928000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoIl5-655yu-b7EARoNL2cvMTFiNm1sM3ExNBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiQmOzWiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Triple Room,Deluxe Triple Room - Best Flexible with Breakfast1 queen bed · 3 guests · Free cancellation until Nov 10 · Suite
+3,La Siesta Classic Ma May,171,78,Club Junior Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+3,La Siesta Classic Ma May,172,79,La Siesta Suite,6048000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoIl5-655yu-b7EARoNL2cvMTFiNm1sM3ExNBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiQmOzWiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,La Siesta Suite,La Siesta Suite - Free Airport Transfer OR Spa CreditSuite · Free cancellation until Nov 10 · Balcony · Suite
+3,La Siesta Classic Ma May,173,80,Duplex Suite,5768000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoIl5-655yu-b7EARoNL2cvMTFiNm1sM3ExNBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiQmOzWiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Duplex Suite,Duplex Suite - Free Airport Transfer OR Spa Credit1 king bed · Free cancellation until Nov 10 · Suite
+3,La Siesta Classic Ma May,174,81,Family Suite,8960000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoIl5-655yu-b7EARoNL2cvMTFiNm1sM3ExNBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiQmOzWiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Family Suite,Family Suite - Free Airport Transfer OR Spa CreditSuite · 4 guests · Free cancellation until Nov 10 · Suite
+3,La Siesta Classic Ma May,175,82,Club Duplex Suite,9520000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoIl5-655yu-b7EARoNL2cvMTFiNm1sM3ExNBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiQmOzWiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Club Duplex Suite,Club Duplex Suite - Free Airport Transfer OR Spa Credit1 king bed · 4 guests · Free cancellation until Nov 10 · Suite
+4,Hanoian Central Hotel & Spa,37,4,Family Room,4796220.00,2,Giữ giá đã có,,,,,,
+4,Hanoian Central Hotel & Spa,39,2,Executive Suite,6050200.00,4,Giữ giá đã có,,,,,,
+4,Hanoian Central Hotel & Spa,40,1,Deluxe Double with Balcony Room,3802500.00,5,Giữ giá đã có,,,,,,
+4,Hanoian Central Hotel & Spa,176,83,Family Balcony Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+4,Hanoian Central Hotel & Spa,177,84,Deluxe Double or Twin Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+4,Hanoian Central Hotel & Spa,178,85,Superior Double Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+4,Hanoian Central Hotel & Spa,179,86,Hanoian Penthouse,4991737.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsI35-9-aWC_N-cARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAuMmGi-6XAxUAAAAAHQAAAAAQAw,2026-11-04,2026-11-15,2026-11-17,Penthouse,Penthouse3 guests · breakfast
+5,Hotel Majestic Saigon,43,3,CENTURY SUITE,5331400.00,3,Giữ giá đã có,,,,,,
+5,Hotel Majestic Saigon,44,2,CENTURY RIVER DELUXE DOUBLE,4850700.00,4,Giữ giá đã có,,,,,,
+5,Hotel Majestic Saigon,45,1,CENTURY CITY DELUXE TWIN,4107800.00,5,Giữ giá đã có,,,,,,
+5,Hotel Majestic Saigon,180,87,Century Deluxe,4457400.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9tfk5dPih6v_ARoNL2cvMTFoZDIxY2NscBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4xJeRi-6XAxUAAAAAHQAAAAAQAw,2026-11-04,2026-11-15,2026-11-17,CENTURY CITY DELUXE DOUBLE,CENTURY CITY DELUXE DOUBLE - MAJESTIC RATE-NON REFUNDABLE1 double bed · breakfast · Suite
+5,Hotel Majestic Saigon,181,88,Century Pool Deluxe,4719600.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9tfk5dPih6v_ARoNL2cvMTFoZDIxY2NscBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4xJeRi-6XAxUAAAAAHQAAAAAQAw,2026-11-04,2026-11-15,2026-11-17,CENTURY POOL DELUXE DOUBLE OR TWIN,CENTURY POOL DELUXE DOUBLE OR TWIN - MAJESTIC RATE-NON REFUNDABLE1 single bed · breakfast · Balcony
+5,Hotel Majestic Saigon,182,89,Century Majestic Suite,9963600.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9tfk5dPih6v_ARoNL2cvMTFoZDIxY2NscBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4xJeRi-6XAxUAAAAAHQAAAAAQAw,2026-11-04,2026-11-15,2026-11-17,CENTURY MAJESTIC SUITE,CENTURY MAJESTIC SUITE - MAJESTIC RATE-NON REFUNDABLESuite · breakfast · Suite
+5,Hotel Majestic Saigon,183,90,Century Presidential Suite,11274600.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9tfk5dPih6v_ARoNL2cvMTFoZDIxY2NscBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4xJeRi-6XAxUAAAAAHQAAAAAQAw,2026-11-04,2026-11-15,2026-11-17,CENTURY PRESIDENTIAL SUITE,CENTURY PRESIDENTIAL SUITE - MAJESTIC RATE-NON REFUNDABLESuite · breakfast · Suite
+6,La Siesta Premium Saigon Central,47,4,"Phòng Junior Suite có ban công, hướng phố (1 Giường King hoặc 2 Giường đơn)",4176000.00,2,Giữ giá đã có,,,,,,
+6,La Siesta Premium Saigon Central,48,3,Phòng Deluxe có cửa sổ (1 Giường King hoặc 2 Giường đơn),3132000.00,3,Giữ giá đã có,,,,,,
+6,La Siesta Premium Saigon Central,49,2,Phòng Superior Không Cửa Sổ (Giường Đôi/Hai Giường Đơn),2871000.00,4,Giữ giá đã có,,,,,,
+6,La Siesta Premium Saigon Central,50,1,Phòng Executive có cửa sổ (Giường King/2 Giường đơn),3654000.00,5,Giữ giá đã có,,,,,,
+6,La Siesta Premium Saigon Central,184,91,Deluxe Connecting Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+6,La Siesta Premium Saigon Central,185,92,Executive Triple Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+6,La Siesta Premium Saigon Central,186,93,Executive Connecting Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+6,La Siesta Premium Saigon Central,187,94,The Owner’s Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+7,La Siesta Premium Saigon,8,3,Phòng đôi cao cấp,4760000.00,3,Giữ giá đã có,,,,,,
+7,La Siesta Premium Saigon,9,2,Không có cửa sổ - Phòng Superior,3640000.00,4,Giữ giá đã có,,,,,,
+7,La Siesta Premium Saigon,10,1,Phòng Executive,7840000.00,5,Giữ giá đã có,,,,,,
+7,La Siesta Premium Saigon,188,95,Deluxe Connecting Room,12544000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI_LfFiYnIyerSARoNL2cvMTF0anB0ZDNqbRAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwig8cCbi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Connecting Room,Deluxe Connecting Room - Street view - Best Flexible with Breakfast includedSuite · 4 guests · Free cancellation until Nov 10 · Suite
+7,La Siesta Premium Saigon,189,96,Executive Connecting Room,13104000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI_LfFiYnIyerSARoNL2cvMTF0anB0ZDNqbRAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwig8cCbi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Executive Connecting Room,Executive Connecting Room - Street view - Free Airport Transfer OR Spa Credit4 guests · Free cancellation until Nov 10
+7,La Siesta Premium Saigon,190,97,Grand Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+7,La Siesta Premium Saigon,191,98,La Siesta Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+8,Hotel Grand Saigon,52,4,Phòng Grand Executive Giường King – Hướng Thành Phố hoặc Hướng Ban Công,2500000.00,2,Giữ giá đã có,,,,,,
+8,Hotel Grand Saigon,53,3,Phòng Senior Deluxe 2 Giường Đơn – Hướng Thành Phố hoặc Hướng Sông,4500000.00,3,Giữ giá đã có,,,,,,
+8,Hotel Grand Saigon,54,2,Phòng Senior Deluxe Giường King – Hướng Thành Phố hoặc Hướng Sông,4500000.00,4,Giữ giá đã có,,,,,,
+8,Hotel Grand Saigon,55,1,Phòng Premium Deluxe 2 Giường Đơn – Hướng Thành Phố,4095000.00,3,Giữ giá đã có,,,,,,
+8,Hotel Grand Saigon,192,99,Deluxe,,3,Chưa có giá xác minh khớp hạng,,,,,,
+8,Hotel Grand Saigon,193,100,Luxury Suite,5084000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI29ag_8jE78LoARoLL2cvMTIxMXI3dDAQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiYx8Gbi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Luxury Suite King City View or River View,Luxury Suite King City View or River View - SHARE AND GO SPECIAL OFFER1 king bed · Free cancellation until Nov 13 · breakfast · Suite
+8,Hotel Grand Saigon,194,101,Royal Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+8,Hotel Grand Saigon,195,102,Grand Executive Suite,5084000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI29ag_8jE78LoARoLL2cvMTIxMXI3dDAQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiYx8Gbi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Grand Executive Suite King City View or Balcony View,Grand Executive Suite King City View or Balcony View - SHARE AND GO SPECIAL OFFER1 king bed · Free cancellation until Nov 13 · breakfast · Balcony · Suite
+8,Hotel Grand Saigon,196,103,Grand Suite,9225000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI29ag_8jE78LoARoLL2cvMTIxMXI3dDAQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiYx8Gbi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Grand Suite City View or Balcony View,Grand Suite City View or Balcony View - PREFERRED VALUE OFFER1 king bed · 3 guests · Free cancellation until Nov 13 · breakfast · Balcony · Suite
+9,InterContinental Danang Sun Peninsula,56,5,Family,1800000.00,2,Giữ giá đã có,,,,,,
+9,InterContinental Danang Sun Peninsula,57,4,Suite,2500000.00,2,Giữ giá đã có,,,,,,
+9,InterContinental Danang Sun Peninsula,58,3,Deluxe,1200000.00,3,Giữ giá đã có,,,,,,
+9,InterContinental Danang Sun Peninsula,59,2,Superior,800000.00,4,Giữ giá đã có,,,,,,
+9,InterContinental Danang Sun Peninsula,60,1,Standard,500000.00,5,Giữ giá đã có,,,,,,
+9,InterContinental Danang Sun Peninsula,197,104,Resort Classic Room Oceanview,,3,Chưa có giá xác minh khớp hạng,,,,,,
+9,InterContinental Danang Sun Peninsula,198,105,Resort Classic Panoramic Room Oceanview,,3,Chưa có giá xác minh khớp hạng,,,,,,
+9,InterContinental Danang Sun Peninsula,199,106,Club Panoramic Room Oceanview,18514976.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIjdrqpr3Fou9aEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjIgcv3ie6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,2 twin club panoramic ocean view,2 twin club panoramic ocean view - Best flexible rate2 single beds · Free cancellation until Nov 8
+9,InterContinental Danang Sun Peninsula,200,107,Resort Terrace Suite Oceanview,12975062.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIjdrqpr3Fou9aEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjIgcv3ie6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 king terrace suite ocean view,Best Price Guarantee · Book Direct & SaveLower this price plus get free Wi-Fi with free enrollment Get rewards1 king terrace suite ocean view - Best flexible rate1 king bed · Free cancellation until Nov 8 · Suite
+9,InterContinental Danang Sun Peninsula,201,108,Club Terrace Suite Panoramic Oceanview,18806550.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIjdrqpr3Fou9aEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjIgcv3ie6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 king club suite panoramic ocean view,1 king club suite panoramic ocean view - Best flexible rate1 king bed · Free cancellation until Nov 8 · Suite
+9,InterContinental Danang Sun Peninsula,202,109,One-Bedroom Heavenly Penthouse,,3,Chưa có giá xác minh khớp hạng,,,,,,
+9,InterContinental Danang Sun Peninsula,203,110,One-Bedroom Seaside Villa by the Beach,,3,Chưa có giá xác minh khớp hạng,,,,,,
+9,InterContinental Danang Sun Peninsula,204,111,One-Bedroom Seaside Villa on the Rocks,41840932.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIjdrqpr3Fou9aEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjIgcv3ie6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 bedroom seaside villa on the rocks,1 bedroom seaside villa on the rocks - Best flexible rate Free cancellation until Nov 8
+9,InterContinental Danang Sun Peninsula,205,112,One-Bedroom Spa Lagoon Villa,27845358.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIjdrqpr3Fou9aEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjIgcv3ie6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 bedroom spa lagoon villa,1 bedroom spa lagoon villa - Best flexible rate Free cancellation until Nov 8
+9,InterContinental Danang Sun Peninsula,206,113,Two-Bedroom Seaside Villa on the Rocks,,3,Chưa có giá xác minh khớp hạng,,,,,,
+10,Pullman Danang Beach Resort,63,3,Deluxe Queen nhìn ra biển một phần,5248750.00,3,Giữ giá đã có,,,,,,
+10,Pullman Danang Beach Resort,64,2,"PHÒNG DELUXE, 2 giường đơn, Tầng cao",5006500.00,4,Giữ giá đã có,,,,,,
+10,Pullman Danang Beach Resort,65,1,"PHÒNG SUPERIOR, 2 giường đơn, ban công riêng",47238758.00,5,Giữ giá đã có,,,,,,
+10,Pullman Danang Beach Resort,207,114,Deluxe Ocean View,4241160.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI2Oyrirvcxr2hARoLL2cvMXRzM2MyeG4QAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI5ImCiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Queen Ocean View,Deluxe Queen Ocean View1 queen bed · Balcony · Suite
+10,Pullman Danang Beach Resort,208,115,Family Connecting Room,9157050.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI2Oyrirvcxr2hARoLL2cvMXRzM2MyeG4QAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI5ImCiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Family Connecting Room,Family Connecting Room1 queen bed · Suite
+10,Pullman Danang Beach Resort,209,116,Junior Suite,8385930.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI2Oyrirvcxr2hARoLL2cvMXRzM2MyeG4QAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI5ImCiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"JUNIOR SUITE, 1 King-Size Bed, Private Terrace","JUNIOR SUITE, 1 King-Size Bed, Private Terrace1 king bed · Suite"
+10,Pullman Danang Beach Resort,210,117,Junior Family Suite,9639000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI2Oyrirvcxr2hARoLL2cvMXRzM2MyeG4QAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI5ImCiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Junior Family Suite with 1 Kingsize bed and 1 Bunk bed, Private balcony","Junior Family Suite with 1 Kingsize bed and 1 Bunk bed, Private balcony1 king bed · Balcony · Suite"
+10,Pullman Danang Beach Resort,211,118,Family Suite,17984106.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI2Oyrirvcxr2hARoLL2cvMXRzM2MyeG4QAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI5ImCiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,FAMILY SUITE,Family SuiteSuite · 4 guests · Suite
+10,Pullman Danang Beach Resort,212,119,Penthouse Suite,14747670.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI2Oyrirvcxr2hARoLL2cvMXRzM2MyeG4QAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI5ImCiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"PENTHOUSE SUITE, 1 King-Size Bed, High Floor","PENTHOUSE SUITE, 1 King-Size Bed, High Floor1 king bed · Balcony · Suite"
+10,Pullman Danang Beach Resort,213,120,One-bedroom cottage,8675100.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI2Oyrirvcxr2hARoLL2cvMXRzM2MyeG4QAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI5ImCiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"COTTAGE, 1 Bedroom, 1 King-Size Bed, Private Garden","COTTAGE, 1 Bedroom, 1 King-Size Bed, Private Garden1 king bed"
+11,Brilliant Hotel Danang,11,5,Family,1800000.00,2,Giữ giá đã có,,,,,,
+11,Brilliant Hotel Danang,12,4,Suite,2500000.00,2,Giữ giá đã có,,,,,,
+11,Brilliant Hotel Danang,13,3,Deluxe,1200000.00,3,Giữ giá đã có,,,,,,
+11,Brilliant Hotel Danang,14,2,Superior,800000.00,4,Giữ giá đã có,,,,,,
+11,Brilliant Hotel Danang,15,1,Standard,500000.00,5,Giữ giá đã có,,,,,,
+11,Brilliant Hotel Danang,214,121,Superior Standard,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,215,122,Superior River View,1262580.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoIytHK-c_B0f22ARoNL2cvMTFjNTJ5Z3FzaxAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiYj4mmi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Superior River View Double Room,Superior River View Double Room1 double bed · Free cancellation until Nov 7 · breakfast
+11,Brilliant Hotel Danang,216,123,Superior Partial River View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,217,124,Deluxe City View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,218,125,Deluxe River View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,219,126,Junior Suite River View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,220,127,Grand Suite River View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,221,128,1-Bedroom Suite Apartment,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,222,129,2-Bedroom Suite Apartment,,3,Chưa có giá xác minh khớp hạng,,,,,,
+11,Brilliant Hotel Danang,223,130,2-Bedroom Presidential Apartment,,3,Chưa có giá xác minh khớp hạng,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,67,4,Superior Suite 1 King Bed with Balcony,3496764.00,2,Giữ giá đã có,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,70,1,Standard Room 2 Single Beds with Balcony,2616983.00,5,Giữ giá đã có,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,224,131,Deluxe King Garden View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,225,132,Deluxe Twin Garden View,3770806.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgOu-8YaKlb4dGg0vZy8xMW1zaG12YnJzEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwurqMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Twin Room with Garden View,Deluxe Twin Room with Garden View1 single bed · breakfast
+12,WorldHotels Long Beach Resort Phu Quoc,226,133,Deluxe King Private Garden,,3,Chưa có giá xác minh khớp hạng,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,227,134,Deluxe Twin Private Garden,5616000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgOu-8YaKlb4dGg0vZy8xMW1zaG12YnJzEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwurqMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Twin Room with Private Garden View,Deluxe Twin Room with Private Garden View1 single bed · breakfast
+12,WorldHotels Long Beach Resort Phu Quoc,228,135,Deluxe King Partial Seaview with Balcony,6084000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgOu-8YaKlb4dGg0vZy8xMW1zaG12YnJzEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwurqMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe King Partial Sea View With Balcony,Deluxe King Partial Sea View With Balcony1 king bed · breakfast · Balcony
+12,WorldHotels Long Beach Resort Phu Quoc,229,136,Deluxe Twin Partial Seaview with Balcony,,3,Chưa có giá xác minh khớp hạng,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,230,137,Deluxe Triple Garden View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,231,138,Deluxe Triple Mountain View with Balcony,,3,Chưa có giá xác minh khớp hạng,,,,,,
+12,WorldHotels Long Beach Resort Phu Quoc,232,139,Premium King Sea View,7488000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgOu-8YaKlb4dGg0vZy8xMW1zaG12YnJzEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwurqMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premium King Sea View,Premium King Sea View1 king bed · breakfast
+12,WorldHotels Long Beach Resort Phu Quoc,233,140,Premium Twin Sea View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,71,5,Family,1800000.00,2,Giữ giá đã có,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,72,4,Suite,2500000.00,2,Giữ giá đã có,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,73,3,Deluxe,1200000.00,3,Giữ giá đã có,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,74,2,Superior,800000.00,4,Giữ giá đã có,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,75,1,Standard,500000.00,5,Giữ giá đã có,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,234,141,Deluxe Twin,,3,Chưa có giá xác minh khớp hạng,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,235,142,Deluxe King,5780000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgJTj3Pz2p7IaGg0vZy8xMWM0YmxiXzkzEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjI7Y6mi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Garden View King Bed,24/7 Customer Service · Earn rewards for bookingDeluxe Garden View King Bed1 king bed · breakfast
+13,Vinpearl Resort & Spa Phú Quốc,236,143,Junior Suite King,,3,Chưa có giá xác minh khớp hạng,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,237,144,Deluxe King Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,238,145,Deluxe Twin Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,387,294,Villa 3-Bedroom,,3,Chưa có giá xác minh khớp hạng,,,,,,
+13,Vinpearl Resort & Spa Phú Quốc,388,295,Villa 3-Bedroom Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+14,Brilliant Bay Nha Trang Hotel,78,3,PHÒNG BA PHÒNG NGỦ CAO CẤP BANCONY VỚI TẦM NHÌN RA THÀNH PHỐ,610062.00,5,Giữ giá đã có,,,,,,
+14,Brilliant Bay Nha Trang Hotel,239,146,Suite Room Sea View (Double/Twin),,3,Chưa có giá xác minh khớp hạng,,,,,,
+14,Brilliant Bay Nha Trang Hotel,240,147,Family Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+14,Brilliant Bay Nha Trang Hotel,241,148,Superior Room (Window/No Window – Twin/Double),,3,Chưa có giá xác minh khớp hạng,,,,,,
+14,Brilliant Bay Nha Trang Hotel,242,149,Deluxe Room (Triple/Double – Window/Balcony),,3,Chưa có giá xác minh khớp hạng,,,,,,
+14,Brilliant Bay Nha Trang Hotel,243,150,Senior Room with Balcony (Double/Twin),,3,Chưa có giá xác minh khớp hạng,,,,,,
+15,Sunrise Nha Trang Beach Hotel,16,5,Family,1800000.00,2,Giữ giá đã có,,,,,,
+15,Sunrise Nha Trang Beach Hotel,17,4,Suite,2500000.00,2,Giữ giá đã có,,,,,,
+15,Sunrise Nha Trang Beach Hotel,18,3,Deluxe,1200000.00,3,Giữ giá đã có,,,,,,
+15,Sunrise Nha Trang Beach Hotel,19,2,Superior,800000.00,4,Giữ giá đã có,,,,,,
+15,Sunrise Nha Trang Beach Hotel,20,1,Standard,500000.00,5,Giữ giá đã có,,,,,,
+15,Sunrise Nha Trang Beach Hotel,244,151,Deluxe Ocean View,3300303.50,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI76b76oSs8ukMGgwvZy8xMmhfNG1mbGoQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjYyuSFjO6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,DELUXE OCEAN KING WITH BALCONY,DELUXE OCEAN KING WITH BALCONY - BEST FLEXIBLE RATE1 king bed · Free cancellation until Nov 13 · breakfast · Balcony
+15,Sunrise Nha Trang Beach Hotel,245,152,Grand Deluxe Ocean,3591040.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI76b76oSs8ukMGgwvZy8xMmhfNG1mbGoQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjYyuSFjO6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,GRAND DELUXE OCEAN KING WITH BALCONY,GRAND DELUXE OCEAN KING WITH BALCONY - BEST FLEXIBLE RATE1 king bed · Free cancellation until Nov 13 · breakfast · Balcony
+15,Sunrise Nha Trang Beach Hotel,246,153,Premium Deluxe Ocean View,4399243.50,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI76b76oSs8ukMGgwvZy8xMmhfNG1mbGoQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjYyuSFjO6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,PREMIUM DELUXE OCEAN KING | INDOOR JACUZZI,PREMIUM DELUXE OCEAN KING | INDOOR JACUZZI - BEST FLEXIBLE RATE1 king bed · Free cancellation until Nov 13 · breakfast
+15,Sunrise Nha Trang Beach Hotel,247,154,Junior Suite Ocean View,5022010.50,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI76b76oSs8ukMGgwvZy8xMmhfNG1mbGoQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjYyuSFjO6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,JUNIOR SUITE OCEAN CORNER|DUAL BALCONIES| JACUZZIS,JUNIOR SUITE OCEAN CORNER|DUAL BALCONIES| JACUZZIS - BEST FLEXIBLE RATESuite · Free cancellation until Nov 13 · breakfast · Balcony · Suite
+15,Sunrise Nha Trang Beach Hotel,248,155,Executive Suite Ocean View,6791205.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI76b76oSs8ukMGgwvZy8xMmhfNG1mbGoQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjYyuSFjO6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,EXECUTIVE SUITE OCEAN TWIN|PANORAMIC VIEW|JACUZZIS,EXECUTIVE SUITE OCEAN TWIN|PANORAMIC VIEW|JACUZZIS - BEST FLEXIBLE RATE1 single bed · Free cancellation until Nov 13 · breakfast · Suite
+16,Four Seasons Resort The Nam Hai,83,3,Ocean View One Bedroom Villa (OCEAN VIEW ONE BEDROOM VILLA),33402382.00,3,Giữ giá đã có,,,,,,
+16,Four Seasons Resort The Nam Hai,84,2,Ocean View One Bedroom Villa (OCEAN VIEW ONE BEDROOM VILLA),32780942.00,4,Giữ giá đã có,,,,,,
+16,Four Seasons Resort The Nam Hai,85,1,Biệt Thự 1 Phòng Ngủ Hướng Vườn (Garden View One Bedroom Villa),23951321.00,5,Giữ giá đã có,,,,,,
+16,Four Seasons Resort The Nam Hai,249,156,Beachfront One-Bedroom Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+16,Four Seasons Resort The Nam Hai,250,157,Family Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+16,Four Seasons Resort The Nam Hai,251,158,Ocean-View One-Bedroom Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+16,Four Seasons Resort The Nam Hai,252,159,Garden-View One-Bedroom Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+16,Four Seasons Resort The Nam Hai,253,160,Ocean-View Two-Bedroom Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+16,Four Seasons Resort The Nam Hai,254,161,Garden-View Two-Bedroom Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+16,Four Seasons Resort The Nam Hai,255,162,Garden-View Three-Bedroom Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+16,Four Seasons Resort The Nam Hai,256,163,Ocean-View Three-Bedroom Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+17,Anantara Hoi An Resort,87,4,Anantara Garden View Suite,19146035.00,2,Giữ giá đã có,,,,,,
+17,Anantara Hoi An Resort,88,3,Premium River Suite,11280637.00,3,Giữ giá đã có,,,,,,
+17,Anantara Hoi An Resort,89,2,Deluxe Garden View Suite,800000.00,4,Giữ giá đã có,,,,,,
+17,Anantara Hoi An Resort,90,1,Phòng Deluxe có Ban Công,6157779.00,5,Giữ giá đã có,,,,,,
+17,Anantara Hoi An Resort,257,164,Thu Bon River Suite,16441302.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsIi4ivwv7T5OCaARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjo19Wwi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Thu Bon River Suite,Thu Bon River SuiteSuite · Free cancellation until Nov 12 · breakfast · Suite
+17,Anantara Hoi An Resort,258,165,Anantara Two Bedroom River Suite,30655682.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsIi4ivwv7T5OCaARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjo19Wwi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Anantara Two Bedroom River Suite,Anantara Two Bedroom River SuiteSuite · Free cancellation until Nov 12 · breakfast · Suite
+18,Dalat Palace Heritage Hotel,91,5,Family,1800000.00,2,Giữ giá đã có,,,,,,
+18,Dalat Palace Heritage Hotel,92,4,Suite,2500000.00,2,Giữ giá đã có,,,,,,
+18,Dalat Palace Heritage Hotel,93,3,"4,137,116",5410075.00,3,Giữ giá đã có,,,,,,
+18,Dalat Palace Heritage Hotel,94,2,Superior,3182397.00,4,Giữ giá đã có,,,,,,
+18,Dalat Palace Heritage Hotel,95,1,Luxury,4137116.00,5,Giữ giá đã có,,,,,,
+18,Dalat Palace Heritage Hotel,259,166,Luxury with Balcony,,3,Chưa có giá xác minh khớp hạng,,,,,,
+18,Dalat Palace Heritage Hotel,260,167,Presidential Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+18,Dalat Palace Heritage Hotel,261,168,Royal Executive Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+18,Dalat Palace Heritage Hotel,262,169,Royal Superior,3100916.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChcIj8qpyO-xype9ARoKL20vMDNnX3lxdxAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjA8N-wi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Royal Superior Room,Royal Superior Roombreakfast
+18,Dalat Palace Heritage Hotel,263,170,Royal Luxury,3979508.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChcIj8qpyO-xype9ARoKL20vMDNnX3lxdxAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjA8N-wi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Royal Luxury Lake or City View Room,Royal Luxury Lake or City View Room - High Tea Inclusivebreakfast
+18,Dalat Palace Heritage Hotel,264,171,Royal Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+19,Khách sạn Le Récit Boutique Đà Lạt (Le Recit Boutique Hotel de Dalat),98,3,Phòng Deluxe 2 Giường Đơn (Deluxe Twin) (Deluxe Twin),735161.00,3,Giữ giá đã có,,,,,,
+19,Khách sạn Le Récit Boutique Đà Lạt (Le Recit Boutique Hotel de Dalat),99,2,Suite Deluxe (Deluxe Suite),1415962.00,1,Giữ giá đã có,,,,,,
+19,Khách sạn Le Récit Boutique Đà Lạt (Le Recit Boutique Hotel de Dalat),100,1,Deluxe giường đôi (Deluxe Double),858159.00,1,Giữ giá đã có,,,,,,
+19,Khách sạn Le Récit Boutique Đà Lạt (Le Recit Boutique Hotel de Dalat),265,172,Two-Bedroom Chalet,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,103,3,"PHÒNG SUPERIOR HƯỚNG VƯỜN, GIƯỜNG ĐÔI",4353578.00,4,Giữ giá đã có,,,,,,
+20,Azerai La Residence Hue,104,2,Phòng Superior 2 Giường Đơn (Superior Twin) (Superior Twin),2779668.00,4,Giữ giá đã có,,,,,,
+20,Azerai La Residence Hue,105,1,Superior giường Queen (Superior Queen),2458892.00,5,Giữ giá đã có,,,,,,
+20,Azerai La Residence Hue,266,173,Superior River View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,267,174,Deluxe Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,268,175,Deluxe Garden View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,269,176,Deluxe River View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,270,177,Deluxe Colonial,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,271,178,Colonial Junior Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,272,179,Le Jardin Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+20,Azerai La Residence Hue,273,180,Resident Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+21,Pilgrimage Village Boutique Resort,24,2,Superior Plus Twin,2263761.00,4,Giữ giá đã có,,,,,,
+21,Pilgrimage Village Boutique Resort,25,1,Superior Double Room,2266661.00,5,Giữ giá đã có,,,,,,
+21,Pilgrimage Village Boutique Resort,274,181,Family Superior,4721502.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIwvPp2uyv2vInGg0vZy8xMWMweGQ3N2YxEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiohLu7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Family Superior,Family Superior - Last Minute Offer - Family Package1 king bed · 4 guests · Free cancellation until Nov 13 · Suite
+21,Pilgrimage Village Boutique Resort,275,182,Family Superior Plus,,3,Chưa có giá xác minh khớp hạng,,,,,,
+21,Pilgrimage Village Boutique Resort,276,183,Family Deluxe,,3,Chưa có giá xác minh khớp hạng,,,,,,
+21,Pilgrimage Village Boutique Resort,277,184,Family Villa,6321594.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIwvPp2uyv2vInGg0vZy8xMWMweGQ3N2YxEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiohLu7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Family Villa,Family Villa - Last Minute Offer - Family Package1 king bed · 4 guests · Free cancellation until Nov 13
+21,Pilgrimage Village Boutique Resort,278,185,Tropical Villa,6301901.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIwvPp2uyv2vInGg0vZy8xMWMweGQ3N2YxEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiohLu7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Tropical Villa,Tropical Villa - Last Minute Offer - Free Benefit & Spa Free cancellation until Nov 13
+21,Pilgrimage Village Boutique Resort,279,186,Pool Access Villa,6597302.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIwvPp2uyv2vInGg0vZy8xMWMweGQ3N2YxEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiohLu7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Pool Access Villa Double – Adults Only,Pool Access Villa Double – Adults Only - Last Minute Offer - Free Benefit & Spa Free cancellation until Nov 13
+21,Pilgrimage Village Boutique Resort,280,187,Plunge Pool Villa,7178259.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIwvPp2uyv2vInGg0vZy8xMWMweGQ3N2YxEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiohLu7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Plunge Pool Villa,Plunge Pool Villa - Last Minute Offer - Free Benefit & Spa Free cancellation until Nov 13
+43,The Pearl Hoi An,106,13,Phòng Superior 2 Giường Đơn (Superior Twin) (Superior Twin),1829313.00,5,Giữ giá đã có,,,,,,
+43,The Pearl Hoi An,107,14,Phòng Superior Giường King (Superior King) (Superior King),1829313.00,2,Giữ giá đã có,,,,,,
+43,The Pearl Hoi An,108,15,Phòng Deluxe Giường King (Deluxe King) (Deluxe King),2048830.00,3,Giữ giá đã có,,,,,,
+43,The Pearl Hoi An,281,188,Superior Twin/King Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+43,The Pearl Hoi An,282,189,Deluxe King/Twin Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+43,The Pearl Hoi An,283,190,Premier Ocean View,2948897.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsIi4TK4K-j4KedARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4x_TFi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premier Room Ocean View,Premier Room Ocean ViewSuite · breakfast · Suite
+43,The Pearl Hoi An,284,191,Three-Bedroom Premier Suite,9629053.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsIi4TK4K-j4KedARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4x_TFi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Three Bedroom Premier Suites,Three Bedroom Premier SuitesSuite · 6 guests · breakfast · Suite
+43,The Pearl Hoi An,285,192,Three-Bedroom Executive Suite,8826632.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsIi4TK4K-j4KedARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4x_TFi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Three Bedroom Executive Suites,Three Bedroom Executive SuitesSuite · 6 guests · Free cancellation until Nov 9 · breakfast · Balcony · Suite
+43,The Pearl Hoi An,286,193,Three-Bedroom Deluxe Suite,7877768.50,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsIi4TK4K-j4KedARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4x_TFi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Three Bedroom Deluxe Suites,Three Bedroom Deluxe SuitesSuite · 6 guests · Free cancellation until Nov 9 · breakfast · Suite
+43,The Pearl Hoi An,287,194,One-Bedroom Deluxe,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",109,16,King Accessible Room,1700000.00,2,Giữ giá đã có,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",110,17,Phòng 2 Giường đơn (Twin Guest Room),1700000.00,2,Giữ giá đã có,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",288,195,King Guest Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",289,196,King Deluxe Room Pool Access,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",290,197,King Premium Suite with Riverside View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",291,198,Deluxe King Room with Balcony,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",292,199,Premium King Room - River Side View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",293,200,King Guest Room with Balcony,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",294,201,Premium Corner King Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+44,"NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",295,202,King Room with Riverside View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+45,Vinpearl Resort & Golf Nam Hoi An,111,18,Phòng Deluxe Giường King (Deluxe King) (Deluxe King),2298406.00,5,Giữ giá đã có,,,,,,
+45,Vinpearl Resort & Golf Nam Hoi An,112,19,Phòng Deluxe 2 Giường Đơn (Deluxe Twin) (Deluxe Twin),2298406.00,3,Giữ giá đã có,,,,,,
+45,Vinpearl Resort & Golf Nam Hoi An,296,203,Deluxe King Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+45,Vinpearl Resort & Golf Nam Hoi An,297,204,Deluxe Twin Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+45,Vinpearl Resort & Golf Nam Hoi An,389,296,Executive Suite King,,3,Chưa có giá xác minh khớp hạng,,,,,,
+45,Vinpearl Resort & Golf Nam Hoi An,390,297,2-Bedroom Garden View Villa,7940000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoI8e7c8Nek641sEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiosYvGi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Villa 2 Bedroom,Villa 2 Bedroom - VinWonders Park Access (1 time)4 guests · Free cancellation until Nov 11 · breakfast
+45,Vinpearl Resort & Golf Nam Hoi An,391,298,3-Bedroom Garden View Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+45,Vinpearl Resort & Golf Nam Hoi An,392,299,3-Bedroom Ocean View Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+46,Pan Pacific Hanoi,113,20,Deluxe Room,2500000.00,1,Giữ giá đã có,,,,,,
+46,Pan Pacific Hanoi,114,21,Deluxe Lakeview Room,2900000.00,1,Giữ giá đã có,,,,,,
+46,Pan Pacific Hanoi,115,22,Premier Lakeview Room,3400000.00,1,Giữ giá đã có,,,,,,
+46,Pan Pacific Hanoi,298,205,Pacific Club Room,6045998.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChcIhfaV6KbFiP8mGgsvZy8xdHRwX2w1YxAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwjsTQi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Pacific Club Room,Pacific Club Roombreakfast
+46,Pan Pacific Hanoi,299,206,Pacific Club Lakeview Room,6997786.50,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChcIhfaV6KbFiP8mGgsvZy8xdHRwX2w1YxAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwjsTQi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Pacific Club Lakeview King,Pacific Club Lakeview King1 king bed · Free cancellation until Nov 14
+46,Pan Pacific Hanoi,300,207,Studio Suite,7289361.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChcIhfaV6KbFiP8mGgsvZy8xdHRwX2w1YxAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwjsTQi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Studio Suite,Studio SuiteSuite · Free cancellation until Nov 14 · Suite
+46,Pan Pacific Hanoi,301,208,Studio Balcony Suite,7580935.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChcIhfaV6KbFiP8mGgsvZy8xdHRwX2w1YxAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwjsTQi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Studio Balcony Suite,Studio Balcony SuiteSuite · Free cancellation until Nov 14 · Balcony · Suite
+46,Pan Pacific Hanoi,302,209,Premier Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+46,Pan Pacific Hanoi,303,210,Executive Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+46,Pan Pacific Hanoi,304,211,Pan Pacific Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+47,Silk Path Hotel Hanoi,116,23,Deluxe,1450000.00,2,Giữ giá đã có,,,,,,
+47,Silk Path Hotel Hanoi,117,24,Premium Deluxe,1750000.00,1,Giữ giá đã có,,,,,,
+47,Silk Path Hotel Hanoi,118,25,Triple,2150000.00,1,Giữ giá đã có,,,,,,
+47,Silk Path Hotel Hanoi,305,212,Executive,2494295.50,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgK6D6LLZ3r0iGg0vZy8xMWNqaGhfd2o2EAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiYw8rQi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Executive,Executive Free cancellation until Nov 8
+47,Silk Path Hotel Hanoi,306,213,Premium Executive,3950000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgK6D6LLZ3r0iGg0vZy8xMWNqaGhfd2o2EAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiYw8rQi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premium Executive,Premium Executive - City View - Minimum Stay - Without Breakfast - Complimentary 01 egg coffee per guest per stay Free cancellation until Nov 12
+47,Silk Path Hotel Hanoi,307,214,Presidential Suite,36450000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIgK6D6LLZ3r0iGg0vZy8xMWNqaGhfd2o2EAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiYw8rQi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Presidential Suite,Presidential Suite - City View - Minimum Stay - Without Breakfast - Complimentary 01 egg coffee per guest per staySuite · 3 guests · Free cancellation until Nov 12 · Suite
+48,Ana Mandara Villas Dalat Resort & Spa,119,26,Le Petit,1900000.00,1,Giữ giá đã có,,,,,,
+48,Ana Mandara Villas Dalat Resort & Spa,120,27,Villa Room,2400000.00,1,Giữ giá đã có,,,,,,
+48,Ana Mandara Villas Dalat Resort & Spa,121,28,Villa Studio,3200000.00,1,Giữ giá đã có,,,,,,
+48,Ana Mandara Villas Dalat Resort & Spa,308,215,Villa Suite,3664000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChYIt-6W4NfApMxrGgovbS8wN2ZrbHBnEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQqJDbi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,VILLA SUITE,VILLA SUITE - NON REFUNDABLE1 king bed · Suite
+48,Ana Mandara Villas Dalat Resort & Spa,309,216,Grande Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+48,Ana Mandara Villas Dalat Resort & Spa,310,217,Bellevue Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+48,Ana Mandara Villas Dalat Resort & Spa,311,218,Ana Mandara Suite,6984000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChYIt-6W4NfApMxrGgovbS8wN2ZrbHBnEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQqJDbi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,ANA MANDARA SUITE,ANA MANDARA SUITE - NON REFUNDABLE1 king bed · Suite
+49,Terracotta Hotel & Resort Dalat,122,29,Standard Room,1150000.00,2,Giữ giá đã có,,,,,,
+49,Terracotta Hotel & Resort Dalat,123,30,Superior Room,1450000.00,1,Giữ giá đã có,,,,,,
+49,Terracotta Hotel & Resort Dalat,124,31,Deluxe Room,1850000.00,1,Giữ giá đã có,,,,,,
+49,Terracotta Hotel & Resort Dalat,312,219,Villa 05 phòng ngủ hướng hồ,27633000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIt_vBm83wiZC6ARoML2cvMXB6cl9rOTBwEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwmp_bi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Five-Bedroom Villa,Five-Bedroom VillaSuite · 10 guests · Free cancellation until Nov 11 · breakfast · Suite
+49,Terracotta Hotel & Resort Dalat,313,220,Villa 04 phòng ngủ hướng hồ,23027500.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIt_vBm83wiZC6ARoML2cvMXB6cl9rOTBwEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwmp_bi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Four-Bedroom Villa,Four-Bedroom Villa8 guests · Free cancellation until Nov 11 · breakfast · Balcony
+49,Terracotta Hotel & Resort Dalat,314,221,Villa 03 phòng ngủ hướng hồ,16119250.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkIt_vBm83wiZC6ARoML2cvMXB6cl9rOTBwEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwmp_bi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Three-Bedroom Villa,Three-Bedroom Villa6 guests · Free cancellation until Nov 11 · breakfast · Balcony
+49,Terracotta Hotel & Resort Dalat,315,222,Phòng Premium Villa - Hướng Hồ,,3,Chưa có giá xác minh khớp hạng,,,,,,
+49,Terracotta Hotel & Resort Dalat,316,223,Phòng Classic Hướng Hồ,,3,Chưa có giá xác minh khớp hạng,,,,,,
+50,Swiss-Belresort Tuyen Lam Dalat,125,32,Deluxe Mountain View,1150000.00,1,Giữ giá đã có,,,,,,
+50,Swiss-Belresort Tuyen Lam Dalat,126,33,Deluxe Golf View,1250000.00,1,Giữ giá đã có,,,,,,
+50,Swiss-Belresort Tuyen Lam Dalat,127,34,Studio Mountain View,1950000.00,1,Giữ giá đã có,,,,,,
+50,Swiss-Belresort Tuyen Lam Dalat,317,224,Family Deluxe Mountain View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+50,Swiss-Belresort Tuyen Lam Dalat,318,225,King Suite Mountain View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+50,Swiss-Belresort Tuyen Lam Dalat,319,226,Royal Suite Mountain View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+51,Hyatt Regency Danang Resort and Spa,128,35,1 King Bed,2800000.00,2,Giữ giá đã có,,,,,,
+51,Hyatt Regency Danang Resort and Spa,129,36,2 Twin Beds,2800000.00,1,Giữ giá đã có,,,,,,
+51,Hyatt Regency Danang Resort and Spa,130,37,1 King Bed Ocean View,3500000.00,1,Giữ giá đã có,,,,,,
+51,Hyatt Regency Danang Resort and Spa,320,227,2 Twin Beds Ocean View,4796820.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgIwMTN28K5zdquARoLL2cvMXRwMGI0ajIQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwnbesiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,2 TWIN BEDS OCEAN VIEW,2 TWIN BEDS OCEAN VIEW2 single beds
+51,Hyatt Regency Danang Resort and Spa,321,228,2 Twin Beds with Garden,,3,Chưa có giá xác minh khớp hạng,,,,,,
+51,Hyatt Regency Danang Resort and Spa,322,229,1 Bedroom Residence,5919480.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgIwMTN28K5zdquARoLL2cvMXRwMGI0ajIQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwnbesiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 BEDROOM RESIDENCE,1 BEDROOM RESIDENCE3 guests
+51,Hyatt Regency Danang Resort and Spa,323,230,1 Bedroom Ocean View Residence,6531840.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgIwMTN28K5zdquARoLL2cvMXRwMGI0ajIQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwnbesiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 BEDROOM OCEAN VIEW RESIDENCE,1 BEDROOM OCEAN VIEW RESIDENCE3 guests
+51,Hyatt Regency Danang Resort and Spa,324,231,Regency Ocean View Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+51,Hyatt Regency Danang Resort and Spa,325,232,Regency Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+51,Hyatt Regency Danang Resort and Spa,326,233,2 Bedroom Residence,8368920.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgIwMTN28K5zdquARoLL2cvMXRwMGI0ajIQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjwnbesiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,2 BEDROOM RESIDENCE,2 BEDROOM RESIDENCE4 guests
+52,Novotel Danang Premier Han River,131,38,"Superior Room, City View - 2 Single Beds",1700000.00,1,Giữ giá đã có,,,,,,
+52,Novotel Danang Premier Han River,132,39,"Superior Room, Balcony, Han River View/Bay View - 1 King Bed",2100000.00,1,Giữ giá đã có,,,,,,
+52,Novotel Danang Premier Han River,133,40,"Deluxe Room, Balcony, Dragon Bridge View - 1 King Bed",2600000.00,1,Giữ giá đã có,,,,,,
+52,Novotel Danang Premier Han River,327,234,"Deluxe Room, City View - 2 Single Beds",2024190.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkItfCgx-LT75bVARoML2cvMTF4Y3h4XzRoEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAy4y3iu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Deluxe Room, city view","Deluxe Room, city view - 2 single beds2 single beds"
+52,Novotel Danang Premier Han River,328,235,"Superior Room, Balcony, Han River View/Bay View - 2 Single Beds",1783215.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkItfCgx-LT75bVARoML2cvMTF4Y3h4XzRoEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAy4y3iu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Superior Room, Balcony, Han River View/ Bay View","Superior Room, Balcony, Han River View/ Bay View - 2 Single Beds2 single beds · Balcony"
+52,Novotel Danang Premier Han River,329,236,"Deluxe Room, Balcony, Dragon Bridge View - 2 Single Beds",1975995.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkItfCgx-LT75bVARoML2cvMTF4Y3h4XzRoEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAy4y3iu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Deluxe Room, Balcony, Dragon Bridge View","Deluxe Room, Balcony, Dragon Bridge View - 2 Single Beds2 single beds · Balcony"
+52,Novotel Danang Premier Han River,330,237,"Novotel Suite, Balcony, Han River View",,3,Chưa có giá xác minh khớp hạng,,,,,,
+52,Novotel Danang Premier Han River,331,238,"Corner Suite, Panoramic Han River View",4366467.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkItfCgx-LT75bVARoML2cvMTF4Y3h4XzRoEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAy4y3iu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Corner Suite, panoramic Han River view, bathtub, Premier Lounge Access","Corner Suite, panoramic Han River view, bathtub, Premier Lounge Access - 1 king bed, 57m21 king bed · breakfast · Balcony · Suite"
+52,Novotel Danang Premier Han River,332,239,"Studio Apartment, Balcony, Han River View",1879605.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChkItfCgx-LT75bVARoML2cvMTF4Y3h4XzRoEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAy4y3iu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Studio apartment, balcony, Han River views , fully equipped kitchens","Studio apartment, balcony, Han River views , fully equipped kitchens - 1 king bed1 king bed · Balcony"
+52,Novotel Danang Premier Han River,333,240,"1 Bedroom Apartment, Balcony",,3,Chưa có giá xác minh khớp hạng,,,,,,
+53,Silk Path Grand Hue Hotel & Spa,134,41,Classic,1700000.00,2,Giữ giá đã có,,,,,,
+53,Silk Path Grand Hue Hotel & Spa,135,42,Premium Classic,2100000.00,1,Giữ giá đã có,,,,,,
+53,Silk Path Grand Hue Hotel & Spa,136,43,Triple Classic,2600000.00,1,Giữ giá đã có,,,,,,
+53,Silk Path Grand Hue Hotel & Spa,334,241,Deluxe,1700548.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIqaGe2e-1p6EGEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQ_vzli-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Double or Twin Room,Deluxe Double or Twin Room2 single beds
+53,Silk Path Grand Hue Hotel & Spa,335,242,Family Connecting Room,4488000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIqaGe2e-1p6EGEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQ_vzli-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Family Connecting Room,Family Connecting Room - Silk Path Flash Escape – Room Only1 double bed · 3 guests · Free cancellation until Nov 8
+53,Silk Path Grand Hue Hotel & Spa,336,243,Junior Suite,4584000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIqaGe2e-1p6EGEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQ_vzli-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Junior Suite,Junior Suite - Silk Path Flash Escape – Room OnlySuite · Free cancellation until Nov 8 · Suite
+53,Silk Path Grand Hue Hotel & Spa,337,244,Executive Suite,5592000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIqaGe2e-1p6EGEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQ_vzli-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Executive Suite,Executive Suite - Silk Path Flash Escape – Room OnlySuite · Free cancellation until Nov 8 · Suite
+53,Silk Path Grand Hue Hotel & Spa,338,245,Presidential Suite,89292000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgoIqaGe2e-1p6EGEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjQ_vzli-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Presidential Suite,Presidential Suite - Free Traditional CostumeSuite · 4 guests · Free cancellation until Nov 11 · Suite
+54,Meliá Vinpearl Hue,137,44,Deluxe Room,1600000.00,1,Giữ giá đã có,,,,,,
+54,Meliá Vinpearl Hue,138,45,Premium Room,2100000.00,1,Giữ giá đã có,,,,,,
+54,Meliá Vinpearl Hue,139,46,Suite,3200000.00,1,Giữ giá đã có,,,,,,
+54,Meliá Vinpearl Hue,339,246,Premium Room With View,2732567.00,3,Vừa điền từ nguồn,https://www.expedia.com.vn/Hue-Khach-San-Melia-Vinpearl-Hue.h29267758.Thong-tin-khach-san?startDate=2026-11-15&endDate=2026-11-17&d1=2026-11-15&d2=2026-11-17&adults=2&rooms=1,2026-10-31,2026-11-15,2026-11-17,Premium Room With View,"Premium Room With View
+Phòng
+6
+Premium Room With View
+10,0
+10,0 trên 10
+Ngoại hạng
+16 nhận xét
+(16 nhận xét)
+Quang cảnh thành phố
+47 mét vuông
+1 phòng ngủ
+2 khách
+1 giường cỡ king HOẶC 2 giường đơn
+Đặt ngay, thanh toán sau
+Bữa sáng buffet
+Giảm 20% phí spa
+VND 150000 dùng thanh toán thức ăn và đồ uống (nước giải khát có ga) mỗi ngày
+Wifi miễn phí
+Hoàn tiền toàn bộ
+Trước T5, 12/11
+Xem thêm chi tiết
+Chi tiết khác của
+Còn 2 phòng
+Giá hiện tại là 2.409.670 ₫
+2.409.670 ₫
+Tổng 5.465.134 ₫
+bao gồm thuế & phí
+"
+54,Meliá Vinpearl Hue,340,247,"Suite, 2 Bedrooms",7314592.00,3,Vừa điền từ nguồn,https://www.expedia.com.vn/Hue-Khach-San-Melia-Vinpearl-Hue.h29267758.Thong-tin-khach-san?startDate=2026-11-15&endDate=2026-11-17&d1=2026-11-15&d2=2026-11-17&adults=2&rooms=1,2026-10-31,2026-11-15,2026-11-17,"Phòng Suite, 2 phòng ngủ","Phòng Suite, 2 phòng ngủ
+Quang cảnh thành phố
+6
+Phòng Suite, 2 phòng ngủ
+Quang cảnh thành phố
+117 mét vuông
+2 phòng ngủ
+4 khách
+1 giường cỡ king và 2 giường đơn
+Đặt ngay, thanh toán sau
+Giảm 20% phí spa
+VND 150000 dùng thanh toán thức ăn và đồ uống (nước giải khát có ga) mỗi ngày
+Wifi miễn phí
+Hoàn tiền toàn bộ
+Trước T5, 12/11
+Xem thêm chi tiết
+Chi tiết khác của
+Bổ sung
+Không thêm
++ 0 ₫
+Bữa sáng buffet
++ 346.320 ₫
+Chỉ còn 1 phòng
+Giá hiện tại là 6.450.257 ₫
+6.450.257 ₫
+Tổng 14.629.184 ₫
+bao gồm thuế & phí
+"
+54,Meliá Vinpearl Hue,341,248,Presidential Suite,46672388.00,3,Vừa điền từ nguồn,https://www.expedia.com.vn/Hue-Khach-San-Melia-Vinpearl-Hue.h29267758.Thong-tin-khach-san?startDate=2026-11-15&endDate=2026-11-17&d1=2026-11-15&d2=2026-11-17&adults=2&rooms=1,2026-10-31,2026-11-15,2026-11-17,Phòng Suite Presidential,"Phòng Suite Presidential
+Quang cảnh thành phố
+6
+Phòng Suite Presidential
+Quang cảnh thành phố
+247 mét vuông
+2 phòng ngủ
+4 khách
+1 giường cỡ king và 2 giường đơn
+Đặt ngay, thanh toán sau
+Bữa sáng buffet
+Giảm 20% phí spa
+VND 150000 dùng thanh toán thức ăn và đồ uống (nước giải khát có ga) mỗi ngày
+Wifi miễn phí
+Hoàn tiền toàn bộ
+Trước T5, 12/11
+Xem thêm chi tiết
+Chi tiết khác của
+Chỉ còn 1 phòng
+Giá hiện tại là 41.157.309 ₫
+41.157.309 ₫
+Tổng 93.344.776 ₫
+bao gồm thuế & phí
+"
+54,Meliá Vinpearl Hue,342,249,"Deluxe Room, 2 Bedrooms",4428328.00,3,Vừa điền từ nguồn,https://www.expedia.com.vn/Hue-Khach-San-Melia-Vinpearl-Hue.h29267758.Thong-tin-khach-san?startDate=2026-11-15&endDate=2026-11-17&d1=2026-11-15&d2=2026-11-17&adults=2&rooms=1,2026-10-31,2026-11-15,2026-11-17,"Phòng Deluxe, 2 phòng ngủ","Phòng Deluxe, 2 phòng ngủ
+Phòng
+6
+Phòng Deluxe, 2 phòng ngủ
+10,0
+10,0 trên 10
+Ngoại hạng
+5 nhận xét
+(5 nhận xét)
+Quang cảnh thành phố
+72 mét vuông
+2 phòng ngủ
+4 khách
+1 giường cỡ king và 2 giường đơn
+Đặt ngay, thanh toán sau
+Bữa sáng buffet
+Giảm 20% phí spa
+VND 150000 dùng thanh toán thức ăn và đồ uống (nước giải khát có ga) mỗi ngày
+Wifi miễn phí
+Hoàn tiền toàn bộ
+Trước T5, 12/11
+Xem thêm chi tiết
+Chi tiết khác của
+Chỉ còn 1 phòng
+Giá hiện tại là 3.905.051 ₫
+3.905.051 ₫
+Tổng 8.856.656 ₫
+bao gồm thuế & phí
+"
+55,Senna Hue Hotel,140,47,Premium Senna Double,1250000.00,2,Giữ giá đã có,,,,,,
+55,Senna Hue Hotel,141,48,Premium Garden View Twin,1550000.00,1,Giữ giá đã có,,,,,,
+55,Senna Hue Hotel,142,49,Executive Suite,2250000.00,1,Giữ giá đã có,,,,,,
+55,Senna Hue Hotel,343,250,Premium Double Without View,1125710.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsI0JezjvOr-d7IARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAuq7wi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premium Double Without View,Premium Double without View2 double beds · breakfast
+55,Senna Hue Hotel,344,251,Premium City View Twin,1493731.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsI0JezjvOr-d7IARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAuq7wi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premium City View Twin Room,Premium City View Twin Room1 single bed · breakfast
+55,Senna Hue Hotel,345,252,Premium Garden View Double,1673576.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsI0JezjvOr-d7IARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAuq7wi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premium Garden View Double,Premium Garden View Double1 double bed · breakfast
+55,Senna Hue Hotel,346,253,Premium City View Double,1673576.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/CgsI0JezjvOr-d7IARAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjAuq7wi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premium City View Double Room,Premium City View Double Room1 double bed · breakfast
+55,Senna Hue Hotel,347,254,Premier Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+55,Senna Hue Hotel,348,255,Presidential Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+56,InterContinental Nha Trang,143,50,Classic Room,2600000.00,1,Giữ giá đã có,,,,,,
+56,InterContinental Nha Trang,144,51,Premium Room,3300000.00,1,Giữ giá đã có,,,,,,
+56,InterContinental Nha Trang,145,52,Junior Suite,4400000.00,1,Giữ giá đã có,,,,,,
+56,InterContinental Nha Trang,349,256,King Suite City View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+56,InterContinental Nha Trang,350,257,1 Bedroom Family Ocean View Bunkbeds,,3,Chưa có giá xác minh khớp hạng,,,,,,
+56,InterContinental Nha Trang,351,258,Panorama Ocean View 1 Bedroom Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+56,InterContinental Nha Trang,352,259,Presidential Suite with Panoramic Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+57,Amiana Resort Nha Trang,146,53,Deluxe Room Garden View,2500000.00,2,Giữ giá đã có,,,,,,
+57,Amiana Resort Nha Trang,147,54,Deluxe Room Ocean View With Children Themed Room,3000000.00,1,Giữ giá đã có,,,,,,
+57,Amiana Resort Nha Trang,148,55,Family Room 2-Bedroom Garden View,4600000.00,1,Giữ giá đã có,,,,,,
+57,Amiana Resort Nha Trang,353,260,Deluxe Room Garden View With Children Themed Room,4678560.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI3_KGv-_vtIcvGgwvZy8xcHAydF8zNHEQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiA5LXwi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Twin Room Garden View with Children themed room,Deluxe Twin Room Garden View with Children themed room1 single bed · breakfast
+57,Amiana Resort Nha Trang,354,261,Deluxe Room Mountain View With Children Themed Room,,3,Chưa có giá xác minh khớp hạng,,,,,,
+57,Amiana Resort Nha Trang,355,262,Family Room 2-Bedroom Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+57,Amiana Resort Nha Trang,356,263,Family Suite 2-Bedroom Garden View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+57,Amiana Resort Nha Trang,357,264,Family Suite 2-Bedroom Ocean View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+57,Amiana Resort Nha Trang,358,265,Deluxe Villa Garden View,4487301.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI3_KGv-_vtIcvGgwvZy8xcHAydF8zNHEQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiA5LXwi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Deluxe Villa Garden View,Deluxe Villa Garden Viewbreakfast
+57,Amiana Resort Nha Trang,359,266,Premier Deluxe Villa Garden View,4914663.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChgI3_KGv-_vtIcvGgwvZy8xcHAydF8zNHEQAQ/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiA5LXwi-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,Premier Deluxe King Villa Garden View,Premier Deluxe King Villa Garden View1 king bed · breakfast
+58,Sheraton Nha Trang Hotel & Spa,149,56,Deluxe Room With King Bed,2200000.00,2,Giữ giá đã có,,,,,,
+58,Sheraton Nha Trang Hotel & Spa,150,57,Executive Suite,3900000.00,1,Giữ giá đã có,,,,,,
+58,Sheraton Nha Trang Hotel & Spa,360,267,Panoramic Executive Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+58,Sheraton Nha Trang Hotel & Spa,361,268,Junior Suite,5080320.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChYIm6qaiZrxhfZNGgovbS8wd2ZndGRfEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwio2oX7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Junior Suite, 1 Bedroom","Junior Suite, 1 BedroomSuite · Free cancellation until Nov 12 · breakfast · Suite"
+58,Sheraton Nha Trang Hotel & Spa,362,269,Duplex Two-Bedroom Apartment,,3,Chưa có giá xác minh khớp hạng,,,,,,
+58,Sheraton Nha Trang Hotel & Spa,363,270,Sky Two-Bedroom Apartment,,3,Chưa có giá xác minh khớp hạng,,,,,,
+58,Sheraton Nha Trang Hotel & Spa,364,271,Presidential Suite,14554890.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChYIm6qaiZrxhfZNGgovbS8wd2ZndGRfEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwio2oX7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Presidential Suite, 1 Bedroom","Presidential Suite, 1 BedroomSuite · Free cancellation until Nov 12 · breakfast · Suite"
+58,Sheraton Nha Trang Hotel & Spa,365,272,Deluxe Twin Room,3402000.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChYIm6qaiZrxhfZNGgovbS8wd2ZndGRfEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwio2oX7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Guest room, 2 Twin, Ocean view","Guest room, 2 Twin, Ocean view2 single beds · Free cancellation until Nov 11"
+58,Sheraton Nha Trang Hotel & Spa,366,273,Premium Guest Room,3696840.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChYIm6qaiZrxhfZNGgovbS8wd2ZndGRfEAE/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwio2oX7i-6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,"Larger Guest room, 1 King, Ocean view","Larger Guest room, 1 King, Ocean view1 king bed · Free cancellation until Nov 11"
+59,Salinda Resort Phu Quoc Island,151,58,Deluxe Room,2600000.00,2,Giữ giá đã có,,,,,,
+59,Salinda Resort Phu Quoc Island,152,59,Deluxe Garden View,3100000.00,1,Giữ giá đã có,,,,,,
+59,Salinda Resort Phu Quoc Island,153,60,Deluxe Hill View,2900000.00,1,Giữ giá đã có,,,,,,
+59,Salinda Resort Phu Quoc Island,367,274,Deluxe Sea View,,3,Chưa có giá xác minh khớp hạng,,,,,,
+59,Salinda Resort Phu Quoc Island,368,275,Premium Deluxe Sea,,3,Chưa có giá xác minh khớp hạng,,,,,,
+59,Salinda Resort Phu Quoc Island,369,276,Garden Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+59,Salinda Resort Phu Quoc Island,370,277,Suite Sea View Hotel,,3,Chưa có giá xác minh khớp hạng,,,,,,
+59,Salinda Resort Phu Quoc Island,371,278,Pearl Suite Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+60,InterContinental Phu Quoc Long Beach Resort,154,61,Classic Room,2900000.00,1,Giữ giá đã có,,,,,,
+60,InterContinental Phu Quoc Long Beach Resort,155,62,Junior Suite,3900000.00,1,Giữ giá đã có,,,,,,
+60,InterContinental Phu Quoc Long Beach Resort,156,63,1 Bedroom Suite,4900000.00,1,Giữ giá đã có,,,,,,
+60,InterContinental Phu Quoc Long Beach Resort,372,279,Resort Classic Ocean View,15570049.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9avPoJ-BloaZARoNL2cvMTFmeDc2Y2dubRAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4t5rMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 king classic ocean view balcony,1 king classic ocean view balcony - Book early advance purchase1 king bed · breakfast · Balcony
+60,InterContinental Phu Quoc Long Beach Resort,373,280,Junior Suite Ocean View,18777368.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9avPoJ-BloaZARoNL2cvMTFmeDc2Y2dubRAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4t5rMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 king junior suite ocean view balcony,1 king junior suite ocean view balcony - Book early advance purchase1 king bed · breakfast · Balcony · Suite
+60,InterContinental Phu Quoc Long Beach Resort,374,281,Family Suite,24608856.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9avPoJ-BloaZARoNL2cvMTFmeDc2Y2dubRAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4t5rMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,2 bedroom family suite,2 bedroom family suite - Book early advance purchaseSuite · breakfast · Suite
+60,InterContinental Phu Quoc Long Beach Resort,375,282,Penthouse Suite,24317282.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI9avPoJ-BloaZARoNL2cvMTFmeDc2Y2dubRAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4t5rMiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-11-15,2026-11-17,1 bedroom penthouse club lounge access ocean view,1 bedroom penthouse club lounge access ocean view - Book early advance purchasebreakfast
+60,InterContinental Phu Quoc Long Beach Resort,376,283,Bridge Suite,,3,Chưa có giá xác minh khớp hạng,,,,,,
+60,InterContinental Phu Quoc Long Beach Resort,377,284,3-Bedroom Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+60,InterContinental Phu Quoc Long Beach Resort,378,285,4-Bedroom Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+61,Regent Phu Quoc,157,64,Ocean View Suite,6500000.00,2,Giữ giá đã có,,,,,,
+61,Regent Phu Quoc,158,65,King Sky Pool Villa,8500000.00,2,Giữ giá đã có,,,,,,
+61,Regent Phu Quoc,379,286,King Beach Pool Villa,55071188.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI8O_B79fT5piSARoNL2cvMTFnbWhucXlndBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QDBgHEgcI6g8QDBgLGAQyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiIm73hiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-12-07,2026-12-11,1 king beach pool villa,1 king beach pool villa - Ihg advance saver1 king bed · Free cancellation until Nov 7 · breakfast · Beach view
+61,Regent Phu Quoc,380,287,King Terrace Pool Villa,36118848.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI8O_B79fT5piSARoNL2cvMTFnbWhucXlndBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QDBgHEgcI6g8QDBgLGAQyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwiIm73hiu6XAxUAAAAAHQAAAAAQAg,2026-11-04,2026-12-07,2026-12-11,1 king terrace pool villa,1 king terrace pool villa - Ihg advance saver1 king bed · Free cancellation until Nov 7 · breakfast
+61,Regent Phu Quoc,381,288,Garden Pool Suite,24814428.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI8O_B79fT5piSARoNL2cvMTFnbWhucXlndBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4utStgemXAxUAAAAAHQAAAAAQAw,2026-11-02,2026-11-15,2026-11-17,1 king garden pool suite,1 king garden pool suite - Best flexible rate1 king bed · Free cancellation until Nov 12 · breakfast · Suite
+61,Regent Phu Quoc,382,289,Three Bedroom Beach Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,
+61,Regent Phu Quoc,383,290,Two Bedroom Lagoon Pool Villa,66610048.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI8O_B79fT5piSARoNL2cvMTFnbWhucXlndBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4utStgemXAxUAAAAAHQAAAAAQAw,2026-11-02,2026-11-15,2026-11-17,2 bedroom lagoon pool villa,2 bedroom lagoon pool villa - Best flexible rate Free cancellation until Nov 12 · breakfast
+61,Regent Phu Quoc,384,291,Two Bedroom Sky Pool Villa,53457580.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI8O_B79fT5piSARoNL2cvMTFnbWhucXlndBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4utStgemXAxUAAAAAHQAAAAAQAw,2026-11-02,2026-11-15,2026-11-17,2 bedroom sky pool villa,2 bedroom sky pool villa - Best flexible rate Free cancellation until Nov 12 · breakfast
+61,Regent Phu Quoc,385,292,Two Bedroom Terrace Pool Villa,47612036.00,3,Vừa điền từ nguồn,https://www.google.com/travel/hotels/entity/ChoI8O_B79fT5piSARoNL2cvMTFnbWhucXlndBAB/prices?hl=en&gl=vn&curr=VND&ap=MAA&ts=CAEaIAoCGgASGhIUCgcI6g8QCxgPEgcI6g8QCxgRGAIyAhAAKgkKBToDVk5EGgA&un=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwi4utStgemXAxUAAAAAHQAAAAAQAw,2026-11-02,2026-11-15,2026-11-17,2 bedroom terrace pool villa,2 bedroom terrace pool villa - Best flexible rate Free cancellation until Nov 12 · breakfast
+61,Regent Phu Quoc,386,293,Three Bedroom Lagoon Pool Villa,,3,Chưa có giá xác minh khớp hạng,,,,,,

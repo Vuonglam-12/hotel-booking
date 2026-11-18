@@ -12,50 +12,80 @@ class WebController extends Controller
     // Trang chủ — hiển thị danh sách KS + search
     public function home(Request $request)
     {
-        $query = Hotel::with(['location', 'images' => fn($q) => $q->orderByDesc('is_primary')->limit(1)])
-            ->where('status', 'active')
-            ->withMin(['rooms' => fn($q) => $q->where('status', 'available')], 'price');
+        $search=app(\App\Services\HotelSearchService::class);
+        $filters=$search->validate($request->all());
+        $locations=$search->locations()->orderBy('name')->get();
 
-        // Filter theo thành phố
-        if ($request->city) {
-            $query->whereHas('location', fn($q) => $q->where('name', 'like', '%' . $request->city . '%'));
+        if (!array_intersect(array_keys($filters), ['city','star','search','location_id','hotel_id','check_in','guests','max_price','amenity'])) {
+            $hotelSections = $locations->map(function ($location) {
+                $sectionHotels = Hotel::with(['location', 'images' => fn($q) => $q->orderByDesc('is_primary')->orderBy('id')])
+                    ->where('status', 'active')
+                    ->where('location_id', $location->id)
+                    ->withMin(['rooms' => fn($q) => $q->where('status', 'available')->offered()], 'price')
+                    ->orderBy('avg_rating', 'desc')
+                    ->take(6)
+                    ->get();
+
+                return [
+                    'location' => $location,
+                    'hotels' => $sectionHotels,
+                    'hasMore' => $sectionHotels->count() > 5,
+                ];
+            })->filter(fn($section) => $section['hotels']->isNotEmpty())->values();
+
+            $hotels = collect();
+        } else {
+            $hotels = $search->search($filters,9);
+            $hotelSections = collect();
         }
 
-        // Filter theo số sao
-        if ($request->star) {
-            $query->where('star_rating', $request->star);
-        }
-
-        // Tìm kiếm theo tên
-        if ($request->search) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-
-        $hotels    = $query->orderBy('avg_rating', 'desc')->paginate(9);
-        $locations = Location::orderBy('name')->get();
-
-        return view('home', compact('hotels', 'locations'));
+        return view('home', compact('hotels', 'locations', 'hotelSections'));
     }
 
     // Trang chi tiết KS
     public function hotelDetail($id)
     {
-        $hotel = Hotel::with(['location', 'amenities', 'images', 'rooms.roomType'])
+        $hotel = Hotel::with([
+            'location',
+            'amenities',
+            'images',
+            'rooms.roomType',
+            'rooms.images',
+        ])
             ->where('status', 'active')
             ->findOrFail($id);
 
-        $hotel->review_count = \DB::table('review')->where('hotel_id', $id)->count();
+        $hotel->setRelation('rooms', app(\App\Services\HotelRoomTypeService::class)->applyToRooms($hotel->rooms));
+        $reviewData=app(\App\Services\ReviewService::class)->getHotelReviews((int)$id,['per_page'=>6]);
+        $reviewSummary=$reviewData['stats'];
+        $hotel->review_count=$reviewSummary['total'];
+        $reviews=$reviewData['reviews'];
 
-        return view('hotel-detail', compact('hotel'));
+        $similarHotels = Hotel::with([
+            'location',
+            'images' => fn ($query) => $query->orderByDesc('is_primary')->orderBy('id'),
+        ])
+            ->where('status', 'active')
+            ->whereKeyNot($hotel->id)
+            ->where('location_id', $hotel->location_id)
+            ->orderByDesc('avg_rating')
+            ->take(6)
+            ->get();
+
+        return view('hotel-detail', compact('hotel', 'reviews', 'similarHotels', 'reviewSummary'));
     }
 
     // Trang đặt phòng
     public function booking($id)
     {
+        if (\App\Support\LocalBookingDemo::enabled()) {
+            return redirect()->route('hotel.detail', ['id'=>$id]);
+        }
         $hotel = Hotel::with(['rooms.roomType'])
             ->where('status', 'active')
             ->findOrFail($id);
 
+        $hotel->setRelation('rooms', app(\App\Services\HotelRoomTypeService::class)->applyToRooms($hotel->rooms));
         return view('booking', compact('hotel'));
     }
 
@@ -85,6 +115,8 @@ class WebController extends Controller
 
     public function paymentResult(Request $request)
     {
+        // Return URLs cannot establish receipt of funds. The guarded V2 route is read-only.
+        return response()->view('payment.result', ['status' => 'error', 'message' => 'Thanh toán đang chờ đối soát, chưa thể xác nhận qua trang này.', 'booking' => null], 503)->header('Cache-Control', 'no-store');
         // Verify chữ ký VNPay
         $vnpData       = $request->all();
         $vnpSecureHash = $vnpData['vnp_SecureHash'] ?? '';

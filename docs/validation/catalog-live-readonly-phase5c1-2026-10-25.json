@@ -1,0 +1,5905 @@
+{
+  "phase": "5C.1",
+  "date": "2026-10-25",
+  "scope": "APPROVED_LIVE_READ_ONLY_CATALOG",
+  "credential_file": "C:/Users/ASUS/AppData/Local/AUREL/mysql-readonly/catalog-cd0b6853be264366a29e2e32f624b2c6/catalog-ro.mylogin.cnf",
+  "login_path": "aurel_catalog_ro",
+  "identity": {
+    "host": "QuocAnh",
+    "port": 3306,
+    "role": "NONE",
+    "uuid": "7880df8a-92cd-11f0-85c1-a841f442ddbd",
+    "account": "aurel_catalog_ro@127.0.0.1",
+    "utc_now": "2026-10-25 05:12:01",
+    "version": "8.0.30",
+    "database": "hotel_booking",
+    "session_now": "2026-10-25 12:12:01",
+    "connection_user": "aurel_catalog_ro@localhost",
+    "global_sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+    "mandatory_roles": "",
+    "partial_revokes": 0,
+    "database_charset": "utf8mb4",
+    "global_time_zone": "SYSTEM",
+    "server_read_only": 0,
+    "session_sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+    "system_time_zone": "SE Asia Standard Time",
+    "session_time_zone": "SYSTEM",
+    "database_collation": "utf8mb4_0900_ai_ci",
+    "foreign_key_checks": 1
+  },
+  "grants": [
+    "GRANT USAGE ON *.* TO `aurel_catalog_ro`@`127.0.0.1`",
+    "GRANT SELECT ON `hotel\\_booking`.* TO `aurel_catalog_ro`@`127.0.0.1`"
+  ],
+  "roles": {
+    "enabled": 0,
+    "applicable": 0
+  },
+  "tables": [
+    {
+      "kind": "BASE TABLE",
+      "name": "attraction",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_unicode_ci",
+      "estimated_rows": 47
+    },
+    {
+      "kind": "BASE TABLE",
+      "name": "hotel",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_unicode_ci",
+      "estimated_rows": 24
+    },
+    {
+      "kind": "BASE TABLE",
+      "name": "hotel_image",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_unicode_ci",
+      "estimated_rows": 132
+    },
+    {
+      "kind": "BASE TABLE",
+      "name": "location",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_unicode_ci",
+      "estimated_rows": 8
+    },
+    {
+      "kind": "BASE TABLE",
+      "name": "migrations",
+      "engine": "InnoDB",
+      "collation": "utf8mb4_unicode_ci",
+      "estimated_rows": 63
+    }
+  ],
+  "columns": [
+    {
+      "name": "id",
+      "type": "bigint unsigned",
+      "extra": "auto_increment",
+      "table": "attraction",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "location_id",
+      "type": "int",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "item_type",
+      "type": "enum('hotel','restaurant','attraction','activity','transport','shopping')",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "name",
+      "type": "varchar(255)",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "description",
+      "type": "text",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "address",
+      "type": "varchar(255)",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "price_min",
+      "type": "int unsigned",
+      "extra": "",
+      "table": "attraction",
+      "default": "0",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "price_max",
+      "type": "int unsigned",
+      "extra": "",
+      "table": "attraction",
+      "default": "0",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "duration_hours",
+      "type": "tinyint unsigned",
+      "extra": "",
+      "table": "attraction",
+      "default": "2",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "open_time",
+      "type": "varchar(255)",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "close_time",
+      "type": "varchar(255)",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "lat",
+      "type": "decimal(10,7)",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": null
+    },
+    {
+      "name": "lng",
+      "type": "decimal(10,7)",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": null
+    },
+    {
+      "name": "is_active",
+      "type": "tinyint(1)",
+      "extra": "",
+      "table": "attraction",
+      "default": "1",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": null
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "extra": "",
+      "table": "attraction",
+      "default": null,
+      "nullable": "YES",
+      "collation": null
+    },
+    {
+      "name": "id",
+      "type": "int",
+      "extra": "auto_increment",
+      "table": "hotel",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "location_id",
+      "type": "int",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "name",
+      "type": "varchar(200)",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "phone",
+      "type": "varchar(20)",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "email",
+      "type": "varchar(100)",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "address",
+      "type": "varchar(300)",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "latitude",
+      "type": "decimal(10,7)",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "longitude",
+      "type": "decimal(10,7)",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "google_place_id",
+      "type": "varchar(100)",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "star_rating",
+      "type": "tinyint",
+      "extra": "",
+      "table": "hotel",
+      "default": "3",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "description",
+      "type": "text",
+      "extra": "",
+      "table": "hotel",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "check_in_time",
+      "type": "time",
+      "extra": "",
+      "table": "hotel",
+      "default": "14:00:00",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "check_out_time",
+      "type": "time",
+      "extra": "",
+      "table": "hotel",
+      "default": "12:00:00",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "status",
+      "type": "varchar(20)",
+      "extra": "",
+      "table": "hotel",
+      "default": "active",
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "avg_rating",
+      "type": "decimal(2,1)",
+      "extra": "",
+      "table": "hotel",
+      "default": "0.0",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "extra": "DEFAULT_GENERATED",
+      "table": "hotel",
+      "default": "CURRENT_TIMESTAMP",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "id",
+      "type": "int",
+      "extra": "auto_increment",
+      "table": "hotel_image",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "hotel_id",
+      "type": "int",
+      "extra": "",
+      "table": "hotel_image",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "image_url",
+      "type": "varchar(500)",
+      "extra": "",
+      "table": "hotel_image",
+      "default": null,
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "caption",
+      "type": "varchar(200)",
+      "extra": "",
+      "table": "hotel_image",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "is_primary",
+      "type": "tinyint(1)",
+      "extra": "",
+      "table": "hotel_image",
+      "default": "0",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "extra": "DEFAULT_GENERATED",
+      "table": "hotel_image",
+      "default": "CURRENT_TIMESTAMP",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "id",
+      "type": "int",
+      "extra": "auto_increment",
+      "table": "location",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "name",
+      "type": "varchar(100)",
+      "extra": "",
+      "table": "location",
+      "default": null,
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "region",
+      "type": "varchar(50)",
+      "extra": "",
+      "table": "location",
+      "default": null,
+      "nullable": "YES",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "country",
+      "type": "varchar(50)",
+      "extra": "",
+      "table": "location",
+      "default": "Vietnam",
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "latitude",
+      "type": "decimal(10,7)",
+      "extra": "",
+      "table": "location",
+      "default": null,
+      "nullable": "YES",
+      "collation": null
+    },
+    {
+      "name": "longitude",
+      "type": "decimal(10,7)",
+      "extra": "",
+      "table": "location",
+      "default": null,
+      "nullable": "YES",
+      "collation": null
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "extra": "DEFAULT_GENERATED",
+      "table": "location",
+      "default": "CURRENT_TIMESTAMP",
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "id",
+      "type": "int unsigned",
+      "extra": "auto_increment",
+      "table": "migrations",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    },
+    {
+      "name": "migration",
+      "type": "varchar(255)",
+      "extra": "",
+      "table": "migrations",
+      "default": null,
+      "nullable": "NO",
+      "collation": "utf8mb4_unicode_ci"
+    },
+    {
+      "name": "batch",
+      "type": "int",
+      "extra": "",
+      "table": "migrations",
+      "default": null,
+      "nullable": "NO",
+      "collation": null
+    }
+  ],
+  "indexes": [
+    {
+      "name": "attraction_location_id_foreign",
+      "table": "attraction",
+      "column": "location_id",
+      "prefix": null,
+      "unique": 0,
+      "position": 1
+    },
+    {
+      "name": "PRIMARY",
+      "table": "attraction",
+      "column": "id",
+      "prefix": null,
+      "unique": 1,
+      "position": 1
+    },
+    {
+      "name": "idx_hotel_coords",
+      "table": "hotel",
+      "column": "latitude",
+      "prefix": null,
+      "unique": 0,
+      "position": 1
+    },
+    {
+      "name": "idx_hotel_coords",
+      "table": "hotel",
+      "column": "longitude",
+      "prefix": null,
+      "unique": 0,
+      "position": 2
+    },
+    {
+      "name": "idx_hotel_location",
+      "table": "hotel",
+      "column": "location_id",
+      "prefix": null,
+      "unique": 0,
+      "position": 1
+    },
+    {
+      "name": "idx_hotel_star",
+      "table": "hotel",
+      "column": "star_rating",
+      "prefix": null,
+      "unique": 0,
+      "position": 1
+    },
+    {
+      "name": "idx_hotel_status",
+      "table": "hotel",
+      "column": "status",
+      "prefix": null,
+      "unique": 0,
+      "position": 1
+    },
+    {
+      "name": "PRIMARY",
+      "table": "hotel",
+      "column": "id",
+      "prefix": null,
+      "unique": 1,
+      "position": 1
+    },
+    {
+      "name": "idx_hotel_image",
+      "table": "hotel_image",
+      "column": "hotel_id",
+      "prefix": null,
+      "unique": 0,
+      "position": 1
+    },
+    {
+      "name": "PRIMARY",
+      "table": "hotel_image",
+      "column": "id",
+      "prefix": null,
+      "unique": 1,
+      "position": 1
+    },
+    {
+      "name": "PRIMARY",
+      "table": "location",
+      "column": "id",
+      "prefix": null,
+      "unique": 1,
+      "position": 1
+    },
+    {
+      "name": "PRIMARY",
+      "table": "migrations",
+      "column": "id",
+      "prefix": null,
+      "unique": 1,
+      "position": 1
+    }
+  ],
+  "foreign_keys": [
+    {
+      "table": "attraction",
+      "column": "location_id",
+      "constraint": "attraction_location_id_foreign",
+      "delete_rule": "CASCADE",
+      "update_rule": "NO ACTION",
+      "referenced_table": "location",
+      "referenced_column": "id"
+    },
+    {
+      "table": "customer",
+      "column": "preferred_location_id",
+      "constraint": "fk_customer_location",
+      "delete_rule": "SET NULL",
+      "update_rule": "NO ACTION",
+      "referenced_table": "location",
+      "referenced_column": "id"
+    },
+    {
+      "table": "hotel",
+      "column": "location_id",
+      "constraint": "fk_hotel_location",
+      "delete_rule": "NO ACTION",
+      "update_rule": "NO ACTION",
+      "referenced_table": "location",
+      "referenced_column": "id"
+    },
+    {
+      "table": "hotel_image",
+      "column": "hotel_id",
+      "constraint": "fk_hotel_image",
+      "delete_rule": "CASCADE",
+      "update_rule": "NO ACTION",
+      "referenced_table": "hotel",
+      "referenced_column": "id"
+    },
+    {
+      "table": "itinerary_item",
+      "column": "attraction_id",
+      "constraint": "itinerary_item_attraction_id_foreign",
+      "delete_rule": "SET NULL",
+      "update_rule": "NO ACTION",
+      "referenced_table": "attraction",
+      "referenced_column": "id"
+    }
+  ],
+  "migration_ledger": [],
+  "counts": {
+    "location": 8,
+    "attraction": 47,
+    "hotel": 24,
+    "hotel_image": 142,
+    "migrations": 69
+  },
+  "rows": {
+    "location": [
+      {
+        "id": 1,
+        "name": "Hà Nội",
+        "region": "Miền Bắc",
+        "country": "Việt Nam",
+        "latitude": 21.0285,
+        "longitude": 105.8542
+      },
+      {
+        "id": 2,
+        "name": "Hồ Chí Minh",
+        "region": "Miền Nam",
+        "country": "Việt Nam",
+        "latitude": 10.8231,
+        "longitude": 106.6297
+      },
+      {
+        "id": 3,
+        "name": "Đà Nẵng",
+        "region": "Miền Trung",
+        "country": "Việt Nam",
+        "latitude": 16.0544,
+        "longitude": 108.2022
+      },
+      {
+        "id": 4,
+        "name": "Phú Quốc",
+        "region": "Miền Nam",
+        "country": "Việt Nam",
+        "latitude": 10.2899,
+        "longitude": 103.984
+      },
+      {
+        "id": 5,
+        "name": "Nha Trang",
+        "region": "Miền Trung",
+        "country": "Việt Nam",
+        "latitude": 12.2388,
+        "longitude": 109.1967
+      },
+      {
+        "id": 6,
+        "name": "Hội An",
+        "region": "Miền Trung",
+        "country": "Việt Nam",
+        "latitude": 15.8801,
+        "longitude": 108.338
+      },
+      {
+        "id": 7,
+        "name": "Đà Lạt",
+        "region": "Miền Nam",
+        "country": "Việt Nam",
+        "latitude": 11.9404,
+        "longitude": 108.4583
+      },
+      {
+        "id": 8,
+        "name": "Huế",
+        "region": "Miền Trung",
+        "country": "Việt Nam",
+        "latitude": 16.4637,
+        "longitude": 107.5909
+      }
+    ],
+    "attraction": [
+      {
+        "id": 1,
+        "lat": null,
+        "lng": null,
+        "name": "Lăng Chủ tịch Hồ Chí Minh",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:30",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "10:30",
+        "description": "Khu di tích lịch sử và văn hóa quan trọng, nơi an nghỉ của Bác Hồ",
+        "location_id": 2,
+        "duration_hours": 2
+      },
+      {
+        "id": 2,
+        "lat": null,
+        "lng": null,
+        "name": "Văn Miếu - Quốc Tử Giám",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "08:00",
+        "price_max": 70000,
+        "price_min": 70000,
+        "close_time": "17:00",
+        "description": "Trường đại học đầu tiên của Việt Nam với kiến trúc cổ kính",
+        "location_id": 2,
+        "duration_hours": 2
+      },
+      {
+        "id": 3,
+        "lat": null,
+        "lng": null,
+        "name": "Hồ Hoàn Kiếm & Đền Ngọc Sơn",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:00",
+        "price_max": 30000,
+        "price_min": 30000,
+        "close_time": "18:00",
+        "description": "Biểu tượng của thủ đô Hà Nội, không gian đi bộ thư giãn",
+        "location_id": 2,
+        "duration_hours": 2
+      },
+      {
+        "id": 4,
+        "lat": null,
+        "lng": null,
+        "name": "Phở Gia Truyền Bát Đàn",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "06:00",
+        "price_max": 70000,
+        "price_min": 50000,
+        "close_time": "20:30",
+        "description": "Quán phở bò truyền thống nổi tiếng đậm vị Hà Nội xưa",
+        "location_id": 2,
+        "duration_hours": 1
+      },
+      {
+        "id": 5,
+        "lat": null,
+        "lng": null,
+        "name": "Bún chả Hương Liên (Bún chả Obama)",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "08:00",
+        "price_max": 100000,
+        "price_min": 60000,
+        "close_time": "20:30",
+        "description": "Thưởng thức bún chả truyền thống nổi danh quốc tế",
+        "location_id": 2,
+        "duration_hours": 1
+      },
+      {
+        "id": 6,
+        "lat": null,
+        "lng": null,
+        "name": "Chả cá Lã Vọng",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "10:00",
+        "price_max": 200000,
+        "price_min": 150000,
+        "close_time": "22:00",
+        "description": "Đặc sản chả cá lăng nướng chảo ăn kèm bún và mắm tôm",
+        "location_id": 2,
+        "duration_hours": 2
+      },
+      {
+        "id": 7,
+        "lat": null,
+        "lng": null,
+        "name": "Hanoi Old Quarter Budget Hotel",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 600000,
+        "price_min": 450000,
+        "close_time": null,
+        "description": "Khách sạn nhỏ gọn, giá rẻ nằm ngay trung tâm phố cổ",
+        "location_id": 2,
+        "duration_hours": 24
+      },
+      {
+        "id": 8,
+        "lat": null,
+        "lng": null,
+        "name": "Tirant Hotel Hanoi",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 1800000,
+        "price_min": 1400000,
+        "close_time": null,
+        "description": "Khách sạn 4 sao phong cách cổ điển, có hồ bơi tầng thượng",
+        "location_id": 2,
+        "duration_hours": 24
+      },
+      {
+        "id": 9,
+        "lat": null,
+        "lng": null,
+        "name": "Xem Múa Rối Nước Thăng Long",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "15:00",
+        "price_max": 200000,
+        "price_min": 100000,
+        "close_time": "21:00",
+        "description": "Trải nghiệm nghệ thuật truyền thống độc đáo của văn hóa lúa nước",
+        "location_id": 2,
+        "duration_hours": 1
+      },
+      {
+        "id": 10,
+        "lat": null,
+        "lng": null,
+        "name": "Dinh Độc Lập",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "08:00",
+        "price_max": 65000,
+        "price_min": 65000,
+        "close_time": "16:30",
+        "description": "Di tích lịch sử cấp quốc gia với kiến trúc hiện đại ấn tượng",
+        "location_id": 3,
+        "duration_hours": 2
+      },
+      {
+        "id": 11,
+        "lat": null,
+        "lng": null,
+        "name": "Bảo tàng Chứng tích Chiến tranh",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:30",
+        "price_max": 40000,
+        "price_min": 40000,
+        "close_time": "17:30",
+        "description": "Nơi lưu giữ những tài liệu và hiện vật lịch sử chân thực nhất",
+        "location_id": 3,
+        "duration_hours": 2
+      },
+      {
+        "id": 12,
+        "lat": null,
+        "lng": null,
+        "name": "Chợ Bến Thành",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "06:00",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "18:00",
+        "description": "Khu chợ truyền thống lâu đời, biểu tượng mua sắm của Sài Gòn",
+        "location_id": 3,
+        "duration_hours": 2
+      },
+      {
+        "id": 13,
+        "lat": null,
+        "lng": null,
+        "name": "Bánh Mì Huỳnh Hoa",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "13:00",
+        "price_max": 75000,
+        "price_min": 65000,
+        "close_time": "23:00",
+        "description": "Tiệm bánh mì thịt chả nổi tiếng nhất nhì Sài Gòn, luôn xếp hàng đông",
+        "location_id": 3,
+        "duration_hours": 1
+      },
+      {
+        "id": 14,
+        "lat": null,
+        "lng": null,
+        "name": "Phở Lệ",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "06:00",
+        "price_max": 90000,
+        "price_min": 70000,
+        "close_time": "01:00",
+        "description": "Quán phở đậm chất miền Nam với nước dùng đậm đà, thịt mềm",
+        "location_id": 3,
+        "duration_hours": 1
+      },
+      {
+        "id": 15,
+        "lat": null,
+        "lng": null,
+        "name": "Cơm tấm Ba Ghiền",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "07:00",
+        "price_max": 120000,
+        "price_min": 80000,
+        "close_time": "21:00",
+        "description": "Nức tiếng với miếng sườn nướng than hoa siêu to khổng lồ",
+        "location_id": 3,
+        "duration_hours": 1
+      },
+      {
+        "id": 16,
+        "lat": null,
+        "lng": null,
+        "name": "Saigonciti Hotel",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 550000,
+        "price_min": 450000,
+        "close_time": null,
+        "description": "Khách sạn nhỏ tiện lợi nằm gần khu phố Tây Bùi Viện",
+        "location_id": 3,
+        "duration_hours": 24
+      },
+      {
+        "id": 17,
+        "lat": null,
+        "lng": null,
+        "name": "Liberty Central Saigon Centre",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 1700000,
+        "price_min": 1400000,
+        "close_time": null,
+        "description": "Khách sạn chuẩn 4 sao hiện đại, tiện nghi ngay quận 1",
+        "location_id": 3,
+        "duration_hours": 24
+      },
+      {
+        "id": 18,
+        "lat": null,
+        "lng": null,
+        "name": "Ăn tối trên du thuyền sông Sài Gòn",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "18:00",
+        "price_max": 500000,
+        "price_min": 300000,
+        "close_time": "21:30",
+        "description": "Ngắm cảnh thành phố hoa lệ về đêm dọc theo bờ sông Sài Gòn",
+        "location_id": 3,
+        "duration_hours": 3
+      },
+      {
+        "id": 19,
+        "lat": null,
+        "lng": null,
+        "name": "Khu Du lịch Langbiang",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:00",
+        "price_max": 120000,
+        "price_min": 50000,
+        "close_time": "17:00",
+        "description": "Đỉnh núi cao nhất Đà Lạt, trải nghiệm đi xe Jeep và ngắm toàn cảnh",
+        "location_id": 4,
+        "duration_hours": 3
+      },
+      {
+        "id": 20,
+        "lat": null,
+        "lng": null,
+        "name": "Thung lũng Tình Yêu",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:00",
+        "price_max": 250000,
+        "price_min": 250000,
+        "close_time": "17:00",
+        "description": "Khuôn viên ngập tràn hoa, hồ nước lãng mạn và các tiểu cảnh check-in",
+        "location_id": 4,
+        "duration_hours": 3
+      },
+      {
+        "id": 21,
+        "lat": null,
+        "lng": null,
+        "name": "Vườn hoa Thành phố Đà Lạt",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:00",
+        "price_max": 100000,
+        "price_min": 100000,
+        "close_time": "18:00",
+        "description": "Quy tụ hàng ngàn loài hoa tuyệt đẹp đua sắc quanh năm",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 22,
+        "lat": null,
+        "lng": null,
+        "name": "Lẩu gà lá é Tao Ngộ",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "10:00",
+        "price_max": 300000,
+        "price_min": 200000,
+        "close_time": "23:00",
+        "description": "Món lẩu trứ danh cực kỳ phù hợp với thời tiết se lạnh của Đà Lạt",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 23,
+        "lat": null,
+        "lng": null,
+        "name": "Bánh căn Lệ",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "07:00",
+        "price_max": 50000,
+        "price_min": 30000,
+        "close_time": "17:00",
+        "description": "Bánh căn nóng hổi nhân xíu mại, trứng cút trong hẻm nhỏ",
+        "location_id": 4,
+        "duration_hours": 1
+      },
+      {
+        "id": 24,
+        "lat": null,
+        "lng": null,
+        "name": "Lẩu bò Quán Gỗ (Ba Toa)",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "10:00",
+        "price_max": 400000,
+        "price_min": 250000,
+        "close_time": "22:00",
+        "description": "Quán lẩu bò mộc mạc, miếng bò dày thịt, nước dùng đậm đà",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 25,
+        "lat": null,
+        "lng": null,
+        "name": "Tigold Hostel Da Lat",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 500000,
+        "price_min": 300000,
+        "close_time": null,
+        "description": "Chỗ nghỉ homestay phong cách trẻ trung, tiết kiệm chi phí",
+        "location_id": 4,
+        "duration_hours": 24
+      },
+      {
+        "id": 26,
+        "lat": null,
+        "lng": null,
+        "name": "Hôtel Colline Đà Lạt",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 1900000,
+        "price_min": 1400000,
+        "close_time": null,
+        "description": "Khách sạn 4 sao đẳng cấp nằm ngay phía trên chợ Đà Lạt Mới",
+        "location_id": 4,
+        "duration_hours": 24
+      },
+      {
+        "id": 27,
+        "lat": null,
+        "lng": null,
+        "name": "Trải nghiệm hái dâu tây tại vườn",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "08:00",
+        "price_max": 200000,
+        "price_min": 100000,
+        "close_time": "16:00",
+        "description": "Tự tay hái dâu tây tươi sạch ngay tại nhà vườn sinh thái",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 28,
+        "lat": null,
+        "lng": null,
+        "name": "Vườn Quốc gia Phú Quốc",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:00",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "17:00",
+        "description": "Khu rừng nguyên sinh rộng hơn 31.400 ha, được UNESCO công nhận là khu dự trữ sinh quyển thế giới, lý tưởng cho trekking và quan sát động vật hoang dã",
+        "location_id": 4,
+        "duration_hours": 3
+      },
+      {
+        "id": 29,
+        "lat": null,
+        "lng": null,
+        "name": "Bãi Sao",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "06:00",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "18:00",
+        "description": "Bãi biển đẹp nhất Phú Quốc với cát trắng mịn và nước trong xanh, tọa lạc phía Nam đảo tại thị trấn An Thới, an toàn và êm đềm quanh năm",
+        "location_id": 4,
+        "duration_hours": 3
+      },
+      {
+        "id": 30,
+        "lat": null,
+        "lng": null,
+        "name": "Dinh Cậu",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "06:00",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "18:00",
+        "description": "Ngôi đền tâm linh biểu tượng ngay trung tâm thị trấn Dương Đông, tọa lạc trên mỏm đá hướng ra biển, nổi tiếng là điểm ngắm hoàng hôn đẹp nhất đảo",
+        "location_id": 4,
+        "duration_hours": 1
+      },
+      {
+        "id": 31,
+        "lat": null,
+        "lng": null,
+        "name": "Nhà hàng Crab House Phú Quốc",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "10:00",
+        "price_max": 500000,
+        "price_min": 200000,
+        "close_time": "22:00",
+        "description": "Địa chỉ hải sản nổi tiếng nhất đảo chuyên các món ghẹ tươi sống, nằm tại 108 đường 30 Tháng 4, Dương Đông",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 32,
+        "lat": null,
+        "lng": null,
+        "name": "Bún Kèn Út Lượm",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "07:00",
+        "price_max": 60000,
+        "price_min": 40000,
+        "close_time": "14:00",
+        "description": "Quán bún kèn đặc sản Phú Quốc nổi tiếng nhất đảo, sợi bún gạo ăn kèm nước dùng cá đậm đà và rau thơm, địa chỉ đường 30/4 Dương Đông",
+        "location_id": 4,
+        "duration_hours": 1
+      },
+      {
+        "id": 33,
+        "lat": null,
+        "lng": null,
+        "name": "Nhà hàng Thiên Thanh",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "10:00",
+        "price_max": 400000,
+        "price_min": 150000,
+        "close_time": "22:00",
+        "description": "Nhà hàng hải sản lâu năm nổi tiếng tại trung tâm Dương Đông, thực đơn phong phú từ tôm hùm đến ghẹ hấp, không gian rộng thoáng, địa chỉ đường 30 Tháng 4 Kp1",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 34,
+        "lat": null,
+        "lng": null,
+        "name": "Phú Quốc Budget Hostel",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 400000,
+        "price_min": 200000,
+        "close_time": null,
+        "description": "Chỗ nghỉ bình dân giá tốt gần trung tâm thị trấn Dương Đông, phù hợp cho khách solo và cặp đôi tiết kiệm chi phí",
+        "location_id": 4,
+        "duration_hours": 24
+      },
+      {
+        "id": 35,
+        "lat": null,
+        "lng": null,
+        "name": "Salinda Resort Phu Quoc",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 6000000,
+        "price_min": 3000000,
+        "close_time": null,
+        "description": "Resort boutique 5 sao sang trọng nằm trên bãi Trường với view hoàng hôn tuyệt đẹp và bể bơi vô cực nhìn ra biển",
+        "location_id": 4,
+        "duration_hours": 24
+      },
+      {
+        "id": 36,
+        "lat": null,
+        "lng": null,
+        "name": "Lặn ngắm san hô Hòn Thơm",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "08:00",
+        "price_max": 600000,
+        "price_min": 300000,
+        "close_time": "16:00",
+        "description": "Tour lặn biển khám phá hơn 100 loài san hô và sinh vật biển tại đảo Hòn Thơm, kết hợp đi cáp treo vượt biển dài nhất thế giới",
+        "location_id": 4,
+        "duration_hours": 4
+      },
+      {
+        "id": 37,
+        "lat": null,
+        "lng": null,
+        "name": "Chợ đêm Dương Đông",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "18:00",
+        "price_max": 300000,
+        "price_min": 50000,
+        "close_time": "23:00",
+        "description": "Chợ đêm lớn nhất Phú Quốc ngay trung tâm thị trấn, hàng trăm gian hàng hải sản tươi sống, đặc sản địa phương và quà lưu niệm sôi động về đêm",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 38,
+        "lat": null,
+        "lng": null,
+        "name": "Bãi Dài Phú Quốc",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "06:00",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "18:00",
+        "description": "Bãi biển hoang sơ dài 15km tại phía Bắc đảo, nước trong xanh và sóng nhẹ, ít người biết nên rất yên tĩnh và thơ mộng",
+        "location_id": 4,
+        "duration_hours": 3
+      },
+      {
+        "id": 39,
+        "lat": null,
+        "lng": null,
+        "name": "Nhà thùng nước mắm Khải Hoàn",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "07:00",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "17:00",
+        "description": "Tham quan quy trình sản xuất nước mắm truyền thống Phú Quốc lâu đời nhất đảo, mua đặc sản mang về tại đường 30/4 Dương Đông",
+        "location_id": 4,
+        "duration_hours": 1
+      },
+      {
+        "id": 40,
+        "lat": null,
+        "lng": null,
+        "name": "Làng chài Hàm Ninh",
+        "address": null,
+        "is_active": 1,
+        "item_type": "attraction",
+        "open_time": "06:00",
+        "price_max": 0,
+        "price_min": 0,
+        "close_time": "18:00",
+        "description": "Làng chài cổ hơn 200 năm tuổi phía Đông đảo, nổi tiếng với ghẹ Hàm Ninh hấp gừng và cảnh bình minh trên biển tuyệt đẹp",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 41,
+        "lat": null,
+        "lng": null,
+        "name": "Nhà hàng Hải Sản Gành Dầu",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "10:00",
+        "price_max": 500000,
+        "price_min": 200000,
+        "close_time": "21:00",
+        "description": "Nhà hàng hải sản tươi sống tại mũi Gành Dầu cực Bắc đảo, chuyên tôm hùm và cá mú, view biển nhìn sang Campuchia",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 42,
+        "lat": null,
+        "lng": null,
+        "name": "Nhà hàng Ốc Nhỏ Phú Quốc",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "16:00",
+        "price_max": 200000,
+        "price_min": 80000,
+        "close_time": "23:00",
+        "description": "Quán ốc bình dân nổi tiếng tại đường Trần Hưng Đạo, Dương Đông, chuyên ốc hấp sả, nghêu xào me và hải sản giá rẻ",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 43,
+        "lat": null,
+        "lng": null,
+        "name": "Quán Ghẹ Hàm Ninh",
+        "address": null,
+        "is_active": 1,
+        "item_type": "restaurant",
+        "open_time": "09:00",
+        "price_max": 350000,
+        "price_min": 150000,
+        "close_time": "20:00",
+        "description": "Đặc sản ghẹ Hàm Ninh hấp gừng nổi tiếng nhất Phú Quốc, ăn ngay tại làng chài với view biển, giá bình dân",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 44,
+        "lat": null,
+        "lng": null,
+        "name": "Cáp treo Hòn Thơm",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "08:00",
+        "price_max": 400000,
+        "price_min": 300000,
+        "close_time": "17:00",
+        "description": "Đi cáp treo vượt biển dài nhất thế giới 7.899m từ An Thới ra đảo Hòn Thơm, ngắm toàn cảnh biển xanh và quần đảo An Thới từ trên cao",
+        "location_id": 4,
+        "duration_hours": 2
+      },
+      {
+        "id": 45,
+        "lat": null,
+        "lng": null,
+        "name": "Tour câu cá và lặn ngắm san hô",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "07:00",
+        "price_max": 450000,
+        "price_min": 250000,
+        "close_time": "14:00",
+        "description": "Tour 4 đảo kết hợp câu cá, lặn ngắm san hô và tắm biển quanh quần đảo An Thới, xuất phát từ cảng An Thới buổi sáng sớm",
+        "location_id": 4,
+        "duration_hours": 5
+      },
+      {
+        "id": 46,
+        "lat": null,
+        "lng": null,
+        "name": "VinWonders Phú Quốc",
+        "address": null,
+        "is_active": 1,
+        "item_type": "activity",
+        "open_time": "09:00",
+        "price_max": 900000,
+        "price_min": 600000,
+        "close_time": "21:00",
+        "description": "Công viên giải trí và vui chơi lớn nhất Phú Quốc với hơn 100 trò chơi, show diễn và khu nước, nằm trong quần thể Vinpearl tại bãi Dài",
+        "location_id": 4,
+        "duration_hours": 6
+      },
+      {
+        "id": 47,
+        "lat": null,
+        "lng": null,
+        "name": "Vinpearl Resort & Spa Phú Quốc",
+        "address": null,
+        "is_active": 1,
+        "item_type": "hotel",
+        "open_time": null,
+        "price_max": 5000000,
+        "price_min": 2500000,
+        "close_time": null,
+        "description": "Resort 5 sao đẳng cấp tại bãi Dài với bãi biển riêng dài 1km, hồ bơi vô cực và kết nối trực tiếp với VinWonders",
+        "location_id": 4,
+        "duration_hours": 24
+      }
+    ],
+    "hotel": [
+      {
+        "id": 1,
+        "name": "MEANDER Sai Gon",
+        "status": "active",
+        "address": "3B Lý Tự Trọng, Sài Gòn, Hồ Chí Minh 700000, Việt Nam",
+        "latitude": 21.0245,
+        "longitude": 105.8562,
+        "location_id": 2
+      },
+      {
+        "id": 2,
+        "name": "The Hanoi Signature Hotel",
+        "status": "active",
+        "address": "95 Hang Bong Street, Old Quarter, Quận Hoàn Kiếm, Hà Nội, Việt Nam, 10000",
+        "latitude": 21.0172,
+        "longitude": 105.7817,
+        "location_id": 1
+      },
+      {
+        "id": 3,
+        "name": "La Siesta Classic Ma May",
+        "status": "active",
+        "address": "94 Mã Mây, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội, Việt Nam",
+        "latitude": 21.0338,
+        "longitude": 105.8508,
+        "location_id": 1
+      },
+      {
+        "id": 4,
+        "name": "Hanoian Central Hotel & Spa",
+        "status": "active",
+        "address": "42 Hàng Cót, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội 100000, Việt Nam",
+        "latitude": 21.03,
+        "longitude": 105.8167,
+        "location_id": 1
+      },
+      {
+        "id": 5,
+        "name": "Hotel Majestic Saigon",
+        "status": "active",
+        "address": "1 Đồng Khởi, Sài Gòn, Hồ Chí Minh, Việt Nam",
+        "latitude": 10.7769,
+        "longitude": 106.7009,
+        "location_id": 2
+      },
+      {
+        "id": 6,
+        "name": "La Siesta Premium Saigon Central",
+        "status": "active",
+        "address": "47-51 Lê Anh Xuân, Bến Thành, Hồ Chí Minh 100000, Việt Nam",
+        "latitude": 10.7763,
+        "longitude": 106.7021,
+        "location_id": 2
+      },
+      {
+        "id": 7,
+        "name": "La Siesta Premium Saigon",
+        "status": "active",
+        "address": "180 - 188 Lý Tự Trọng, Bến Thành, Hồ Chí Minh 700000, Việt Nam",
+        "latitude": 10.7745,
+        "longitude": 106.7003,
+        "location_id": 2
+      },
+      {
+        "id": 8,
+        "name": "Hotel Grand Saigon",
+        "status": "active",
+        "address": "8 Đồng Khởi, Sài Gòn, Hồ Chí Minh 70000, Việt Nam",
+        "latitude": 10.7736,
+        "longitude": 106.7027,
+        "location_id": 2
+      },
+      {
+        "id": 9,
+        "name": "InterContinental Danang Sun Peninsula",
+        "status": "inactive",
+        "address": "Bán đảo Sơn Trà, Đà Nẵng",
+        "latitude": 16.1167,
+        "longitude": 108.2833,
+        "location_id": 3
+      },
+      {
+        "id": 10,
+        "name": "Pullman Danang Beach Resort",
+        "status": "active",
+        "address": "101 Võ Nguyên Giáp, Ngũ Hành Sơn, Đà Nẵng 550000, Việt Nam",
+        "latitude": 16.0544,
+        "longitude": 108.2473,
+        "location_id": 3
+      },
+      {
+        "id": 11,
+        "name": "Brilliant Hotel Danang",
+        "status": "inactive",
+        "address": "162 Bạch Đằng, Hải Châu, Đà Nẵng",
+        "latitude": 16.0678,
+        "longitude": 108.2243,
+        "location_id": 3
+      },
+      {
+        "id": 12,
+        "name": "WorldHotels Long Beach Resort Phu Quoc",
+        "status": "active",
+        "address": "Special Zone, 152 Tran Hung Dao Street, Cua Lap Duong To Quarter, Phú Quốc, An Giang, Việt Nam",
+        "latitude": 10.0339,
+        "longitude": 104.0167,
+        "location_id": 4
+      },
+      {
+        "id": 13,
+        "name": "Vinpearl Resort & Spa Phú Quốc",
+        "status": "inactive",
+        "address": "Bãi Dài, Gành Dầu, Phú Quốc",
+        "latitude": 10.3833,
+        "longitude": 103.8667,
+        "location_id": 4
+      },
+      {
+        "id": 14,
+        "name": "Brilliant Bay Nha Trang Hotel",
+        "status": "active",
+        "address": "Trần Phú, Nha Trang, Khánh Hòa 650000, Việt Nam",
+        "latitude": 12.2388,
+        "longitude": 109.1967,
+        "location_id": 5
+      },
+      {
+        "id": 15,
+        "name": "Sunrise Nha Trang Beach Hotel",
+        "status": "inactive",
+        "address": "12-14 Trần Phú, Nha Trang",
+        "latitude": 12.2402,
+        "longitude": 109.1963,
+        "location_id": 5
+      },
+      {
+        "id": 16,
+        "name": "Four Seasons Resort The Nam Hai",
+        "status": "active",
+        "address": "Đường Lạc Long Quân, Điện Bàn, Quảng Nam",
+        "latitude": 15.8669,
+        "longitude": 108.3248,
+        "location_id": 6
+      },
+      {
+        "id": 17,
+        "name": "Anantara Hoi An Resort",
+        "status": "active",
+        "address": "1 Pham Hong Thai, Cẩm Châu, Hội An, Việt Nam, 51300",
+        "latitude": 15.8773,
+        "longitude": 108.3271,
+        "location_id": 6
+      },
+      {
+        "id": 18,
+        "name": "Dalat Palace Heritage Hotel",
+        "status": "active",
+        "address": "2 Trần Phú, Đà Lạt",
+        "latitude": 11.9422,
+        "longitude": 108.4403,
+        "location_id": 7
+      },
+      {
+        "id": 19,
+        "name": "Khách sạn Le Récit Boutique Đà Lạt (Le Recit Boutique Hotel de Dalat)",
+        "status": "active",
+        "address": "117 Bui Thi Xuan, Phuong 2, Trung tâm Thành phố Đà Lạt, Đà Lạt, Việt Nam, 670000",
+        "latitude": 11.9341,
+        "longitude": 108.4433,
+        "location_id": 7
+      },
+      {
+        "id": 20,
+        "name": "Azerai La Residence Hue",
+        "status": "active",
+        "address": "5 Lê Lợi, Street, Thuận Hóa, Huế 530000, Việt Nam",
+        "latitude": 16.4666,
+        "longitude": 107.5936,
+        "location_id": 8
+      },
+      {
+        "id": 21,
+        "name": "Pilgrimage Village Boutique Resort",
+        "status": "active",
+        "address": "130 Minh Mạng, Thủy Xuân, Huế 530000, Việt Nam",
+        "latitude": 16.448,
+        "longitude": 107.5672,
+        "location_id": 8
+      },
+      {
+        "id": 43,
+        "name": "The Pearl Hoi An",
+        "status": "active",
+        "address": "Khối phố An Bàng, Cẩm An, Hội An, Việt Nam, 560000",
+        "latitude": 0,
+        "longitude": 0,
+        "location_id": 6
+      },
+      {
+        "id": 44,
+        "name": "NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",
+        "status": "active",
+        "address": "Vong Nhi Village, Cẩm Thanh, Hội An, Việt Nam, 51000",
+        "latitude": 0,
+        "longitude": 0,
+        "location_id": 6
+      },
+      {
+        "id": 45,
+        "name": "Vinpearl Resort & Golf Nam Hoi An",
+        "status": "active",
+        "address": "Thăng Bình, Thăng Bình, Quảng Nam, Việt Nam, 560000, Thăng Bình, Hội An, Việt Nam, 560000",
+        "latitude": 0,
+        "longitude": 0,
+        "location_id": 6
+      }
+    ],
+    "hotel_image": [
+      {
+        "id": 2,
+        "caption": null,
+        "hotel_id": 2,
+        "image_url": "image/img_hotel/hotel_ (2).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 3,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "image/img_hotel/hotel_ (3).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 4,
+        "caption": null,
+        "hotel_id": 4,
+        "image_url": "image/img_hotel/hotel_ (4).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 5,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "image/img_hotel/hotel_ (5).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 6,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "image/img_hotel/hotel_ (6).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 7,
+        "caption": null,
+        "hotel_id": 7,
+        "image_url": "image/img_hotel/hotel_ (7).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 8,
+        "caption": null,
+        "hotel_id": 8,
+        "image_url": "image/img_hotel/hotel_ (8).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 9,
+        "caption": null,
+        "hotel_id": 9,
+        "image_url": "image/img_hotel/hotel_ (9).jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 10,
+        "caption": null,
+        "hotel_id": 10,
+        "image_url": "image/img_hotel/hotel_ (10).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 11,
+        "caption": null,
+        "hotel_id": 11,
+        "image_url": "image/img_hotel/hotel_ (11).jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 12,
+        "caption": null,
+        "hotel_id": 12,
+        "image_url": "image/img_hotel/hotel_ (12).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 13,
+        "caption": null,
+        "hotel_id": 13,
+        "image_url": "image/img_hotel/hotel_ (13).jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 14,
+        "caption": null,
+        "hotel_id": 14,
+        "image_url": "image/img_hotel/hotel_ (14).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 15,
+        "caption": null,
+        "hotel_id": 15,
+        "image_url": "image/img_hotel/hotel_ (15).jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 16,
+        "caption": null,
+        "hotel_id": 16,
+        "image_url": "image/img_hotel/hotel_ (16).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 17,
+        "caption": null,
+        "hotel_id": 17,
+        "image_url": "image/img_hotel/hotel_ (17).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 18,
+        "caption": null,
+        "hotel_id": 18,
+        "image_url": "image/img_hotel/hotel_ (18).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 19,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "image/img_hotel/hotel_ (19).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 20,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "image/img_hotel/hotel_ (20).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 21,
+        "caption": null,
+        "hotel_id": 21,
+        "image_url": "image/img_hotel/hotel_ (21).jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 22,
+        "caption": null,
+        "hotel_id": 1,
+        "image_url": "storage/accommodation/hotel_image/1/h73qIX5L8ssRAcxRvTvp48j01MgKG2bNPFvZ6NIE.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 29,
+        "caption": null,
+        "hotel_id": 1,
+        "image_url": "storage/accommodation/hotel_image/1/s60jACU8ZQQkz53hqKtXxtTUcMnoBRCfw1NPnpDD.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 30,
+        "caption": null,
+        "hotel_id": 1,
+        "image_url": "storage/accommodation/hotel_image/1/sSybG5zOWQDUBdkDCwgOEnCwHSHesIh3cI7B320J.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 31,
+        "caption": null,
+        "hotel_id": 1,
+        "image_url": "storage/accommodation/hotel_image/1/4nU0Zg6oOSOAw59UakdXTXPFrz0RX0NMr9VS7FIH.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 32,
+        "caption": null,
+        "hotel_id": 1,
+        "image_url": "storage/accommodation/hotel_image/1/Ps3j6266yJApzpLhiIzADwEjJirxPl6Cr99HujEH.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 33,
+        "caption": null,
+        "hotel_id": 1,
+        "image_url": "storage/accommodation/hotel_image/1/qRpBKra4OOErnH1EqYLnnPAfjoxWlGwg1EfXTLMD.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 34,
+        "caption": null,
+        "hotel_id": 7,
+        "image_url": "storage/accommodation/hotel_image/7/4AkC8EG89Opci8ryrnuNIRdCK0NDmLELEfhJZ9Ke.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 35,
+        "caption": null,
+        "hotel_id": 7,
+        "image_url": "storage/accommodation/hotel_image/7/FChGcPiPpo2qDPybZHOMkdxpuSUkE8dIBEXjMOFm.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 36,
+        "caption": null,
+        "hotel_id": 7,
+        "image_url": "storage/accommodation/hotel_image/7/jRxqu52GWvBwD1uwF25vxAHCNr2sNUCxMsOfSnOe.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 37,
+        "caption": null,
+        "hotel_id": 7,
+        "image_url": "storage/accommodation/hotel_image/7/X0VwZOBuzxbmIGSMdqkNeYkyWQm93KFf499NHSIZ.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 38,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/vKFmHzxpAQdaDtoocmByPPafwQeULZnDU93Q1axM.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 39,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/HvmcTeiDRL7mIirMx9VZUJoPIv1Drjec6t3a2qYN.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 40,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/9dMNFiJaQXLP5OJ2K9nVARXT7xn5sSDBwC02BEfX.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 41,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/dw9vrCqn4Xvz1VtNDkoI5FmBpnyUCgWFAuhbxmTM.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 42,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/OpjxcUEWj7mCfibr6wtFBnrJbrGSKW7Zu7IeTm2m.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 43,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/fB8EzvSAE39SmXp8ymRQvCq2GK7n7RnBYnHxZHFj.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 44,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/TYGpN5Gdz5TLgZhNMQd2op9bh4q0qXPmZolArxYW.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 45,
+        "caption": null,
+        "hotel_id": 6,
+        "image_url": "storage/accommodation/hotel_image/6/7CSHYhqWZeXGMPN1UVCKFrt3y3aqKhmkMWAIrB4F.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 46,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "storage/accommodation/hotel_image/19/IKHx0nhn6hlwCM3FCtP75XmBb4W4mBvOQOnYBtfZ.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 47,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "storage/accommodation/hotel_image/19/ICGb9AxWX23QUA8t4qMzqrPIurXrANtQETjdVCuL.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 48,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "storage/accommodation/hotel_image/19/ZITeroc8c7QxkB99X66y47JvTcwoSdsMOC8BrbzC.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 49,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "storage/accommodation/hotel_image/19/sYCEhVpkH4LDiTUgVvwKvwkd0si9YsJGFTclQGUS.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 50,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "storage/accommodation/hotel_image/19/VR77mN04UUcDVnTdlDAMDQ48ElNTnRWjrhXf7KqN.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 51,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "storage/accommodation/hotel_image/19/cilX5iHtIQpKj3rD8BWGVdX1Pt07YUtkkANhemWi.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 52,
+        "caption": null,
+        "hotel_id": 19,
+        "image_url": "storage/accommodation/hotel_image/19/O3cKLCrMQRg3jDngjjPBl0JBf0lyZzsWN9NJWH2H.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 53,
+        "caption": null,
+        "hotel_id": 14,
+        "image_url": "storage/accommodation/hotel_image/14/tjWNfdBWUM489eqyjQN6eJtWxl6K1Ye0gOJf7sfZ.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 54,
+        "caption": null,
+        "hotel_id": 14,
+        "image_url": "storage/accommodation/hotel_image/14/0fcMnY1OL6ECSfiAb57suVdFraNgvFgndf0LMav1.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 55,
+        "caption": null,
+        "hotel_id": 14,
+        "image_url": "storage/accommodation/hotel_image/14/NRitcwr2UqU03VDVcH1xkUhwqjIBCtIue66f75B4.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 56,
+        "caption": null,
+        "hotel_id": 14,
+        "image_url": "storage/accommodation/hotel_image/14/3K0GmN71Z4ENyuhchPAA2L9YGls03tR1cLjQQWfC.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 57,
+        "caption": null,
+        "hotel_id": 14,
+        "image_url": "storage/accommodation/hotel_image/14/NfIVwz3HMrIXm9yKUAPkSv89NY4DIDddThts2GgB.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 58,
+        "caption": null,
+        "hotel_id": 14,
+        "image_url": "storage/accommodation/hotel_image/14/Z1xk3IxMlvT1T3CXoNAB5Igiw1FGjS1cI1Jsul2b.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 59,
+        "caption": null,
+        "hotel_id": 12,
+        "image_url": "storage/accommodation/hotel_image/12/pm5B1MBfFHkJ5ccIMYPXRZGEMBX2PRUI91wlfztw.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 60,
+        "caption": null,
+        "hotel_id": 12,
+        "image_url": "storage/accommodation/hotel_image/12/SGLrYGhyuqO46rs0n1reQIU8sBzCafqcIAtFAK0k.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 61,
+        "caption": null,
+        "hotel_id": 12,
+        "image_url": "storage/accommodation/hotel_image/12/aWx99imeBh6ZqL7WefLJxkEmyigZyZCh6EyMOMhk.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 62,
+        "caption": null,
+        "hotel_id": 12,
+        "image_url": "storage/accommodation/hotel_image/12/67P1FWF6iWftkfYOkwhdFUaB6ygkiU2UDlNCnRcO.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 63,
+        "caption": null,
+        "hotel_id": 12,
+        "image_url": "storage/accommodation/hotel_image/12/xia3aBqpWHmgwFhJ3tASvKbZL3CscbeefCRn9BlW.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 64,
+        "caption": null,
+        "hotel_id": 12,
+        "image_url": "storage/accommodation/hotel_image/12/LCy6OISUdcwQcMJr5ttDPFWskLjfgx69wKL3h1lP.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 65,
+        "caption": null,
+        "hotel_id": 10,
+        "image_url": "storage/accommodation/hotel_image/10/qR9ZhAHfzfj0mYLt24HDAPxRTAjF9eV7MggZ4lMC.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 66,
+        "caption": null,
+        "hotel_id": 10,
+        "image_url": "storage/accommodation/hotel_image/10/P2jasYeVAXFwTZOHN68urMgYvpRSDIcQNwWAZHue.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 67,
+        "caption": null,
+        "hotel_id": 10,
+        "image_url": "storage/accommodation/hotel_image/10/7Q3LoX4fWaNiD08tHMwfIiIsUQnB6bqNy7rfWgga.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 68,
+        "caption": null,
+        "hotel_id": 10,
+        "image_url": "storage/accommodation/hotel_image/10/IA5zkFQrwd3G5ttAQUTyo8Q7Pl5NExKAeOIAcVpz.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 69,
+        "caption": null,
+        "hotel_id": 10,
+        "image_url": "storage/accommodation/hotel_image/10/jRdjC060DV45fjqa0tlucKT9UwY4VeLi4nn2ipGv.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 70,
+        "caption": null,
+        "hotel_id": 10,
+        "image_url": "storage/accommodation/hotel_image/10/LW5GhAPsFcgwQGk8zSmizFDckUg1DesgaPhAUEZJ.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 71,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "storage/accommodation/hotel_image/3/ssTTYbGKOpoWyCe9cgBSRcyyMcE3QQxgX8Z8dzgy.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 72,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "storage/accommodation/hotel_image/3/HemPzFH3rtc5sr7NGXXb93adymawvwwZUAVb4CbJ.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 73,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "storage/accommodation/hotel_image/3/upsDocheVn8U5Og3Ka7ZnhufpDPEeh5e3i4zgRCo.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 74,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "storage/accommodation/hotel_image/3/GbTFGdd2MBUYgzxEkeBu2fOPVfXNjsDb7NG3bY7C.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 75,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "storage/accommodation/hotel_image/3/B4MCVdV8hM7KLOWwJ8aFL8DOT16hXX5gZEWpJCdj.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 76,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "storage/accommodation/hotel_image/3/TWKJql5aTcB4ChEoEz43ObEro9s3uJ8Qz0rv3Hxs.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 77,
+        "caption": null,
+        "hotel_id": 3,
+        "image_url": "storage/accommodation/hotel_image/3/qM7EjWvPI78PVZOO5Apd4aLFK0cKqgfbnxqUtUfr.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 78,
+        "caption": null,
+        "hotel_id": 17,
+        "image_url": "storage/accommodation/hotel_image/17/EEmZOgjJipb8DVQOjrSMfcIm7TnauWkiqW4kZBac.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 79,
+        "caption": null,
+        "hotel_id": 17,
+        "image_url": "storage/accommodation/hotel_image/17/rrFkcsFdaMW2bu0kpWBb5x7gAAcHuegm4BItdk42.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 80,
+        "caption": null,
+        "hotel_id": 17,
+        "image_url": "storage/accommodation/hotel_image/17/vuqFIQydEFlTdA1iQ0PVgvK4KIcx9OoJrn9SLp3r.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 81,
+        "caption": null,
+        "hotel_id": 17,
+        "image_url": "storage/accommodation/hotel_image/17/HMHk4mXLQBp71zlTxMsT3L0pikQOXqFNpx4jHhWh.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 82,
+        "caption": null,
+        "hotel_id": 17,
+        "image_url": "storage/accommodation/hotel_image/17/UGXTctLpIlRBI5hIrJck2Y5Znvl4mwdZQOCF6uAd.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 83,
+        "caption": null,
+        "hotel_id": 17,
+        "image_url": "storage/accommodation/hotel_image/17/ee8TYknWZ4s8EolQGqjZJ8V1kgrU3nCzuEASpSDp.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 84,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "storage/accommodation/hotel_image/20/XTF0NZjx2J8FUOcUzXjgKXlmnj4IrBsZ4aIr2JhN.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 85,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "storage/accommodation/hotel_image/20/Memws58XaeAJfg5pdAd9ZeIzMIFd0lMojpGjbpQb.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 86,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "storage/accommodation/hotel_image/20/xSMp63WBQaVlGIqF025TCtZOh1pjcjWMplPcCgYf.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 87,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "storage/accommodation/hotel_image/20/EcL3YuaY9ga0wLnvOvzd0z6dbgSfbRuYFbHmmk3f.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 88,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "storage/accommodation/hotel_image/20/5TWvP5UsApKsL44RX09UI8yhnkxR0GqF9IGafG1z.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 89,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "storage/accommodation/hotel_image/20/AWV2e8647xBj5UWP61spJK6BjAlFXVcf2mY3bmCq.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 90,
+        "caption": null,
+        "hotel_id": 20,
+        "image_url": "storage/accommodation/hotel_image/20/2hYMMDcid8crtgs9zDlYV48aXJrAq3jowX4yismp.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 91,
+        "caption": null,
+        "hotel_id": 21,
+        "image_url": "storage/accommodation/hotel_image/21/cxtOVPukzwFbLJPsEAPFqPxKdOOrBIVafpuFtrNl.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 92,
+        "caption": null,
+        "hotel_id": 21,
+        "image_url": "storage/accommodation/hotel_image/21/aEIUsX5ebBLdxoiMn8213IqnQ94s4KcgrzJsEsOp.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 93,
+        "caption": null,
+        "hotel_id": 21,
+        "image_url": "storage/accommodation/hotel_image/21/K4vMZasWI98IkwocmKksrUKDNF9mKrJzZQruvquN.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 94,
+        "caption": null,
+        "hotel_id": 21,
+        "image_url": "storage/accommodation/hotel_image/21/y2DslhhkTWgEvdrrRBVqACAYOTYx5CWLDHg1Y3pK.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 95,
+        "caption": null,
+        "hotel_id": 21,
+        "image_url": "storage/accommodation/hotel_image/21/Mis8kpWTiXjaPphjS3pALAu6O6s1FJkT29loywWn.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 96,
+        "caption": null,
+        "hotel_id": 8,
+        "image_url": "storage/accommodation/hotel_image/8/tiBN1AJo3VoQMP4hizbj3THXYWDFH3VUAjxRXzpV.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 97,
+        "caption": null,
+        "hotel_id": 8,
+        "image_url": "storage/accommodation/hotel_image/8/DVHMVx0P6OuNpwoSDc70fS8IKBNZVXzkpDfGukCg.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 98,
+        "caption": null,
+        "hotel_id": 8,
+        "image_url": "storage/accommodation/hotel_image/8/wM0346C1onMr5gdfR2ADbD4VHWm8fcAaMcUmtbCs.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 99,
+        "caption": null,
+        "hotel_id": 8,
+        "image_url": "storage/accommodation/hotel_image/8/8dmBWiG9EMInzPy3m5bzVvDwWfgAgvjA6Pc4bXWK.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 100,
+        "caption": null,
+        "hotel_id": 8,
+        "image_url": "storage/accommodation/hotel_image/8/7NgFMpfiXsC9i6CZXqrnDQBHwhjKr1M0NVLc1eXU.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 101,
+        "caption": null,
+        "hotel_id": 8,
+        "image_url": "storage/accommodation/hotel_image/8/MitxvMBDXi7ZcQZZGbWmoB0w8iOzOamio5icc9kF.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 102,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "storage/accommodation/hotel_image/5/fPHfz56chSFGaVoGU5lNsguIxcQ80rs8YnQemB5L.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 103,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "storage/accommodation/hotel_image/5/W3NUTfCxr2vxm6FU0gpXT25hSqk9kP384Ip59JhE.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 104,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "storage/accommodation/hotel_image/5/PNUOivgqMC6Tr6kfMI7ioIGw9uPSwOWHBb3gDCzG.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 105,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "storage/accommodation/hotel_image/5/mm6Jh0VKl622zxup5OGJi9uq0MwT4nDOT3CO5SIb.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 106,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "storage/accommodation/hotel_image/5/3ZGTZDLjyYqPiCGROTtt8fYHC1A2rjzSaTa16ajG.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 107,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "storage/accommodation/hotel_image/5/tdf9Gz8k5MrBicu37Q6uDjvubjzYKIvsJHkqmeSg.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 108,
+        "caption": null,
+        "hotel_id": 5,
+        "image_url": "storage/accommodation/hotel_image/5/Zo2GQZWNkuWEw6QcZHY7sMnDU58s1SWiOqXuAQJJ.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 109,
+        "caption": null,
+        "hotel_id": 4,
+        "image_url": "storage/accommodation/hotel_image/4/dMntIxQcjIdLOeUVZzL7mciJidgLNssSCWklSXQu.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 110,
+        "caption": null,
+        "hotel_id": 4,
+        "image_url": "storage/accommodation/hotel_image/4/FF1L0o1Zlk8WxHJadKzPF8xMbBkRA1h36KaMCEZe.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 111,
+        "caption": null,
+        "hotel_id": 4,
+        "image_url": "storage/accommodation/hotel_image/4/uCIVGjW5IbtfN9R3BuxhJOca7MKKVuodEkVQ1cRd.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 112,
+        "caption": null,
+        "hotel_id": 4,
+        "image_url": "storage/accommodation/hotel_image/4/ytgWnMbtYrgVm2Z1kdEcIbR69WshAEka6hzMXr9U.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 113,
+        "caption": null,
+        "hotel_id": 4,
+        "image_url": "storage/accommodation/hotel_image/4/ltLTUohkrr2Z7SPbxEEu5bvfvINZKDRBnC7ZNoeO.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 114,
+        "caption": null,
+        "hotel_id": 4,
+        "image_url": "storage/accommodation/hotel_image/4/Z2jUss3dsseKAaY47uLGkQkytpmm3Ho7oKKkFxIX.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 115,
+        "caption": null,
+        "hotel_id": 2,
+        "image_url": "storage/accommodation/hotel_image/2/w6sowX4jZyoeVTr3pI9heOwCQ78LdwGUwujQQAeS.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 116,
+        "caption": null,
+        "hotel_id": 2,
+        "image_url": "storage/accommodation/hotel_image/2/TwTTRvRC2Xub3cx447R7hgCGBHAPMcV9W2pt6tse.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 117,
+        "caption": null,
+        "hotel_id": 2,
+        "image_url": "storage/accommodation/hotel_image/2/dgPFLFcYo2TLz4Cta8e2311lKLriVo7rvoHrjL7w.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 118,
+        "caption": null,
+        "hotel_id": 2,
+        "image_url": "storage/accommodation/hotel_image/2/f4Lf2NTUxPVDkVcWYKeHYLaBLG5MmDsRbMmT8bVf.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 119,
+        "caption": null,
+        "hotel_id": 2,
+        "image_url": "storage/accommodation/hotel_image/2/2xzxxIDz8JpBMkazisDyxM0USnXtn3YchHIf9U8q.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 120,
+        "caption": null,
+        "hotel_id": 2,
+        "image_url": "storage/accommodation/hotel_image/2/iMRGb0KetyCcVvYvaNyTPdyKx5Ld0FaW7O3e01G2.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 121,
+        "caption": null,
+        "hotel_id": 18,
+        "image_url": "storage/accommodation/hotel_image/18/gJX5oGErgQDwX4LFfPvrcdl8wt5UIice3naiDZZ2.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 122,
+        "caption": null,
+        "hotel_id": 18,
+        "image_url": "storage/accommodation/hotel_image/18/AyQUqIjgXOpSlU52VBLMpFlCAPCeZCyGfJmvxpmP.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 123,
+        "caption": null,
+        "hotel_id": 18,
+        "image_url": "storage/accommodation/hotel_image/18/YMqYeTzGO0C0Qo3VcdHWFKl0LLzwcNaX2H7792jo.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 124,
+        "caption": null,
+        "hotel_id": 18,
+        "image_url": "storage/accommodation/hotel_image/18/dETSy4njfUq93vN0qPklVeiJo4m4LJuvDJyrLyAB.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 125,
+        "caption": null,
+        "hotel_id": 18,
+        "image_url": "storage/accommodation/hotel_image/18/L2fTkSGXB53MIaGifhukXn6iLcBfTMBeWWeVITp0.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 126,
+        "caption": null,
+        "hotel_id": 18,
+        "image_url": "storage/accommodation/hotel_image/18/A5sAoGXAEkI9nOHrA47grKotqsZuGcaki1Bftnd0.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 127,
+        "caption": null,
+        "hotel_id": 16,
+        "image_url": "storage/accommodation/hotel_image/16/nyzzaGfWjXHgSAvmnZBt4qGGSux56a7jOUZfDlSw.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 128,
+        "caption": null,
+        "hotel_id": 16,
+        "image_url": "storage/accommodation/hotel_image/16/hLqtKEkzT2kx4jq2sQ7VTvul7mCKkUNdC2nh29Z1.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 129,
+        "caption": null,
+        "hotel_id": 16,
+        "image_url": "storage/accommodation/hotel_image/16/9uLUzffskk8udfPket9DV2EgDQIO80rrbNJaGBgB.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 130,
+        "caption": null,
+        "hotel_id": 16,
+        "image_url": "storage/accommodation/hotel_image/16/fEcwLqI19Nr387TaY7JWAq34ovjLxafjBV2qO7Vd.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 131,
+        "caption": null,
+        "hotel_id": 16,
+        "image_url": "storage/accommodation/hotel_image/16/f2RCOgS3LdtzShdEAC9VTolsExqRLuCEbZYVpbvP.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 132,
+        "caption": null,
+        "hotel_id": 16,
+        "image_url": "storage/accommodation/hotel_image/16/Cwu1IWyA4of4x9FrgcijlFutM3ILChk100AgPdCR.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 141,
+        "caption": null,
+        "hotel_id": 43,
+        "image_url": "storage/accommodation/hotel_image/43/NAa4FPcA4z9IsJq1LY8MNN4JxTmfkvgBdweCPddK.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 142,
+        "caption": null,
+        "hotel_id": 43,
+        "image_url": "storage/accommodation/hotel_image/43/fzKaF0RvdPfHQtJk6rNitX4PeEoTuXRlaV1VRHoY.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 143,
+        "caption": null,
+        "hotel_id": 43,
+        "image_url": "storage/accommodation/hotel_image/43/f0doYYaSUoC10SxlEIXMUfvHIx4gGZ6DzsiZ13Au.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 144,
+        "caption": null,
+        "hotel_id": 43,
+        "image_url": "storage/accommodation/hotel_image/43/6kQtd4ylDOum6TKtQ3YRJ4ADOX5DmF0A0UmmUOgy.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 145,
+        "caption": null,
+        "hotel_id": 43,
+        "image_url": "storage/accommodation/hotel_image/43/zsxC4ZbAgJ2N3BF6hglG3XHTa55l6UaDoLTu1UeI.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 146,
+        "caption": null,
+        "hotel_id": 44,
+        "image_url": "storage/accommodation/hotel_image/44/qytzUFPrXFIT0Kew5b4HuveiVEgtIWn0GqVa74Bb.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 147,
+        "caption": null,
+        "hotel_id": 44,
+        "image_url": "storage/accommodation/hotel_image/44/Zcgw51HoSdROPlcpsMmnAgOzzQmf0RvTNMg5Rqsp.jpg",
+        "is_primary": 1
+      },
+      {
+        "id": 148,
+        "caption": null,
+        "hotel_id": 44,
+        "image_url": "storage/accommodation/hotel_image/44/ziXSDHwNyOq4RImJjkrE6mn2tmyusSyxceY1AX1v.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 149,
+        "caption": null,
+        "hotel_id": 44,
+        "image_url": "storage/accommodation/hotel_image/44/dnMFN0ZxJ2JnuASj3JMIbePMDv74FbAw6J7ROgJm.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 150,
+        "caption": null,
+        "hotel_id": 44,
+        "image_url": "storage/accommodation/hotel_image/44/wyMqUBmNykR08pszb81gokKgEBl0m6CQUA6PiOcl.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 151,
+        "caption": null,
+        "hotel_id": 44,
+        "image_url": "storage/accommodation/hotel_image/44/GZ5h9S4wFOhkByQTJs8zZaPLJ07lFIyyNwq2NDY2.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 152,
+        "caption": null,
+        "hotel_id": 45,
+        "image_url": "storage/accommodation/hotel_image/45/fQxPsawMfGm5Zsqk28azesvTIa3scfGi4roZSgqK.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 153,
+        "caption": null,
+        "hotel_id": 45,
+        "image_url": "storage/accommodation/hotel_image/45/8BS7C0NpjzBNvfPSomskoifVVAHNgmgTRLYrnmoi.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 154,
+        "caption": null,
+        "hotel_id": 45,
+        "image_url": "storage/accommodation/hotel_image/45/vXJAHNVYKWyD9uvKuXxWQJ9yMwxE0PwwvN2k0y1I.webp",
+        "is_primary": 1
+      },
+      {
+        "id": 155,
+        "caption": null,
+        "hotel_id": 45,
+        "image_url": "storage/accommodation/hotel_image/45/r0ZWYQff8OmaVuNHYV2sCXCLacpxJgU3NsPRKC7u.webp",
+        "is_primary": 0
+      },
+      {
+        "id": 156,
+        "caption": null,
+        "hotel_id": 45,
+        "image_url": "storage/accommodation/hotel_image/45/8vnUvcBjKG0KWhRponilThm0ee8zdsIDoLna0Dh4.jpg",
+        "is_primary": 0
+      },
+      {
+        "id": 157,
+        "caption": null,
+        "hotel_id": 45,
+        "image_url": "storage/accommodation/hotel_image/45/DwzsHD9Ns0N75DUSUxFQCg2B9816eHXz3g8hmCFJ.webp",
+        "is_primary": 0
+      }
+    ]
+  },
+  "quality": {
+    "attraction_orphans": [
+      {
+        "count": 0
+      }
+    ],
+    "attraction_duplicate_same_location": [],
+    "attraction_same_name_across_locations": [],
+    "attraction_quality": [
+      {
+        "type": "hotel",
+        "count": 9,
+        "active": 9,
+        "missing_address": 9,
+        "zero_price_range": 0,
+        "invalid_coordinates": 0,
+        "missing_coordinates": 9,
+        "missing_description": 0,
+        "inverted_price_range": 0
+      },
+      {
+        "type": "restaurant",
+        "count": 15,
+        "active": 15,
+        "missing_address": 15,
+        "zero_price_range": 0,
+        "invalid_coordinates": 0,
+        "missing_coordinates": 15,
+        "missing_description": 0,
+        "inverted_price_range": 0
+      },
+      {
+        "type": "attraction",
+        "count": 15,
+        "active": 15,
+        "missing_address": 15,
+        "zero_price_range": 8,
+        "invalid_coordinates": 0,
+        "missing_coordinates": 15,
+        "missing_description": 0,
+        "inverted_price_range": 0
+      },
+      {
+        "type": "activity",
+        "count": 8,
+        "active": 8,
+        "missing_address": 8,
+        "zero_price_range": 0,
+        "invalid_coordinates": 0,
+        "missing_coordinates": 8,
+        "missing_description": 0,
+        "inverted_price_range": 0
+      }
+    ],
+    "hotel_orphans": [
+      {
+        "count": 0
+      }
+    ],
+    "hotel_image_orphans": [
+      {
+        "count": 0
+      }
+    ]
+  },
+  "safety": {
+    "dotenv_read": false,
+    "admin_credential_used": false,
+    "credential_contents_dumped": false,
+    "application_bootstrapped": false,
+    "database_write_statements": 0,
+    "customer_or_financial_rows_read": false,
+    "migration_seed_import_executed": false,
+    "phase5c2_started": false
+  },
+  "privileges": {
+    "USER_PRIVILEGES": [
+      {
+        "grantee": "'aurel_catalog_ro'@'127.0.0.1'",
+        "is_grantable": "NO",
+        "privilege_type": "USAGE"
+      }
+    ],
+    "SCHEMA_PRIVILEGES": [
+      {
+        "grantee": "'aurel_catalog_ro'@'127.0.0.1'",
+        "is_grantable": "NO",
+        "table_schema": "hotel\\_booking",
+        "privilege_type": "SELECT"
+      }
+    ],
+    "TABLE_PRIVILEGES": [],
+    "COLUMN_PRIVILEGES": []
+  },
+  "final_guard": {
+    "identity": {
+      "host": "QuocAnh",
+      "port": 3306,
+      "role": "NONE",
+      "uuid": "7880df8a-92cd-11f0-85c1-a841f442ddbd",
+      "account": "aurel_catalog_ro@127.0.0.1",
+      "utc_now": "2026-10-25 05:12:01",
+      "version": "8.0.30",
+      "database": "hotel_booking",
+      "session_now": "2026-10-25 12:12:01",
+      "connection_user": "aurel_catalog_ro@localhost",
+      "global_sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+      "mandatory_roles": "",
+      "partial_revokes": 0,
+      "database_charset": "utf8mb4",
+      "global_time_zone": "SYSTEM",
+      "server_read_only": 0,
+      "session_sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+      "system_time_zone": "SE Asia Standard Time",
+      "session_time_zone": "SYSTEM",
+      "database_collation": "utf8mb4_0900_ai_ci",
+      "foreign_key_checks": 1
+    },
+    "grants": [
+      "GRANT USAGE ON *.* TO `aurel_catalog_ro`@`127.0.0.1`",
+      "GRANT SELECT ON `hotel\\_booking`.* TO `aurel_catalog_ro`@`127.0.0.1`"
+    ],
+    "roles": {
+      "enabled": 0,
+      "applicable": 0
+    }
+  },
+  "read_queries": [
+    {
+      "sequence": 1,
+      "sql": "SELECT JSON_OBJECT('database',DATABASE(),'account',CURRENT_USER(),'connection_user',USER(),'role',CAST(CURRENT_ROLE() AS CHAR),'host',@@hostname,'port',@@port,'uuid',@@server_uuid,'version',VERSION(),'mandatory_roles',@@GLOBAL.mandatory_roles,'partial_revokes',@@GLOBAL.partial_revokes,'session_sql_mode',@@SESSION.sql_mode,'global_sql_mode',@@GLOBAL.sql_mode,'session_time_zone',@@SESSION.time_zone,'global_time_zone',@@GLOBAL.time_zone,'system_time_zone',@@system_time_zone,'database_charset',@@character_set_database,'database_collation',@@collation_database,'foreign_key_checks',@@foreign_key_checks,'server_read_only',@@GLOBAL.read_only,'session_now',CAST(NOW() AS CHAR),'utc_now',CAST(UTC_TIMESTAMP() AS CHAR))",
+      "rows": 1,
+      "elapsed_ms": 52
+    },
+    {
+      "sequence": 2,
+      "sql": "SHOW GRANTS",
+      "rows": 2,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 3,
+      "sql": "SELECT JSON_OBJECT('applicable',(SELECT COUNT(*) FROM information_schema.APPLICABLE_ROLES),'enabled',(SELECT COUNT(*) FROM information_schema.ENABLED_ROLES))",
+      "rows": 1,
+      "elapsed_ms": 4
+    },
+    {
+      "sequence": 4,
+      "sql": "SELECT JSON_OBJECT('grantee',GRANTEE,'privilege_type',PRIVILEGE_TYPE,'is_grantable',IS_GRANTABLE) FROM information_schema.USER_PRIVILEGES WHERE GRANTEE=CONCAT(QUOTE('aurel_catalog_ro'),'@',QUOTE('127.0.0.1'))",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 5,
+      "sql": "SELECT JSON_OBJECT('grantee',GRANTEE,'table_schema',TABLE_SCHEMA,'privilege_type',PRIVILEGE_TYPE,'is_grantable',IS_GRANTABLE) FROM information_schema.SCHEMA_PRIVILEGES WHERE GRANTEE=CONCAT(QUOTE('aurel_catalog_ro'),'@',QUOTE('127.0.0.1'))",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 6,
+      "sql": "SELECT JSON_OBJECT('grantee',GRANTEE,'table_schema',TABLE_SCHEMA,'table_name',TABLE_NAME,'privilege_type',PRIVILEGE_TYPE,'is_grantable',IS_GRANTABLE) FROM information_schema.TABLE_PRIVILEGES WHERE GRANTEE=CONCAT(QUOTE('aurel_catalog_ro'),'@',QUOTE('127.0.0.1'))",
+      "rows": 0,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 7,
+      "sql": "SELECT JSON_OBJECT('grantee',GRANTEE,'table_schema',TABLE_SCHEMA,'table_name',TABLE_NAME,'column_name',COLUMN_NAME,'privilege_type',PRIVILEGE_TYPE,'is_grantable',IS_GRANTABLE) FROM information_schema.COLUMN_PRIVILEGES WHERE GRANTEE=CONCAT(QUOTE('aurel_catalog_ro'),'@',QUOTE('127.0.0.1'))",
+      "rows": 0,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 8,
+      "sql": "SELECT JSON_OBJECT('name',TABLE_NAME,'kind',TABLE_TYPE,'engine',ENGINE,'collation',TABLE_COLLATION,'estimated_rows',TABLE_ROWS) FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME IN ('location','attraction','attraction_image','hotel','hotel_image','guide_category','guide_post','migrations') ORDER BY TABLE_NAME",
+      "rows": 5,
+      "elapsed_ms": 3
+    },
+    {
+      "sequence": 9,
+      "sql": "SELECT JSON_OBJECT('table',TABLE_NAME,'name',COLUMN_NAME,'type',COLUMN_TYPE,'nullable',IS_NULLABLE,'default',COLUMN_DEFAULT,'extra',EXTRA,'collation',COLLATION_NAME) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME IN ('location','attraction','attraction_image','hotel','hotel_image','guide_category','guide_post','migrations') ORDER BY TABLE_NAME,ORDINAL_POSITION",
+      "rows": 48,
+      "elapsed_ms": 5
+    },
+    {
+      "sequence": 10,
+      "sql": "SELECT JSON_OBJECT('table',TABLE_NAME,'name',INDEX_NAME,'unique',IF(NON_UNIQUE=0,1,0),'position',SEQ_IN_INDEX,'column',COLUMN_NAME,'prefix',SUB_PART) FROM information_schema.STATISTICS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME IN ('location','attraction','attraction_image','hotel','hotel_image','guide_category','guide_post','migrations') ORDER BY TABLE_NAME,INDEX_NAME,SEQ_IN_INDEX",
+      "rows": 12,
+      "elapsed_ms": 8
+    },
+    {
+      "sequence": 11,
+      "sql": "SELECT JSON_OBJECT('table',k.TABLE_NAME,'constraint',k.CONSTRAINT_NAME,'column',k.COLUMN_NAME,'referenced_table',k.REFERENCED_TABLE_NAME,'referenced_column',k.REFERENCED_COLUMN_NAME,'update_rule',r.UPDATE_RULE,'delete_rule',r.DELETE_RULE) FROM information_schema.KEY_COLUMN_USAGE k LEFT JOIN information_schema.REFERENTIAL_CONSTRAINTS r ON r.CONSTRAINT_SCHEMA=k.CONSTRAINT_SCHEMA AND r.TABLE_NAME=k.TABLE_NAME AND r.CONSTRAINT_NAME=k.CONSTRAINT_NAME WHERE k.TABLE_SCHEMA=DATABASE() AND k.REFERENCED_TABLE_NAME IS NOT NULL AND (k.TABLE_NAME IN ('location','attraction','attraction_image','hotel','hotel_image','guide_category','guide_post','migrations') OR k.REFERENCED_TABLE_NAME IN ('location','attraction','guide_category','guide_post')) ORDER BY k.TABLE_NAME,k.CONSTRAINT_NAME,k.ORDINAL_POSITION",
+      "rows": 5,
+      "elapsed_ms": 4
+    },
+    {
+      "sequence": 12,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM location",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 13,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM attraction",
+      "rows": 1,
+      "elapsed_ms": 5
+    },
+    {
+      "sequence": 14,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM hotel",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 15,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM hotel_image",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 16,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM migrations",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 17,
+      "sql": "SELECT JSON_OBJECT('migration',migration,'batch',batch) FROM migrations WHERE migration IN ('2026_10_23_000001_add_experience_catalog_metadata','2026_10_23_000002_create_travel_guides','2026_10_23_000003_widen_guide_publication_datetime') ORDER BY migration",
+      "rows": 0,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 18,
+      "sql": "SELECT JSON_OBJECT('id',id,'name',name,'region',region,'country',country,'latitude',latitude,'longitude',longitude) FROM location ORDER BY id LIMIT 500",
+      "rows": 8,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 19,
+      "sql": "SELECT JSON_OBJECT('id',id,'location_id',location_id,'item_type',item_type,'name',name,'description',description,'address',address,'price_min',price_min,'price_max',price_max,'duration_hours',duration_hours,'open_time',open_time,'close_time',close_time,'lat',lat,'lng',lng,'is_active',is_active) FROM attraction ORDER BY id LIMIT 500",
+      "rows": 47,
+      "elapsed_ms": 3
+    },
+    {
+      "sequence": 20,
+      "sql": "SELECT JSON_OBJECT('id',id,'location_id',location_id,'name',name,'address',address,'status',status,'latitude',latitude,'longitude',longitude) FROM hotel ORDER BY id LIMIT 500",
+      "rows": 24,
+      "elapsed_ms": 2
+    },
+    {
+      "sequence": 21,
+      "sql": "SELECT JSON_OBJECT('id',id,'hotel_id',hotel_id,'image_url',image_url,'is_primary',is_primary,'caption',caption) FROM hotel_image ORDER BY id LIMIT 500",
+      "rows": 142,
+      "elapsed_ms": 4
+    },
+    {
+      "sequence": 22,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM attraction a LEFT JOIN location l ON l.id=a.location_id WHERE l.id IS NULL",
+      "rows": 1,
+      "elapsed_ms": 2
+    },
+    {
+      "sequence": 23,
+      "sql": "SELECT JSON_OBJECT('location_id',location_id,'type',item_type,'name',candidate_name,'count',row_count,'ids',ids) FROM (SELECT location_id,item_type,TRIM(name) AS candidate_name,COUNT(*) AS row_count,JSON_ARRAYAGG(id) AS ids FROM attraction GROUP BY location_id,item_type,TRIM(name) HAVING COUNT(*)>1) candidates ORDER BY row_count DESC",
+      "rows": 0,
+      "elapsed_ms": 2
+    },
+    {
+      "sequence": 24,
+      "sql": "SELECT JSON_OBJECT('type',item_type,'name',candidate_name,'count',row_count,'locations',location_count,'ids',ids) FROM (SELECT item_type,TRIM(name) AS candidate_name,COUNT(*) AS row_count,COUNT(DISTINCT location_id) AS location_count,JSON_ARRAYAGG(id) AS ids FROM attraction GROUP BY item_type,TRIM(name) HAVING COUNT(DISTINCT location_id)>1) candidates ORDER BY row_count DESC",
+      "rows": 0,
+      "elapsed_ms": 2
+    },
+    {
+      "sequence": 25,
+      "sql": "SELECT JSON_OBJECT('type',item_type,'count',COUNT(*),'missing_description',SUM(NULLIF(TRIM(description),'') IS NULL),'missing_address',SUM(NULLIF(TRIM(address),'') IS NULL),'missing_coordinates',SUM(lat IS NULL OR lng IS NULL),'invalid_coordinates',SUM(CASE WHEN lat < -90 OR lat > 90 OR lng < -180 OR lng > 180 THEN 1 ELSE 0 END),'zero_price_range',SUM(price_min=0 AND price_max=0),'inverted_price_range',SUM(price_min>price_max),'active',SUM(is_active=1)) FROM attraction GROUP BY item_type ORDER BY item_type",
+      "rows": 4,
+      "elapsed_ms": 2
+    },
+    {
+      "sequence": 26,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM hotel h LEFT JOIN location l ON l.id=h.location_id WHERE l.id IS NULL",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 27,
+      "sql": "SELECT JSON_OBJECT('count',COUNT(*)) FROM hotel_image c LEFT JOIN hotel p ON p.id=c.hotel_id WHERE p.id IS NULL",
+      "rows": 1,
+      "elapsed_ms": 2
+    },
+    {
+      "sequence": 28,
+      "sql": "SELECT JSON_OBJECT('database',DATABASE(),'account',CURRENT_USER(),'connection_user',USER(),'role',CAST(CURRENT_ROLE() AS CHAR),'host',@@hostname,'port',@@port,'uuid',@@server_uuid,'version',VERSION(),'mandatory_roles',@@GLOBAL.mandatory_roles,'partial_revokes',@@GLOBAL.partial_revokes,'session_sql_mode',@@SESSION.sql_mode,'global_sql_mode',@@GLOBAL.sql_mode,'session_time_zone',@@SESSION.time_zone,'global_time_zone',@@GLOBAL.time_zone,'system_time_zone',@@system_time_zone,'database_charset',@@character_set_database,'database_collation',@@collation_database,'foreign_key_checks',@@foreign_key_checks,'server_read_only',@@GLOBAL.read_only,'session_now',CAST(NOW() AS CHAR),'utc_now',CAST(UTC_TIMESTAMP() AS CHAR))",
+      "rows": 1,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 29,
+      "sql": "SHOW GRANTS",
+      "rows": 2,
+      "elapsed_ms": 1
+    },
+    {
+      "sequence": 30,
+      "sql": "SELECT JSON_OBJECT('applicable',(SELECT COUNT(*) FROM information_schema.APPLICABLE_ROLES),'enabled',(SELECT COUNT(*) FROM information_schema.ENABLED_ROLES))",
+      "rows": 1,
+      "elapsed_ms": 6
+    }
+  ],
+  "sample_limit": 500,
+  "truncated_tables": [],
+  "observed_at_utc": "2026-10-25T05:12:01.621Z",
+  "client_closed": true,
+  "seed_comparison": {
+    "source": "docs/validation/attraction-seed-review-phase5a.csv",
+    "rows": [
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Lăng Chủ tịch Hồ Chí Minh",
+        "item_type": "attraction",
+        "actual_id": 1,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Văn Miếu - Quốc Tử Giám",
+        "item_type": "attraction",
+        "actual_id": 2,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Hồ Hoàn Kiếm & Đền Ngọc Sơn",
+        "item_type": "attraction",
+        "actual_id": 3,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Phở Gia Truyền Bát Đàn",
+        "item_type": "restaurant",
+        "actual_id": 4,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Bún chả Hương Liên (Bún chả Obama)",
+        "item_type": "restaurant",
+        "actual_id": 5,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Chả cá Lã Vọng",
+        "item_type": "restaurant",
+        "actual_id": 6,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Hanoi Old Quarter Budget Hotel",
+        "item_type": "hotel",
+        "actual_id": 7,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Tirant Hotel Hanoi",
+        "item_type": "hotel",
+        "actual_id": 8,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ha-noi",
+        "canonical_name": "Hà Nội",
+        "name": "Xem Múa Rối Nước Thăng Long",
+        "item_type": "activity",
+        "actual_id": 9,
+        "actual_location_id": 2,
+        "actual_location_name": "Hồ Chí Minh",
+        "expected_existing_location_id": 1,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Dinh Độc Lập",
+        "item_type": "attraction",
+        "actual_id": 10,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Bảo tàng Chứng tích Chiến tranh",
+        "item_type": "attraction",
+        "actual_id": 11,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Chợ Bến Thành",
+        "item_type": "attraction",
+        "actual_id": 12,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Bánh Mì Huỳnh Hoa",
+        "item_type": "restaurant",
+        "actual_id": 13,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Phở Lệ",
+        "item_type": "restaurant",
+        "actual_id": 14,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Cơm tấm Ba Ghiền",
+        "item_type": "restaurant",
+        "actual_id": 15,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Saigonciti Hotel",
+        "item_type": "hotel",
+        "actual_id": 16,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Liberty Central Saigon Centre",
+        "item_type": "hotel",
+        "actual_id": 17,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-ho-chi-minh",
+        "canonical_name": "Hồ Chí Minh",
+        "name": "Ăn tối trên du thuyền sông Sài Gòn",
+        "item_type": "activity",
+        "actual_id": 18,
+        "actual_location_id": 3,
+        "actual_location_name": "Đà Nẵng",
+        "expected_existing_location_id": 2,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Khu Du lịch Langbiang",
+        "item_type": "attraction",
+        "actual_id": 19,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Thung lũng Tình Yêu",
+        "item_type": "attraction",
+        "actual_id": 20,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Vườn hoa Thành phố Đà Lạt",
+        "item_type": "attraction",
+        "actual_id": 21,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Lẩu gà lá é Tao Ngộ",
+        "item_type": "restaurant",
+        "actual_id": 22,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Bánh căn Lệ",
+        "item_type": "restaurant",
+        "actual_id": 23,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Lẩu bò Quán Gỗ (Ba Toa)",
+        "item_type": "restaurant",
+        "actual_id": 24,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Tigold Hostel Da Lat",
+        "item_type": "hotel",
+        "actual_id": 25,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Hôtel Colline Đà Lạt",
+        "item_type": "hotel",
+        "actual_id": 26,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-da-lat",
+        "canonical_name": "Đà Lạt",
+        "name": "Trải nghiệm hái dâu tây tại vườn",
+        "item_type": "activity",
+        "actual_id": 27,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 7,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MISMATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Vườn Quốc gia Phú Quốc",
+        "item_type": "attraction",
+        "actual_id": 28,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Bãi Sao",
+        "item_type": "attraction",
+        "actual_id": 29,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Dinh Cậu",
+        "item_type": "attraction",
+        "actual_id": 30,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Nhà hàng Crab House Phú Quốc",
+        "item_type": "restaurant",
+        "actual_id": 31,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Bún Kèn Út Lượm",
+        "item_type": "restaurant",
+        "actual_id": 32,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Nhà hàng Thiên Thanh",
+        "item_type": "restaurant",
+        "actual_id": 33,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Phú Quốc Budget Hostel",
+        "item_type": "hotel",
+        "actual_id": 34,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Salinda Resort Phu Quoc",
+        "item_type": "hotel",
+        "actual_id": 35,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Lặn ngắm san hô Hòn Thơm",
+        "item_type": "activity",
+        "actual_id": 36,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Chợ đêm Dương Đông",
+        "item_type": "activity",
+        "actual_id": 37,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Bãi Dài Phú Quốc",
+        "item_type": "attraction",
+        "actual_id": 38,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Nhà thùng nước mắm Khải Hoàn",
+        "item_type": "attraction",
+        "actual_id": 39,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Làng chài Hàm Ninh",
+        "item_type": "attraction",
+        "actual_id": 40,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Nhà hàng Hải Sản Gành Dầu",
+        "item_type": "restaurant",
+        "actual_id": 41,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Nhà hàng Ốc Nhỏ Phú Quốc",
+        "item_type": "restaurant",
+        "actual_id": 42,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Quán Ghẹ Hàm Ninh",
+        "item_type": "restaurant",
+        "actual_id": 43,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Cáp treo Hòn Thơm",
+        "item_type": "activity",
+        "actual_id": 44,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Tour câu cá và lặn ngắm san hô",
+        "item_type": "activity",
+        "actual_id": 45,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "VinWonders Phú Quốc",
+        "item_type": "activity",
+        "actual_id": 46,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      },
+      {
+        "source_key": "vn-phu-quoc",
+        "canonical_name": "Phú Quốc",
+        "name": "Vinpearl Resort & Spa Phú Quốc",
+        "item_type": "hotel",
+        "actual_id": 47,
+        "actual_location_id": 4,
+        "actual_location_name": "Phú Quốc",
+        "expected_existing_location_id": 4,
+        "source_row_matches": 1,
+        "location_candidates": 1,
+        "comparison": "MATCH_SOURCE_LOCATION",
+        "publication_review": "HOLD_REQUIRES_CONTENT_AND_RIGHTS_APPROVAL"
+      }
+    ],
+    "groups": {
+      "vn-ha-noi": {
+        "canonical_name": "Hà Nội",
+        "expected_location_id": 1,
+        "rows": 9,
+        "matches": 0,
+        "mismatches": 9,
+        "actual_location_ids": [
+          2
+        ]
+      },
+      "vn-ho-chi-minh": {
+        "canonical_name": "Hồ Chí Minh",
+        "expected_location_id": 2,
+        "rows": 9,
+        "matches": 0,
+        "mismatches": 9,
+        "actual_location_ids": [
+          3
+        ]
+      },
+      "vn-da-lat": {
+        "canonical_name": "Đà Lạt",
+        "expected_location_id": 7,
+        "rows": 9,
+        "matches": 0,
+        "mismatches": 9,
+        "actual_location_ids": [
+          4
+        ]
+      },
+      "vn-phu-quoc": {
+        "canonical_name": "Phú Quốc",
+        "expected_location_id": 4,
+        "rows": 20,
+        "matches": 20,
+        "mismatches": 0,
+        "actual_location_ids": [
+          4
+        ]
+      }
+    },
+    "matched": 20,
+    "mismatched": 27
+  },
+  "image_review": {
+    "scope": "DATABASE_REFERENCES_TO_CURRENT_WORKSPACE_ONLY_NO_HTTP_NO_REMOTE_FETCH",
+    "rows": [
+      {
+        "image_id": 2,
+        "hotel_id": 2,
+        "stored_path": "image/img_hotel/hotel_ (2).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (2).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 3,
+        "hotel_id": 3,
+        "stored_path": "image/img_hotel/hotel_ (3).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (3).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 4,
+        "hotel_id": 4,
+        "stored_path": "image/img_hotel/hotel_ (4).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (4).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 5,
+        "hotel_id": 5,
+        "stored_path": "image/img_hotel/hotel_ (5).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (5).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 6,
+        "hotel_id": 6,
+        "stored_path": "image/img_hotel/hotel_ (6).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (6).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 7,
+        "hotel_id": 7,
+        "stored_path": "image/img_hotel/hotel_ (7).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (7).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 8,
+        "hotel_id": 8,
+        "stored_path": "image/img_hotel/hotel_ (8).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (8).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 9,
+        "hotel_id": 9,
+        "stored_path": "image/img_hotel/hotel_ (9).jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (9).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 10,
+        "hotel_id": 10,
+        "stored_path": "image/img_hotel/hotel_ (10).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (10).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 11,
+        "hotel_id": 11,
+        "stored_path": "image/img_hotel/hotel_ (11).jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (11).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 12,
+        "hotel_id": 12,
+        "stored_path": "image/img_hotel/hotel_ (12).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (12).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 13,
+        "hotel_id": 13,
+        "stored_path": "image/img_hotel/hotel_ (13).jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (13).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 14,
+        "hotel_id": 14,
+        "stored_path": "image/img_hotel/hotel_ (14).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (14).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 15,
+        "hotel_id": 15,
+        "stored_path": "image/img_hotel/hotel_ (15).jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (15).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 16,
+        "hotel_id": 16,
+        "stored_path": "image/img_hotel/hotel_ (16).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (16).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 17,
+        "hotel_id": 17,
+        "stored_path": "image/img_hotel/hotel_ (17).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (17).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 18,
+        "hotel_id": 18,
+        "stored_path": "image/img_hotel/hotel_ (18).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (18).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 19,
+        "hotel_id": 19,
+        "stored_path": "image/img_hotel/hotel_ (19).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (19).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 20,
+        "hotel_id": 20,
+        "stored_path": "image/img_hotel/hotel_ (20).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (20).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 21,
+        "hotel_id": 21,
+        "stored_path": "image/img_hotel/hotel_ (21).jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "image/img_hotel/hotel_ (21).jpg",
+        "status": "MISSING_LOCAL_FILE"
+      },
+      {
+        "image_id": 22,
+        "hotel_id": 1,
+        "stored_path": "storage/accommodation/hotel_image/1/h73qIX5L8ssRAcxRvTvp48j01MgKG2bNPFvZ6NIE.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/1/h73qIX5L8ssRAcxRvTvp48j01MgKG2bNPFvZ6NIE.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 768,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 29,
+        "hotel_id": 1,
+        "stored_path": "storage/accommodation/hotel_image/1/s60jACU8ZQQkz53hqKtXxtTUcMnoBRCfw1NPnpDD.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/1/s60jACU8ZQQkz53hqKtXxtTUcMnoBRCfw1NPnpDD.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 30,
+        "hotel_id": 1,
+        "stored_path": "storage/accommodation/hotel_image/1/sSybG5zOWQDUBdkDCwgOEnCwHSHesIh3cI7B320J.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/1/sSybG5zOWQDUBdkDCwgOEnCwHSHesIh3cI7B320J.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 512,
+        "height": 768,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 31,
+        "hotel_id": 1,
+        "stored_path": "storage/accommodation/hotel_image/1/4nU0Zg6oOSOAw59UakdXTXPFrz0RX0NMr9VS7FIH.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/1/4nU0Zg6oOSOAw59UakdXTXPFrz0RX0NMr9VS7FIH.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 32,
+        "hotel_id": 1,
+        "stored_path": "storage/accommodation/hotel_image/1/Ps3j6266yJApzpLhiIzADwEjJirxPl6Cr99HujEH.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/1/Ps3j6266yJApzpLhiIzADwEjJirxPl6Cr99HujEH.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 33,
+        "hotel_id": 1,
+        "stored_path": "storage/accommodation/hotel_image/1/qRpBKra4OOErnH1EqYLnnPAfjoxWlGwg1EfXTLMD.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/1/qRpBKra4OOErnH1EqYLnnPAfjoxWlGwg1EfXTLMD.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 500,
+        "height": 333,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 34,
+        "hotel_id": 7,
+        "stored_path": "storage/accommodation/hotel_image/7/4AkC8EG89Opci8ryrnuNIRdCK0NDmLELEfhJZ9Ke.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/7/4AkC8EG89Opci8ryrnuNIRdCK0NDmLELEfhJZ9Ke.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 512,
+        "height": 768,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 35,
+        "hotel_id": 7,
+        "stored_path": "storage/accommodation/hotel_image/7/FChGcPiPpo2qDPybZHOMkdxpuSUkE8dIBEXjMOFm.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/7/FChGcPiPpo2qDPybZHOMkdxpuSUkE8dIBEXjMOFm.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 665,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 36,
+        "hotel_id": 7,
+        "stored_path": "storage/accommodation/hotel_image/7/jRxqu52GWvBwD1uwF25vxAHCNr2sNUCxMsOfSnOe.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/7/jRxqu52GWvBwD1uwF25vxAHCNr2sNUCxMsOfSnOe.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 512,
+        "height": 768,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 37,
+        "hotel_id": 7,
+        "stored_path": "storage/accommodation/hotel_image/7/X0VwZOBuzxbmIGSMdqkNeYkyWQm93KFf499NHSIZ.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/7/X0VwZOBuzxbmIGSMdqkNeYkyWQm93KFf499NHSIZ.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 511,
+        "height": 768,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 38,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/vKFmHzxpAQdaDtoocmByPPafwQeULZnDU93Q1axM.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/vKFmHzxpAQdaDtoocmByPPafwQeULZnDU93Q1axM.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 665,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 39,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/HvmcTeiDRL7mIirMx9VZUJoPIv1Drjec6t3a2qYN.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/HvmcTeiDRL7mIirMx9VZUJoPIv1Drjec6t3a2qYN.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 40,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/9dMNFiJaQXLP5OJ2K9nVARXT7xn5sSDBwC02BEfX.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/9dMNFiJaQXLP5OJ2K9nVARXT7xn5sSDBwC02BEfX.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 41,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/dw9vrCqn4Xvz1VtNDkoI5FmBpnyUCgWFAuhbxmTM.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/dw9vrCqn4Xvz1VtNDkoI5FmBpnyUCgWFAuhbxmTM.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 42,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/OpjxcUEWj7mCfibr6wtFBnrJbrGSKW7Zu7IeTm2m.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/OpjxcUEWj7mCfibr6wtFBnrJbrGSKW7Zu7IeTm2m.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 43,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/fB8EzvSAE39SmXp8ymRQvCq2GK7n7RnBYnHxZHFj.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/fB8EzvSAE39SmXp8ymRQvCq2GK7n7RnBYnHxZHFj.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 44,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/TYGpN5Gdz5TLgZhNMQd2op9bh4q0qXPmZolArxYW.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/TYGpN5Gdz5TLgZhNMQd2op9bh4q0qXPmZolArxYW.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 662,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 45,
+        "hotel_id": 6,
+        "stored_path": "storage/accommodation/hotel_image/6/7CSHYhqWZeXGMPN1UVCKFrt3y3aqKhmkMWAIrB4F.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/6/7CSHYhqWZeXGMPN1UVCKFrt3y3aqKhmkMWAIrB4F.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 672,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 46,
+        "hotel_id": 19,
+        "stored_path": "storage/accommodation/hotel_image/19/IKHx0nhn6hlwCM3FCtP75XmBb4W4mBvOQOnYBtfZ.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/19/IKHx0nhn6hlwCM3FCtP75XmBb4W4mBvOQOnYBtfZ.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 720,
+        "height": 480,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 47,
+        "hotel_id": 19,
+        "stored_path": "storage/accommodation/hotel_image/19/ICGb9AxWX23QUA8t4qMzqrPIurXrANtQETjdVCuL.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/19/ICGb9AxWX23QUA8t4qMzqrPIurXrANtQETjdVCuL.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 1494,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 48,
+        "hotel_id": 19,
+        "stored_path": "storage/accommodation/hotel_image/19/ZITeroc8c7QxkB99X66y47JvTcwoSdsMOC8BrbzC.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/19/ZITeroc8c7QxkB99X66y47JvTcwoSdsMOC8BrbzC.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 49,
+        "hotel_id": 19,
+        "stored_path": "storage/accommodation/hotel_image/19/sYCEhVpkH4LDiTUgVvwKvwkd0si9YsJGFTclQGUS.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/19/sYCEhVpkH4LDiTUgVvwKvwkd0si9YsJGFTclQGUS.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 50,
+        "hotel_id": 19,
+        "stored_path": "storage/accommodation/hotel_image/19/VR77mN04UUcDVnTdlDAMDQ48ElNTnRWjrhXf7KqN.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/19/VR77mN04UUcDVnTdlDAMDQ48ElNTnRWjrhXf7KqN.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 51,
+        "hotel_id": 19,
+        "stored_path": "storage/accommodation/hotel_image/19/cilX5iHtIQpKj3rD8BWGVdX1Pt07YUtkkANhemWi.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/19/cilX5iHtIQpKj3rD8BWGVdX1Pt07YUtkkANhemWi.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 52,
+        "hotel_id": 19,
+        "stored_path": "storage/accommodation/hotel_image/19/O3cKLCrMQRg3jDngjjPBl0JBf0lyZzsWN9NJWH2H.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/19/O3cKLCrMQRg3jDngjjPBl0JBf0lyZzsWN9NJWH2H.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 53,
+        "hotel_id": 14,
+        "stored_path": "storage/accommodation/hotel_image/14/tjWNfdBWUM489eqyjQN6eJtWxl6K1Ye0gOJf7sfZ.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/14/tjWNfdBWUM489eqyjQN6eJtWxl6K1Ye0gOJf7sfZ.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 54,
+        "hotel_id": 14,
+        "stored_path": "storage/accommodation/hotel_image/14/0fcMnY1OL6ECSfiAb57suVdFraNgvFgndf0LMav1.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/14/0fcMnY1OL6ECSfiAb57suVdFraNgvFgndf0LMav1.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 55,
+        "hotel_id": 14,
+        "stored_path": "storage/accommodation/hotel_image/14/NRitcwr2UqU03VDVcH1xkUhwqjIBCtIue66f75B4.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/14/NRitcwr2UqU03VDVcH1xkUhwqjIBCtIue66f75B4.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 960,
+        "height": 664,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 56,
+        "hotel_id": 14,
+        "stored_path": "storage/accommodation/hotel_image/14/3K0GmN71Z4ENyuhchPAA2L9YGls03tR1cLjQQWfC.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/14/3K0GmN71Z4ENyuhchPAA2L9YGls03tR1cLjQQWfC.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 57,
+        "hotel_id": 14,
+        "stored_path": "storage/accommodation/hotel_image/14/NfIVwz3HMrIXm9yKUAPkSv89NY4DIDddThts2GgB.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/14/NfIVwz3HMrIXm9yKUAPkSv89NY4DIDddThts2GgB.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 58,
+        "hotel_id": 14,
+        "stored_path": "storage/accommodation/hotel_image/14/Z1xk3IxMlvT1T3CXoNAB5Igiw1FGjS1cI1Jsul2b.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/14/Z1xk3IxMlvT1T3CXoNAB5Igiw1FGjS1cI1Jsul2b.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 59,
+        "hotel_id": 12,
+        "stored_path": "storage/accommodation/hotel_image/12/pm5B1MBfFHkJ5ccIMYPXRZGEMBX2PRUI91wlfztw.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/12/pm5B1MBfFHkJ5ccIMYPXRZGEMBX2PRUI91wlfztw.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 800,
+        "height": 533,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 60,
+        "hotel_id": 12,
+        "stored_path": "storage/accommodation/hotel_image/12/SGLrYGhyuqO46rs0n1reQIU8sBzCafqcIAtFAK0k.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/12/SGLrYGhyuqO46rs0n1reQIU8sBzCafqcIAtFAK0k.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 61,
+        "hotel_id": 12,
+        "stored_path": "storage/accommodation/hotel_image/12/aWx99imeBh6ZqL7WefLJxkEmyigZyZCh6EyMOMhk.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/12/aWx99imeBh6ZqL7WefLJxkEmyigZyZCh6EyMOMhk.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 400,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 62,
+        "hotel_id": 12,
+        "stored_path": "storage/accommodation/hotel_image/12/67P1FWF6iWftkfYOkwhdFUaB6ygkiU2UDlNCnRcO.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/12/67P1FWF6iWftkfYOkwhdFUaB6ygkiU2UDlNCnRcO.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 450,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 63,
+        "hotel_id": 12,
+        "stored_path": "storage/accommodation/hotel_image/12/xia3aBqpWHmgwFhJ3tASvKbZL3CscbeefCRn9BlW.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/12/xia3aBqpWHmgwFhJ3tASvKbZL3CscbeefCRn9BlW.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 400,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 64,
+        "hotel_id": 12,
+        "stored_path": "storage/accommodation/hotel_image/12/LCy6OISUdcwQcMJr5ttDPFWskLjfgx69wKL3h1lP.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/12/LCy6OISUdcwQcMJr5ttDPFWskLjfgx69wKL3h1lP.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 250,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 65,
+        "hotel_id": 10,
+        "stored_path": "storage/accommodation/hotel_image/10/qR9ZhAHfzfj0mYLt24HDAPxRTAjF9eV7MggZ4lMC.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/10/qR9ZhAHfzfj0mYLt24HDAPxRTAjF9eV7MggZ4lMC.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 960,
+        "height": 664,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 66,
+        "hotel_id": 10,
+        "stored_path": "storage/accommodation/hotel_image/10/P2jasYeVAXFwTZOHN68urMgYvpRSDIcQNwWAZHue.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/10/P2jasYeVAXFwTZOHN68urMgYvpRSDIcQNwWAZHue.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 67,
+        "hotel_id": 10,
+        "stored_path": "storage/accommodation/hotel_image/10/7Q3LoX4fWaNiD08tHMwfIiIsUQnB6bqNy7rfWgga.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/10/7Q3LoX4fWaNiD08tHMwfIiIsUQnB6bqNy7rfWgga.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 68,
+        "hotel_id": 10,
+        "stored_path": "storage/accommodation/hotel_image/10/IA5zkFQrwd3G5ttAQUTyo8Q7Pl5NExKAeOIAcVpz.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/10/IA5zkFQrwd3G5ttAQUTyo8Q7Pl5NExKAeOIAcVpz.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 69,
+        "hotel_id": 10,
+        "stored_path": "storage/accommodation/hotel_image/10/jRdjC060DV45fjqa0tlucKT9UwY4VeLi4nn2ipGv.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/10/jRdjC060DV45fjqa0tlucKT9UwY4VeLi4nn2ipGv.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 70,
+        "hotel_id": 10,
+        "stored_path": "storage/accommodation/hotel_image/10/LW5GhAPsFcgwQGk8zSmizFDckUg1DesgaPhAUEZJ.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/10/LW5GhAPsFcgwQGk8zSmizFDckUg1DesgaPhAUEZJ.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 71,
+        "hotel_id": 3,
+        "stored_path": "storage/accommodation/hotel_image/3/ssTTYbGKOpoWyCe9cgBSRcyyMcE3QQxgX8Z8dzgy.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/3/ssTTYbGKOpoWyCe9cgBSRcyyMcE3QQxgX8Z8dzgy.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 200,
+        "height": 300,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 72,
+        "hotel_id": 3,
+        "stored_path": "storage/accommodation/hotel_image/3/HemPzFH3rtc5sr7NGXXb93adymawvwwZUAVb4CbJ.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/3/HemPzFH3rtc5sr7NGXXb93adymawvwwZUAVb4CbJ.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 300,
+        "height": 200,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 73,
+        "hotel_id": 3,
+        "stored_path": "storage/accommodation/hotel_image/3/upsDocheVn8U5Og3Ka7ZnhufpDPEeh5e3i4zgRCo.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/3/upsDocheVn8U5Og3Ka7ZnhufpDPEeh5e3i4zgRCo.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 74,
+        "hotel_id": 3,
+        "stored_path": "storage/accommodation/hotel_image/3/GbTFGdd2MBUYgzxEkeBu2fOPVfXNjsDb7NG3bY7C.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/3/GbTFGdd2MBUYgzxEkeBu2fOPVfXNjsDb7NG3bY7C.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 500,
+        "height": 334,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 75,
+        "hotel_id": 3,
+        "stored_path": "storage/accommodation/hotel_image/3/B4MCVdV8hM7KLOWwJ8aFL8DOT16hXX5gZEWpJCdj.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/3/B4MCVdV8hM7KLOWwJ8aFL8DOT16hXX5gZEWpJCdj.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 300,
+        "height": 200,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 76,
+        "hotel_id": 3,
+        "stored_path": "storage/accommodation/hotel_image/3/TWKJql5aTcB4ChEoEz43ObEro9s3uJ8Qz0rv3Hxs.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/3/TWKJql5aTcB4ChEoEz43ObEro9s3uJ8Qz0rv3Hxs.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 300,
+        "height": 200,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 77,
+        "hotel_id": 3,
+        "stored_path": "storage/accommodation/hotel_image/3/qM7EjWvPI78PVZOO5Apd4aLFK0cKqgfbnxqUtUfr.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/3/qM7EjWvPI78PVZOO5Apd4aLFK0cKqgfbnxqUtUfr.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 500,
+        "height": 334,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 78,
+        "hotel_id": 17,
+        "stored_path": "storage/accommodation/hotel_image/17/EEmZOgjJipb8DVQOjrSMfcIm7TnauWkiqW4kZBac.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/17/EEmZOgjJipb8DVQOjrSMfcIm7TnauWkiqW4kZBac.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 255,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 79,
+        "hotel_id": 17,
+        "stored_path": "storage/accommodation/hotel_image/17/rrFkcsFdaMW2bu0kpWBb5x7gAAcHuegm4BItdk42.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/17/rrFkcsFdaMW2bu0kpWBb5x7gAAcHuegm4BItdk42.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 249,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 80,
+        "hotel_id": 17,
+        "stored_path": "storage/accommodation/hotel_image/17/vuqFIQydEFlTdA1iQ0PVgvK4KIcx9OoJrn9SLp3r.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/17/vuqFIQydEFlTdA1iQ0PVgvK4KIcx9OoJrn9SLp3r.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 81,
+        "hotel_id": 17,
+        "stored_path": "storage/accommodation/hotel_image/17/HMHk4mXLQBp71zlTxMsT3L0pikQOXqFNpx4jHhWh.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/17/HMHk4mXLQBp71zlTxMsT3L0pikQOXqFNpx4jHhWh.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 681,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 82,
+        "hotel_id": 17,
+        "stored_path": "storage/accommodation/hotel_image/17/UGXTctLpIlRBI5hIrJck2Y5Znvl4mwdZQOCF6uAd.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/17/UGXTctLpIlRBI5hIrJck2Y5Znvl4mwdZQOCF6uAd.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 263,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 83,
+        "hotel_id": 17,
+        "stored_path": "storage/accommodation/hotel_image/17/ee8TYknWZ4s8EolQGqjZJ8V1kgrU3nCzuEASpSDp.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/17/ee8TYknWZ4s8EolQGqjZJ8V1kgrU3nCzuEASpSDp.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 800,
+        "height": 533,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 84,
+        "hotel_id": 20,
+        "stored_path": "storage/accommodation/hotel_image/20/XTF0NZjx2J8FUOcUzXjgKXlmnj4IrBsZ4aIr2JhN.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/20/XTF0NZjx2J8FUOcUzXjgKXlmnj4IrBsZ4aIr2JhN.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 500,
+        "height": 375,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 85,
+        "hotel_id": 20,
+        "stored_path": "storage/accommodation/hotel_image/20/Memws58XaeAJfg5pdAd9ZeIzMIFd0lMojpGjbpQb.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/20/Memws58XaeAJfg5pdAd9ZeIzMIFd0lMojpGjbpQb.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 500,
+        "height": 379,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 86,
+        "hotel_id": 20,
+        "stored_path": "storage/accommodation/hotel_image/20/xSMp63WBQaVlGIqF025TCtZOh1pjcjWMplPcCgYf.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/20/xSMp63WBQaVlGIqF025TCtZOh1pjcjWMplPcCgYf.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 300,
+        "height": 225,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 87,
+        "hotel_id": 20,
+        "stored_path": "storage/accommodation/hotel_image/20/EcL3YuaY9ga0wLnvOvzd0z6dbgSfbRuYFbHmmk3f.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/20/EcL3YuaY9ga0wLnvOvzd0z6dbgSfbRuYFbHmmk3f.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 300,
+        "height": 200,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 88,
+        "hotel_id": 20,
+        "stored_path": "storage/accommodation/hotel_image/20/5TWvP5UsApKsL44RX09UI8yhnkxR0GqF9IGafG1z.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/20/5TWvP5UsApKsL44RX09UI8yhnkxR0GqF9IGafG1z.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 300,
+        "height": 169,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 89,
+        "hotel_id": 20,
+        "stored_path": "storage/accommodation/hotel_image/20/AWV2e8647xBj5UWP61spJK6BjAlFXVcf2mY3bmCq.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/20/AWV2e8647xBj5UWP61spJK6BjAlFXVcf2mY3bmCq.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 576,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 90,
+        "hotel_id": 20,
+        "stored_path": "storage/accommodation/hotel_image/20/2hYMMDcid8crtgs9zDlYV48aXJrAq3jowX4yismp.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/20/2hYMMDcid8crtgs9zDlYV48aXJrAq3jowX4yismp.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 300,
+        "height": 203,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 91,
+        "hotel_id": 21,
+        "stored_path": "storage/accommodation/hotel_image/21/cxtOVPukzwFbLJPsEAPFqPxKdOOrBIVafpuFtrNl.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/21/cxtOVPukzwFbLJPsEAPFqPxKdOOrBIVafpuFtrNl.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 92,
+        "hotel_id": 21,
+        "stored_path": "storage/accommodation/hotel_image/21/aEIUsX5ebBLdxoiMn8213IqnQ94s4KcgrzJsEsOp.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/21/aEIUsX5ebBLdxoiMn8213IqnQ94s4KcgrzJsEsOp.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 960,
+        "height": 664,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 93,
+        "hotel_id": 21,
+        "stored_path": "storage/accommodation/hotel_image/21/K4vMZasWI98IkwocmKksrUKDNF9mKrJzZQruvquN.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/21/K4vMZasWI98IkwocmKksrUKDNF9mKrJzZQruvquN.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 94,
+        "hotel_id": 21,
+        "stored_path": "storage/accommodation/hotel_image/21/y2DslhhkTWgEvdrrRBVqACAYOTYx5CWLDHg1Y3pK.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/21/y2DslhhkTWgEvdrrRBVqACAYOTYx5CWLDHg1Y3pK.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 95,
+        "hotel_id": 21,
+        "stored_path": "storage/accommodation/hotel_image/21/Mis8kpWTiXjaPphjS3pALAu6O6s1FJkT29loywWn.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/21/Mis8kpWTiXjaPphjS3pALAu6O6s1FJkT29loywWn.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 96,
+        "hotel_id": 8,
+        "stored_path": "storage/accommodation/hotel_image/8/tiBN1AJo3VoQMP4hizbj3THXYWDFH3VUAjxRXzpV.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/8/tiBN1AJo3VoQMP4hizbj3THXYWDFH3VUAjxRXzpV.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 281,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 97,
+        "hotel_id": 8,
+        "stored_path": "storage/accommodation/hotel_image/8/DVHMVx0P6OuNpwoSDc70fS8IKBNZVXzkpDfGukCg.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/8/DVHMVx0P6OuNpwoSDc70fS8IKBNZVXzkpDfGukCg.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 400,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 98,
+        "hotel_id": 8,
+        "stored_path": "storage/accommodation/hotel_image/8/wM0346C1onMr5gdfR2ADbD4VHWm8fcAaMcUmtbCs.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/8/wM0346C1onMr5gdfR2ADbD4VHWm8fcAaMcUmtbCs.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 800,
+        "height": 532,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 99,
+        "hotel_id": 8,
+        "stored_path": "storage/accommodation/hotel_image/8/8dmBWiG9EMInzPy3m5bzVvDwWfgAgvjA6Pc4bXWK.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/8/8dmBWiG9EMInzPy3m5bzVvDwWfgAgvjA6Pc4bXWK.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 392,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 100,
+        "hotel_id": 8,
+        "stored_path": "storage/accommodation/hotel_image/8/7NgFMpfiXsC9i6CZXqrnDQBHwhjKr1M0NVLc1eXU.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/8/7NgFMpfiXsC9i6CZXqrnDQBHwhjKr1M0NVLc1eXU.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 101,
+        "hotel_id": 8,
+        "stored_path": "storage/accommodation/hotel_image/8/MitxvMBDXi7ZcQZZGbWmoB0w8iOzOamio5icc9kF.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/8/MitxvMBDXi7ZcQZZGbWmoB0w8iOzOamio5icc9kF.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 102,
+        "hotel_id": 5,
+        "stored_path": "storage/accommodation/hotel_image/5/fPHfz56chSFGaVoGU5lNsguIxcQ80rs8YnQemB5L.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/5/fPHfz56chSFGaVoGU5lNsguIxcQ80rs8YnQemB5L.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 103,
+        "hotel_id": 5,
+        "stored_path": "storage/accommodation/hotel_image/5/W3NUTfCxr2vxm6FU0gpXT25hSqk9kP384Ip59JhE.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/5/W3NUTfCxr2vxm6FU0gpXT25hSqk9kP384Ip59JhE.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 400,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 104,
+        "hotel_id": 5,
+        "stored_path": "storage/accommodation/hotel_image/5/PNUOivgqMC6Tr6kfMI7ioIGw9uPSwOWHBb3gDCzG.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/5/PNUOivgqMC6Tr6kfMI7ioIGw9uPSwOWHBb3gDCzG.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 105,
+        "hotel_id": 5,
+        "stored_path": "storage/accommodation/hotel_image/5/mm6Jh0VKl622zxup5OGJi9uq0MwT4nDOT3CO5SIb.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/5/mm6Jh0VKl622zxup5OGJi9uq0MwT4nDOT3CO5SIb.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 106,
+        "hotel_id": 5,
+        "stored_path": "storage/accommodation/hotel_image/5/3ZGTZDLjyYqPiCGROTtt8fYHC1A2rjzSaTa16ajG.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/5/3ZGTZDLjyYqPiCGROTtt8fYHC1A2rjzSaTa16ajG.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 960,
+        "height": 660,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 107,
+        "hotel_id": 5,
+        "stored_path": "storage/accommodation/hotel_image/5/tdf9Gz8k5MrBicu37Q6uDjvubjzYKIvsJHkqmeSg.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/5/tdf9Gz8k5MrBicu37Q6uDjvubjzYKIvsJHkqmeSg.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 108,
+        "hotel_id": 5,
+        "stored_path": "storage/accommodation/hotel_image/5/Zo2GQZWNkuWEw6QcZHY7sMnDU58s1SWiOqXuAQJJ.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/5/Zo2GQZWNkuWEw6QcZHY7sMnDU58s1SWiOqXuAQJJ.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 109,
+        "hotel_id": 4,
+        "stored_path": "storage/accommodation/hotel_image/4/dMntIxQcjIdLOeUVZzL7mciJidgLNssSCWklSXQu.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/4/dMntIxQcjIdLOeUVZzL7mciJidgLNssSCWklSXQu.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 110,
+        "hotel_id": 4,
+        "stored_path": "storage/accommodation/hotel_image/4/FF1L0o1Zlk8WxHJadKzPF8xMbBkRA1h36KaMCEZe.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/4/FF1L0o1Zlk8WxHJadKzPF8xMbBkRA1h36KaMCEZe.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 111,
+        "hotel_id": 4,
+        "stored_path": "storage/accommodation/hotel_image/4/uCIVGjW5IbtfN9R3BuxhJOca7MKKVuodEkVQ1cRd.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/4/uCIVGjW5IbtfN9R3BuxhJOca7MKKVuodEkVQ1cRd.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 112,
+        "hotel_id": 4,
+        "stored_path": "storage/accommodation/hotel_image/4/ytgWnMbtYrgVm2Z1kdEcIbR69WshAEka6hzMXr9U.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/4/ytgWnMbtYrgVm2Z1kdEcIbR69WshAEka6hzMXr9U.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 113,
+        "hotel_id": 4,
+        "stored_path": "storage/accommodation/hotel_image/4/ltLTUohkrr2Z7SPbxEEu5bvfvINZKDRBnC7ZNoeO.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/4/ltLTUohkrr2Z7SPbxEEu5bvfvINZKDRBnC7ZNoeO.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 339,
+        "height": 206,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 114,
+        "hotel_id": 4,
+        "stored_path": "storage/accommodation/hotel_image/4/Z2jUss3dsseKAaY47uLGkQkytpmm3Ho7oKKkFxIX.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/4/Z2jUss3dsseKAaY47uLGkQkytpmm3Ho7oKKkFxIX.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 960,
+        "height": 660,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 115,
+        "hotel_id": 2,
+        "stored_path": "storage/accommodation/hotel_image/2/w6sowX4jZyoeVTr3pI9heOwCQ78LdwGUwujQQAeS.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/2/w6sowX4jZyoeVTr3pI9heOwCQ78LdwGUwujQQAeS.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 350,
+        "height": 233,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 116,
+        "hotel_id": 2,
+        "stored_path": "storage/accommodation/hotel_image/2/TwTTRvRC2Xub3cx447R7hgCGBHAPMcV9W2pt6tse.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/2/TwTTRvRC2Xub3cx447R7hgCGBHAPMcV9W2pt6tse.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 400,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 117,
+        "hotel_id": 2,
+        "stored_path": "storage/accommodation/hotel_image/2/dgPFLFcYo2TLz4Cta8e2311lKLriVo7rvoHrjL7w.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/2/dgPFLFcYo2TLz4Cta8e2311lKLriVo7rvoHrjL7w.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 400,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 118,
+        "hotel_id": 2,
+        "stored_path": "storage/accommodation/hotel_image/2/f4Lf2NTUxPVDkVcWYKeHYLaBLG5MmDsRbMmT8bVf.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/2/f4Lf2NTUxPVDkVcWYKeHYLaBLG5MmDsRbMmT8bVf.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 800,
+        "height": 534,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 119,
+        "hotel_id": 2,
+        "stored_path": "storage/accommodation/hotel_image/2/2xzxxIDz8JpBMkazisDyxM0USnXtn3YchHIf9U8q.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/2/2xzxxIDz8JpBMkazisDyxM0USnXtn3YchHIf9U8q.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 350,
+        "height": 233,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 120,
+        "hotel_id": 2,
+        "stored_path": "storage/accommodation/hotel_image/2/iMRGb0KetyCcVvYvaNyTPdyKx5Ld0FaW7O3e01G2.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/2/iMRGb0KetyCcVvYvaNyTPdyKx5Ld0FaW7O3e01G2.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 350,
+        "height": 233,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 121,
+        "hotel_id": 18,
+        "stored_path": "storage/accommodation/hotel_image/18/gJX5oGErgQDwX4LFfPvrcdl8wt5UIice3naiDZZ2.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/18/gJX5oGErgQDwX4LFfPvrcdl8wt5UIice3naiDZZ2.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 122,
+        "hotel_id": 18,
+        "stored_path": "storage/accommodation/hotel_image/18/AyQUqIjgXOpSlU52VBLMpFlCAPCeZCyGfJmvxpmP.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/18/AyQUqIjgXOpSlU52VBLMpFlCAPCeZCyGfJmvxpmP.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 123,
+        "hotel_id": 18,
+        "stored_path": "storage/accommodation/hotel_image/18/YMqYeTzGO0C0Qo3VcdHWFKl0LLzwcNaX2H7792jo.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/18/YMqYeTzGO0C0Qo3VcdHWFKl0LLzwcNaX2H7792jo.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 124,
+        "hotel_id": 18,
+        "stored_path": "storage/accommodation/hotel_image/18/dETSy4njfUq93vN0qPklVeiJo4m4LJuvDJyrLyAB.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/18/dETSy4njfUq93vN0qPklVeiJo4m4LJuvDJyrLyAB.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 960,
+        "height": 664,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 125,
+        "hotel_id": 18,
+        "stored_path": "storage/accommodation/hotel_image/18/L2fTkSGXB53MIaGifhukXn6iLcBfTMBeWWeVITp0.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/18/L2fTkSGXB53MIaGifhukXn6iLcBfTMBeWWeVITp0.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 126,
+        "hotel_id": 18,
+        "stored_path": "storage/accommodation/hotel_image/18/A5sAoGXAEkI9nOHrA47grKotqsZuGcaki1Bftnd0.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/18/A5sAoGXAEkI9nOHrA47grKotqsZuGcaki1Bftnd0.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 469,
+        "height": 324,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 127,
+        "hotel_id": 16,
+        "stored_path": "storage/accommodation/hotel_image/16/nyzzaGfWjXHgSAvmnZBt4qGGSux56a7jOUZfDlSw.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/16/nyzzaGfWjXHgSAvmnZBt4qGGSux56a7jOUZfDlSw.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 338,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 128,
+        "hotel_id": 16,
+        "stored_path": "storage/accommodation/hotel_image/16/hLqtKEkzT2kx4jq2sQ7VTvul7mCKkUNdC2nh29Z1.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/16/hLqtKEkzT2kx4jq2sQ7VTvul7mCKkUNdC2nh29Z1.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 338,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 129,
+        "hotel_id": 16,
+        "stored_path": "storage/accommodation/hotel_image/16/9uLUzffskk8udfPket9DV2EgDQIO80rrbNJaGBgB.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/16/9uLUzffskk8udfPket9DV2EgDQIO80rrbNJaGBgB.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 211,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 130,
+        "hotel_id": 16,
+        "stored_path": "storage/accommodation/hotel_image/16/fEcwLqI19Nr387TaY7JWAq34ovjLxafjBV2qO7Vd.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/16/fEcwLqI19Nr387TaY7JWAq34ovjLxafjBV2qO7Vd.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 371,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 131,
+        "hotel_id": 16,
+        "stored_path": "storage/accommodation/hotel_image/16/f2RCOgS3LdtzShdEAC9VTolsExqRLuCEbZYVpbvP.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/16/f2RCOgS3LdtzShdEAC9VTolsExqRLuCEbZYVpbvP.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 800,
+        "height": 533,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 132,
+        "hotel_id": 16,
+        "stored_path": "storage/accommodation/hotel_image/16/Cwu1IWyA4of4x9FrgcijlFutM3ILChk100AgPdCR.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/16/Cwu1IWyA4of4x9FrgcijlFutM3ILChk100AgPdCR.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 626,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 141,
+        "hotel_id": 43,
+        "stored_path": "storage/accommodation/hotel_image/43/NAa4FPcA4z9IsJq1LY8MNN4JxTmfkvgBdweCPddK.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/43/NAa4FPcA4z9IsJq1LY8MNN4JxTmfkvgBdweCPddK.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 250,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 142,
+        "hotel_id": 43,
+        "stored_path": "storage/accommodation/hotel_image/43/fzKaF0RvdPfHQtJk6rNitX4PeEoTuXRlaV1VRHoY.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/43/fzKaF0RvdPfHQtJk6rNitX4PeEoTuXRlaV1VRHoY.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 143,
+        "hotel_id": 43,
+        "stored_path": "storage/accommodation/hotel_image/43/f0doYYaSUoC10SxlEIXMUfvHIx4gGZ6DzsiZ13Au.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/43/f0doYYaSUoC10SxlEIXMUfvHIx4gGZ6DzsiZ13Au.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 336,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 144,
+        "hotel_id": 43,
+        "stored_path": "storage/accommodation/hotel_image/43/6kQtd4ylDOum6TKtQ3YRJ4ADOX5DmF0A0UmmUOgy.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/43/6kQtd4ylDOum6TKtQ3YRJ4ADOX5DmF0A0UmmUOgy.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 575,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 145,
+        "hotel_id": 43,
+        "stored_path": "storage/accommodation/hotel_image/43/zsxC4ZbAgJ2N3BF6hglG3XHTa55l6UaDoLTu1UeI.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/43/zsxC4ZbAgJ2N3BF6hglG3XHTa55l6UaDoLTu1UeI.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 400,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 146,
+        "hotel_id": 44,
+        "stored_path": "storage/accommodation/hotel_image/44/qytzUFPrXFIT0Kew5b4HuveiVEgtIWn0GqVa74Bb.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/44/qytzUFPrXFIT0Kew5b4HuveiVEgtIWn0GqVa74Bb.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 800,
+        "height": 500,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 147,
+        "hotel_id": 44,
+        "stored_path": "storage/accommodation/hotel_image/44/Zcgw51HoSdROPlcpsMmnAgOzzQmf0RvTNMg5Rqsp.jpg",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/44/Zcgw51HoSdROPlcpsMmnAgOzzQmf0RvTNMg5Rqsp.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 148,
+        "hotel_id": 44,
+        "stored_path": "storage/accommodation/hotel_image/44/ziXSDHwNyOq4RImJjkrE6mn2tmyusSyxceY1AX1v.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/44/ziXSDHwNyOq4RImJjkrE6mn2tmyusSyxceY1AX1v.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 149,
+        "hotel_id": 44,
+        "stored_path": "storage/accommodation/hotel_image/44/dnMFN0ZxJ2JnuASj3JMIbePMDv74FbAw6J7ROgJm.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/44/dnMFN0ZxJ2JnuASj3JMIbePMDv74FbAw6J7ROgJm.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 668,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 150,
+        "hotel_id": 44,
+        "stored_path": "storage/accommodation/hotel_image/44/wyMqUBmNykR08pszb81gokKgEBl0m6CQUA6PiOcl.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/44/wyMqUBmNykR08pszb81gokKgEBl0m6CQUA6PiOcl.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 151,
+        "hotel_id": 44,
+        "stored_path": "storage/accommodation/hotel_image/44/GZ5h9S4wFOhkByQTJs8zZaPLJ07lFIyyNwq2NDY2.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/44/GZ5h9S4wFOhkByQTJs8zZaPLJ07lFIyyNwq2NDY2.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 683,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 152,
+        "hotel_id": 45,
+        "stored_path": "storage/accommodation/hotel_image/45/fQxPsawMfGm5Zsqk28azesvTIa3scfGi4roZSgqK.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/45/fQxPsawMfGm5Zsqk28azesvTIa3scfGi4roZSgqK.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 500,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 153,
+        "hotel_id": 45,
+        "stored_path": "storage/accommodation/hotel_image/45/8BS7C0NpjzBNvfPSomskoifVVAHNgmgTRLYrnmoi.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/45/8BS7C0NpjzBNvfPSomskoifVVAHNgmgTRLYrnmoi.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 375,
+        "height": 250,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 154,
+        "hotel_id": 45,
+        "stored_path": "storage/accommodation/hotel_image/45/vXJAHNVYKWyD9uvKuXxWQJ9yMwxE0PwwvN2k0y1I.webp",
+        "is_primary": 1,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/45/vXJAHNVYKWyD9uvKuXxWQJ9yMwxE0PwwvN2k0y1I.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 652,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 155,
+        "hotel_id": 45,
+        "stored_path": "storage/accommodation/hotel_image/45/r0ZWYQff8OmaVuNHYV2sCXCLacpxJgU3NsPRKC7u.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/45/r0ZWYQff8OmaVuNHYV2sCXCLacpxJgU3NsPRKC7u.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 389,
+        "mime": "image/webp"
+      },
+      {
+        "image_id": 156,
+        "hotel_id": 45,
+        "stored_path": "storage/accommodation/hotel_image/45/8vnUvcBjKG0KWhRponilThm0ee8zdsIDoLna0Dh4.jpg",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/45/8vnUvcBjKG0KWhRponilThm0ee8zdsIDoLna0Dh4.jpg",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 1024,
+        "height": 668,
+        "mime": "image/jpeg"
+      },
+      {
+        "image_id": 157,
+        "hotel_id": 45,
+        "stored_path": "storage/accommodation/hotel_image/45/DwzsHD9Ns0N75DUSUxFQCg2B9816eHXz3g8hmCFJ.webp",
+        "is_primary": 0,
+        "scope": "LOCAL_WORKSPACE_FILE_ONLY",
+        "normalized_path": "storage/accommodation/hotel_image/45/DwzsHD9Ns0N75DUSUxFQCg2B9816eHXz3g8hmCFJ.webp",
+        "status": "LOCAL_IMAGE_VALID",
+        "width": 600,
+        "height": 377,
+        "mime": "image/webp"
+      }
+    ],
+    "status_counts": {
+      "MISSING_LOCAL_FILE": 20,
+      "LOCAL_IMAGE_VALID": 122
+    },
+    "hotels": [
+      {
+        "id": 1,
+        "name": "MEANDER Sai Gon",
+        "location_id": 2,
+        "status": "active",
+        "image_rows": 6,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 2,
+        "name": "The Hanoi Signature Hotel",
+        "location_id": 1,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 3,
+        "name": "La Siesta Classic Ma May",
+        "location_id": 1,
+        "status": "active",
+        "image_rows": 8,
+        "valid_local_images": 7,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 4,
+        "name": "Hanoian Central Hotel & Spa",
+        "location_id": 1,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 5,
+        "name": "Hotel Majestic Saigon",
+        "location_id": 2,
+        "status": "active",
+        "image_rows": 8,
+        "valid_local_images": 7,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 6,
+        "name": "La Siesta Premium Saigon Central",
+        "location_id": 2,
+        "status": "active",
+        "image_rows": 9,
+        "valid_local_images": 8,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 7,
+        "name": "La Siesta Premium Saigon",
+        "location_id": 2,
+        "status": "active",
+        "image_rows": 5,
+        "valid_local_images": 4,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 8,
+        "name": "Hotel Grand Saigon",
+        "location_id": 2,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 9,
+        "name": "InterContinental Danang Sun Peninsula",
+        "location_id": 3,
+        "status": "inactive",
+        "image_rows": 1,
+        "valid_local_images": 0,
+        "primary_rows": 1,
+        "valid_primary_rows": 0
+      },
+      {
+        "id": 10,
+        "name": "Pullman Danang Beach Resort",
+        "location_id": 3,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 11,
+        "name": "Brilliant Hotel Danang",
+        "location_id": 3,
+        "status": "inactive",
+        "image_rows": 1,
+        "valid_local_images": 0,
+        "primary_rows": 1,
+        "valid_primary_rows": 0
+      },
+      {
+        "id": 12,
+        "name": "WorldHotels Long Beach Resort Phu Quoc",
+        "location_id": 4,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 13,
+        "name": "Vinpearl Resort & Spa Phú Quốc",
+        "location_id": 4,
+        "status": "inactive",
+        "image_rows": 1,
+        "valid_local_images": 0,
+        "primary_rows": 1,
+        "valid_primary_rows": 0
+      },
+      {
+        "id": 14,
+        "name": "Brilliant Bay Nha Trang Hotel",
+        "location_id": 5,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 15,
+        "name": "Sunrise Nha Trang Beach Hotel",
+        "location_id": 5,
+        "status": "inactive",
+        "image_rows": 1,
+        "valid_local_images": 0,
+        "primary_rows": 1,
+        "valid_primary_rows": 0
+      },
+      {
+        "id": 16,
+        "name": "Four Seasons Resort The Nam Hai",
+        "location_id": 6,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 17,
+        "name": "Anantara Hoi An Resort",
+        "location_id": 6,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 18,
+        "name": "Dalat Palace Heritage Hotel",
+        "location_id": 7,
+        "status": "active",
+        "image_rows": 7,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 19,
+        "name": "Khách sạn Le Récit Boutique Đà Lạt (Le Recit Boutique Hotel de Dalat)",
+        "location_id": 7,
+        "status": "active",
+        "image_rows": 8,
+        "valid_local_images": 7,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 20,
+        "name": "Azerai La Residence Hue",
+        "location_id": 8,
+        "status": "active",
+        "image_rows": 8,
+        "valid_local_images": 7,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 21,
+        "name": "Pilgrimage Village Boutique Resort",
+        "location_id": 8,
+        "status": "active",
+        "image_rows": 6,
+        "valid_local_images": 5,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 43,
+        "name": "The Pearl Hoi An",
+        "location_id": 6,
+        "status": "active",
+        "image_rows": 5,
+        "valid_local_images": 5,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 44,
+        "name": "NHAAN Resort & Spa Hội An, Tapestry Collection by Hilton",
+        "location_id": 6,
+        "status": "active",
+        "image_rows": 6,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      },
+      {
+        "id": 45,
+        "name": "Vinpearl Resort & Golf Nam Hoi An",
+        "location_id": 6,
+        "status": "active",
+        "image_rows": 6,
+        "valid_local_images": 6,
+        "primary_rows": 1,
+        "valid_primary_rows": 1
+      }
+    ]
+  },
+  "location_relations": [
+    {
+      "id": 1,
+      "name": "Hà Nội",
+      "attractions": 0,
+      "hotels": 3,
+      "active_hotels": 3,
+      "active_hotels_with_valid_images": 3
+    },
+    {
+      "id": 2,
+      "name": "Hồ Chí Minh",
+      "attractions": 9,
+      "hotels": 5,
+      "active_hotels": 5,
+      "active_hotels_with_valid_images": 5
+    },
+    {
+      "id": 3,
+      "name": "Đà Nẵng",
+      "attractions": 9,
+      "hotels": 3,
+      "active_hotels": 1,
+      "active_hotels_with_valid_images": 1
+    },
+    {
+      "id": 4,
+      "name": "Phú Quốc",
+      "attractions": 29,
+      "hotels": 2,
+      "active_hotels": 1,
+      "active_hotels_with_valid_images": 1
+    },
+    {
+      "id": 5,
+      "name": "Nha Trang",
+      "attractions": 0,
+      "hotels": 2,
+      "active_hotels": 1,
+      "active_hotels_with_valid_images": 1
+    },
+    {
+      "id": 6,
+      "name": "Hội An",
+      "attractions": 0,
+      "hotels": 5,
+      "active_hotels": 5,
+      "active_hotels_with_valid_images": 5
+    },
+    {
+      "id": 7,
+      "name": "Đà Lạt",
+      "attractions": 0,
+      "hotels": 2,
+      "active_hotels": 2,
+      "active_hotels_with_valid_images": 2
+    },
+    {
+      "id": 8,
+      "name": "Huế",
+      "attractions": 0,
+      "hotels": 2,
+      "active_hotels": 2,
+      "active_hotels_with_valid_images": 2
+    }
+  ],
+  "schema_diff": {
+    "location_code_missing": true,
+    "location_activity_field_present": false,
+    "missing_attraction_columns": [
+      "slug",
+      "experience_category",
+      "experience_summary",
+      "experience_duration_minutes",
+      "experience_source_url",
+      "experience_location_code",
+      "experience_verified_by",
+      "experience_verified_at",
+      "experience_published_at",
+      "experience_archived_at"
+    ],
+    "absent_tables": [
+      "attraction_image",
+      "guide_category",
+      "guide_post"
+    ],
+    "missing_migrations": [
+      "2026_10_23_000001_add_experience_catalog_metadata",
+      "2026_10_23_000002_create_travel_guides",
+      "2026_10_23_000003_widen_guide_publication_datetime"
+    ],
+    "base_fk_types_match_source": true,
+    "existing_catalog_object_name_conflict_observed": false,
+    "migration_execution_tested_on_main": false
+  },
+  "price_comparison": {
+    "matched_name_type_rows": 47,
+    "range_difference_rows": [],
+    "meaning": "Matching source estimates is not verification of ticket prices or free admission"
+  },
+  "source_integrity": [
+    {
+      "file": "app/Services/LegacyBlogImporter.php",
+      "sha256": "1e9d613f0463d46ffdc80a945b3d0f238837324f47b81e6adf2688bda47cb881",
+      "matches_phase5b": true
+    },
+    {
+      "file": "app/Console/Commands/ImportLegacyGuides.php",
+      "sha256": "52bd807e3974efabf5394d2ad382fb218ed6bc519eeee87f894eb0e4bce18390",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/CatalogDataSafetyMysqlTest.php",
+      "sha256": "b8b3e192165300e31a0bc283f317b54133bd2bd7de1fd3ed44e88df04e2fd157",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/CatalogMysqlIntegrationTest.php",
+      "sha256": "a9417b82f95a23751aa525ce24d44359f5cf1e0ac2a805112e7b500c542bef3c",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Feature/GuideModuleTest.php",
+      "sha256": "10edce38b31986d6442153f3557b1178a1f63fba982c9689f736a539b23c2db8",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/run_catalog_mysql_integration.cjs",
+      "sha256": "50ee933a8c6caac91cee1de3e5d7292b62a141ce23bb8cedd4ae4eb07e5a40b9",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/CatalogMysqlFixture.php",
+      "sha256": "967320ad4051c1794b54a3f7572b4cfba648f0fbaa3bc95f430725bdf0383bae",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Support/guide_browser_setup.php",
+      "sha256": "53a4050d25945bd1ae361a194a2af53aabd418e723b98e49a6d93a558142b4c3",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Frontend/catalog-mysql.browser.cjs",
+      "sha256": "a0f71f5372ce91c6e2def2b0b96f004ef5dd9aec0ce9557bc0e2b9741d751d53",
+      "matches_phase5b": true
+    },
+    {
+      "file": "tests/Frontend/guides.browser.cjs",
+      "sha256": "5848ea286337df7cd127c94b332ecd14c6bac0432a35c9a5347caae21b064cee",
+      "matches_phase5b": true
+    },
+    {
+      "file": "phpunit.catalog-safety-mysql.xml",
+      "sha256": "f6ae67e2c09ed29beb06694213b70d3331ec10df14d7561ec3100ef2559c9d5b",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000001_add_experience_catalog_metadata.php",
+      "sha256": "4b2fdff04fdd4fbb321a2a914e8354404d9648885babbf0fec19dc81362f5abb",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000002_create_travel_guides.php",
+      "sha256": "eb15695b8cda4cd9ee94846585098f540437904f10ad4cd4e592759cceae879f",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/migrations/2026_10_23_000003_widen_guide_publication_datetime.php",
+      "sha256": "0d180d48622c6fde0392026f138a044dd06e20f7ad4353e1067a4eb3919ec453",
+      "matches_phase5b": true
+    },
+    {
+      "file": "database/seeders/AttractionSeeder.php",
+      "sha256": "f6cc49707b311ae6f7d25918fcfd5b1253825f48e28d24e63588e39b9497a136",
+      "matches_phase5b": true
+    }
+  ],
+  "legacy_cover_integrity": [
+    {
+      "path": "public/image/L-1.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L-2.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L-3.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L-4.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L5.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L-6.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L-7.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L-8.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    },
+    {
+      "path": "public/image/L-9.jpg",
+      "matches_phase5b": true,
+      "rights_status": "UNVERIFIED_REQUIRES_OWNER_APPROVAL"
+    }
+  ],
+  "cross_module_impact": {
+    "mismatched_public_type_candidates": 21,
+    "mismatched_legacy_hotel_type_rows": 6,
+    "incoming_fk_metadata_only": [
+      {
+        "table": "customer",
+        "column": "preferred_location_id",
+        "constraint": "fk_customer_location",
+        "delete_rule": "SET NULL",
+        "update_rule": "NO ACTION",
+        "referenced_table": "location",
+        "referenced_column": "id"
+      },
+      {
+        "table": "itinerary_item",
+        "column": "attraction_id",
+        "constraint": "itinerary_item_attraction_id_foreign",
+        "delete_rule": "SET NULL",
+        "update_rule": "NO ACTION",
+        "referenced_table": "attraction",
+        "referenced_column": "id"
+      }
+    ],
+    "customer_or_itinerary_rows_read": false
+  },
+  "progress_estimate": {
+    "module_percent": 85,
+    "estimated": true,
+    "phase5c1": "READ_ONLY_SURVEY_COMPLETE_WITH_LIMITATIONS",
+    "basis": "Four technical groups retain 80 points. The final 20-point production/data group is divided into four 5-point milestones; live read-only inventory is complete, while content/data approval, clone restore rehearsal, and release authorization remain incomplete.",
+    "production_go": false
+  },
+  "execution_notes": [
+    "30 successful substantive SELECT/SHOW calls in the final guarded connection, plus one SELECT end-marker per call.",
+    "A separate initial identity-only preflight also completed.",
+    "An earlier read-only duplicate query was rejected by ONLY_FULL_GROUP_BY; the audit query was rewritten using a derived table. SQL mode and application code were not changed.",
+    "All audit MySQL clients were closed; no migration, seeder, importer or data-write SQL was run.",
+    "File writes are limited to audit reports/evidence in docs; database access is READ-ONLY."
+  ],
+  "offline_validation": {
+    "result": "PASS",
+    "all_read_queries_select_show": true,
+    "all_rows_within_scope_complete": true,
+    "source_price_rows_match": 47,
+    "attraction_mapping_rows_checked": 47,
+    "source_files_unchanged": 15,
+    "legacy_covers_unchanged": 9,
+    "active_hotels_with_valid_primary": 20,
+    "credential_secret_in_report": false
+  },
+  "report_files": [
+    {
+      "file": "docs/catalog-live-readonly-phase5c1.md",
+      "sha256": "0ecf952fb4baed049ac1067e9529b769c3b4d1f6772d8657958d01b92baa317c"
+    },
+    {
+      "file": "docs/catalog-readonly-phase5c1.md",
+      "sha256": "5d0070b4529473deafa2008d1199244db199c7ef474e04dc9b16363e21be3294"
+    },
+    {
+      "file": "docs/validation/attraction-live-location-review-phase5c1.csv",
+      "sha256": "880ae1efaea8f55f4fa9cb67225d06983fda0296d52d4085b3d73e5dcfd4856f"
+    },
+    {
+      "file": "docs/validation/hotel-image-readonly-review-phase5c1.csv",
+      "sha256": "809bf290490a3ecad729100dd8ce4218564cb0114647a807bc960962fbd6652b"
+    }
+  ]
+}

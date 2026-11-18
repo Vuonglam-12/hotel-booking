@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/itinerary_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Travel assistant owned MySQL only">
+        <file>tests/Feature/TravelAssistantTest.php</file>
+        <file>tests/Feature/GroqModelConfigurationTest.php</file>
+        <file>tests/Feature/ItineraryGeoapifyTest.php</file>
+    </testsuite></testsuites>
+    <php><env name="GEOAPIFY_EXTERNAL_PHOTOS" value="false"/></php>
+</phpunit>

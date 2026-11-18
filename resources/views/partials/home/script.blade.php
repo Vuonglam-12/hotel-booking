@@ -1,322 +1,291 @@
 <script>
-    // ========================
-    // LOAD MORE FUNCTIONALITY
-    // ========================
-    (function() {
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-        if (!loadMoreBtn) return;
+(() => {
+    const grid = document.getElementById('allHotelsGrid');
+    const template = document.getElementById('hotelCardTemplate');
+    const sectionTemplate = document.getElementById('hotelSectionTemplate');
+    const errorBox = document.getElementById('hotelLoadError');
+    const searchButton = document.querySelector('#heroSearchBar [type="submit"]');
+    const state = { params: new URLSearchParams(location.search) };
+    const likedHotels = new Map();
+    const pendingLikes = new Set();
+    const touchedLikes = new Set();
+    let requestSerial = 0;
+    let requestController;
+    let retryRequest;
+    const money = value => new Intl.NumberFormat('vi-VN').format(value) + ' ₫';
+    const contextKeys = ['check_in', 'check_out', 'guests', 'adults', 'children', 'infants'];
+    const apiFilterKeys = ['city', 'search', 'hotel_id', 'star', 'location_id', 'max_price', 'amenity', 'sort', 'dir', ...contextKeys];
+    const cityLabel = name => ['Hồ Chí Minh', 'TP. Hồ Chí Minh', 'Thành phố Hồ Chí Minh', 'TP.HCM'].includes(name.trim()) ? 'TP.HCM' : name;
+    const priorityCities = ['TP.HCM', 'Hà Nội', 'Đà Lạt', 'Đà Nẵng'];
+    const compareCities = (a, b) => {
+        const rank = name => { const index = priorityCities.indexOf(cityLabel(name)); return index < 0 ? priorityCities.length : index; };
+        return rank(a) - rank(b) || a.localeCompare(b, 'vi');
+    };
+    const observedRows = new WeakSet();
+    const rowObserver = new ResizeObserver(entries => entries.forEach(entry => updateRow(entry.target)));
 
-        const hotelGrid = document.getElementById('allHotelsGrid');
-        const loadMoreContainer = document.getElementById('loadMoreContainer');
-        const shownCountSpan = document.getElementById('shownCount');
-        const totalCountSpan = document.getElementById('totalCount');
-        
-        let isLoading = false;
-        let currentPage = parseInt(loadMoreBtn.dataset.nextPage);
-        const lastPage = parseInt(loadMoreBtn.dataset.lastPage);
-        const totalHotels = parseInt(loadMoreBtn.dataset.total);
-        const perPage = parseInt(loadMoreBtn.dataset.perPage);
-        let currentShown = parseInt(shownCountSpan ? shownCountSpan.textContent : 0);
+    function updateRow(row) {
+        const section = row.closest('.hv-destination-section');
+        const overflow = row.scrollWidth - row.clientWidth;
+        section.querySelector('[data-row-controls]').hidden = overflow <= 1;
+        section.querySelector('[data-row-direction="-1"]').disabled = row.scrollLeft <= 1;
+        section.querySelector('[data-row-direction="1"]').disabled = row.scrollLeft >= overflow - 1;
+    }
 
-        function createSkeletonCards(count = 3) {
-            let html = '';
-            for (let i = 0; i < count; i++) {
-                html += `
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#C9D3DD]/30">
-                        <div class="relative h-52 skeleton-card"></div>
-                        <div class="p-5 space-y-3">
-                            <div class="h-5 skeleton-card rounded w-3/4"></div>
-                            <div class="h-3 skeleton-card rounded w-1/2"></div>
-                            <div class="h-8 skeleton-card rounded w-full mt-4"></div>
-                        </div>
-                    </div>
-                `;
+    function observeRows() {
+        grid.querySelectorAll('.hv-destination-row').forEach(row => {
+            if (!observedRows.has(row)) {
+                observedRows.add(row);
+                rowObserver.observe(row);
+                row.addEventListener('scroll', () => updateRow(row), { passive: true });
             }
-            return html;
-        }
+            updateRow(row);
+        });
+    }
 
-        function updateShownCount(newCount) {
-            currentShown += newCount;
-            if (shownCountSpan) {
-                shownCountSpan.textContent = currentShown;
+    function hotelUrl(hotelId, availability) {
+        const params = new URLSearchParams();
+        contextKeys.forEach(key => { if (state.params.get(key)) params.set(key, state.params.get(key)); });
+        if(availability){params.set('room_type_id',availability.room_type_id);params.set('quantity',availability.required_rooms);}
+        const url = new URL('hotels/' + hotelId, grid.dataset.homeUrl);
+        url.search = params.toString();
+        return url.href;
+    }
+
+    function createCard(hotel) {
+        if (hotel.status !== 'active' || !Number.isInteger(Number(hotel.id)) || Number(hotel.id) <= 0) return null;
+        const card = template.content.firstElementChild.cloneNode(true);
+        card.dataset.hotelId = hotel.id;
+        const image = card.querySelector('[data-card-field="image"]');
+        image.src = HolidayVietImages.cover(hotel);
+        image.alt = hotel.name || '';
+        card.querySelectorAll('[data-hotel-link]').forEach(link => {
+            link.href = hotelUrl(hotel.id,hotel.search_availability);
+            link.setAttribute('aria-label', hotel.name || 'Xem khách sạn');
+        });
+        card.querySelector('[data-card-field="name"]').textContent = hotel.name || '';
+        card.querySelector('[data-card-field="location"]').textContent = hotel.location?.name || '';
+        const price = Number(hotel.rooms_min_price);
+        const priceElement = card.querySelector('[data-card-field="price"]');
+        priceElement.replaceChildren();
+        if (Number.isFinite(price) && price > 0) {
+            const amount = document.createElement('strong');
+            amount.textContent = money(price);
+            const unit = document.createElement('span');
+            unit.textContent = ' / đêm';
+            priceElement.append('Từ ', amount, unit);
+        } else priceElement.textContent = 'Liên hệ để biết giá';
+
+        const ratingElement = card.querySelector('[data-card-field="rating"]');
+        const reviewCount = Number(hotel.review_count);
+        const reviewAverage = Number(hotel.rating_breakdown?.avg_overall);
+        const hasVerifiedReviews = reviewCount > 0 && reviewAverage > 0 && Number.isFinite(reviewAverage);
+        ratingElement.hidden = !hasVerifiedReviews;
+        ratingElement.textContent = hasVerifiedReviews ? reviewAverage.toFixed(1) + ' · ' + reviewCount + ' đánh giá' : '';
+        const availability=card.querySelector('[data-card-field="availability"]');
+        const match=hotel.search_availability;
+        availability.hidden=!match?.dates_checked;
+        availability.textContent=match?.dates_checked?match.required_rooms+' phòng cho '+match.guests+' khách · Còn phòng theo ngày đã chọn':'';
+        const wishlist = card.querySelector('.wishlist-btn');
+        wishlist.dataset.hotel = hotel.id;
+        wishlist.setAttribute('aria-pressed', String(likedHotels.get(Number(hotel.id)) || false));
+        wishlist.setAttribute('aria-label', 'Lưu ' + hotel.name + ' vào yêu thích');
+        return card;
+    }
+
+    function renderGrid(hotels) {
+        const existingIds = new Set();
+        const groups = new Map();
+        hotels.forEach(hotel => {
+            const name = hotel.location?.name?.trim();
+            if (!name || existingIds.has(String(hotel.id))) return;
+            const card = createCard(hotel);
+            if (!card) return;
+            existingIds.add(String(hotel.id));
+            const key = hotel.location.id ? 'id:' + hotel.location.id : 'name:' + name;
+            if (!groups.has(key)) groups.set(key, { key, name, cards: [] });
+            groups.get(key).cards.push(card);
+        });
+        grid.querySelectorAll('.hv-destination-row').forEach(row => rowObserver.unobserve(row));
+        const sections = Array.from(groups.values()).sort((a, b) => compareCities(a.name, b.name)).map((group, index) => {
+            const section = sectionTemplate.content.firstElementChild.cloneNode(true);
+            const heading = section.querySelector('h2');
+            const row = section.querySelector('.hv-destination-row');
+            const name = cityLabel(group.name);
+            section.dataset.locationKey = group.key;
+            section.dataset.locationName = group.name;
+            heading.id = 'destination-heading-' + index;
+            heading.textContent = 'Những ngôi nhà ở ' + name;
+            section.setAttribute('aria-labelledby', heading.id);
+            row.id = 'destination-row-' + index;
+            row.setAttribute('aria-label', 'Khách sạn ở ' + name);
+            row.append(...group.cards);
+            section.querySelectorAll('[data-row-direction]').forEach(button => {
+                button.setAttribute('aria-controls', row.id);
+                button.setAttribute('aria-label', (button.dataset.rowDirection === '-1' ? 'Xem các khách sạn trước ở ' : 'Xem các khách sạn tiếp theo ở ') + name);
+            });
+            return section;
+        });
+        grid.replaceChildren(...sections);
+        if (!grid.querySelector('.hotel-card')) {
+            const message = document.createElement('p');
+            message.className = 'hv-home-empty';
+            message.textContent = 'Không tìm thấy khách sạn phù hợp.';
+            grid.append(message);
+        }
+        observeRows();
+        document.getElementById('homeHotelStatus').textContent = 'Đã hiển thị ' + existingIds.size + ' khách sạn tại ' + sections.length + ' địa điểm.';
+    }
+    // Preserve the shared Home entry point used by existing filter integrations.
+    window.renderHotelGrid = hotels => renderGrid(Array.isArray(hotels) ? hotels : []);
+
+    function updateFilterState() {
+        const city = state.params.get('city') || '';
+        document.querySelectorAll('.city-filter-link').forEach(link => {
+            if ((link.dataset.city || '') === city) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+        const heading=document.getElementById('home-hotels-heading');
+        if(heading)heading.textContent=city?'Khách sạn tại '+cityLabel(city):'Khám phá khách sạn';
+        const clear=document.getElementById('clearHotelFilters');
+        if(clear)clear.hidden=!apiFilterKeys.some(key=>state.params.get(key));
+        HolidayVietSearch.sync();
+    }
+
+    async function loadHotels({ params = state.params, historyMode = 'none', retry = false } = {}) {
+        requestController?.abort();
+        requestController = new AbortController();
+        const serial = ++requestSerial;
+        const requestedParams = new URLSearchParams(params);
+        requestedParams.delete('page');
+        retryRequest = () => loadHotels({ params: requestedParams, historyMode, retry: true });
+        errorBox.hidden = true;
+        grid.setAttribute('aria-busy', 'true');
+        searchButton.disabled=true;searchButton.setAttribute('aria-busy','true');
+        document.getElementById('homeHotelStatus').textContent='Đang tìm khách sạn phù hợp…';
+        const query = new URLSearchParams();
+        apiFilterKeys.forEach(key => { if (requestedParams.get(key)) query.set(key, requestedParams.get(key)); });
+        try {
+            let hotels;
+            if (!query.size && !retry) {
+                // Reuse the complete active catalog already requested by the header search.
+                hotels = await HolidayVietSearch.catalog();
+            } else {
+                hotels = [];
+                query.set('per_page', '100');
+                let page = 1;
+                let lastPage = 1;
+                do {
+                    query.set('page', page);
+                    const response = await _layoutApi('/hotels?' + query, { signal: requestController.signal });
+                    if (!response.ok) throw new Error('Không tải được khách sạn.');
+                    const data = await response.json();
+                    if (!Array.isArray(data.data) || !Number.isInteger(Number(data.last_page)) || Number(data.last_page) < 1) throw new Error('Dữ liệu khách sạn không hợp lệ.');
+                    hotels.push(...data.data);
+                    lastPage = Number(data.last_page);
+                    page++;
+                } while (page <= lastPage);
+            }
+            if (serial !== requestSerial) return;
+            state.params = requestedParams;
+            if (historyMode === 'push') {
+                const url = new URL(grid.dataset.homeUrl);
+                url.search = requestedParams.toString();
+                history.pushState(null, '', url);
+            }
+            renderGrid(hotels);
+            updateFilterState();
+        } catch (error) {
+            if (error.name !== 'AbortError' && serial === requestSerial) errorBox.hidden = false;
+        } finally {
+            if (serial === requestSerial) {
+                grid.setAttribute('aria-busy', 'false');
+                searchButton.disabled=false;searchButton.removeAttribute('aria-busy');
             }
         }
+    }
 
-        async function loadMore() {
-            if (isLoading || currentPage > lastPage) return;
-            
-            isLoading = true;
-            loadMoreBtn.classList.add('loading');
-            const originalText = loadMoreBtn.innerHTML;
-            loadMoreBtn.innerHTML = `
-                <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                </svg>
-                ĐANG TẢI...
-            `;
+    function setWishlistState(hotelId, liked) {
+        likedHotels.set(hotelId, liked);
+        document.querySelectorAll('.wishlist-btn[data-hotel="' + hotelId + '"]').forEach(button => {
+            button.setAttribute('aria-pressed', String(liked));
+            button.disabled = pendingLikes.has(hotelId);
+        });
+    }
 
-            const skeletons = document.createElement('div');
-            skeletons.className = 'contents';
-            skeletons.innerHTML = createSkeletonCards(3);
-            hotelGrid.appendChild(skeletons);
-
-            try {
-                const url = new URL(window.location.href);
-                url.searchParams.set('page', currentPage);
-                
-                const response = await fetch(url.toString(), {
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                });
-                
-                const html = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const newCards = doc.querySelectorAll('#allHotelsGrid > .hotel-card');
-                
-                skeletons.remove();
-                
-                if (newCards.length > 0) {
-                    newCards.forEach(card => hotelGrid.appendChild(card));
-                    updateShownCount(newCards.length);
-                    currentPage++;
-                    loadMoreBtn.dataset.nextPage = currentPage;
-                    
-                    if (currentPage > lastPage) {
-                        const doneMsg = document.createElement('div');
-                        doneMsg.className = 'mt-10 text-center text-[#C9D3DD] text-sm';
-                        doneMsg.innerHTML = `
-                            <div class="inline-flex items-center gap-2 bg-[#F8FAFC] px-6 py-3 rounded-full">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                Đã hiển thị tất cả <span>${currentShown}</span> khách sạn
-                            </div>
-                        `;
-                        if (loadMoreContainer) loadMoreContainer.replaceWith(doneMsg);
-                        else loadMoreBtn.closest('.mt-10').replaceWith(doneMsg);
-                    } else {
-                        loadMoreBtn.classList.remove('loading');
-                        loadMoreBtn.innerHTML = originalText;
-                        if (shownCountSpan) {
-                            shownCountSpan.style.transition = 'all 0.3s';
-                            shownCountSpan.style.color = '#0E5ED8';
-                            shownCountSpan.style.fontWeight = 'bold';
-                            setTimeout(() => {
-                                shownCountSpan.style.color = '';
-                                shownCountSpan.style.fontWeight = '';
-                            }, 500);
-                        }
-                    }
-
-                    if (typeof buildHotelDataFromDOM === 'function') buildHotelDataFromDOM();
-                }
-            } catch (error) {
-                console.error('Load more error:', error);
-                skeletons.remove();
-                loadMoreBtn.classList.remove('loading');
-                loadMoreBtn.innerHTML = originalText;
-                if (typeof showToast === 'function') showToast('Có lỗi xảy ra, vui lòng thử lại!');
-                else alert('Có lỗi xảy ra, vui lòng thử lại!');
-            }
-            isLoading = false;
-        }
-
-        loadMoreBtn.addEventListener('click', loadMore);
-    })();
-
-    // ========================
-    // RENDER HOTEL GRID (Dùng cho Filter)
-    // ========================
-    window.renderHotelGrid = function(hotels, city = ''){
-        const grid = document.getElementById('allHotelsGrid');
-        if (!grid) return;
-        
-        if (!hotels || hotels.length === 0) {
-            grid.innerHTML = `
-                <div class="col-span-3 text-center py-20 text-[#C9D3DD]">
-                    <p class="text-6xl mb-4 flex justify-center">
-                        <svg class="w-16 h-16 text-[#87CEFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </p>
-                    <p class="text-lg text-[#3A4A5A]">Không tìm thấy khách sạn phù hợp</p>
-                    <a href="/" class="text-[#87CEFA] underline mt-2 inline-block city-reset-link">Xem tất cả</a>
-                </div>
-            `;
-            return;
-        }
-        
-        grid.innerHTML = hotels.map(hotel => {
-            const price = hotel.rooms_min_price ? new Intl.NumberFormat('vi-VN').format(hotel.rooms_min_price) : null;
-            return `
-            <div class="hotel-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#C9D3DD]/30 click-effect cursor-pointer"
-                onclick="window.location.href='/hotels/${hotel.id}'">
-                <div class="relative h-52 bg-[#EAF3FF] overflow-hidden">
-                    <img src="https://picsum.photos/seed/${hotel.id}/800/600" alt="${escapeHtml(hotel.name)}" class="w-full h-full object-cover transition duration-500 hover:scale-110">
-                    <div class="absolute top-3 left-3">
-                        <div class="bg-white/95 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
-                            <svg class="w-3 h-3 text-[#87CEFA]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                            <span class="text-[#3A4A5A] text-xs font-bold">${hotel.star_rating} Sao</span>
-                        </div>
-                    </div>
-                    <button onclick="event.stopPropagation(); toggleWishlist(${hotel.id}, this)" class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm w-8 h-8 rounded-full flex items-center justify-center text-[#C9D3DD] hover:text-red-500 transition wishlist-btn shadow-sm" data-hotel="${hotel.id}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </button>
-                </div>
-                <div class="p-5">
-                    <div class="flex items-start justify-between gap-2">
-                        <div class="flex-1">
-                            <h3 class="font-semibold text-[#1E3A5F] text-base leading-snug">${escapeHtml(hotel.name)}</h3>
-                            <p class="text-[#C9D3DD] text-xs mt-1.5 flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                ${escapeHtml(hotel.location?.name || city)}
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-1 shrink-0">
-                            <svg class="w-4 h-4 text-[#87CEFA]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                            <span class="text-sm font-semibold text-[#3A4A5A]">${hotel.avg_rating || '4.5'}</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-[#EAF3FF] flex items-center justify-between">
-                        <div>
-                            ${price ? `<p class="text-xs text-[#C9D3DD]">Giá từ</p><p class="font-bold text-[#87CEFA] text-lg">${price}<span class="text-xs font-normal text-[#C9D3DD]">/đêm</span></p>` : '<p class="text-xs text-[#C9D3DD]">Liên hệ</p>'}
-                        </div>
-                        <span class="text-xs btn-primary px-4 py-2 rounded-lg font-semibold inline-flex items-center gap-1">
-                            Xem chi tiết <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            `;
-        }).join('');
-        
-        if (typeof buildHotelDataFromDOM === 'function') buildHotelDataFromDOM();
+    window.toggleWishlist = async (hotelId, button) => {
+        if (!localStorage.getItem('token')) { window.requestCustomerLogin('Vui lòng đăng nhập để lưu khách sạn yêu thích.'); return; }
+        if (pendingLikes.has(hotelId)) return;
+        touchedLikes.add(hotelId);
+        pendingLikes.add(hotelId);
+        button.disabled = true;
+        try {
+            const response = await _layoutApi('/wishlist/' + hotelId + '/toggle', { method: 'POST' });
+            if(response.status===401){localStorage.removeItem('token');localStorage.removeItem('user');window.requestCustomerLogin('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');return;}
+            if (!response.ok) throw new Error(response.status === 401 ? 'Vui lòng đăng nhập lại.' : 'Không thể cập nhật yêu thích.');
+            const data = await response.json();
+            if (typeof data.liked !== 'boolean') throw new Error('Không thể cập nhật yêu thích.');
+            likedHotels.set(hotelId, data.liked);
+            showToast(data.liked ? 'Đã lưu khách sạn yêu thích.' : 'Đã bỏ yêu thích.');
+        } catch (error) { showToast(error.message); }
+        finally { pendingLikes.delete(hotelId); setWishlistState(hotelId, likedHotels.get(hotelId) || false); }
     };
 
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.city-reset-link')) {
-            e.preventDefault();
-            window.location.href = '/';
+    document.addEventListener('click', event => {
+        const rowArrow = event.target.closest('[data-row-direction]');
+        if (rowArrow && grid.contains(rowArrow)) {
+            const row = rowArrow.closest('.hv-destination-section').querySelector('.hv-destination-row');
+            row.scrollBy({ left: Number(rowArrow.dataset.rowDirection) * (row.clientWidth + parseFloat(getComputedStyle(row).columnGap)), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+            return;
         }
+        const wishlist = event.target.closest('.wishlist-btn');
+        if (wishlist && grid.contains(wishlist)) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.toggleWishlist(Number(wishlist.dataset.hotel), wishlist);
+            return;
+        }
+        const cityLink = event.target.closest('.city-filter-link');
+        const resetLink = event.target.closest('.city-reset-link');
+        if (!cityLink && !resetLink) return;
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        const params = new URLSearchParams(state.params);
+        params.delete('page');
+        if (resetLink) apiFilterKeys.forEach(key => params.delete(key));
+        else if (cityLink.dataset.city) {['search','hotel_id','location_id'].forEach(key=>params.delete(key));params.set('city', cityLink.dataset.city);}
+        else params.delete('city');
+        loadHotels({ params, historyMode: 'push' });
     });
-
-    // ========================
-    // TOGGLE WISHLIST
-    // ========================
-    async function toggleWishlist(hotelId, btn) {
-        const token = localStorage.getItem('token');
-        if (!token) { 
-            if(typeof showToast === 'function') showToast('Vui lòng đăng nhập để lưu yêu thích!');
-            else alert('Vui lòng đăng nhập để lưu yêu thích!');
-            return; 
-        }
-        try {
-            const res  = await api(`/wishlist/${hotelId}/toggle`, { method: 'POST' });
-            const data = await res.json();
-            const fill = data.liked ? 'currentColor' : 'none';
-            btn.innerHTML = `<svg class="w-4 h-4" fill="${fill}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>`;
-            btn.style.color = data.liked ? '#ef4444' : '';
-            if(typeof showToast === 'function') showToast(data.liked ? '❤️ Đã lưu yêu thích' : 'Đã bỏ yêu thích');
-        } catch (e) {
-            console.error('Lỗi khi lưu yêu thích:', e);
-        }
-    }
-
-    {{-- resources/views/partials/home/hotels/script.blade.php --}}
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const swiper = new Swiper('.featuredSwiper', {
-            slidesPerView: 1,
-            centeredSlides: true,
-            loop: true,
-            spaceBetween: 30,
-            autoplay: {
-                delay: 1500,              // đồng bộ tốc độ với Flash Sale
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,  // hover dừng, rời chuột tự chạy lại
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-            },
-            effect: 'coverflow',
-            coverflowEffect: {
-                rotate: 15,       // góc xoay 3D giống rotateY bên Flash Sale
-                stretch: 0,
-                depth: 120,       // độ sâu Z tạo cảm giác nổi
-                modifier: 1.5,
-                slideShadows: false,
-            },
-            speed: 500,           // duration transition khớp với Flash Sale (0.5s)
-        });
+    document.getElementById('retryHotelLoad').addEventListener('click', () => retryRequest?.());
+    document.getElementById('heroSearchBar').addEventListener('submit',event=>{
+        if(event.defaultPrevented)return;
+        event.preventDefault();
+        const params=new URLSearchParams(state.params);
+        ['city','search','hotel_id','location_id','page',...contextKeys].forEach(key=>params.delete(key));
+        new FormData(event.currentTarget).forEach((value,key)=>{if(String(value).trim()!=='')params.set(key,String(value).trim());});
+        loadHotels({params,historyMode:'push'});
     });
+    window.addEventListener('popstate', () => loadHotels({ params: new URLSearchParams(location.search) }));
 
-    // ========================
-    // CITY FILTER TỪ NAVBAR DROPDOWN
-    // ========================
-    document.addEventListener('click', async function(e) {
-        const link = e.target.closest('.city-filter-link');
-        if (!link) return;
-        e.preventDefault();
-
-        const city = link.dataset.city;
-        if (!city) return;
-
-        // Highlight active
-        document.querySelectorAll('.city-filter-link')
-                .forEach(l => l.classList.remove('active-scroll-spy'));
-        link.classList.add('active-scroll-spy');
-
-        // Ẩn Load More khi filter
-        const loadMoreContainer = document.getElementById('loadMoreContainer');
-        if (loadMoreContainer) loadMoreContainer.style.display = 'none';
-
-        // Show skeleton loading
-        const grid = document.getElementById('allHotelsGrid');
-        if (grid) {
-            grid.innerHTML = Array(3).fill(`
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#C9D3DD]/30">
-                    <div class="h-52 bg-slate-200 animate-pulse"></div>
-                    <div class="p-5 space-y-3">
-                        <div class="h-5 bg-slate-200 animate-pulse rounded w-3/4"></div>
-                        <div class="h-3 bg-slate-200 animate-pulse rounded w-1/2"></div>
-                        <div class="h-8 bg-slate-200 animate-pulse rounded w-full mt-4"></div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        try {
-            const res = await fetch(`/api/hotels?city=${encodeURIComponent(city)}&per_page=9`, {
-                headers: { 'Accept': 'application/json' }
+    function loadSavedWishlist() {
+        if(!localStorage.getItem('token'))return;
+        _layoutApi('/wishlist').then(response => response.ok ? response.json() : []).then(items => {
+            if (!Array.isArray(items)) return;
+            items.forEach(item => {
+                const hotelId = Number(item.hotel_id);
+                if (Number.isInteger(hotelId) && hotelId > 0 && !touchedLikes.has(hotelId)) setWishlistState(hotelId, true);
             });
-            const data = await res.json();
-
-            // data.data vì controller trả về paginate()
-            window.renderHotelGrid(data.data, city);
-
-            // Cập nhật tiêu đề section
-            const heading = document.querySelector('#allHotelsGrid')
-                                    ?.closest('section')
-                                    ?.querySelector('h2');
-            if (heading) heading.textContent = `Khách sạn tại ${city}`;
-
-            // Scroll xuống grid
-            grid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-            if (typeof showToast === 'function') showToast(`📍 ${data.data?.length || 0} khách sạn tại ${city}`);
-
-        } catch (err) {
-            console.error('City filter error:', err);
-            if (typeof showToast === 'function') showToast('Có lỗi xảy ra, vui lòng thử lại!');
+        }).catch(() => {});
+    }
+    loadSavedWishlist();
+    window.addEventListener('message',event=>{
+        if(event.origin===location.origin&&event.data?.type==='aurel-authenticated'){
+            likedHotels.clear();touchedLikes.clear();document.querySelectorAll('.wishlist-btn').forEach(button=>button.setAttribute('aria-pressed','false'));loadSavedWishlist();
         }
     });
+
+    observeRows();
+    loadHotels();
+})();
 </script>

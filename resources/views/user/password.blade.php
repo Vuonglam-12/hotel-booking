@@ -1,12 +1,8 @@
 @extends('user.layouts.user')
-
-@section('title', 'Đổi mật khẩu')
-@section('page_title', 'Đổi mật khẩu')
-
+@section('title', 'Bảo mật tài khoản')
 @section('content')
-    @include('user.password.password-section')
+@include('user.password.password-section')
 @endsection
-
 @section('scripts')
-    @include('user.password.password-script')  
+@include('user.password.password-script')
 @endsection

@@ -1,0 +1,71 @@
+[
+  {
+    "key": "ha-noi",
+    "file": "covers/ha-noi.jpg",
+    "attraction_id": 3,
+    "photo_title": "Hanoi, Vietnam, Hoan Kiem Lake.jpg",
+    "author": "Vyacheslav Argenberg",
+    "attribution": "© Vyacheslav Argenberg",
+    "source_page": "https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Hoan_Kiem_Lake.jpg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+    "image_source_note": "Hanoi, Vietnam, Hoan Kiem Lake.jpg — © Vyacheslav Argenberg. https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Hoan_Kiem_Lake.jpg | CC BY 4.0 https://creativecommons.org/licenses/by/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+    "image_caption": "Hồ Hoàn Kiếm & Đền Ngọc Sơn",
+    "photo_date": "2008-03-12 16:44:23",
+    "source_revision": {
+      "revid": 1236309632,
+      "parentid": 1209727801,
+      "timestamp": "2026-06-22T15:54:36Z"
+    },
+    "reviewed_at_utc": "2026-10-25T10:30:57Z",
+    "sha256": "93c7f538b815b03e37e02bdd3164f0f002d40ea7adbe1ed2dcd1ea1eda62e42f",
+    "share_alike": false
+  },
+  {
+    "key": "tp-ho-chi-minh",
+    "file": "covers/tp-ho-chi-minh.jpg",
+    "attraction_id": 10,
+    "photo_title": "Independence Palace, Ho Chi Minh City.jpg",
+    "author": "Trung geo",
+    "attribution": "Trung geo",
+    "source_page": "https://commons.wikimedia.org/wiki/File:Independence_Palace,_Ho_Chi_Minh_City.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+    "image_source_note": "Independence Palace, Ho Chi Minh City.jpg — Trung geo. https://commons.wikimedia.org/wiki/File:Independence_Palace,_Ho_Chi_Minh_City.jpg | CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0 | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+    "image_caption": "Dinh Độc Lập",
+    "photo_date": "2022-05-23 08:14:55",
+    "source_revision": {
+      "revid": 713573532,
+      "parentid": 705295483,
+      "timestamp": "2022-12-09T02:40:33Z"
+    },
+    "reviewed_at_utc": "2026-10-25T10:30:59Z",
+    "sha256": "53a48351d4bec3666576aeb3771ad4da547a34dc029d863e96a5d5b7c6d49a52",
+    "share_alike": true
+  },
+  {
+    "key": "da-lat",
+    "file": "covers/da-lat.jpg",
+    "attraction_id": 19,
+    "photo_title": "Langbiang Mountain.JPG",
+    "author": "Tilamdong",
+    "attribution": "Tilamdong",
+    "source_page": "https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG",
+    "license": "Public domain",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG#Licensing",
+    "changes": "Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+    "image_source_note": "Langbiang Mountain.JPG — Tilamdong. https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG | Public domain https://commons.wikimedia.org/wiki/File:Langbiang_Mountain.JPG#Licensing | Đổi kích thước/nén JPEG, bỏ EXIF; không cắt ảnh.",
+    "image_caption": "Khu Du lịch Langbiang",
+    "photo_date": "2009-03-30",
+    "source_revision": {
+      "revid": 1211204136,
+      "parentid": 1073835392,
+      "timestamp": "2026-05-09T14:07:49Z"
+    },
+    "reviewed_at_utc": "2026-10-25T10:31:04Z",
+    "sha256": "2230a96c0bd395db131fe2239348883582fe25082f2b478021667949be20d7c5",
+    "share_alike": false
+  }
+]

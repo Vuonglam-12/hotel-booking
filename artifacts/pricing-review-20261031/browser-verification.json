@@ -1,0 +1,148 @@
+{
+    "read_only": true,
+    "passed": 11,
+    "checks": [
+        "Admin reads actual Regent\/Ocean View Suite rule:31\/10=100000,base6500000",
+        "Edit loads saved value; cancel makes no write",
+        "Season form exposes inclusive start\/end dates",
+        "Admin pricing fits390px viewport",
+        "Actual saved day price matches public API and customer total100000",
+        "Changing room quantity updates per-night amount and total200000",
+        "Two nights,2rooms = (100000+6500000)*2=13200000; no checkout night or double base charge",
+        "Refocusing customer tab refreshes cached quote",
+        "Customer nightly detail,totals and special request fit390px viewport",
+        "Changing stay date falls back to saved base price6500000",
+        "400000 belongs to MEANDER hotel1\/type2 without a matching saved rule"
+    ],
+    "api_requests": [
+        {
+            "method": "GET",
+            "path": "\/api\/admin\/me"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/admin\/dashboard"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/admin\/hotels\/61"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/admin\/hotels\/61\/room-types"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/admin\/hotels\/61\/room-types\/64"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/admin\/hotels\/61\/room-types\/64\/rates"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/admin\/hotels\/61\/room-types\/64\/images"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/64\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/65\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/rooms"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/64\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/65\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/rooms"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/64\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/65\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/rooms"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/64\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/65\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/64\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/room-types\/65\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/61\/rooms"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/1\/room-types\/1\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/1\/room-types\/2\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/1\/room-types\/3\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/1\/room-types\/4\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/1\/room-types\/5\/quote"
+        },
+        {
+            "method": "GET",
+            "path": "\/api\/hotels\/1\/rooms"
+        }
+    ],
+    "exceptions": [],
+    "real_business_prices_unchanged": true,
+    "business_prices_fingerprint_unchanged": true,
+    "observed_saved_rates": 1,
+    "fee_tables_present": {
+        "service": false,
+        "booking_service": false
+    },
+    "checked_at_utc": "2026-10-31T13:23:14+00:00"
+}

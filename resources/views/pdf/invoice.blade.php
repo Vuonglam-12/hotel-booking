@@ -8,9 +8,10 @@
 
     /* ── HEADER ── */
     .header { text-align: center; padding-bottom: 20px; border-bottom: 3px solid #1e3a8a; margin-bottom: 24px; }
-    .header h1 { color: #1e3a8a; font-size: 26px; font-weight: bold; letter-spacing: 1px; }
+    .brand-logo { width: 120px; margin: 0 auto; }
+    .brand-logo img { display: block; width: 120px; height: auto; }
     .header p  { color: #64748b; font-size: 12px; margin-top: 4px; }
-    .invoice-no { font-size: 15px; font-weight: bold; color: #87CEFA; margin-top: 6px; }
+    .invoice-no { font-size: 15px; font-weight: bold; color: #2563EB; margin-top: 6px; }
 
     /* ── 2-COL INFO GRID ── */
     .info-grid { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
@@ -63,12 +64,16 @@
 </style>
 </head>
 <body>
+@php
+    $bookingConfirmation = str_starts_with($invoice->invoice_no, 'DEMO-');
+    $displayNumber = $bookingConfirmation ? 'AUREL-HD-'.str_pad((string)$booking->id,6,'0',STR_PAD_LEFT) : $invoice->invoice_no;
+@endphp
 
 {{-- ── HEADER ── --}}
 <div class="header">
-    <h1>HolidayViet</h1>
-    <p>Hóa đơn thanh toán dịch vụ lưu trú</p>
-    <p class="invoice-no">{{ $invoice->invoice_no }}</p>
+    <div class="brand-logo"><img src="{{ public_path(config('brand.logo')) }}" alt="Angel"></div>
+    <p>HÓA ĐƠN ĐẶT PHÒNG</p>
+    <p class="invoice-no">{{ $displayNumber }}</p>
 </div>
 
 {{-- ── THÔNG TIN KHÁCH HÀNG + HÓA ĐƠN ── --}}
@@ -88,7 +93,7 @@
             <div class="info-box">
                 <div class="info-box-title">Thông tin hóa đơn</div>
                 <table class="info-row">
-                    <tr><td>Số HĐ</td>      <td>{{ $invoice->invoice_no }}</td></tr>
+                    <tr><td>Số HĐ</td><td>{{ $displayNumber }}</td></tr>
                     <tr><td>Ngày xuất</td>   <td>{{ $invoice->issued_at->format('d/m/Y H:i') }}</td></tr>
                     <tr><td>Mã booking</td>  <td>#{{ $booking->id }}</td></tr>
                     <tr><td>Trạng thái</td>  <td><span class="badge">Đã thanh toán</span></td></tr>
@@ -107,12 +112,12 @@
         <tr>
             <td>Check-in</td>
             <td>{{ \Carbon\Carbon::parse($booking->check_in)->format('d/m/Y') }}
-                lúc {{ $booking->hotel->check_in_time }}</td>
+                </td>
         </tr>
         <tr>
             <td>Check-out</td>
             <td>{{ \Carbon\Carbon::parse($booking->check_out)->format('d/m/Y') }}
-                lúc {{ $booking->hotel->check_out_time }}</td>
+                </td>
         </tr>
     </table>
 </div>
@@ -131,6 +136,21 @@
         </thead>
         <tbody>
             @foreach($booking->bookingRooms as $br)
+            @php($savedNights = app(\App\Services\RoomPricingService::class)->snapshot((int)$br->id))
+            @if(count($savedNights))
+            @foreach($savedNights as $night)
+            <tr>
+                <td>{{ $br->roomType->name }}<br>{{ \Carbon\Carbon::parse($night['date'])->format('d/m/Y') }}
+                    @if($night['base_price'] !== null && $night['surcharge'] !== null)
+                    <br><span style="color:#64748b;font-size:10px;">Giá cơ bản {{ number_format($night['base_price'], 0, ',', '.') }} ₫<br>Phụ thu +{{ number_format($night['surcharge'], 0, ',', '.') }} ₫</span>
+                    @endif
+                </td>
+                <td>{{ $br->quantity }}</td>
+                <td>{{ number_format($night['unit_price'], 0, ',', '.') }} ₫</td>
+                <td>{{ number_format($night['unit_price'] * $br->quantity, 0, ',', '.') }} ₫</td>
+            </tr>
+            @endforeach
+            @else
             <tr>
                 <td>
                     {{ $br->roomType->name }}
@@ -148,6 +168,7 @@
                 <td>{{ number_format($br->price_at_booking, 0, '.', ',') }}đ</td>
                 <td>{{ number_format($br->price_at_booking * $br->nights * $br->quantity, 0, '.', ',') }}đ</td>
             </tr>
+            @endif
             @endforeach
         </tbody>
         <tfoot>
@@ -159,7 +180,7 @@
             @endif
             <tr class="total-row">
                 <td colspan="3" style="text-align:right;">TỔNG CỘNG</td>
-                <td style="color:#87CEFA;">{{ number_format($invoice->total, 0, '.', ',') }}đ</td>
+                <td style="color:#2563EB;">{{ number_format($invoice->total, 0, '.', ',') }}đ</td>
             </tr>
         </tfoot>
     </table>
@@ -167,9 +188,9 @@
 
 {{-- ── FOOTER ── --}}
 <div class="footer">
-    <p>Cảm ơn quý khách đã sử dụng dịch vụ của HolidayViet</p>
-    <p>Mọi thắc mắc vui lòng liên hệ: support@holidayviet.vn</p>
-    <p style="margin-top:8px;">Tài liệu được tạo tự động — {{ now()->format('d/m/Y H:i') }}</p>
+    <p>Cảm ơn quý khách đã sử dụng dịch vụ của Angel</p>
+    <p>Vui lòng liên hệ đơn vị cung cấp dịch vụ nếu cần hỗ trợ.</p>
+    <p style="margin-top:8px;">Tài liệu được tạo tự động — {{ now('Asia/Ho_Chi_Minh')->format('d/m/Y H:i') }}</p>
 </div>
 
 </body>

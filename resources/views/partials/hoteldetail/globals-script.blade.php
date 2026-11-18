@@ -7,9 +7,10 @@
     // 🎯 Dữ liệu đặt phòng
     let pendingBookingData = null;           // Lưu dữ liệu đặt phòng đang chờ xử lý
     let currentBookingId = null;             // ID của đơn đặt phòng hiện tại
-    let currentTotal = 0;                    // Tổng tiền cuối cùng (sau giảm giá)
-    let baseTotal = 0;                       // Tổng tiền gốc (trước giảm giá)
-    let appliedVoucher = null;               // Voucher đã áp dụng hiện tại
+    let currentTotal = 0;                    // Tổng tiền cuối cùng
+    let baseTotal = 0;                       // Tổng tiền gốc
+    let selectedRoomTypes = {};              // { [roomTypeId]: { id, name, price, quantity, available } }
+    let roomSelectionModalState = null;      // { roomTypeId, name, price, available, quantity }
 
     // 🔄 Trạng thái xử lý
     let isConfirming = false;                // Cờ kiểm tra xem đang xác nhận đơn hàng hay không
@@ -27,17 +28,6 @@
     // 📱 QR Code Timer (cho payment)
     let _qrTimer = null;                     // ID của interval đếm ngược QR
     let _qrSeconds = 0;                      // Thời gian còn lại cho QR code
-
-    // ============================================================
-    // 🎟️ VOUCHER CONFIGURATION - CÁC MÃ GIẢM GIÁ CÓ SẴN
-    // ============================================================
-    // Tất cả các voucher hỗ trợ, có kiểu (phần trăm/cố định), giá trị & điều kiện tối thiểu
-    
-    const MOCK_VOUCHERS = {
-        'SUMMER20': { type: 'percent', value: 20, label: 'Giảm 20%', min: 500000 },
-        'WELCOME50K': { type: 'fixed', value: 50000, label: 'Giảm 50.000đ', min: 0 },
-        'VIP30': { type: 'percent', value: 30, label: 'Giảm 30% (VIP)', min: 1000000 },
-    };
 
     // ============================================================
     // ⚙️ UTILITY FUNCTIONS - CÁC HÀM TIỆN ÍCH
@@ -123,4 +113,6 @@
     const HOTEL_NAME = @json($hotel->name);
     const HOTEL_AVG_RATING  = {{ $hotel->avg_rating ?? 0 }};
     const HOTEL_REVIEW_COUNT = {{ $hotel->review_count ?? 0 }};
+    const DETAIL_ROOM_TYPES = @js($detailRoomTypes);
+    const HOTEL_PHOTOS = @js($hotel->gallery_image_urls);
 </script>

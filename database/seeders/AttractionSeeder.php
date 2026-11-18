@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Location;
+use App\Support\LocationIdentity;
 use App\Models\Attraction;
 
 class AttractionSeeder extends Seeder
@@ -13,19 +13,18 @@ class AttractionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Lấy location Đà Nẵng đã được seed từ bảng cũ
-        $daNang = Location::where('name', 'Đà Nẵng')->first();
-
-        if (!$daNang) {
-            return; // Tránh lỗi nếu DatabaseSeeder chưa tạo được Đà Nẵng
+        $connection = config('database.default');
+        $database = (string) config("database.connections.{$connection}.database");
+        if (!app()->environment(['local', 'testing']) || strtolower($database) === 'hotel_booking') {
+            throw new \RuntimeException('Attraction sample data may only be seeded into an isolated local/test database.');
         }
 
         $attractions =[
-            // ================= HÀ NỘI (destination_id = 2) =================
+            // ================= HÀ NỘI (vn-ha-noi) =================
 
             // 3 Attractions
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'attraction',
                 'name'           => 'Lăng Chủ tịch Hồ Chí Minh',
                 'description'    => 'Khu di tích lịch sử và văn hóa quan trọng, nơi an nghỉ của Bác Hồ',
@@ -39,7 +38,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'solo', 'couple'],
             ],
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'attraction',
                 'name'           => 'Văn Miếu - Quốc Tử Giám',
                 'description'    => 'Trường đại học đầu tiên của Việt Nam với kiến trúc cổ kính',
@@ -53,7 +52,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'attraction',
                 'name'           => 'Hồ Hoàn Kiếm & Đền Ngọc Sơn',
                 'description'    => 'Biểu tượng của thủ đô Hà Nội, không gian đi bộ thư giãn',
@@ -69,7 +68,7 @@ class AttractionSeeder extends Seeder
 
             // 3 Restaurants
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'restaurant',
                 'name'           => 'Phở Gia Truyền Bát Đàn',
                 'description'    => 'Quán phở bò truyền thống nổi tiếng đậm vị Hà Nội xưa',
@@ -83,7 +82,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'solo', 'couple'],
             ],
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'restaurant',
                 'name'           => 'Bún chả Hương Liên (Bún chả Obama)',
                 'description'    => 'Thưởng thức bún chả truyền thống nổi danh quốc tế',
@@ -97,7 +96,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'restaurant',
                 'name'           => 'Chả cá Lã Vọng',
                 'description'    => 'Đặc sản chả cá lăng nướng chảo ăn kèm bún và mắm tôm',
@@ -113,7 +112,7 @@ class AttractionSeeder extends Seeder
 
             // 2 Hotels
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'hotel',
                 'name'           => 'Hanoi Old Quarter Budget Hotel',
                 'description'    => 'Khách sạn nhỏ gọn, giá rẻ nằm ngay trung tâm phố cổ',
@@ -127,7 +126,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple'],
             ],
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'hotel',
                 'name'           => 'Tirant Hotel Hanoi',
                 'description'    => 'Khách sạn 4 sao phong cách cổ điển, có hồ bơi tầng thượng',
@@ -143,7 +142,7 @@ class AttractionSeeder extends Seeder
 
             // 1 Activity
             [
-                'destination_id' => 2,
+                'location_key' => 'vn-ha-noi',
                 'item_type'      => 'activity',
                 'name'           => 'Xem Múa Rối Nước Thăng Long',
                 'description'    => 'Trải nghiệm nghệ thuật truyền thống độc đáo của văn hóa lúa nước',
@@ -157,11 +156,11 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
 
-            // ================= TP.HCM (destination_id = 3) =================
+            // ================= TP.HCM (vn-ho-chi-minh) =================
 
             // 3 Attractions
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'attraction',
                 'name'           => 'Dinh Độc Lập',
                 'description'    => 'Di tích lịch sử cấp quốc gia với kiến trúc hiện đại ấn tượng',
@@ -175,7 +174,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'solo', 'couple'],
             ],
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'attraction',
                 'name'           => 'Bảo tàng Chứng tích Chiến tranh',
                 'description'    => 'Nơi lưu giữ những tài liệu và hiện vật lịch sử chân thực nhất',
@@ -189,7 +188,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple'],
             ],
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'attraction',
                 'name'           => 'Chợ Bến Thành',
                 'description'    => 'Khu chợ truyền thống lâu đời, biểu tượng mua sắm của Sài Gòn',
@@ -205,7 +204,7 @@ class AttractionSeeder extends Seeder
 
             // 3 Restaurants
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'restaurant',
                 'name'           => 'Bánh Mì Huỳnh Hoa',
                 'description'    => 'Tiệm bánh mì thịt chả nổi tiếng nhất nhì Sài Gòn, luôn xếp hàng đông',
@@ -219,7 +218,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple', 'family'],
             ],
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'restaurant',
                 'name'           => 'Phở Lệ',
                 'description'    => 'Quán phở đậm chất miền Nam với nước dùng đậm đà, thịt mềm',
@@ -233,7 +232,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'restaurant',
                 'name'           => 'Cơm tấm Ba Ghiền',
                 'description'    => 'Nức tiếng với miếng sườn nướng than hoa siêu to khổng lồ',
@@ -249,7 +248,7 @@ class AttractionSeeder extends Seeder
 
             // 2 Hotels
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'hotel',
                 'name'           => 'Saigonciti Hotel',
                 'description'    => 'Khách sạn nhỏ tiện lợi nằm gần khu phố Tây Bùi Viện',
@@ -263,7 +262,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple'],
             ],
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'hotel',
                 'name'           => 'Liberty Central Saigon Centre',
                 'description'    => 'Khách sạn chuẩn 4 sao hiện đại, tiện nghi ngay quận 1',
@@ -279,7 +278,7 @@ class AttractionSeeder extends Seeder
 
             // 1 Activity
             [
-                'destination_id' => 3,
+                'location_key' => 'vn-ho-chi-minh',
                 'item_type'      => 'activity',
                 'name'           => 'Ăn tối trên du thuyền sông Sài Gòn',
                 'description'    => 'Ngắm cảnh thành phố hoa lệ về đêm dọc theo bờ sông Sài Gòn',
@@ -293,11 +292,11 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['couple', 'family'],
             ],
 
-            // ================= ĐÀ LẠT (destination_id = 4) =================
+            // ================= ĐÀ LẠT (vn-da-lat) =================
 
             // 3 Attractions
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'attraction',
                 'name'           => 'Khu Du lịch Langbiang',
                 'description'    => 'Đỉnh núi cao nhất Đà Lạt, trải nghiệm đi xe Jeep và ngắm toàn cảnh',
@@ -311,7 +310,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'attraction',
                 'name'           => 'Thung lũng Tình Yêu',
                 'description'    => 'Khuôn viên ngập tràn hoa, hồ nước lãng mạn và các tiểu cảnh check-in',
@@ -325,7 +324,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['couple', 'family'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'attraction',
                 'name'           => 'Vườn hoa Thành phố Đà Lạt',
                 'description'    => 'Quy tụ hàng ngàn loài hoa tuyệt đẹp đua sắc quanh năm',
@@ -341,7 +340,7 @@ class AttractionSeeder extends Seeder
 
             // 3 Restaurants
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'restaurant',
                 'name'           => 'Lẩu gà lá é Tao Ngộ',
                 'description'    => 'Món lẩu trứ danh cực kỳ phù hợp với thời tiết se lạnh của Đà Lạt',
@@ -355,7 +354,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'restaurant',
                 'name'           => 'Bánh căn Lệ',
                 'description'    => 'Bánh căn nóng hổi nhân xíu mại, trứng cút trong hẻm nhỏ',
@@ -369,7 +368,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple', 'family'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'restaurant',
                 'name'           => 'Lẩu bò Quán Gỗ (Ba Toa)',
                 'description'    => 'Quán lẩu bò mộc mạc, miếng bò dày thịt, nước dùng đậm đà',
@@ -385,7 +384,7 @@ class AttractionSeeder extends Seeder
 
             // 2 Hotels
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'hotel',
                 'name'           => 'Tigold Hostel Da Lat',
                 'description'    => 'Chỗ nghỉ homestay phong cách trẻ trung, tiết kiệm chi phí',
@@ -399,7 +398,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'hotel',
                 'name'           => 'Hôtel Colline Đà Lạt',
                 'description'    => 'Khách sạn 4 sao đẳng cấp nằm ngay phía trên chợ Đà Lạt Mới',
@@ -415,7 +414,7 @@ class AttractionSeeder extends Seeder
 
             // 1 Activity
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-da-lat',
                 'item_type'      => 'activity',
                 'name'           => 'Trải nghiệm hái dâu tây tại vườn',
                 'description'    => 'Tự tay hái dâu tây tươi sạch ngay tại nhà vườn sinh thái',
@@ -429,11 +428,11 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
 
-            // ================= PHÚ QUỐC (destination_id = 4) =================
+            // ================= PHÚ QUỐC (vn-phu-quoc) =================
 
             // 3 Attractions
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'attraction',
                 'name'           => 'Vườn Quốc gia Phú Quốc',
                 'description'    => 'Khu rừng nguyên sinh rộng hơn 31.400 ha, được UNESCO công nhận là khu dự trữ sinh quyển thế giới, lý tưởng cho trekking và quan sát động vật hoang dã',
@@ -447,7 +446,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'solo', 'couple'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'attraction',
                 'name'           => 'Bãi Sao',
                 'description'    => 'Bãi biển đẹp nhất Phú Quốc với cát trắng mịn và nước trong xanh, tọa lạc phía Nam đảo tại thị trấn An Thới, an toàn và êm đềm quanh năm',
@@ -461,7 +460,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'attraction',
                 'name'           => 'Dinh Cậu',
                 'description'    => 'Ngôi đền tâm linh biểu tượng ngay trung tâm thị trấn Dương Đông, tọa lạc trên mỏm đá hướng ra biển, nổi tiếng là điểm ngắm hoàng hôn đẹp nhất đảo',
@@ -477,7 +476,7 @@ class AttractionSeeder extends Seeder
 
             // 3 Restaurants
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'restaurant',
                 'name'           => 'Nhà hàng Crab House Phú Quốc',
                 'description'    => 'Địa chỉ hải sản nổi tiếng nhất đảo chuyên các món ghẹ tươi sống, nằm tại 108 đường 30 Tháng 4, Dương Đông',
@@ -491,7 +490,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'restaurant',
                 'name'           => 'Bún Kèn Út Lượm',
                 'description'    => 'Quán bún kèn đặc sản Phú Quốc nổi tiếng nhất đảo, sợi bún gạo ăn kèm nước dùng cá đậm đà và rau thơm, địa chỉ đường 30/4 Dương Đông',
@@ -505,7 +504,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple', 'family'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'restaurant',
                 'name'           => 'Nhà hàng Thiên Thanh',
                 'description'    => 'Nhà hàng hải sản lâu năm nổi tiếng tại trung tâm Dương Đông, thực đơn phong phú từ tôm hùm đến ghẹ hấp, không gian rộng thoáng, địa chỉ đường 30 Tháng 4 Kp1',
@@ -521,7 +520,7 @@ class AttractionSeeder extends Seeder
 
             // 2 Hotels
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'hotel',
                 'name'           => 'Phú Quốc Budget Hostel',
                 'description'    => 'Chỗ nghỉ bình dân giá tốt gần trung tâm thị trấn Dương Đông, phù hợp cho khách solo và cặp đôi tiết kiệm chi phí',
@@ -535,7 +534,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'hotel',
                 'name'           => 'Salinda Resort Phu Quoc',
                 'description'    => 'Resort boutique 5 sao sang trọng nằm trên bãi Trường với view hoàng hôn tuyệt đẹp và bể bơi vô cực nhìn ra biển',
@@ -551,7 +550,7 @@ class AttractionSeeder extends Seeder
 
             // 2 Activities
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'activity',
                 'name'           => 'Lặn ngắm san hô Hòn Thơm',
                 'description'    => 'Tour lặn biển khám phá hơn 100 loài san hô và sinh vật biển tại đảo Hòn Thơm, kết hợp đi cáp treo vượt biển dài nhất thế giới',
@@ -565,7 +564,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'activity',
                 'name'           => 'Chợ đêm Dương Đông',
                 'description'    => 'Chợ đêm lớn nhất Phú Quốc ngay trung tâm thị trấn, hàng trăm gian hàng hải sản tươi sống, đặc sản địa phương và quà lưu niệm sôi động về đêm',
@@ -580,7 +579,7 @@ class AttractionSeeder extends Seeder
             ],
             // Thêm Attractions
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'attraction',
                 'name'           => 'Bãi Dài Phú Quốc',
                 'description'    => 'Bãi biển hoang sơ dài 15km tại phía Bắc đảo, nước trong xanh và sóng nhẹ, ít người biết nên rất yên tĩnh và thơ mộng',
@@ -594,7 +593,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['couple', 'solo'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'attraction',
                 'name'           => 'Nhà thùng nước mắm Khải Hoàn',
                 'description'    => 'Tham quan quy trình sản xuất nước mắm truyền thống Phú Quốc lâu đời nhất đảo, mua đặc sản mang về tại đường 30/4 Dương Đông',
@@ -608,7 +607,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'solo', 'couple'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'attraction',
                 'name'           => 'Làng chài Hàm Ninh',
                 'description'    => 'Làng chài cổ hơn 200 năm tuổi phía Đông đảo, nổi tiếng với ghẹ Hàm Ninh hấp gừng và cảnh bình minh trên biển tuyệt đẹp',
@@ -624,7 +623,7 @@ class AttractionSeeder extends Seeder
 
             // Thêm Restaurants
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'restaurant',
                 'name'           => 'Nhà hàng Hải Sản Gành Dầu',
                 'description'    => 'Nhà hàng hải sản tươi sống tại mũi Gành Dầu cực Bắc đảo, chuyên tôm hùm và cá mú, view biển nhìn sang Campuchia',
@@ -638,7 +637,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'restaurant',
                 'name'           => 'Nhà hàng Ốc Nhỏ Phú Quốc',
                 'description'    => 'Quán ốc bình dân nổi tiếng tại đường Trần Hưng Đạo, Dương Đông, chuyên ốc hấp sả, nghêu xào me và hải sản giá rẻ',
@@ -652,7 +651,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['solo', 'couple', 'family'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'restaurant',
                 'name'           => 'Quán Ghẹ Hàm Ninh',
                 'description'    => 'Đặc sản ghẹ Hàm Ninh hấp gừng nổi tiếng nhất Phú Quốc, ăn ngay tại làng chài với view biển, giá bình dân',
@@ -668,7 +667,7 @@ class AttractionSeeder extends Seeder
 
             // Thêm Activities
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'activity',
                 'name'           => 'Cáp treo Hòn Thơm',
                 'description'    => 'Đi cáp treo vượt biển dài nhất thế giới 7.899m từ An Thới ra đảo Hòn Thơm, ngắm toàn cảnh biển xanh và quần đảo An Thới từ trên cao',
@@ -682,7 +681,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'activity',
                 'name'           => 'Tour câu cá và lặn ngắm san hô',
                 'description'    => 'Tour 4 đảo kết hợp câu cá, lặn ngắm san hô và tắm biển quanh quần đảo An Thới, xuất phát từ cảng An Thới buổi sáng sớm',
@@ -696,7 +695,7 @@ class AttractionSeeder extends Seeder
                 'suitable_for'   => ['family', 'couple', 'solo'],
             ],
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'activity',
                 'name'           => 'VinWonders Phú Quốc',
                 'description'    => 'Công viên giải trí và vui chơi lớn nhất Phú Quốc với hơn 100 trò chơi, show diễn và khu nước, nằm trong quần thể Vinpearl tại bãi Dài',
@@ -712,7 +711,7 @@ class AttractionSeeder extends Seeder
             
             // Thêm Hotel
             [
-                'destination_id' => 4,
+                'location_key' => 'vn-phu-quoc',
                 'item_type'      => 'hotel',
                 'name'           => 'Vinpearl Resort & Spa Phú Quốc',
                 'description'    => 'Resort 5 sao đẳng cấp tại bãi Dài với bãi biển riêng dài 1km, hồ bơi vô cực và kết nối trực tiếp với VinWonders',
@@ -729,20 +728,21 @@ class AttractionSeeder extends Seeder
 
         
 
-        foreach ($attractions as $a) {
-            // 1. Tự động đổi chữ 'destination_id' thành 'location_id' cho đúng với DB
-            if (isset($a['destination_id'])) {
-                $a['location_id'] = $a['destination_id'];
-                unset($a['destination_id']);
-            }
-            
-            // 2. Vứt bỏ các cột DB chưa có để tránh lỗi SQL
-            unset($a['rating'], $a['tags'], $a['suitable_for']);
-
-            // 3. Insert vào DB
-            Attraction::create($a);
+        // Resolve every location before writing anything; missing/ambiguous identities fail the whole operation.
+        $resolved = [];
+        foreach (array_unique(array_column($attractions, 'location_key')) as $key) {
+            $resolved[$key] = LocationIdentity::resolveSeedKey($key)->id;
         }
-
-        // TODO: Tương tự cho Hà Nội, HCM, Phú Quốc, Đà Lạt
+        \Illuminate\Support\Facades\DB::transaction(function () use ($attractions, $resolved) {
+            foreach ($attractions as $data) {
+                $data['location_id'] = $resolved[$data['location_key']];
+                unset($data['location_key'], $data['rating'], $data['tags'], $data['suitable_for']);
+                // Sample records remain inactive and unpublished. Never repair or overwrite existing rows here.
+                $data['is_active'] = false;
+                Attraction::firstOrCreate([
+                    'location_id' => $data['location_id'], 'item_type' => $data['item_type'], 'name' => $data['name'],
+                ], $data);
+            }
+        });
     }
 }

@@ -4,7 +4,7 @@
 @push('styles')
 <style>
     .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; }
-    .page-title { font-family:'Nunito Sans', system-ui, sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
+    .page-title { font-family:'Be Vietnam Pro', system-ui, sans-serif; font-size:22px; font-weight:700; color:var(--dark); }
     .page-sub { font-size:13px; color:var(--gray); margin-top:3px; }
 
     .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; }
@@ -30,7 +30,7 @@
     .rv-table tr:last-child td { border-bottom:none; }
     .rv-table tbody tr:hover td { background:rgba(37,99,235,.02); }
 
-    .stars { color:#F59E0B; font-size:13px; letter-spacing:1px; }
+    .stars { color:#EAB308; font-size:13px; letter-spacing:1px; }
     .comment-cell { max-width:320px; }
     .comment-text { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:300px; color:var(--gray); font-size:12px; margin-top:3px; }
 
@@ -42,6 +42,12 @@
     .btn-action { padding:5px 11px; border-radius:8px; font-size:11px; font-weight:600; cursor:pointer; border:1px solid transparent; transition:all .15s; white-space:nowrap; }
     .btn-delete { background:rgba(220,38,38,.08); color:#DC2626; border-color:rgba(220,38,38,.15); }
     .btn-delete:hover { background:rgba(220,38,38,.15); }
+    .btn-approve { color:#15803D;background:#F0FDF4;border-color:#86EFAC; }
+    .btn-hide { color:#475569;background:#F1F5F9;border-color:#CBD5E1; }
+    .review-actions { display:flex;flex-wrap:wrap;gap:6px; }
+    .review-full summary { color:#2563EB;cursor:pointer;font-size:12px;margin-top:6px; }
+    .review-full p { white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.7;margin-top:8px; }
+    @media(max-width:639px){.stats-grid{grid-template-columns:1fr}.toolbar-search{min-width:0;width:100%;flex-basis:100%}.table-card{overflow-x:auto}}
 
     .empty-state { text-align:center; padding:60px 20px; color:var(--gray); }
 </style>
@@ -50,8 +56,8 @@
 @section('content')
 <div class="page-header">
     <div>
-        <div class="page-title">Quản lý đánh giá</div>
-        <div class="page-sub">Xem và xoá đánh giá của khách hàng</div>
+        <h1 class="page-title">Quản lý đánh giá</h1>
+        <div class="page-sub">Xem, duyệt và quản lý đánh giá từ khách đã thanh toán thành công</div>
     </div>
 </div>
 
@@ -62,7 +68,7 @@
         <div class="stat-value" id="statTotal">—</div>
     </div>
     <div class="stat-card">
-        <div class="stat-label">Điểm trung bình</div>
+        <div class="stat-label">Điểm trung bình đã công khai</div>
         <div class="stat-value" id="statAvg">—</div>
     </div>
     <div class="stat-card">
@@ -87,6 +93,7 @@
         <option value="4">4 sao</option>
         <option value="5">5 sao</option>
     </select>
+    <select id="reviewStatusFilter" aria-label="Trạng thái đánh giá" onchange="loadReviews(1)"><option value="">Tất cả trạng thái</option><option value="pending">Chờ duyệt</option><option value="approved">Đã duyệt</option><option value="hidden">Tạm ẩn</option></select>
     <button class="btn-action" style="background:var(--bg);border-color:var(--border);color:var(--gray);" onclick="clearFilters()">Xoá bộ lọc</button>
 </div>
 
@@ -103,13 +110,14 @@
                 <th>Khách hàng</th>
                 <th>Khách sạn</th>
                 <th>Sao</th>
+                <th>Trạng thái</th>
                 <th>Nhận xét</th>
                 <th>Ngày</th>
                 <th>Hành động</th>
             </tr>
         </thead>
         <tbody id="reviewTableBody">
-            <tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray);">Đang tải...</td></tr>
+            <tr><td colspan="8" style="text-align:center;padding:30px;color:var(--gray);">Đang tải...</td></tr>
         </tbody>
     </table>
     <div id="paginationWrap" style="display:none; padding:14px 18px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between;">
@@ -123,14 +131,18 @@
 <script>
     let currentPage = 1;
     let searchTimer = null;
+    let reviewRequestSequence = 0;
 
     async function loadReviews(page = 1) {
+        const sequence=++reviewRequestSequence;
         currentPage = page;
         const search = document.getElementById('searchInput').value;
         const rating = document.getElementById('ratingFilter').value;
 
         const params = new URLSearchParams({ per_page: 20, page });
-        if (rating) params.append('max_rating', rating);
+        if (rating) params.append('rating', rating);
+        if(search.trim())params.append('search',search.trim());
+        const status=document.getElementById('reviewStatusFilter').value;if(status)params.append('status',status);
 
         showLoading();
 
@@ -138,13 +150,15 @@
             const res = await adminApi(`/reviews?${params}`);
             if (!res.ok) throw new Error();
             const data = await res.json();
+            if(sequence!==reviewRequestSequence)return;
             renderTable(data);
             renderPagination(data);
             updateCount(data);
-            loadStats();
+            renderStats(data.stats);
         } catch(_) {
+            if(sequence!==reviewRequestSequence)return;
             document.getElementById('reviewTableBody').innerHTML =
-                `<tr><td colspan="7" class="empty-state">Không thể tải dữ liệu</td></tr>`;
+                `<tr><td colspan="8" class="empty-state">Không thể tải dữ liệu</td></tr>`;
         }
     }
 
@@ -152,37 +166,40 @@
         const rows = data.data || [];
         if (!rows.length) {
             document.getElementById('reviewTableBody').innerHTML =
-                `<tr><td colspan="7" class="empty-state">Không có đánh giá nào</td></tr>`;
+                `<tr><td colspan="8" class="empty-state">Không có đánh giá nào</td></tr>`;
             return;
         }
 
-        // Client-side filter by search (vì API chưa hỗ trợ search review)
-        const search = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = search
-            ? rows.filter(r =>
-                r.customer?.name?.toLowerCase().includes(search) ||
-                r.hotel?.name?.toLowerCase().includes(search))
-            : rows;
-
-        document.getElementById('reviewTableBody').innerHTML = filtered.map(r => `
-            <tr>
+        document.getElementById('reviewTableBody').innerHTML = rows.map(r => `
+            <tr data-review-id="${Number(r.id)}">
                 <td style="font-weight:700;color:var(--blue);">#${r.id}</td>
                 <td>${escHtml(r.customer?.name ?? '—')}</td>
                 <td>${escHtml(r.hotel?.name ?? '—')}</td>
                 <td><span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span></td>
+                <td><span class="badge ${r.status==='approved'?'badge-approved':r.status==='pending'?'badge-pending':'badge-rejected'}">${({pending:'Chờ duyệt',approved:'Đã duyệt',hidden:'Tạm ẩn'})[r.status]||'Chưa xác định'}</span></td>
                 <td class="comment-cell">
                     <div class="comment-text" title="${escHtml(r.comment ?? '')}">${escHtml(r.comment ?? '—')}</div>
+                    ${(r.comment||'').length>150?`<details class="review-full"><summary>Xem đầy đủ</summary><p>${escHtml(r.comment)}</p></details>`:''}
                 </td>
                 <td style="color:var(--gray);white-space:nowrap;">${formatDate(r.created_at)}</td>
                 <td>
-                    <button class="btn-action btn-delete" onclick="deleteReview(${r.id})">Xoá</button>
+                    <div class="review-actions">${r.status!=='approved'?`<button class="btn-action btn-approve" data-review-action="approve" onclick="moderateReview(${Number(r.id)},'approved',this)">Duyệt</button>`:''}${r.status!=='hidden'?`<button class="btn-action btn-hide" data-review-action="hide" onclick="moderateReview(${Number(r.id)},'hidden',this)">Ẩn</button>`:''}<button class="btn-action btn-delete" data-review-action="delete" onclick="deleteReview(${Number(r.id)})">Xóa</button></div>
                 </td>
             </tr>
         `).join('');
     }
 
+    async function moderateReview(id,status,button) {
+        button.disabled=true;
+        try {
+            const res=await adminApi('/reviews/'+id+'/status',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})});
+            const data=await res.json();if(!res.ok)throw new Error(data.message||'Chưa cập nhật được đánh giá.');
+            adminToast(status==='approved'?'Đã duyệt đánh giá.':'Đã ẩn đánh giá.');await loadReviews(currentPage);
+        }catch(error){adminToast(error.message||'Chưa cập nhật được đánh giá.');}finally{button.disabled=false;}
+    }
+
     async function deleteReview(id) {
-        if (!confirm('Xoá đánh giá này?')) return;
+        if (!await adminConfirm({title:'Xóa đánh giá?',message:'Đánh giá này sẽ bị xóa. Hãy kiểm tra đúng bản ghi trước khi xác nhận.',confirmText:'Xóa đánh giá'})) return;
         try {
             const res = await adminApi(`/reviews/${id}`, { method: 'DELETE' });
             if (!res.ok) throw new Error();
@@ -193,25 +210,10 @@
         }
     }
 
-    async function loadStats() {
-        try {
-            const res = await adminApi('/reviews?per_page=1');
-            const data = await res.json();
-            document.getElementById('statTotal').textContent = data.total ?? '—';
-
-            // Tính avg từ tất cả review — gọi thêm endpoint lấy hết
-            const allRes = await adminApi('/reviews?per_page=9999');
-            const allData = await allRes.json();
-            const reviews = allData.data || [];
-            const avg = reviews.length
-                ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
-                : '—';
-            document.getElementById('statAvg').textContent = avg ? `${avg} ★` : '—';
-
-            const today = new Date().toDateString();
-            const todayCount = reviews.filter(r => new Date(r.created_at).toDateString() === today).length;
-            document.getElementById('statToday').textContent = todayCount;
-        } catch(_) {}
+    function renderStats(stats = {}) {
+        document.getElementById('statTotal').textContent = stats.total ?? '—';
+        document.getElementById('statAvg').textContent = Number(stats.avg_rating || 0).toFixed(1) + ' ★';
+        document.getElementById('statToday').textContent = stats.today ?? '—';
     }
 
     function renderPagination(data) {
@@ -230,7 +232,7 @@
         const btns = [];
         btns.push(`<button class="btn-action" onclick="loadReviews(${current-1})" ${current===1?'disabled':''} style="padding:5px 10px;">‹</button>`);
         for (let p = Math.max(1, current-2); p <= Math.min(lastPage, current+2); p++) {
-            btns.push(`<button class="btn-action ${p===current?'':''}\" onclick="loadReviews(${p})" style="padding:5px 10px;${p===current?'background:var(--blue);color:#fff;border-color:var(--blue);':''}">${p}</button>`);
+            btns.push(`<button class="btn-action ${p===current?'active':''} onclick="loadReviews(${p})" style="padding:5px 10px;${p===current?'background:var(--blue);color:#fff;border-color:var(--blue);':''}">${p}</button>`);
         }
         btns.push(`<button class="btn-action" onclick="loadReviews(${current+1})" ${current===lastPage?'disabled':''} style="padding:5px 10px;">›</button>`);
         document.getElementById('paginationBtns').innerHTML = btns.join('');
@@ -242,12 +244,13 @@
 
     function showLoading() {
         document.getElementById('reviewTableBody').innerHTML =
-            `<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray);">Đang tải...</td></tr>`;
+            `<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--gray);">Đang tải...</td></tr>`;
     }
 
     function clearFilters() {
         document.getElementById('searchInput').value = '';
         document.getElementById('ratingFilter').value = '';
+        document.getElementById('reviewStatusFilter').value = '';
         loadReviews(1);
     }
 

@@ -4,15 +4,14 @@
 @section('title', 'Báo cáo doanh thu')
 
 @push('styles')
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
     /* Revenue Dashboard - Main Content Only */
     .revenue-dashboard {
-        font-family: 'Nunito Sans', system-ui, -apple-system, sans-serif;
+        font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
     }
 
     .page-title {
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 22px; font-weight: 700; color: var(--dark);
     }
 
@@ -304,71 +303,105 @@
         .two-columns, .three-grid { grid-template-columns: 1fr; }
         .dashboard-header { flex-direction: column; align-items: start; gap: 15px; }
     }
+    .revenue-dashboard [hidden]{display:none!important}
+    .revenue-dashboard .report-controls{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:-10px 0 16px}
+    .revenue-dashboard .report-controls label{font-size:13px;color:#475569}
+    .revenue-dashboard .report-controls select,.revenue-dashboard .report-dates input{border:1px solid #e2e8f0;border-radius:10px;padding:9px 12px;background:#fff;color:#142b49;font:inherit;font-size:13px;max-width:100%}
+    .revenue-dashboard .report-dates{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:0 0 16px;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px}
+    .revenue-dashboard .report-dates label{display:grid;gap:6px;font-size:12px;color:#475569}
+    .revenue-dashboard .report-dates p{flex-basis:100%;margin:0;font-size:12px;line-height:1.6;color:#64748b}
+    .revenue-dashboard .report-dates #reportDateError{color:#b91c1c}.revenue-dashboard .report-dates input[aria-invalid="true"]{border-color:#dc2626}
+    .revenue-dashboard .report-range{margin:0 0 6px;font-size:13px;font-weight:600;color:#142b49}
+    .revenue-dashboard .report-policy{margin:0 0 22px;font-size:12px;line-height:1.7;color:#64748b}
+    .revenue-dashboard .report-message{margin:0 0 16px;padding:12px 14px;border:1px solid #dbeafe;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:13px;line-height:1.7}
+    .revenue-dashboard .report-message[data-error="true"]{border-color:#fecaca;background:#fef2f2;color:#b91c1c}
+    .revenue-dashboard .report-button{padding:9px 14px;background:#fff;border:1px solid #cbd5e1;border-radius:10px;color:#142b49;cursor:pointer;font:inherit;font-size:12px}
+    .revenue-dashboard .report-button:disabled{opacity:.5;cursor:not-allowed}
+    .revenue-dashboard .kpi-value{font-size:clamp(20px,2vw,30px);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+    .revenue-dashboard .dashboard-card{min-width:0}.revenue-dashboard .hotel-name{flex:1;min-width:0;overflow-wrap:anywhere}.revenue-dashboard .bar-wrapper{flex:1;min-width:24px}.revenue-dashboard .hotel-amount{min-width:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .revenue-dashboard .report-row{display:flex;justify-content:space-between;gap:12px;align-items:start;margin:12px 0;font-size:13px;line-height:1.6}
+    .revenue-dashboard .report-row>span{min-width:0;overflow-wrap:anywhere}.revenue-dashboard .report-row strong{white-space:nowrap;font-variant-numeric:tabular-nums}
+    .revenue-dashboard .report-row small,.revenue-dashboard .transaction-table small{display:block;margin-top:3px;color:#64748b;font-size:11px}
+    .revenue-dashboard .report-note{margin:12px 0 0;font-size:11px;line-height:1.7;color:#64748b}
+    .revenue-dashboard .report-pages{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:16px;font-size:12px;color:#64748b}
+    .revenue-dashboard .report-pages>div{display:flex;align-items:center;gap:10px}
+    .revenue-dashboard .month-revenue{font-size:13px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+    .revenue-dashboard .month-grid{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}
+    .revenue-dashboard .transaction-table td:nth-child(3){white-space:nowrap;font-variant-numeric:tabular-nums}
+    .revenue-dashboard .report-series-data{max-height:240px;overflow:auto;font-size:12px}.revenue-dashboard .report-series-data table{width:100%;border-collapse:collapse}.revenue-dashboard .report-series-data td{padding:8px;border-bottom:1px solid #e2e8f0}.revenue-dashboard .report-series-data td:last-child{text-align:right}
+    @media(max-width:600px){.revenue-dashboard .filter-group{border-radius:14px}.revenue-dashboard .filter-btn{padding:8px 12px}.revenue-dashboard .dashboard-card{padding:16px}.revenue-dashboard .card-title{flex-wrap:wrap;gap:6px}.revenue-dashboard .hotel-list-item{gap:8px}.revenue-dashboard .hotel-amount{font-size:11px}.revenue-dashboard .report-row{font-size:12px}}
 </style>
 @endpush
 
 @section('content')
-<div class="revenue-dashboard">
+<div class="revenue-dashboard" id="revenueDashboard" aria-busy="true">
     {{-- HEADER + bộ lọc --}}
     <div class="dashboard-header">
         <div class="dashboard-title">
-            <div class="page-title">Báo Cáo Doanh Thu</div>
+            <h1 class="page-title">Báo Cáo Doanh Thu</h1>
             <p>Theo dõi và phân tích doanh thu hệ thống</p>
         </div>
-        <div class="filter-group">
-            <button class="filter-btn active">Hôm nay</button>
-            <button class="filter-btn">7 ngày</button>
-            <button class="filter-btn">30 ngày</button>
-            <button class="filter-btn">Tháng này</button>
-            <button class="filter-btn">Năm nay</button>
-            <button class="filter-btn custom">📅 Tùy chỉnh</button>
+        <div class="filter-group" aria-label="Chọn kỳ báo cáo">
+            <button type="button" class="filter-btn active" data-period="today" aria-pressed="true">Hôm nay</button>
+            <button type="button" class="filter-btn" data-period="7days" aria-pressed="false">7 ngày</button>
+            <button type="button" class="filter-btn" data-period="30days" aria-pressed="false">30 ngày</button>
+            <button type="button" class="filter-btn" data-period="month" aria-pressed="false">Tháng này</button>
+            <button type="button" class="filter-btn" data-period="year" aria-pressed="false">Năm nay</button>
+            <button type="button" class="filter-btn custom" id="reportCustomToggle" aria-expanded="false" aria-controls="reportDateForm">@include('admin.partials.icon', ['name' => 'calendar-days']) Tùy chỉnh</button>
         </div>
     </div>
+    <div class="report-controls"><label for="revenueScope">Dữ liệu thanh toán</label><select id="revenueScope"><option value="real">Thanh toán thực tế</option><option value="demo">Thanh toán DEMO</option></select><button type="button" class="report-button" id="revenueReload">Cập nhật báo cáo</button></div>
+    <form id="reportDateForm" class="report-dates" hidden novalidate>
+        <label for="reportDateFrom">Từ ngày<input type="date" id="reportDateFrom" required aria-describedby="reportDateError"></label>
+        <label for="reportDateTo">Đến hết ngày<input type="date" id="reportDateTo" required aria-describedby="reportDateError"></label>
+        <button type="submit" class="report-button">Áp dụng</button>
+        <p>Tính cả ngày bắt đầu và ngày kết thúc, tối đa 366 ngày mỗi báo cáo.</p><p id="reportDateError" role="alert" hidden></p>
+    </form>
+    <p id="revenueRange" class="report-range">Đang tải kỳ báo cáo…</p>
+    <p class="report-policy">Theo ngày thanh toán, giờ Việt Nam · VND. Chỉ tính thanh toán thành công, đúng số tiền của đơn đã xác nhận hoặc hoàn thành; mỗi đơn tính một lần. Giao dịch chờ, thất bại, đơn hủy và tiền cần đối soát không được cộng.</p>
+    <div id="revenueStatus" class="report-message" role="status" aria-live="polite" hidden></div>
 
     {{-- KPI cards - đã thêm id cho 4 .kpi-value --}}
     <div class="kpi-grid">
         {{-- Tổng doanh thu --}}
         <div class="kpi-card">
             <div class="kpi-header">
-                <span class="kpi-icon"><i class="fas fa-dollar-sign"></i></span>
-                <span class="trend-badge"><i class="fas fa-arrow-up"></i> +18,6%</span>
+                <span class="kpi-icon">@include('admin.partials.icon', ['name' => 'wallet'])</span>
             </div>
             <div class="kpi-value" id="kpi-total">—</div>
-            <div class="kpi-label">TỔNG DOANH THU</div>
-            <div class="kpi-sub">so với tháng trước</div>
+            <div class="kpi-label">Tổng doanh thu trong kỳ</div>
+
         </div>
 
         {{-- Doanh thu tháng này --}}
         <div class="kpi-card">
             <div class="kpi-header">
-                <span class="kpi-icon"><i class="fas fa-chart-line"></i></span>
-                <span class="trend-badge"><i class="fas fa-arrow-up"></i> +12,4%</span>
+                <span class="kpi-icon">@include('admin.partials.icon', ['name' => 'chart-no-axes-column-increasing'])</span>
             </div>
             <div class="kpi-value" id="kpi-monthly">—</div>
-            <div class="kpi-label">DOANH THU THÁNG NÀY</div>
-            <div class="kpi-sub">so với tháng trước</div>
+            <div class="kpi-label" id="kpi-month-label">Doanh thu tháng cuối kỳ</div>
+            <div class="kpi-sub">Chỉ tính phần tháng nằm trong kỳ đã chọn</div>
+
         </div>
 
         {{-- Tổng giao dịch --}}
         <div class="kpi-card">
             <div class="kpi-header">
-                <span class="kpi-icon"><i class="fas fa-calendar-check"></i></span>
-                <span class="trend-badge"><i class="fas fa-arrow-up"></i> +10,2%</span>
+                <span class="kpi-icon">@include('admin.partials.icon', ['name' => 'calendar-check'])</span>
             </div>
             <div class="kpi-value" id="kpi-tx">—</div>
-            <div class="kpi-label">TỔNG GIAO DỊCH</div>
-            <div class="kpi-sub">so với tháng trước</div>
+            <div class="kpi-label">Tổng giao dịch</div>
+
         </div>
 
         {{-- Số khách sạn --}}
         <div class="kpi-card">
             <div class="kpi-header">
-                <span class="kpi-icon"><i class="fas fa-building"></i></span>
-                <span class="trend-badge"><i class="fas fa-arrow-up"></i> +5,3%</span>
+                <span class="kpi-icon">@include('admin.partials.icon', ['name' => 'hotel'])</span>
             </div>
             <div class="kpi-value" id="kpi-hotels">—</div>
-            <div class="kpi-label">KHÁCH SẠN ĐANG HOẠT ĐỘNG</div>
-            <div class="kpi-sub">so với tháng trước</div>
+            <div class="kpi-label">Khách sạn trong báo cáo</div>
+
         </div>
     </div>
 
@@ -377,14 +410,14 @@
         {{-- Line chart: Doanh thu theo thời gian -- thay canvas bằng div --}}
         <div class="dashboard-card">
             <div class="card-title">
-                <span>📈 Doanh thu theo thời gian</span>
-                <span style="font-size:0.7rem; background:#F1F5F9; padding:4px 10px; border-radius:20px;">Tháng này vs cùng kỳ</span>
+                <span>@include('admin.partials.icon', ['name' => 'chart-no-axes-column-increasing']) Doanh thu theo thời gian</span>
+                <span class="card-subtitle" id="revenueChartUnit">Đơn vị: VND</span>
             </div>
-            <div id="revenueLineChart" style="width:100%; height:280px;"></div>
+            <div id="revenueLineChart" style="width:100%; min-height:190px;"></div>
         </div>
         {{-- Bar chart: Doanh thu theo khách sạn -- thêm id wrapper --}}
         <div class="dashboard-card">
-            <div class="card-title">🏨 Doanh thu theo khách sạn (Top 5)</div>
+            <div class="card-title">@include('admin.partials.icon', ['name' => 'hotel']) Doanh thu theo khách sạn (Top 5)</div>
             <div id="topHotelsList">
                 {{-- Sẽ được JS render --}}
                 <div class="hotel-list-item">
@@ -393,7 +426,7 @@
                     <div class="hotel-amount">---</div>
                 </div>
             </div>
-            <div class="mt-3" style="font-size:0.7rem; color:#64748B; margin-top:12px;">* Dữ liệu 30 ngày gần nhất</div>
+            <div class="report-note" id="topHotelsPeriod">Trong kỳ báo cáo đã chọn</div>
         </div>
     </div>
 
@@ -401,77 +434,27 @@
     <div class="three-grid">
         {{-- Doanh thu theo loại phòng --}}
         <div class="dashboard-card" id="roomTypeCard">
-            <div class="card-title">🛏️ Doanh thu theo loại phòng</div>
-            <div class="room-type-row">
-                <span>Deluxe Ocean</span>
-                <span>42%</span>
-            </div>
-            <div class="progress-bg"><div class="progress-fill" style="width:42%"></div></div>
-            <div class="room-type-row">
-                <span>Suite President</span>
-                <span>28%</span>
-            </div>
-            <div class="progress-bg"><div class="progress-fill" style="width:28%"></div></div>
-            <div class="room-type-row">
-                <span>Family Connecting</span>
-                <span>18%</span>
-            </div>
-            <div class="progress-bg"><div class="progress-fill" style="width:18%"></div></div>
-            <div class="room-type-row">
-                <span>Standard City</span>
-                <span>12%</span>
-            </div>
-            <div class="progress-bg"><div class="progress-fill" style="width:12%"></div></div>
-            <div class="small-text mt-2" style="margin-top:12px; font-size:0.7rem; color:#64748B;">Tổng: 1.84 tỷ</div>
+            <div class="card-title">@include('admin.partials.icon', ['name' => 'hotel']) Doanh thu theo loại phòng</div>
+            <div id="roomTypeList" class="report-breakdown"><div class="empty-state">Đang tải dữ liệu...</div></div>
+            <p class="report-note">Top 8 theo tiền phòng đã lưu trong đơn, gồm phụ thu; chưa phân bổ giảm giá và thuế.</p>
         </div>
 
         {{-- Doanh thu dịch vụ thêm --}}
         <div class="dashboard-card" id="upsellCard">
-            <div class="card-title">🧳 Dịch vụ thêm (Upsell)</div>
-            <div class="service-row">
-                <span>✈️ Đưa đón sân bay</span>
-                <span><strong>128M ₫</strong></span>
-            </div>
-            <div class="service-row">
-                <span>🍽️ Gói ẩm thực</span>
-                <span><strong>94M ₫</strong></span>
-            </div>
-            <div class="service-row">
-                <span>🧘 Spa & massage</span>
-                <span><strong>67M ₫</strong></span>
-            </div>
-            <div class="service-row">
-                <span>🚗 Thuê xe du lịch</span>
-                <span><strong>43M ₫</strong></span>
-            </div>
-            <div class="service-row">
-                <span>🎟️ Tour trải nghiệm</span>
-                <span><strong>31M ₫</strong></span>
-            </div>
-            <hr style="margin:12px 0">
-            <div class="service-row" style="font-weight:700;">
-                <span>Tổng dịch vụ</span>
-                <span>363M ₫</span>
-            </div>
+            <div class="card-title">@include('admin.partials.icon', ['name' => 'tag']) Dịch vụ thêm (Upsell)</div>
+            <div id="upsellList" class="report-breakdown"><div class="empty-state">Đang tải dữ liệu...</div></div>
         </div>
 
         {{-- Phương thức thanh toán --}}
         <div class="dashboard-card" id="paymentCard">
-            <div class="card-title">💳 Phương thức thanh toán</div>
-            <div class="donut-container">
-                <canvas id="paymentDonut" width="180" height="150" style="max-width:170px; max-height:150px;"></canvas>
-            </div>
-            <div style="display:flex; justify-content:center; gap:16px; margin-top:10px; flex-wrap:wrap;">
-                <span><span style="background:#3B82F6; display:inline-block; width:10px; height:10px; border-radius:50%;"></span> Chuyển khoản 54%</span>
-                <span><span style="background:#F59E0B; display:inline-block; width:10px; height:10px; border-radius:50%;"></span> Thẻ tín dụng 28%</span>
-                <span><span style="background:#10B981; display:inline-block; width:10px; height:10px; border-radius:50%;"></span> Ví điện tử 18%</span>
-            </div>
+            <div class="card-title">@include('admin.partials.icon', ['name' => 'wallet']) Phương thức thanh toán</div>
+            <div id="paymentDonutChart"></div><div id="paymentMethodsList"><div class="empty-state">Đang tải dữ liệu...</div></div>
         </div>
     </div>
 
     {{-- BẢNG GIAO DỊCH GẦN ĐÂY --}}
     <div class="dashboard-card" style="margin-bottom:28px;">
-        <div class="card-title">📋 Giao dịch gần đây</div>
+        <div class="card-title">@include('admin.partials.icon', ['name' => 'calendar-days']) Giao dịch gần đây</div>
         <div class="table-wrapper">
             <table class="transaction-table">
                 <thead>
@@ -483,214 +466,21 @@
                 </tbody>
             </table>
         </div>
+        <div class="report-pages"><span id="transactionsCount">Đang tải giao dịch…</span><div><button type="button" id="transactionsPrev" class="report-button" disabled>Trang trước</button><span id="transactionsPage"></span><button type="button" id="transactionsNext" class="report-button" disabled>Trang sau</button></div></div>
     </div>
 
     {{-- TỔNG KẾT DOANH THU THEO THÁNG (grid) -- thêm id --}}
     <div class="dashboard-card monthly-summary">
-        <div class="card-title">📆 Tổng kết doanh thu theo tháng (2025)</div>
+        <div class="card-title">@include('admin.partials.icon', ['name' => 'calendar-days']) Tổng kết doanh thu theo tháng <span class="card-subtitle">Trong kỳ đã chọn</span></div>
         <div class="month-grid" id="monthSummaryGrid">
             {{-- JS sẽ render --}}
             <div class="month-card"><div class="month-name">Đang tải...</div><div class="month-revenue">---</div></div>
-        </div>
-        <div style="margin-top: 16px; background: #F8FAFC; border-radius: 16px; padding: 10px; text-align: center; font-size:0.8rem;">
-            📊 Dự kiến doanh thu Q2 tăng 14% so với cùng kỳ
         </div>
     </div>
 </div>
 @endsection
 
 @push('scripts')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', async function() {
-
-        // ══ Load data thật từ API ══
-        let apiData = { monthly_revenue: [], top_hotels: [], total_revenue: 0 };
-        try {
-            const res  = await adminApi('/revenue');
-            if (res.ok) apiData = await res.json();
-        } catch(e) {
-            console.error('Revenue API error:', e);
-        }
-
-        renderKPI(apiData);
-        renderMonthlyChart(apiData.monthly_revenue || []);
-        renderTopHotels(apiData.top_hotels || []);
-        renderTransactions(apiData);
-        renderMonthSummary(apiData.monthly_revenue || []);
-
-        // ── Các phần chưa có API ──
-        markNoData('roomTypeCard');
-        markNoData('upsellCard');
-        markNoData('paymentCard');
-    });
-
-    // ══ KPI Cards ══
-    function renderKPI(data) {
-        const total    = data.total_revenue   ?? 0;
-        const monthly  = (data.monthly_revenue ?? []);
-        const currentMonth = new Date().getMonth() + 1;
-        const thisMonth = monthly.find(m => m.month == currentMonth)?.total ?? 0;
-        const totalTx  = monthly.reduce((s, m) => s + (m.count ?? 0), 0);
-        const hotelsCount = (data.top_hotels ?? []).length;
-
-        document.getElementById('kpi-total').textContent    = formatMoney(total);
-        document.getElementById('kpi-monthly').textContent  = formatMoney(thisMonth);
-        document.getElementById('kpi-tx').textContent       = totalTx.toLocaleString('vi-VN');
-        document.getElementById('kpi-hotels').textContent   = hotelsCount;
-    }
-
-    // ══ Line chart doanh thu theo tháng ══
-    function renderMonthlyChart(monthly) {
-        const MONTH_NAMES = ['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'];
-
-        // Tạo mảng 12 tháng, tháng nào không có data thì = 0
-        const amounts = Array.from({length: 12}, (_, i) => {
-            const found = monthly.find(m => m.month == i + 1);
-            return found ? Math.round(found.total / 1_000_000) : 0; // đổi sang triệu
-        });
-
-        if (window._revenueLineChart) {
-            window._revenueLineChart.destroy();
-        }
-
-        window._revenueLineChart = new ApexCharts(
-            document.getElementById('revenueLineChart'), {
-            series: [{ name: 'Doanh thu (triệu ₫)', data: amounts }],
-            chart: {
-                type: 'area', height: 280,
-                toolbar: { show: false },
-                animations: { enabled: true, speed: 700 },
-                background: 'transparent',
-            },
-            stroke: { curve: 'smooth', width: 2.5 },
-            fill: {
-                type: 'gradient',
-                gradient: { shadeIntensity: 1, opacityFrom: 0.25, opacityTo: 0.01 }
-            },
-            dataLabels: { enabled: false },
-            xaxis: {
-                categories: MONTH_NAMES,
-                axisBorder: { show: false }, axisTicks: { show: false },
-                labels: { style: { colors: '#94A3B8', fontSize: '12px' } }
-            },
-            yaxis: {
-                labels: {
-                    style: { colors: '#94A3B8', fontSize: '11px' },
-                    formatter: val => val + 'M'
-                }
-            },
-            colors: ['#2563EB'],
-            grid: {
-                borderColor: 'rgba(226,232,240,0.6)', strokeDashArray: 4,
-                yaxis: { lines: { show: true } }, xaxis: { lines: { show: false } },
-            },
-            tooltip: {
-                y: { formatter: val => val + ' triệu ₫' }
-            },
-        });
-        window._revenueLineChart.render();
-    }
-
-    // ══ Top hotels bar list ══
-    function renderTopHotels(hotels) {
-        const wrap = document.getElementById('topHotelsList');
-        if (!hotels.length) {
-            wrap.innerHTML = '<div style="color:#94A3B8;font-size:13px;text-align:center;padding:20px 0;">Chưa có dữ liệu</div>';
-            return;
-        }
-        const max = Math.max(...hotels.map(h => h.revenue));
-        wrap.innerHTML = hotels.map(h => `
-            <div class="hotel-list-item">
-                <div class="hotel-name" title="${escHtml(h.name)}">${escHtml(h.name.length > 14 ? h.name.substring(0,14)+'…' : h.name)}</div>
-                <div class="bar-wrapper">
-                    <div class="bar-fill" style="width:${Math.round((h.revenue/max)*100)}%;transition:width 0.8s ease;"></div>
-                </div>
-                <div class="hotel-amount">${formatMoney(h.revenue)}</div>
-            </div>
-        `).join('');
-    }
-
-    // ══ Bảng giao dịch gần đây ══
-    function renderTransactions(data) {
-        const wrap = document.getElementById('transactionsTbody');
-        if (!data.top_hotels || !data.top_hotels.length) {
-            wrap.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:24px;color:#94A3B8;">Chưa có dữ liệu giao dịch</td></tr>';
-            return;
-        }
-        // Hiển thị dạng demo từ top_hotels (có thể thay bằng API giao dịch thực tế)
-        wrap.innerHTML = data.top_hotels.map(h => `
-            <tr>
-                <td style="font-weight:600;color:#2563EB;">${escHtml(h.name)}</td>
-                <td>${h.transactions ?? '—'} giao dịch</td>
-                <td style="font-weight:700;">${formatMoney(h.revenue)}</td>
-                <td>—</td>
-                <td><span class="badge badge-success">Hoàn thành</span></td>
-                <td>—</td>
-            </tr>
-        `).join('');
-    }
-
-    // ══ Tổng kết tháng ══
-    function renderMonthSummary(monthly) {
-        const MONTH_NAMES = ['Thg 1','Thg 2','Thg 3','Thg 4','Thg 5','Thg 6',
-                            'Thg 7','Thg 8','Thg 9','Thg 10','Thg 11','Thg 12'];
-        const wrap = document.getElementById('monthSummaryGrid');
-
-        if (!monthly.length) {
-            wrap.innerHTML = '<div style="color:#94A3B8;font-size:13px;text-align:center;padding:20px 0;grid-column:1/-1;">Chưa có dữ liệu</div>';
-            return;
-        }
-
-        // Hiện đủ 12 tháng, tháng nào chưa có thì hiện "—"
-        wrap.innerHTML = Array.from({length: 12}, (_, i) => {
-            const found = monthly.find(m => m.month == i + 1);
-            const isFuture = (i + 1) > new Date().getMonth() + 1;
-            return `
-                <div class="month-card" style="${isFuture ? 'opacity:0.4' : ''}">
-                    <div class="month-name">${MONTH_NAMES[i]}</div>
-                    <div class="month-revenue">${found ? formatMoney(found.total) : '—'}</div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // ══ Mark "Chưa có dữ liệu" cho các card chưa có API ══
-    function markNoData(cardId) {
-        const card = document.getElementById(cardId);
-        if (!card) return;
-        // Giữ nguyên title, chỉ thay nội dung bên trong
-        const title = card.querySelector('.card-title');
-        const titleHTML = title ? title.outerHTML : '';
-        const body = card.querySelectorAll(':scope > *:not(.card-title)');
-        body.forEach(el => el.style.display = 'none');
-
-        const notice = document.createElement('div');
-        notice.style.cssText = 'text-align:center;padding:28px 0;color:#94A3B8;font-size:13px;';
-        notice.innerHTML = `
-            <svg width="32" height="32" fill="none" stroke="#CBD5E1" viewBox="0 0 24 24" style="margin:0 auto 8px;display:block;">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-            Chưa có dữ liệu
-        `;
-        card.appendChild(notice);
-    }
-
-    // ══ Helpers ══
-    function formatMoney(amount) {
-        if (!amount) return '0đ';
-        if (amount >= 1_000_000_000) return (amount / 1_000_000_000).toFixed(1) + 'B';
-        if (amount >= 1_000_000)     return (amount / 1_000_000).toFixed(1) + 'M';
-        if (amount >= 1_000)         return (amount / 1_000).toFixed(0) + 'K';
-        return Number(amount).toLocaleString('vi-VN') + 'đ';
-    }
-
-    function escHtml(s) {
-        if (!s) return '';
-        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-</script>
+@include('admin.partials.revenue-script')
 @endpush

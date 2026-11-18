@@ -14,7 +14,7 @@ class HotelService
     {
         $query = Hotel::with(['location', 'amenities', 'images' => fn($q) => $q->where('is_primary', true)])
             ->where('status', 'active')
-            ->withMin(['rooms' => fn($q) => $q->where('status', 'available')], 'price');
+            ->withMin(['rooms' => fn($q) => $q->where('status', 'available')->offered()], 'price');
 
         if (!empty($filters['city'])) {
             $query->whereHas('location', fn($q) =>
@@ -54,10 +54,12 @@ class HotelService
             ->where('status', 'active')
             ->findOrFail($id);
 
-        $hotel->review_count = DB::table('review')->where('hotel_id', $id)->count();
+        $hotel->review_count = DB::table('review')->where('hotel_id', $id)->where('status','approved')->count();
+        $hotel->setRelation('rooms',app(\App\Services\HotelRoomTypeService::class)->applyToRooms($hotel->rooms));
 
         $hotel->rating_breakdown = DB::table('review')
             ->where('hotel_id', $id)
+            ->where('status','approved')
             ->selectRaw('AVG(rating) as avg_overall, AVG(rating_cleanliness) as avg_cleanliness, AVG(rating_service) as avg_service, AVG(rating_location) as avg_location')
             ->first();
 
@@ -72,7 +74,7 @@ class HotelService
 
         $query = $hotel->rooms()
             ->with(['roomType', 'images'])
-            ->whereIn('status', ['available', 'locked']);
+            ->whereIn('status', ['available', 'locked'])->offered();
 
         if (!empty($filters['room_type_id'])) {
             $query->where('room_type_id', $filters['room_type_id']);
@@ -81,7 +83,7 @@ class HotelService
             $query->where('capacity', '>=', $filters['guests']);
         }
 
-        return $query->get()->map(function ($room) use ($checkIn, $checkOut) {
+        return app(\App\Services\HotelRoomTypeService::class)->applyToRooms($query->get())->map(function ($room) use ($checkIn, $checkOut) {
             $status = 'available';
 
             if ($checkIn && $checkOut) {

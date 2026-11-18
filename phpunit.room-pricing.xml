@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/Support/roomtype_v2_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Room pricing Admin CRUD on isolated MySQL"><file>tests/Feature/RoomPricingTest.php</file></testsuite></testsuites>
+</phpunit>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/roomtype_v2_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Customer account isolated MySQL integration">
+        <file>tests/Feature/CustomerBookingContractTest.php</file>
+        <file>tests/Feature/RoomTypeV2SecurityQualityTest.php</file>
+        <file>tests/Feature/RoomTypeV2IntegrationCompletionTest.php</file>
+    </testsuite></testsuites>
+</phpunit>

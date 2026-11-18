@@ -46,231 +46,10 @@ class ItineraryController extends Controller
     ============================================================ */
     public function generate(Request $request): JsonResponse
     {
-        $request->validate([
-            'destination'    => 'required|string|max:150',
-            'days'           => 'required|integer|min:1|max:21',
-            'start_date'     => 'nullable|date',
-            'people'         => 'nullable|integer|min:1|max:20',
-            'budget'         => 'nullable|integer|min:0',
-            'trip_style'     => 'nullable|string|max:100',
-            'interests'      => 'nullable|array',
-            'interests.*'    => 'string|max:50',
-            'pace'           => 'nullable|in:relaxed,moderate,packed',
-            'transport'      => 'nullable|string|max:100',
-            'stay_area'      => 'nullable|string|max:150',
-            'spend_priority' => 'nullable|string|max:150',
-            'must_visit'     => 'nullable|string|max:500',
-            'notes'          => 'nullable|string|max:1000',
-        ]);
-
-        $user        = $request->user();
-        $destination = $request->destination;
-        $days        = $request->days;
-        $people      = $request->people      ?? 1;
-        $budget      = $request->budget      ?? 5000000;
-        $startDate   = $request->start_date;
-        $tripStyle   = $request->trip_style   ?? 'khám phá';
-        $interests   = $request->interests    ? implode(', ', $request->interests) : 'đa dạng';
-        $pace        = match($request->pace) {
-            'relaxed'  => 'thư thả (3-4 hoạt động/ngày)',
-            'packed'   => 'dày đặc (6-7 hoạt động/ngày)',
-            default    => 'vừa phải (4-5 hoạt động/ngày)',
-        };
-        $transport      = $request->transport      ?? 'linh hoạt';
-        $stayArea       = $request->stay_area       ?? 'trung tâm';
-        $spendPriority  = $request->spend_priority  ?? 'cân bằng';
-        $mustVisit      = $request->must_visit      ?? '';
-        $notes          = $request->notes           ?? '';
-        $budgetFmt      = number_format($budget, 0, ',', '.') . 'đ';
-        $budgetPerDay   = number_format(intval($budget / $days), 0, ',', '.') . 'đ/ngày';
-
-        // ===== MỚI: Query DB trước khi gọi AI =====
-        $locationRecord = Location::where('name', 'like', "%{$destination}%")->first();
-
-        $attractions = $locationRecord
-            ? Attraction::where('location_id', $locationRecord->id)
-                        ->where('is_active', true) // Chỉ lấy những địa điểm đang hoạt động, tránh gợi ý chỗ đóng cửa hoặc đang sửa chữa
-                        ->get()
-                        ->groupBy('item_type')
-            : collect(); 
-
-        // ===== Build prompt có ground truth =====
-        $contextLines = [];
-        foreach ($attractions as $type => $items) {
-            $contextLines[] = strtoupper($type) . ':';
-            foreach ($items as $item) {
-                $price = $item->price_min > 0
-                    ? number_format($item->price_min) . '-' . number_format($item->price_max) . 'đ'
-                    : 'miễn phí';
-                $contextLines[] = "  - {$item->name} | {$price} | ~{$item->duration_hours}h"
-                                . ($item->open_time ? " | {$item->open_time}-{$item->close_time}" : "");
-            }
-        }
-
-        $groundTruth = $attractions->isNotEmpty()
-            ? "DANH SÁCH ĐỊA ĐIỂM THẬT TẠI {$locationRecord->name}:\n" . implode("\n", $contextLines)
-            : ""; 
-
-        $mustVisitLine   = $mustVisit   ? "\n- Điểm bắt buộc ghé thăm: {$mustVisit}"       : '';
-        $notesLine       = $notes       ? "\n- Ghi chú đặc biệt: {$notes}"                  : '';
-        $startDateLine   = $startDate   ? "\n- Ngày bắt đầu: {$startDate}"                  : '';
-
-        // TỐI ƯU PROMPT THEO NGHIỆP VỤ (Reasoning AI + Hybrid Data)
-        $prompt = <<<PROMPT
-            Bạn là chuyên gia du lịch Việt Nam am hiểu sâu rộng, sáng tạo và luôn mang đến những trải nghiệm mới mẻ, thú vị.
-            {$groundTruth}
-
-            Nhiệm vụ của bạn là lập lịch trình {$days} ngày tại {$destination} cho {$people} người.
-
-            THÔNG TIN CHUYẾN ĐI:
-            - Ngân sách: {$budgetFmt} tổng ({$budgetPerDay}/ngày){$startDateLine}
-            - Phong cách: {$tripStyle}, Nhịp độ: {$pace}
-            - Tùy chỉnh: {$spendPriority}{$mustVisitLine}{$notesLine}
-
-            [QUY TẮC NGHIỆP VỤ CỐT LÕI - PHẢI TUÂN THỦ]:
-            1. SỰ PHONG PHÚ & CHỐNG TRÙNG LẶP: Lịch trình phải kỳ thú, mang tính trải nghiệm cao. Tuyệt đối KHÔNG lặp lại bất kỳ địa điểm, nhà hàng hay hoạt động nào trong suốt {$days} ngày.
-            2. KIỂM CHỨNG THỰC TẾ (VALIDATION): 
-            - Nếu khách yêu cầu những trải nghiệm hoàn toàn phi lý, trái với tự nhiên hoặc địa lý của {$destination} (VD: Ngắm tuyết ở Sài Gòn, lặn ngắm san hô ở Sapa, hái dâu tây ở sa mạc), PHẢI TỪ CHỐI bằng cách set "is_valid": false và ghi lý do giải thích vào "ai_note".
-            - Nếu yêu cầu hợp lý hoặc chỉ là món ăn/địa điểm bình thường, set "is_valid": true.
-            
-            3. NGUỒN DỮ LIỆU (NGHIÊM CẤM VI PHẠM):
-            - CHỈ được sử dụng địa điểm có trong [DANH SÁCH ĐỊA ĐIỂM THẬT] ở trên.
-            - NGHIÊM CẤM TUYỆT ĐỐI thêm bất kỳ địa điểm nào KHÔNG có trong danh sách, dù là nổi tiếng hay hidden-gem.
-            - NGHIÊM CẤM dùng địa điểm của tỉnh/thành khác (VD: Đà Lạt, Hà Nội, HCM...) vào lịch trình {$destination}.
-            - Nếu không đủ địa điểm: được phép lặp lại hoặc sắp xếp lại thứ tự các địa điểm trong danh sách.
-
-            YÊU CẦU JSON RESPONSE (Chỉ trả về JSON thuần, KHÔNG markdown, KHÔNG giải thích):
-            {
-            "is_valid": true,
-            "ai_note": "Ghi chú của chuyên gia cho khách (hoặc lý do từ chối nếu is_valid = false)",
-            "title": "Tên lịch trình ngắn gọn hấp dẫn",
-            "summary": "Mô tả tổng quan 1-2 câu",
-            "days": [
-                {
-                "day_number": 1,
-                "theme": "Chủ đề ngày",
-                "items": [
-                    {
-                    "item_type": "hotel|restaurant|attraction|transport|activity|shopping",
-                    "title": "Tên địa điểm (CẤM TRÙNG LẶP VỚI NGÀY KHÁC)",
-                    "description": "Mô tả thực tế, thu hút",
-                    "start_time": "08:00",
-                    "end_time": "10:00",
-                    "estimated_cost": 150000,
-                    "order_in_day": 1
-                    }
-                ]
-                }
-            ]
-            }
-
-            - Lịch mỗi ngày bắt đầu từ 07:00 và kết thúc lúc 22:00
-            - Thứ tự thời gian phải tăng dần: sáng → trưa → chiều → tối
-            - Không xếp check-in khách sạn trước 13:00
-            - Bữa trưa: 11:30-13:30 | Bữa tối: 18:30-20:30  
-        PROMPT;
-
-        // ===== CALL GROQ API =====
-        $parsed = null;
-
-        try {
-            $groqKey   = config('services.groq.api_key');
-            $groqModel = 'llama-3.3-70b-versatile'; 
-
-            if ($groqKey) {
-                $response = Http::timeout(45)
-                    ->withToken($groqKey)
-                    ->post('https://api.groq.com/openai/v1/chat/completions', [
-                        'model'       => $groqModel,
-                        'max_tokens'  => 4000,
-                        'temperature' => 0.7,
-                        'messages'    => [
-                            [
-                                'role'    => 'system',
-                                'content' => 'Bạn là AI trợ lý du lịch có khả năng suy luận (reasoning). Phải trả về JSON thuần theo schema.',
-                            ],
-                            [
-                                'role'    => 'user',
-                                'content' => $prompt,
-                            ],
-                        ],
-                    ]);
-
-                if ($response->successful()) {
-                    $raw    = $response->json('choices.0.message.content');
-                    $clean  = preg_replace('/^```(?:json)?\s*/m', '', $raw ?? '');
-                    $clean  = preg_replace('/```\s*$/m', '', $clean);
-                    $parsed = json_decode(trim($clean), true);
-
-                    // XỬ LÝ KHI AI PHÁT HIỆN YÊU CẦU VÔ LÝ
-                    if (isset($parsed['is_valid']) && $parsed['is_valid'] === false) {
-                        return response()->json([
-                            'message' => 'Yêu cầu không khả thi',
-                            'error'   => $parsed['ai_note'] ?? 'AI không thể tạo lịch trình với các yêu cầu này tại ' . $destination
-                        ], 400); 
-                    }
-
-                    if (!$parsed || !isset($parsed['days'])) {
-                        Log::warning('Groq: JSON parse failed', ['raw' => substr($raw ?? '', 0, 500)]);
-                        $parsed = null;
-                    }
-                } else {
-                    Log::warning('Groq API error', [
-                        'status' => $response->status(),
-                        'body'   => $response->body(),
-                    ]);
-                }
-            }
-        } catch (\Exception $e) {
-            Log::error('Groq exception: ' . $e->getMessage());
-        }
-
-        // ===== FALLBACK nếu AI fail =====
-        if (!$parsed) {
-            $parsed = $this->buildFallback($destination, $days, $budget, $people);
-        }
-
-        // ===== LƯU DATABASE =====
-        $endDate = $startDate
-            ? date('Y-m-d', strtotime("+{$days} days", strtotime($startDate)))
-            : null;
-
-        $itinerary = Itinerary::create([
-            'customer_id'      => $user->id,
-            'title'            => $parsed['title']            ?? "Lịch trình {$days} ngày tại {$destination}",
-            'location_id'      => $locationRecord?->id, 
-            'total_days'       => $days,
-            'start_date'       => $startDate,
-            'end_date'         => $endDate,
-            'estimated_budget' => $budget,
-            'status'           => 'draft',
-        ]);
-
-        foreach ($parsed['days'] as $day) {
-            $dayNum = (int) ($day['day_number'] ?? 1);
-            foreach ($day['items'] ?? [] as $item) {
-                ItineraryItem::create([
-                    'itinerary_id'   => $itinerary->id,
-                    'day_number'     => $dayNum,
-                    'item_type'      => $this->sanitizeType($item['item_type'] ?? ''),
-                    'title'          => $item['title']          ?? 'Hoạt động',
-                    'description'    => $item['description']    ?? null,
-                    'start_time'     => $item['start_time']      ?? null,
-                    'end_time'       => $item['end_time']        ?? null,
-                    'estimated_cost' => isset($item['estimated_cost']) ? (int) $item['estimated_cost'] : null,
-                    'order_in_day'   => (int) ($item['order_in_day'] ?? 0),
-                ]);
-            }
-        }
-
-        $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
-
         return response()->json([
-            'message'   => 'Đã tạo lịch trình thành công!',
-            'itinerary' => $this->formatItinerary($itinerary),
-            'summary'   => $parsed['summary'] ?? null,
-            'ai_note'   => $parsed['ai_note'] ?? null,
-        ], 201);
+            'message' => 'T?o l?ch tr?nh m?i s? d?ng API /api/v2/itineraries/generate.',
+            'code' => 'use_itinerary_v2_api',
+        ], 409);
     }
 
 /* ============================================================
@@ -290,6 +69,7 @@ class ItineraryController extends Controller
             ->with(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day'), 'location'])
             ->findOrFail($id);
 
+        app(\App\Services\Itinerary\WriteGuard::class)->legacyEndpoint($itinerary);
         $itineraryJson = json_encode($this->formatItinerary($itinerary), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     $systemPrompt = <<<SYS
@@ -402,7 +182,14 @@ class ItineraryController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
-        $itinerary->update($request->only(['title', 'start_date', 'end_date', 'status', 'estimated_budget']));
+        app(\App\Services\Itinerary\WriteGuard::class)->legacyEndpoint($itinerary);
+        $itinerary->update($request->validate([
+            'title' => 'sometimes|required|string|max:200',
+            'start_date' => 'sometimes|nullable|date_format:Y-m-d',
+            'end_date' => 'sometimes|nullable|date_format:Y-m-d|after_or_equal:'.($request->input('start_date') ?: ($itinerary->start_date?->format('Y-m-d') ?: '0001-01-01')),
+            'status' => 'sometimes|required|in:draft,saved,confirmed,completed',
+            'estimated_budget' => 'sometimes|nullable|numeric|min:0|max:9999999999.99',
+        ]));
         $itinerary->load(['items' => fn($q) => $q->orderBy('day_number')->orderBy('order_in_day')]);
 
         return response()->json(['message' => 'Đã cập nhật!', 'itinerary' => $this->formatItinerary($itinerary)]);
@@ -414,11 +201,17 @@ class ItineraryController extends Controller
     public function updateItem(Request $request, int $id, int $itemId): JsonResponse
     {
         $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        app(\App\Services\Itinerary\WriteGuard::class)->legacyEndpoint($itinerary);
         $item = ItineraryItem::where('itinerary_id', $itinerary->id)->findOrFail($itemId);
 
-        $item->update($request->only([
-            'title', 'description', 'start_time', 'end_time',
-            'estimated_cost', 'item_type', 'order_in_day'
+        $item->update($request->validate([
+            'title' => 'sometimes|required|string|max:200',
+            'description' => 'sometimes|nullable|string|max:5000',
+            'start_time' => ['sometimes', 'nullable', 'regex:/^(?:[01][0-9]|2[0-3]):[0-5][0-9](?::[0-5][0-9])?$/D'],
+            'end_time' => ['sometimes', 'nullable', 'regex:/^(?:[01][0-9]|2[0-3]):[0-5][0-9](?::[0-5][0-9])?$/D'],
+            'estimated_cost' => 'sometimes|nullable|numeric|min:0|max:99999999.99',
+            'item_type' => 'sometimes|required|in:hotel,restaurant,attraction,destination,transport,activity,shopping',
+            'order_in_day' => 'sometimes|integer|min:0|max:1000',
         ]));
 
         return response()->json(['message' => 'Đã cập nhật hoạt động!', 'item' => $item]);
@@ -430,6 +223,7 @@ class ItineraryController extends Controller
     public function deleteItem(Request $request, int $id, int $itemId): JsonResponse
     {
         $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        app(\App\Services\Itinerary\WriteGuard::class)->legacyEndpoint($itinerary);
         ItineraryItem::where('itinerary_id', $itinerary->id)->findOrFail($itemId)->delete();
         return response()->json(['message' => 'Đã xóa hoạt động!']);
     }
@@ -440,6 +234,7 @@ class ItineraryController extends Controller
     public function destroy(Request $request, int $id): JsonResponse
     {
         $itinerary = Itinerary::where('customer_id', $request->user()->id)->findOrFail($id);
+        app(\App\Services\Itinerary\WriteGuard::class)->legacyEndpoint($itinerary);
         $itinerary->delete();
         return response()->json(['message' => 'Đã xóa lịch trình!']);
     }
@@ -468,7 +263,9 @@ class ItineraryController extends Controller
 
         return [
             'id'               => $itinerary->id,
+            'schema_version'   => (int)($itinerary->getAttribute('schema_version') ?? 1),
             'title'            => $itinerary->title,
+            'created_at'       => $itinerary->getAttribute('created_at'),
             'location_id'      => $itinerary->location_id,
             'destination'      => $itinerary->location_id
                                     ? Location::find($itinerary->location_id)?->name

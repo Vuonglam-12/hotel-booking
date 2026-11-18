@@ -27,6 +27,10 @@ class Customer extends Authenticatable
         'password_hash',
     ];
 
+    protected $casts = [
+        'dob' => 'date:Y-m-d',
+    ];
+
     public function getAuthPassword()
     {
         return $this->password_hash;
@@ -35,6 +39,12 @@ class Customer extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
+    }
+
+    public function supportsDob(): bool
+    {
+        // Inspect only the connection already serving this request; never migrate it.
+        return $this->getConnection()->getSchemaBuilder()->hasColumn($this->getTable(), 'dob');
     }
 
     public function bookings()

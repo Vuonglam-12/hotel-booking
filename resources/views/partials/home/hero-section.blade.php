@@ -4,7 +4,7 @@
             'img'     => 'bannerhome{hero} (1).jpg',
             'eyebrow' => 'Khám phá Việt Nam',
             'title'   => 'Đặt phòng thông minh<br>cho <span class="text-[#60A5FA]">mọi hành trình</span>',
-            'sub'     => 'Hơn 20 khách sạn & resort cao cấp trên toàn quốc, giá tốt nhất mỗi ngày.',
+            'sub'     => 'Khám phá thông tin khách sạn và resort tại nhiều điểm đến trên Angel.',
         ],
         [
             'img'     => 'bannerhome{hero} (2).jpg',
@@ -20,9 +20,9 @@
         ],
         [
             'img'     => 'bannerhome{hero} (4).jpg',
-            'eyebrow' => 'Ưu đãi mỗi ngày',
-            'title'   => 'Flash Sale<br><span class="text-[#60A5FA]">giảm đến 50%</span>',
-            'sub'     => 'Săn deal giới hạn, thanh toán VNPAY bảo mật, hoá đơn PDF tự động.',
+            'eyebrow' => 'Lựa chọn lưu trú',
+            'title'   => 'Khám phá<br><span class="text-[#60A5FA]">điểm đến cho hành trình</span>',
+            'sub'     => 'Xem thông tin khách sạn, loại phòng và lựa chọn phù hợp với bạn.',
         ],
     ];
 @endphp
@@ -615,7 +615,7 @@
 
             <div class="sf" data-sf>
                 <label>Where</label>
-                <input type="text" id="searchInput" name="search"
+                <input type="text" id="searchInput" name="search" aria-label="Tìm điểm đến hoặc khách sạn"
                        value="{{ request('search') }}"
                        placeholder="Search destinations, hotels, or activities">
                 <div id="searchDropdown"

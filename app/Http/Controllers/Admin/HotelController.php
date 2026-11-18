@@ -87,7 +87,7 @@ class HotelController extends Controller
             'description' => 'nullable|string|max:500',
             'room_count'  => 'required|integer|min:1|max:100',
             'floor_start' => 'nullable|integer|min:1|max:99',
-        ]);
+        ], \App\Support\RoomTypeValidationMessages::all());
 
         $result = $this->service->createRoomType($hotelId, $data);
 

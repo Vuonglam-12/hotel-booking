@@ -10,7 +10,7 @@
         margin-bottom: 20px;
     }
     .page-title {
-        font-family: 'Nunito Sans', system-ui, sans-serif;
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
         font-size: 22px; font-weight: 700; color: var(--dark);
     }
     .page-sub { font-size: 13px; color: var(--gray); margin-top: 3px; }
@@ -118,10 +118,12 @@
     }
     .hotel-info { display: flex; align-items: center; gap: 12px; }
     .hotel-name { font-weight: 600; color: var(--dark); }
+    .hotel-name-link { color: inherit; text-decoration: none; }
+    .hotel-name-link:hover { color: var(--sky-dark); text-decoration: underline; }
     .hotel-addr { font-size: 11px; color: var(--gray); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
 
     /* Stars */
-    .stars { color: #F59E0B; font-size: 12px; letter-spacing: 1px; }
+    .stars { color: #EAB308; font-size: 12px; letter-spacing: 1px; }
 
     /* Badges */
     .badge { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 99px; font-size: 11px; font-weight: 600; }
@@ -146,6 +148,15 @@
         background: rgba(16,185,129,0.1); color: #059669; border-color: rgba(16,185,129,0.25);
     }
     .btn-room:hover { background: rgba(16,185,129,0.2); }
+    .hotel-row-actions { display:flex;align-items:center;gap:6px; }
+    .hotel-detail-link { background:rgba(37,99,235,.08);color:#1d4ed8;border:1px solid rgba(37,99,235,.18);text-decoration:none; }
+    .hotel-action-menu { position:relative; }
+    .hotel-action-menu summary { list-style:none;display:grid;place-items:center;width:30px;height:28px;border:1px solid rgba(135,206,250,.3);border-radius:8px;cursor:pointer;color:var(--dark); }
+    .hotel-action-menu summary::-webkit-details-marker { display:none; }
+    .hotel-action-menu[open] summary { background:#eff6ff; }
+    .hotel-action-menu-list { position:absolute;right:0;top:calc(100% + 5px);z-index:8;min-width:160px;padding:5px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 8px 24px #0f172a18; }
+    .hotel-action-menu-list a,.hotel-action-menu-list button { display:block;width:100%;padding:8px 10px;border:0;border-radius:7px;background:transparent;color:#344054;text-align:left;text-decoration:none;font:inherit;font-size:12px;cursor:pointer; }
+    .hotel-action-menu-list a:hover,.hotel-action-menu-list button:hover { background:#f3f7fc; }
 
     /* Pagination */
     .pagination {
@@ -184,7 +195,7 @@
         display: flex; align-items: center; justify-content: space-between;
         position: sticky; top: 0; background: #fff; z-index: 2;
     }
-    .modal-title { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
+    .modal-title { font-family: 'Be Vietnam Pro', system-ui, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
     .modal-close {
         width: 28px; height: 28px; border-radius: 8px; background: var(--bg);
         border: none; cursor: pointer; display: flex; align-items: center;
@@ -206,7 +217,7 @@
     .btn-save {
         padding: 9px 20px; border-radius: 10px; font-size: 13px; font-weight: 700;
         background: linear-gradient(135deg, var(--sky), var(--sky-dark));
-        border: none; color: var(--dark); cursor: pointer; transition: all 0.2s;
+        border: none; color: #ffff; cursor: pointer; transition: all 0.2s;
     }
     .btn-save:hover { transform: translateY(-1px); box-shadow: 0 8px 16px -4px rgba(135,206,250,0.4); }
     .btn-save:disabled { opacity: 0.55; transform: none; cursor: default; }
@@ -303,7 +314,7 @@
         justify-content: space-between;
     }
     .rt-modal .modal-header h3 {
-        font-family: 'Nunito Sans', system-ui, sans-serif;
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
         font-size: 17px;
         font-weight: 700;
         color: var(--dark);
@@ -400,6 +411,31 @@
         transform: none;
         cursor: default;
     }
+    @media (max-width: 760px) {
+        .page-header { align-items:center;gap:10px; }
+        .ht-table,.ht-table tbody { display:block;width:100%; }
+        .ht-table thead { display:none; }
+        .ht-table tbody tr { display:block;margin:12px;border:1px solid rgba(135,206,250,.2);border-radius:12px;overflow:visible; }
+        .ht-table tbody tr:hover td { background:#fff; }
+        .ht-table td { display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 12px;text-align:right!important;white-space:normal!important;max-width:none!important; }
+        .ht-table td::before { content:attr(data-label);flex:0 0 34%;color:var(--gray);font-size:11px;text-align:left; }
+        .ht-table td[data-label="Khách sạn"] { display:block;text-align:left!important; }
+        .ht-table td[data-label="Khách sạn"]::before { display:block;margin-bottom:8px; }
+        .ht-table td[data-label="Khách sạn"] .hotel-info { max-width:100%; }
+        .ht-table td[data-label="Hành động"] { align-items:flex-start; }
+        .hotel-row-actions { justify-content:flex-end; }
+        .toolbar { align-items:stretch; }
+        .toolbar-search { min-width:100%; }
+        .pagination { gap:10px;flex-wrap:wrap; }
+    }
+    @media (max-width: 480px) {
+        .page-header { align-items:stretch;flex-direction:column; }
+        .page-header .btn-primary { justify-content:center; }
+        .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:8px; }
+        .stat-card { padding:12px; }
+        .stat-value { font-size:21px; }
+        .pagination-btns { flex-wrap:wrap; }
+    }
 </style>
 @endpush
 
@@ -408,10 +444,10 @@
 {{-- Page header --}}
 <div class="page-header">
     <div>
-        <div class="page-title">Quản lý Khách sạn</div>
+        <h1 class="page-title">Quản lý Khách sạn</h1>
         <div class="page-sub">Thêm, sửa và quản lý trạng thái khách sạn</div>
     </div>
-    <button class="btn-primary" onclick="openAddModal()">
+    <button class="btn-primary" data-admin-action="add" onclick="openAddModal()">
         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
@@ -422,22 +458,23 @@
 {{-- Stat cards --}}
 <div class="stats-grid">
     <div class="stat-card">
-        <div class="stat-icon">🏨</div>
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'hotel'])</div>
         <div class="stat-label">Tổng khách sạn</div>
         <div class="stat-value js-stat-total">—</div>
     </div>
     <div class="stat-card">
-        <div class="stat-icon">✅</div>
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'check'])</div>
         <div class="stat-label">Đang hoạt động</div>
         <div class="stat-value js-stat-active">—</div>
     </div>
     <div class="stat-card">
-        <div class="stat-icon">⏸️</div>
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'circle-alert'])</div>
         <div class="stat-label">Tạm ngưng</div>
         <div class="stat-value js-stat-inactive">—</div>
+        <div class="stat-sub js-stat-status-note">Đóng cửa: —</div>
     </div>
     <div class="stat-card">
-        <div class="stat-icon">⭐</div>
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => 'star'])</div>
         <div class="stat-label">Đánh giá TB</div>
         <div class="stat-value js-stat-rating">—</div>
     </div>
@@ -475,7 +512,7 @@
         <div class="table-title">Danh sách khách sạn</div>
         <span class="table-count" id="tableCount">Đang tải...</span>
     </div>
-    <div style="overflow-x:auto">
+    <div class="admin-table-scroll">
         <table class="ht-table">
             <thead>
                 <tr>
@@ -484,7 +521,7 @@
                     <th>Địa chỉ</th>
                     <th>Sao</th>
                     <th>Đánh giá</th>
-                    <th>Phòng</th>
+                    <th>Tổng phòng</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
                 </tr>
@@ -508,7 +545,7 @@
      MODAL: Thêm / Sửa Khách sạn
 ══════════════════════════════════════════════ --}}
 <div class="modal-overlay" id="hotelModal" onclick="closeModalBg(event)">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-head">
             <div class="modal-title" id="modalTitle">Thêm khách sạn mới</div>
             <button class="modal-close" onclick="closeModal()">
@@ -518,7 +555,12 @@
             </button>
         </div>
 
+        <div class="modal-tabs" role="tablist" aria-label="Chỉnh sửa khách sạn">
+            <button type="button" class="modal-tab" id="hotel-info-tab" role="tab" aria-selected="true" aria-controls="hotel-info-panel" data-hotel-tab="info">Thông tin</button>
+            <button type="button" class="modal-tab" id="hotel-images-tab" role="tab" aria-selected="false" aria-controls="previewSection" tabindex="-1" data-hotel-tab="images">Hình ảnh</button>
+        </div>
         <div class="modal-body">
+            <div id="hotel-info-panel" role="tabpanel" aria-labelledby="hotel-info-tab">
 
             {{-- 1. Thông tin cơ bản --}}
             <div class="form-section">
@@ -526,7 +568,7 @@
                 <div class="form-grid">
                     <div class="form-group full" id="fg-name">
                         <label class="form-label">Tên khách sạn <span>*</span></label>
-                        <input type="text" class="form-input" id="f-name" placeholder="VD: Sofitel Legend Metropole">
+                        <input type="text" class="form-input" id="f-name" maxlength="200" placeholder="VD: Sofitel Legend Metropole">
                         <div class="form-error" id="err-name">Vui lòng nhập tên khách sạn</div>
                     </div>
                     <div class="form-group" id="fg-location">
@@ -550,7 +592,7 @@
                     </div>
                     <div class="form-group full">
                         <label class="form-label">Địa chỉ đầy đủ <span>*</span></label>
-                        <input type="text" class="form-input" id="f-address" placeholder="Số nhà, đường, quận/huyện...">
+                        <input type="text" class="form-input" id="f-address" maxlength="300" placeholder="Số nhà, đường, quận/huyện...">
                         <div class="form-error" id="err-address">Vui lòng nhập địa chỉ</div>
                     </div>
                     <div class="form-group full">
@@ -566,26 +608,11 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="form-label">Số điện thoại</label>
-                        <input type="text" class="form-input" id="f-phone" placeholder="028 xxxx xxxx">
+                        <input type="text" class="form-input" id="f-phone" maxlength="20" placeholder="028 xxxx xxxx">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-input" id="f-email" placeholder="hotel@example.com">
-                    </div>
-                </div>
-            </div>
-
-            {{-- 3. Thời gian check-in/out --}}
-            <div class="form-section">
-                <div class="form-section-title">Giờ check-in / check-out</div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Check-in từ</label>
-                        <input type="time" class="form-input" id="f-checkin" value="14:00">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Check-out trước</label>
-                        <input type="time" class="form-input" id="f-checkout" value="12:00">
+                        <input type="email" class="form-input" id="f-email" maxlength="100" placeholder="hotel@example.com">
                     </div>
                 </div>
             </div>
@@ -608,7 +635,7 @@
             {{-- 5. Tiện ích --}}
             <div class="form-section">
                 <div class="form-section-title">Tiện ích khách sạn</div>
-                <div class="amenity-grid" id="amenityGrid">
+                <div id="amenityGrid">
                     <!-- filled by JS -->
                     <div class="skeleton" style="height:34px;border-radius:9px"></div>
                     <div class="skeleton" style="height:34px;border-radius:9px"></div>
@@ -626,13 +653,10 @@
                 </select>
             </div>
 
-            {{-- Preview ảnh --}}
-            <div class="form-section" id="previewSection" style="display:none">
-                <div class="form-section-title">Ảnh đại diện (tự động)</div>
-                <img id="previewImg" class="preview-img" alt="Preview">
-                <div style="font-size:11px;color:var(--gray);margin-top:6px">
-                    Ảnh được lấy tự động theo ID khách sạn sau khi tạo
-                </div>
+            </div>
+            {{-- Gallery changes stay local until the hotel form is saved. --}}
+            <div class="form-section" id="previewSection" role="tabpanel" aria-labelledby="hotel-images-tab" hidden>
+                @include('admin.partials.image-editor', ['editorId' => 'hotel-images', 'editorTitle' => 'Ảnh khách sạn', 'galleryTitle' => 'Thư viện ảnh khách sạn'])
             </div>
 
         </div>
@@ -646,69 +670,15 @@
     </div>
 </div>
 
-<!-- Modal thêm loại phòng (Room Type Modal) -->
-<div id="roomTypeModal" class="rt-modal-overlay" onclick="closeRoomTypeModalOnBg(event)">
-    <div class="rt-modal">
-        <div class="modal-header">
-            <h3 id="roomTypeModalTitle">Thêm loại phòng</h3>
-            <button onclick="closeRoomTypeModal()">&times;</button>
-        </div>
-        <div class="modal-body">
-            <input type="hidden" id="rtHotelId">
-            <div class="form-row">
-                <label>Tên loại phòng *</label>
-                <input type="text" id="rtName" placeholder="VD: Deluxe, Superior...">
-            </div>
-            <div class="form-row two-col">
-                <div>
-                    <label>Giá/đêm (VNĐ) *</label>
-                    <input type="number" id="rtPrice" placeholder="500000" min="0">
-                </div>
-                <div>
-                    <label>Sức chứa *</label>
-                    <input type="number" id="rtCapacity" value="2" min="1" max="10">
-                </div>
-            </div>
-            <div class="form-row two-col">
-                <div>
-                    <label>Loại giường</label>
-                    <select id="rtBedType">
-                        <option value="">-- Chọn --</option>
-                        <option value="single">Single</option>
-                        <option value="double">Double</option>
-                        <option value="twin">Twin</option>
-                        <option value="king">King</option>
-                        <option value="queen">Queen</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Tầng bắt đầu</label>
-                    <input type="number" id="rtFloor" value="1" min="1" max="99">
-                </div>
-            </div>
-            <div class="form-row">
-                <label>Số lượng phòng tạo *</label>
-                <input type="number" id="rtCount" value="5" min="1" max="100">
-                <small style="color:#999; display:block; margin-top:4px;">Hệ thống tự tạo số phòng (101, 102...)</small>
-            </div>
-            <div class="form-row">
-                <label>Mô tả</label>
-                <textarea id="rtDesc" rows="2" placeholder="Mô tả ngắn..."></textarea>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button onclick="closeRoomTypeModal()" class="btn-secondary">Huỷ</button>
-            <button onclick="saveRoomType()" class="btn-primary" id="rtSaveBtn">
-                Tạo loại phòng
-            </button>
-        </div>
-    </div>
-</div>
+@include('admin.partials.room-type-modal')
 
 <div class="ht-toast" id="htToast"></div>
 
 @endsection
 
+@include('admin.partials.image-editor-assets')
+@include('admin.partials.amenity-editor-assets')
+@include('admin.partials.accommodation-modal-styles')
 @push('scripts')
 <script>
 // ═══════════════════════════════════════════
@@ -719,26 +689,25 @@ let editingId    = null;    // null = thêm mới, số = đang sửa
 let searchTimer  = null;
 let allLocations = [];
 
-const AMENITY_LIST = [
-    { key: 'wifi',        label: '📶 WiFi miễn phí' },
-    { key: 'pool',        label: '🏊 Hồ bơi' },
-    { key: 'gym',         label: '🏋️ Phòng gym' },
-    { key: 'spa',         label: '💆 Spa & Massage' },
-    { key: 'restaurant',  label: '🍽️ Nhà hàng' },
-    { key: 'bar',         label: '🍸 Bar / Lounge' },
-    { key: 'parking',     label: '🅿️ Bãi đỗ xe' },
-    { key: 'airport',     label: '✈️ Đưa đón sân bay' },
-    { key: 'laundry',     label: '👕 Giặt ủi' },
-    { key: 'breakfast',   label: '🥐 Bữa sáng' },
-    { key: 'meeting',     label: '💼 Phòng họp' },
-    { key: 'childcare',   label: '👶 Trông trẻ' },
-];
+const AMENITY_LIST = @js(\App\Support\HotelAmenityCatalog::options());
+const HOTEL_IMAGE_PLACEHOLDER = @js(\App\Support\AccommodationImage::placeholder());
+let originalAmenityKeys = [];
+let hotelAmenityEditor = null;
+let hotelSaving = false;
+const hotelImages = new AdminImageEditor('hotel-images', () => {
+    document.getElementById('saveBtn').disabled = hotelSaving || !hotelImages.ready;
+});
 
 // ═══════════════════════════════════════════
 // BOOT
 // ═══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-    loadHotels();
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('searchInput').value = params.get('search') || '';
+    document.getElementById('statusFilter').value = params.get('status') || '';
+    document.getElementById('starFilter').value = params.get('star') || '';
+    currentPage = Math.max(1, Number(params.get('page')) || 1);
+    loadHotels(currentPage);
     loadLocations();
     renderAmenityGrid([]);
 });
@@ -776,6 +745,9 @@ async function loadHotels(page = 1) {
     if (search) params.set('search', search);
     if (status) params.set('status', status);
     if (star)   params.set('star', star);
+    const listUrl = new URL(window.location.href);
+    listUrl.search = params.toString();
+    window.history.replaceState({}, '', listUrl);
 
     try {
         const res  = await adminApi('/hotels?' + params.toString());
@@ -785,14 +757,14 @@ async function loadHotels(page = 1) {
 
         renderTable(items);
         renderPagination(data);
-        updateStats(items, data.total ?? items.length);
+        updateStats(data.stats);
         document.getElementById('tableCount').textContent =
             `${(data.total ?? items.length).toLocaleString('vi-VN')} khách sạn`;
     } catch(_) {
         document.getElementById('hotelTableBody').innerHTML = `
             <tr><td colspan="8">
                 <div class="empty-state">
-                    <div class="empty-icon">⚠️</div>
+                    <div class="empty-icon">${adminIcon('circle-alert')}</div>
                     <div style="font-size:14px">Không thể tải dữ liệu. <a href="#" onclick="loadHotels()">Thử lại</a></div>
                 </div>
             </td></tr>`;
@@ -807,7 +779,7 @@ function renderTable(hotels) {
     if (!hotels.length) {
         tbody.innerHTML = `<tr><td colspan="8">
             <div class="empty-state">
-                <div class="empty-icon">🏨</div>
+                <div class="empty-icon">${adminIcon('hotel')}</div>
                 <div style="font-size:14px">Không tìm thấy khách sạn nào</div>
             </div></td></tr>`;
         return;
@@ -822,39 +794,46 @@ function renderTable(hotels) {
 
         const stars = '★'.repeat(h.star_rating ?? 0) + '☆'.repeat(5 - (h.star_rating ?? 0));
         const roomCount = h.rooms_count ?? h.rooms?.length ?? '—';
+        const detailUrl = hotelDetailUrl(h.id);
+        const websiteUrl = '/hotels/' + encodeURIComponent(h.id);
+        const statusAction = h.status === 'active'
+            ? `<button type="button" data-admin-action="pause" onclick="toggleStatus(${h.id},'inactive',this)">Tạm ngừng bán</button>`
+            : `<button type="button" data-admin-action="activate" onclick="toggleStatus(${h.id},'active',this)">Mở bán</button>`;
 
         return `<tr>
-            <td style="color:var(--gray);font-size:12px;font-family:monospace">#${h.id}</td>
-            <td>
+            <td data-label="#" style="color:var(--gray);font-size:12px;font-family:inherit">#${h.id}</td>
+            <td data-label="Khách sạn">
                 <div class="hotel-info">
                     <img class="hotel-thumb"
-                         src="https://picsum.photos/seed/${h.id}/120/90"
+                         src="${escHtml(h.cover_image_url || HOTEL_IMAGE_PLACEHOLDER)}"
                          alt="${escHtml(h.name)}"
-                         onerror="this.style.background='rgba(135,206,250,0.2)'">
+                         onerror="this.onerror=null;this.src='${escHtml(HOTEL_IMAGE_PLACEHOLDER)}'">
                     <div>
-                        <div class="hotel-name">${escHtml(h.name)}</div>
+                        <div class="hotel-name"><a class="hotel-name-link" href="${detailUrl}">${escHtml(h.name)}</a></div>
                         <div class="hotel-addr">${escHtml(h.location?.name ?? '—')}</div>
                     </div>
                 </div>
             </td>
-            <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--gray);font-size:12px">
+            <td data-label="Địa chỉ" style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--gray);font-size:12px">
                 ${escHtml(h.address ?? '—')}
             </td>
-            <td><span class="stars">${stars}</span></td>
-            <td>
+            <td data-label="Sao"><span class="stars">${stars}</span></td>
+            <td data-label="Đánh giá">
                 <span style="font-weight:600">${h.avg_rating ?? '—'}</span>
                 <span style="font-size:11px;color:var(--gray)"> /5</span>
             </td>
-            <td style="text-align:center">${roomCount}</td>
-            <td>${statusBadge}</td>
-            <td>
-                <div style="display:flex;gap:5px">
-                    <button class="btn-act btn-room" onclick="openRoomTypeModal(${h.id})" title="Thêm phòng">🛏 Phòng</button>
-                    <button class="btn-act btn-edit" onclick="openEditModal(${JSON.stringify(h).replace(/"/g,'&quot;')})">Sửa</button>
-                    ${h.status === 'active' 
-                        ? `<button class="btn-act btn-toggle-on" onclick="toggleStatus(${h.id},'inactive',this)">Tắt</button>`
-                        : `<button class="btn-act btn-toggle-off" onclick="toggleStatus(${h.id},'active',this)">Bật</button>`
-                    }
+            <td data-label="Tổng phòng" style="text-align:center">${roomCount}</td>
+            <td data-label="Trạng thái">${statusBadge}</td>
+            <td data-label="Hành động">
+                <div class="hotel-row-actions">
+                    <a class="btn-act hotel-detail-link" href="${detailUrl}">Chi tiết</a>
+                    <details class="hotel-action-menu">
+                        <summary aria-label="Thêm hành động">⋯</summary>
+                        <div class="hotel-action-menu-list">
+                            <a href="${websiteUrl}" target="_blank" rel="noopener">Xem trên website</a>
+                            ${statusAction}
+                        </div>
+                    </details>
                 </div>
             </td>
         </tr>`;
@@ -864,16 +843,15 @@ function renderTable(hotels) {
 // ═══════════════════════════════════════════
 // STATS (từ danh sách hiện tại)
 // ═══════════════════════════════════════════
-function updateStats(hotels, total) {
-    document.querySelector('.js-stat-total').textContent = total;
-    const active   = hotels.filter(h => h.status === 'active').length;
-    const inactive = hotels.filter(h => h.status !== 'active').length;
-    const avgRating = hotels.length
-        ? (hotels.reduce((s,h) => s + parseFloat(h.avg_rating||0), 0) / hotels.length).toFixed(1)
-        : '—';
-    document.querySelector('.js-stat-active').textContent   = active;
-    document.querySelector('.js-stat-inactive').textContent = inactive;
-    document.querySelector('.js-stat-rating').textContent   = avgRating;
+function updateStats(stats) {
+    const values = stats || {};
+    document.querySelector('.js-stat-total').textContent = values.total ?? '—';
+    document.querySelector('.js-stat-active').textContent = values.active ?? '—';
+    document.querySelector('.js-stat-inactive').textContent = values.inactive ?? '—';
+    document.querySelector('.js-stat-rating').textContent = values.average_rating == null ? '—' : Number(values.average_rating).toFixed(1);
+    document.querySelector('.js-stat-status-note').textContent = stats
+        ? 'Đóng cửa: ' + values.closed + (values.other ? ' · Trạng thái khác: ' + values.other : '')
+        : 'Chưa tải được thống kê';
 }
 
 // ═══════════════════════════════════════════
@@ -901,43 +879,32 @@ async function toggleStatus(id, newStatus, btn) {
 // AMENITY GRID
 // ═══════════════════════════════════════════
 function renderAmenityGrid(checked = []) {
-    const grid = document.getElementById('amenityGrid');
-    grid.innerHTML = AMENITY_LIST.map(a => `
-        <label class="amenity-item ${checked.includes(a.key) ? 'checked' : ''}" onclick="toggleAmenityLabel(this)">
-            <input type="checkbox" value="${a.key}" ${checked.includes(a.key) ? 'checked' : ''}>
-            ${a.label}
-        </label>
-    `).join('');
+    hotelAmenityEditor = new AdminAmenityEditor('amenityGrid', checked);
 }
-
-function toggleAmenityLabel(el) {
-    setTimeout(() => {
-        const cb = el.querySelector('input[type=checkbox]');
-        el.classList.toggle('checked', cb.checked);
-    }, 0);
-}
-
-function getSelectedAmenities() {
-    return [...document.querySelectorAll('#amenityGrid input[type=checkbox]:checked')]
-        .map(cb => cb.value);
-}
+function getSelectedAmenities() { return hotelAmenityEditor.values(); }
 
 // ═══════════════════════════════════════════
 // MODAL — MỞ THÊM MỚI
 // ═══════════════════════════════════════════
 function openAddModal() {
+    if (hotelSaving || isRoomTypeModalOpen()) return;
     editingId = null;
     document.getElementById('modalTitle').textContent = 'Thêm khách sạn mới';
     document.getElementById('saveBtnText').textContent = 'Tạo khách sạn';
     resetForm();
+    selectHotelTab('info');
+    hotelImages.open(null);
+    originalAmenityKeys = [];
     renderAmenityGrid([]);
     document.getElementById('hotelModal').classList.add('open');
+    syncAccommodationScroll();
 }
 
 // ═══════════════════════════════════════════
 // MODAL — MỞ SỬA
 // ═══════════════════════════════════════════
 function openEditModal(hotel) {
+    if (hotelSaving || isRoomTypeModalOpen()) return;
     editingId = hotel.id;
     document.getElementById('modalTitle').textContent = `Sửa: ${hotel.name}`;
     document.getElementById('saveBtnText').textContent = 'Lưu thay đổi';
@@ -950,28 +917,40 @@ function openEditModal(hotel) {
     document.getElementById('f-description').value = hotel.description ?? '';
     document.getElementById('f-phone').value       = hotel.phone ?? '';
     document.getElementById('f-email').value       = hotel.email ?? '';
-    document.getElementById('f-checkin').value     = hotel.check_in_time  ? hotel.check_in_time.slice(0,5)  : '14:00';
-    document.getElementById('f-checkout').value    = hotel.check_out_time ? hotel.check_out_time.slice(0,5) : '12:00';
     document.getElementById('f-lat').value         = hotel.latitude  ?? '';
     document.getElementById('f-lng').value         = hotel.longitude ?? '';
     document.getElementById('f-status').value      = hotel.status ?? 'active';
 
     // Amenities
-    const existingAmenities = (hotel.amenities ?? []).map(a => a.amenity ?? a.key ?? a);
-    renderAmenityGrid(existingAmenities);
+    const existingAmenities = (hotel.amenities ?? []).map(a => a.amenity ?? a.key ?? a)
+        .map(key => key === 'airport' ? 'airport_shuttle' : key);
+    originalAmenityKeys = [...new Set(existingAmenities)].sort();
+    renderAmenityGrid(originalAmenityKeys);
+    selectHotelTab('info');
+    hotelImages.open('/hotels/' + hotel.id + '/images');
 
     document.getElementById('hotelModal').classList.add('open');
+    syncAccommodationScroll();
 }
 
 // ═══════════════════════════════════════════
 // SAVE (thêm mới hoặc sửa)
 // ═══════════════════════════════════════════
 async function saveHotel() {
-    if (!validateForm()) return;
+    if (hotelSaving || isRoomTypeModalOpen() || !hotelImages.ready) return;
+    const editorToSave = hotelAmenityEditor;
+    const amenitiesReady = await editorToSave.readyForSave();
+    if (hotelSaving || hotelAmenityEditor !== editorToSave || !document.getElementById('hotelModal').classList.contains('open')) return;
+    if (!amenitiesReady) {
+        selectHotelTab('info');
+        document.getElementById('amenityGrid').scrollIntoView({block:'center'});
+        return;
+    }
+    if (!validateForm()) { selectHotelTab('info'); return; }
 
     const btn = document.getElementById('saveBtn');
     const txt = document.getElementById('saveBtnText');
-    btn.disabled = true; txt.textContent = 'Đang lưu...';
+    btn.disabled = true; adminBusy(btn,true); txt.textContent = 'Đang lưu...';
 
     const payload = {
         name:           document.getElementById('f-name').value.trim(),
@@ -981,40 +960,45 @@ async function saveHotel() {
         description:    document.getElementById('f-description').value.trim(),
         phone:          document.getElementById('f-phone').value.trim(),
         email:          document.getElementById('f-email').value.trim(),
-        check_in_time:  document.getElementById('f-checkin').value,
-        check_out_time: document.getElementById('f-checkout').value,
         latitude:       document.getElementById('f-lat').value  || null,
         longitude:      document.getElementById('f-lng').value  || null,
         status:         document.getElementById('f-status').value,
-        amenities:      getSelectedAmenities(),
     };
 
+    const selectedAmenities = [...new Set(getSelectedAmenities())].sort();
+    if (!editingId || JSON.stringify(selectedAmenities) !== JSON.stringify(originalAmenityKeys)) {
+        payload.amenities = selectedAmenities;
+    }
     try {
+        const body = hotelImages.body(payload, editingId ? 'PUT' : 'POST');
+        hotelSaving = true;
+        hotelAmenityEditor.setSaving(true);
+        hotelImages.setSaving(true);
+        document.querySelectorAll('#hotelModal [onclick="closeModal()"]').forEach(button => button.disabled = true);
         let res;
         let data;
         if (editingId) {
             // Sửa
             res = await adminApi(`/hotels/${editingId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                method: body instanceof FormData ? 'POST' : 'PUT',
+                body,
             });
             data = await res.json();
         } else {
             // Thêm mới
             res = await adminApi('/hotels', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                body,
             });
             data = await res.json();
         }
 
         if (!res.ok) {
-            throw new Error(data.message ?? 'Lỗi server');
+            throw new Error(Object.values(data.errors || {}).flat().join(' ') || data.message || 'Lỗi server');
         }
 
         showToast(editingId ? '✅ Đã cập nhật khách sạn' : '✅ Đã thêm khách sạn mới');
+        hotelSaving = false;
         closeModal();
         loadHotels(editingId ? currentPage : 1);
 
@@ -1023,94 +1007,21 @@ async function saveHotel() {
             setTimeout(() => openRoomTypeModal(data.hotel.id), 500);
         }
     } catch(e) {
+        hotelImages.status(e.message || 'Lưu thất bại. Lựa chọn ảnh vẫn được giữ.', true);
+        selectHotelTab('images');
         showToast('❌ ' + (e.message || 'Lưu thất bại'));
     } finally {
-        btn.disabled = false;
+        hotelSaving = false;
+        hotelImages.setSaving(false);
+        hotelAmenityEditor.setSaving(false);
+        document.querySelectorAll('#hotelModal [onclick="closeModal()"]').forEach(button => button.disabled = false);
+        btn.disabled = !hotelImages.ready; adminBusy(btn,false);
         txt.textContent = editingId ? 'Lưu thay đổi' : 'Tạo khách sạn';
     }
 }
 
 // ═══════════════════════════════════════════
 // ROOM TYPE MODAL
-// ═══════════════════════════════════════════
-let _currentRoomHotelId = null;
-
-function openRoomTypeModal(hotelId) {
-    _currentRoomHotelId = hotelId;
-    document.getElementById('rtHotelId').value = hotelId;
-    document.getElementById('rtName').value    = '';
-    document.getElementById('rtPrice').value   = '';
-    document.getElementById('rtCapacity').value= '2';
-    document.getElementById('rtBedType').value = '';
-    document.getElementById('rtFloor').value   = '1';
-    document.getElementById('rtCount').value   = '5';
-    document.getElementById('rtDesc').value    = '';
-    document.getElementById('roomTypeModalTitle').textContent = 'Thêm loại phòng';
-    document.getElementById('roomTypeModal').classList.add('open');
-}
-
-function closeRoomTypeModal() {
-    document.getElementById('roomTypeModal').classList.remove('open');
-}
-
-function closeRoomTypeModalOnBg(event) {
-    if (event.target === document.getElementById('roomTypeModal')) {
-        closeRoomTypeModal();
-    }
-}
-
-async function saveRoomType() {
-    const hotelId = document.getElementById('rtHotelId').value;
-    const name    = document.getElementById('rtName').value.trim();
-    const price   = document.getElementById('rtPrice').value;
-    const capacity= document.getElementById('rtCapacity').value;
-    const bedType = document.getElementById('rtBedType').value;
-    const floor   = document.getElementById('rtFloor').value;
-    const count   = document.getElementById('rtCount').value;
-    const desc    = document.getElementById('rtDesc').value;
-
-    if (!name || !price || !count) {
-        showToast('Vui lòng điền đầy đủ thông tin bắt buộc!');
-        return;
-    }
-
-    const btn = document.getElementById('rtSaveBtn');
-    btn.disabled = true;
-    btn.textContent = 'Đang tạo...';
-
-    try {
-        const res = await adminApi(`/hotels/${hotelId}/room-types`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name,
-                base_price:  parseFloat(price),
-                capacity:    parseInt(capacity),
-                bed_type:    bedType,
-                floor_start: parseInt(floor),
-                room_count:  parseInt(count),
-                description: desc,
-            }),
-        });
-        const data = await res.json();
-
-        if (res.ok) {
-            showToast(data.message || 'Tạo phòng thành công!');
-            closeRoomTypeModal();
-            loadHotels(currentPage);
-        } else {
-            showToast(data.message || 'Lỗi tạo phòng');
-        }
-    } catch(e) {
-        showToast('Lỗi kết nối');
-    } finally {
-        btn.disabled = false;
-        btn.textContent = 'Tạo loại phòng';
-    }
-}
-
-// ═══════════════════════════════════════════
-// VALIDATE
 // ═══════════════════════════════════════════
 function validateForm() {
     let ok = true;
@@ -1138,14 +1049,12 @@ function resetForm() {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
-    document.getElementById('f-checkin').value  = '14:00';
-    document.getElementById('f-checkout').value = '12:00';
     document.getElementById('f-status').value   = 'active';
     ['fg-name','fg-location','fg-star'].forEach(id =>
         document.getElementById(id)?.classList.remove('has-error'));
 }
 
-function closeModal() { document.getElementById('hotelModal').classList.remove('open'); }
+function closeModal() { if (hotelSaving || isRoomTypeModalOpen()) return; hotelImages.reset(); document.getElementById('hotelModal').classList.remove('open'); syncAccommodationScroll(); }
 function closeModalBg(e) { if (e.target === document.getElementById('hotelModal')) closeModal(); }
 
 // ═══════════════════════════════════════════
@@ -1213,6 +1122,11 @@ function escHtml(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function hotelDetailUrl(id) {
+    const returnTo = window.location.pathname + window.location.search;
+    return '/admin/hotels/' + encodeURIComponent(id) + '?return=' + encodeURIComponent(returnTo);
+}
+
 function showToast(msg) {
     if (typeof adminToast === 'function') { adminToast(msg); return; }
     const el = document.getElementById('htToast');
@@ -1221,4 +1135,6 @@ function showToast(msg) {
 }
 
 </script>
+@include('admin.partials.accommodation-modal-script')
+@include('admin.partials.room-type-modal-script')
 @endpush

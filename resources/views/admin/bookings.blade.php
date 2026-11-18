@@ -1,7 +1,7 @@
 {{-- resources/views/admin/bookings.blade.php --}}
 @extends('admin.layouts.admin')
 
-@section('title', 'Quản lý Bookings')
+@section('title', 'Quản lý đặt phòng')
 
 @push('styles')
 <style>
@@ -11,7 +11,7 @@
         margin-bottom: 20px;
     }
     .page-title {
-        font-family: 'Nunito Sans', system-ui, sans-serif;
+        font-family: 'Be Vietnam Pro', system-ui, sans-serif;
         font-size: 22px; font-weight: 700; color: var(--dark);
     }
     .page-sub { font-size: 13px; color: var(--gray); margin-top: 3px; }
@@ -200,7 +200,7 @@
         border-bottom: 1px solid rgba(135,206,250,0.15);
         display: flex; align-items: center; justify-content: space-between;
     }
-    .modal-title { font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
+    .modal-title { font-family: 'Be Vietnam Pro', system-ui, sans-serif; font-size: 17px; font-weight: 700; color: var(--dark); }
     .modal-close {
         width: 28px; height: 28px; border-radius: 8px;
         background: var(--bg); border: none; cursor: pointer;
@@ -278,10 +278,13 @@
 {{-- Page header --}}
 <div class="page-header">
     <div>
-        <div class="page-title">Quản lý Bookings</div>
+        <h1 class="page-title">Quản lý đặt phòng</h1>
         <div class="page-sub">Xem và cập nhật trạng thái đặt phòng</div>
+        @if(\App\Support\LocalBookingDemo::enabled())
+        <a href="/admin/payment-reconciliation" style="display:inline-block;margin-top:8px">Giao dịch cần đối soát</a>
+        @endif
     </div>
-    <button class="btn-primary" onclick="loadBookings()">
+    <button class="btn-primary" data-admin-action="refresh" onclick="loadBookings()">
         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2">
             <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
         </svg>
@@ -291,12 +294,12 @@
 
 {{-- Stat cards --}}
 <div class="stats-grid" id="statCards">
-    @foreach([['all','Tất cả','📋'],['pending','Chờ duyệt','⏳'],['confirmed','Đã xác nhận','✅'],['cancelled','Đã huỷ','❌']] as [$s,$l,$ic])
+    @foreach([['all','Tất cả','calendar-days'],['pending','Chờ duyệt','calendar-check'],['confirmed','Đã xác nhận','check'],['cancelled','Đã huỷ','x']] as [$s,$l,$ic])
     <div class="stat-card {{ $s === 'all' ? 'active' : '' }}" onclick="filterByStatus('{{ $s }}')" data-filter="{{ $s }}">
-        <div class="stat-icon" style="font-size:18px">{{ $ic }}</div>
+        <div class="stat-icon">@include('admin.partials.icon', ['name' => $ic])</div>
         <div class="stat-label">{{ $l }}</div>
         <div class="stat-value js-count-{{ $s }}">—</div>
-        <div class="stat-sub">bookings</div>
+        <div class="stat-sub">đặt phòng</div>
     </div>
     @endforeach
 </div>
@@ -335,7 +338,7 @@
         <span class="table-count" id="tableCount">Đang tải...</span>
     </div>
 
-    <div style="overflow-x:auto;">
+    <div class="admin-table-scroll">
         <table class="bk-table">
             <thead>
                 <tr>
@@ -379,8 +382,8 @@
             {{-- filled by JS --}}
         </div>
         <div class="modal-footer">
-            <button class="btn-action btn-cancel" onclick="closeModalDirect()">Đóng</button>
-            <button class="btn-action btn-confirm" id="modalSaveBtn" onclick="saveStatus()">Lưu thay đổi</button>
+            <button class="btn-action btn-secondary" onclick="closeModalDirect()">Đóng</button>
+            <button class="btn-save" id="modalSaveBtn" onclick="saveStatus()">Lưu thay đổi</button>
         </div>
     </div>
 </div>
@@ -473,7 +476,7 @@
             tbody.innerHTML = `
                 <tr><td colspan="8">
                     <div class="empty-state">
-                        <div class="empty-icon">📋</div>
+                        <div class="empty-icon">${adminIcon('calendar-days')}</div>
                         <div class="empty-text">Không có booking nào phù hợp</div>
                     </div>
                 </td></tr>`;
@@ -481,8 +484,8 @@
         }
 
         tbody.innerHTML = bookings.map(b => `
-            <tr onclick="openModal(${JSON.stringify(b).replace(/"/g, '&quot;')})">
-                <td><span style="font-family:monospace;font-size:12px;color:var(--gray)">#${b.id}</span></td>
+            <tr onclick="openModal(${escHtml(JSON.stringify(b))})">
+                <td><span style="font-family:inherit;font-size:12px;color:var(--gray)">#${b.id}</span></td>
                 <td>
                     <div class="guest-info">
                         <span class="guest-name">${escHtml(b.customer?.name ?? b.guest_name ?? '—')}</span>
@@ -491,6 +494,7 @@
                 </td>
                 <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
                     ${escHtml(b.hotel?.name ?? '—')}
+                    <div style="font-size:11px;color:var(--gray);margin-top:3px">${escHtml(b.room_type_summary || 'Chưa có chi tiết loại phòng')}</div>
                 </td>
                 <td style="white-space:nowrap">${formatDate(b.check_in)}</td>
                 <td style="white-space:nowrap">${formatDate(b.check_out)}</td>
@@ -515,9 +519,10 @@
     }
 
     function actionBtns(b) {
+        if (b.is_demo) return `<div style="display:flex;gap:6px;flex-wrap:wrap"><a class="btn-action" data-admin-action="view" href="/demo/admin/payments/${Number(b.id)}">Xử lý thanh toán</a>${b.status==='confirmed'?`<button class="btn-action btn-complete" onclick="quickStatus(${Number(b.id)},'completed',this)">Hoàn thành</button>`:''}</div>`;
         const btns = [];
         if (b.status === 'pending')
-            btns.push(`<button class="btn-action btn-confirm" onclick="quickStatus(${b.id},'confirmed',this)">Xác nhận</button>`);
+            btns.push('<span style="font-size:11px;color:var(--gray)">Chờ xác minh thanh toán</span>');
         if (b.status === 'confirmed')
             btns.push(`<button class="btn-action btn-complete" onclick="quickStatus(${b.id},'completed',this)">Hoàn thành</button>`);
         if (['pending','confirmed'].includes(b.status))
@@ -529,7 +534,7 @@
     // QUICK STATUS UPDATE (từ bảng)
     // ═══════════════════════════════════════════
     async function quickStatus(id, status, btn) {
-        btn.disabled = true;
+        btn.disabled = true; adminBusy(btn,true);
         btn.textContent = '...';
         try {
             const res = await adminApi(`/bookings/${id}/status`, {
@@ -545,7 +550,7 @@
             showToast('❌ Cập nhật thất bại');
             btn.disabled = false;
             btn.textContent = btn.dataset.label ?? 'Thử lại';
-        }
+        } finally { adminBusy(btn,false); }
     }
 
     // ═══════════════════════════════════════════
@@ -592,6 +597,14 @@
                         <div class="detail-value">${escHtml(booking.hotel?.name ?? '—')}</div>
                     </div>
                     <div class="detail-item">
+                        <div class="detail-label">Loại phòng và số lượng</div>
+                        <div class="detail-value">${escHtml(booking.room_type_summary || 'Chưa có chi tiết loại phòng')}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Tổng số phòng</div>
+                        <div class="detail-value">${booking.room_quantity ?? '—'}</div>
+                    </div>
+                    <div class="detail-item">
                         <div class="detail-label">Số đêm</div>
                         <div class="detail-value">${nights} đêm</div>
                     </div>
@@ -617,7 +630,7 @@
             <div class="detail-section">
                 <div class="detail-section-title">Cập nhật trạng thái</div>
                 <div class="status-btns" id="statusBtns">
-                    ${['pending','confirmed','completed','cancelled'].map(s => `
+                    ${(booking.status==='pending'?['pending','cancelled']:booking.status==='confirmed'?['confirmed','completed','cancelled']:[booking.status]).map(s => `
                         <div class="status-opt ${s === booking.status ? 'selected' : ''}"
                             data-s="${s}" onclick="selectStatus('${s}')">
                             ${statusLabel(s)}
@@ -644,7 +657,7 @@
             return;
         }
         const btn = document.getElementById('modalSaveBtn');
-        btn.disabled = true; btn.textContent = 'Đang lưu...';
+        btn.disabled = true; adminBusy(btn,true); btn.textContent = 'Đang lưu...';
         try {
             const res = await adminApi(`/bookings/${currentBooking.id}/status`, {
                 method: 'PUT',
@@ -659,7 +672,7 @@
         } catch(_) {
             showToast('❌ Cập nhật thất bại');
         } finally {
-            btn.disabled = false; btn.textContent = 'Lưu thay đổi';
+            btn.disabled = false; adminBusy(btn,false); btn.textContent = 'Lưu thay đổi';
         }
     }
 
@@ -744,7 +757,7 @@
         document.getElementById('bookingTableBody').innerHTML = `
             <tr><td colspan="8">
                 <div class="empty-state">
-                    <div class="empty-icon">⚠️</div>
+                    <div class="empty-icon">${adminIcon('circle-alert')}</div>
                     <div class="empty-text">Không thể tải dữ liệu. <a href="#" onclick="loadBookings()">Thử lại</a></div>
                 </div>
             </td></tr>`;

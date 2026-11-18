@@ -27,6 +27,19 @@ class Itinerary extends Model
     ];
 
     protected $casts = [
+        'planning_metadata' => 'array',
+        'schema_version' => 'integer',
+        'is_provisional' => 'boolean',
+        'revision' => 'integer',
+        'adults' => 'integer',
+        'children' => 'array',
+        'infants' => 'array',
+        'interests' => 'array',
+        'food_restrictions' => 'array',
+        'activity_window_confirmed' => 'boolean',
+        'lodging_check_in' => 'date:Y-m-d',
+        'lodging_check_out' => 'date:Y-m-d',
+        'contingency_amount' => 'decimal:2',
         'start_date'       => 'date',
         'end_date'         => 'date',
         'estimated_budget' => 'decimal:2',

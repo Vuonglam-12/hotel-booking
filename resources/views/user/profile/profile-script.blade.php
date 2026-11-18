@@ -8,47 +8,49 @@
 /* ============================================================
    LOAD PROFILE — gọi /api/me và điền vào form + hero + stats
 ============================================================ */
+let profileSupportsDob = false;
+let profileConfirmedAvatarUrl = '';
+let profilePreviewObjectUrl = null;
 async function loadProfile() {
+    const state = document.getElementById('profileLoadState');
+    state.className = ''; state.innerHTML = accountLoading('Đang tải hồ sơ…'); state.hidden = false;
+    document.getElementById('btnSaveProfile').disabled = true;
     try {
         const res  = await api('/me');
         const data = await res.json();
 
         if (!res.ok) {
             if (res.status === 401) { window.location.href = '/login'; return; }
-            showToast('Không thể tải thông tin!', 'error'); return;
+            throw new Error('Không thể tải hồ sơ.');
         }
 
         // Điền form
         document.getElementById('profileName').value    = data.name    || '';
         document.getElementById('profileEmail').value   = data.email   || '';
         document.getElementById('profilePhone').value   = data.phone   || '';
-        document.getElementById('profileDob').value     = data.dob     || '';
+        profileSupportsDob = data.profile_fields?.dob === true;
+        document.getElementById('profileDob').disabled = !profileSupportsDob;
+        document.getElementById('profileDob').value = profileSupportsDob ? (data.dob || '') : '';
 
-        // Hero info
-        document.getElementById('heroDisplayName').innerText = data.name || 'Người dùng';
-        document.getElementById('heroPhone').innerText       = data.phone || '---';
-        document.getElementById('heroEmail').innerText       = data.email || '---';
-        if (data.created_at) {
-            const d = new Date(data.created_at);
-            if (!isNaN(d.getTime())) {
-                document.getElementById('heroMemberSince').innerText = `${d.getMonth()+1}/${d.getFullYear()}`;
-            }
-        }
-
-        // Avatar
+        // Account summary
+        document.getElementById('profileAccountName').textContent = data.name || 'Tài khoản Angel';
+        document.getElementById('profileAccountEmail').textContent = data.email || 'Chưa có email đăng nhập';
+        profileConfirmedAvatarUrl = data.avatar_url || '';
         _renderProfileAvatar(data.avatar_url, data.name);
 
-        // Stats
-        if (data.points   !== undefined) document.getElementById('stat-points').innerText   = data.points;
-        if (data.bookings !== undefined) document.getElementById('stat-bookings').innerText = data.bookings;
-        if (data.vouchers !== undefined) document.getElementById('stat-vouchers').innerText = data.vouchers;
+        // Booking count is shown only when the API returns a real non-negative integer.
+        const bookingCount = Number(data.bookings);
+        document.getElementById('stat-bookings').textContent = Number.isSafeInteger(bookingCount) && bookingCount >= 0 ? bookingCount : '—';
 
         // Sync localStorage
-        const stored = JSON.parse(localStorage.getItem('user') || '{}');
+        let stored = {};
+        try { stored = JSON.parse(localStorage.getItem('user') || '{}'); } catch {}
         localStorage.setItem('user', JSON.stringify({ ...stored, ...data }));
-
+        loadUserUI();
+        state.hidden = true; document.getElementById('profileContent').hidden = false; document.getElementById('btnSaveProfile').disabled = false;
     } catch (e) {
-        showToast('Lỗi kết nối!', 'error');
+        document.getElementById('profileContent').hidden = true;
+        state.innerHTML = '<div class="empty-state error-state">' + accountIcon('circle-alert') + '<h2>Chưa thể tải hồ sơ</h2><p>Vui lòng kiểm tra kết nối và thử lại.</p><button type="button" class="button secondary" onclick="loadProfile()">Thử lại</button></div>';
     }
 }
 
@@ -65,13 +67,14 @@ function _renderProfileAvatar(avatarUrl, name) {
         img.style.display = 'block';
         initial.style.display = 'none';
 
-        // Thêm: nếu ảnh load lỗi thì fallback về initial
         img.onerror = () => {
+            img.removeAttribute('src');
             img.style.display = 'none';
             initial.textContent = letter;
             initial.style.display = 'flex';
-            console.warn('[Avatar] Broken URL:', avatarUrl)};
+        };
     } else {
+        img.removeAttribute('src');
         initial.textContent = letter;
         initial.style.display = 'flex';
         img.style.display = 'none';
@@ -90,36 +93,37 @@ async function saveProfile() {
     _clearAlerts('profile');
 
     if (!name) { _showAlert('profile', 'error', 'Vui lòng nhập họ và tên!'); return; }
+    if (profileSupportsDob && !document.getElementById('profileDob').validity.valid) {
+        _showAlert('profile', 'error', 'Ngày sinh phải hợp lệ và không sau ngày hiện tại.'); return;
+    }
 
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang lưu...';
+    btn.textContent = 'Đang lưu…';
 
     try {
         const res  = await api('/me', {
             method: 'PUT',
-            body: JSON.stringify({ name, phone, dob})
+            body: JSON.stringify({ name, phone, ...(profileSupportsDob ? { dob } : {}) })
         });
         const data = await res.json();
 
         if (res.ok) {
             // Cập nhật localStorage
             const stored = JSON.parse(localStorage.getItem('user') || '{}');
-            const updated = { ...stored, name, phone, dob};
+            const updated = { ...stored, name, phone, ...(profileSupportsDob ? { dob } : {}) };
             if (data.user) Object.assign(updated, data.user);
             localStorage.setItem('user', JSON.stringify(updated));
 
             // Cập nhật sidebar + topbar (hàm từ user.blade.php)
             if (typeof loadUserUI === 'function') loadUserUI();
 
-            // Reload lại hero info
-            document.getElementById('heroDisplayName').innerText = name;
-            document.getElementById('heroPhone').innerText = phone || '---';
+            document.getElementById('profileAccountName').textContent = name;
             _renderProfileAvatar(updated.avatar_url, name);
 
             _showAlert('profile', 'success', data.message || 'Cập nhật thành công!');
             showToast('Lưu thành công!', 'success');
         } else {
-            _showAlert('profile', 'error', data.message || 'Cập nhật thất bại!');
+            _showAlert('profile', 'error', accountErrorMessage(data, 'Cập nhật thất bại!'));
             showToast(data.message || 'Cập nhật thất bại', 'error');
         }
     } catch (e) {
@@ -127,61 +131,7 @@ async function saveProfile() {
         showToast('Lỗi kết nối', 'error');
     } finally {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi';
-    }
-}
-
-/* ============================================================
-   SAVE PASSWORD — POST /api/me/password
-============================================================ */
-async function savePassword() {
-    const current = document.getElementById('pwCurrent').value;
-    const newPw   = document.getElementById('pwNew').value;
-    const confirm = document.getElementById('pwConfirm').value;
-    const btn     = document.getElementById('btnSavePw');
-
-    _clearAlerts('pw');
-
-    if (!current || !newPw || !confirm) {
-        _showAlert('pw', 'error', 'Vui lòng nhập đầy đủ thông tin!'); return;
-    }
-    if (newPw.length < 6) {
-        _showAlert('pw', 'error', 'Mật khẩu mới tối thiểu 6 ký tự!'); return;
-    }
-    if (newPw !== confirm) {
-        _showAlert('pw', 'error', 'Mật khẩu xác nhận không khớp!'); return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang cập nhật...';
-
-    try {
-        const res  = await api('/me/password', {
-            method: 'POST',
-            body: JSON.stringify({
-                current_password:      current,
-                new_password:          newPw,
-                new_password_confirmation: confirm
-            })
-        });
-        const data = await res.json();
-
-        if (res.ok) {
-            document.getElementById('pwCurrent').value = '';
-            document.getElementById('pwNew').value     = '';
-            document.getElementById('pwConfirm').value = '';
-            _showAlert('pw', 'success', data.message || 'Đổi mật khẩu thành công!');
-            showToast('Đổi mật khẩu thành công!', 'success');
-        } else {
-            _showAlert('pw', 'error', data.message || 'Đổi mật khẩu thất bại!');
-            showToast(data.message || 'Đổi mật khẩu thất bại', 'error');
-        }
-    } catch (e) {
-        _showAlert('pw', 'error', 'Lỗi kết nối, vui lòng thử lại!');
-        showToast('Lỗi kết nối', 'error');
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Cập nhật mật khẩu';
+        btn.innerHTML = 'Lưu thay đổi ' + accountIcon('arrow-right');
     }
 }
 
@@ -193,23 +143,28 @@ async function handleAvatarUpload(input) {
     if (!file) return;
 
     if (file.size > 2 * 1024 * 1024) {
-        showToast('Ảnh tối đa 2MB!', 'error'); return;
+        input.value = '';
+        showToast('Ảnh đại diện không được vượt quá 2 MB.', 'error'); return;
     }
-    if (!file.type.startsWith('image/')) {
-        showToast('Chỉ chấp nhận file ảnh!', 'error'); return;
+    if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
+        input.value = '';
+        showToast('Chỉ chấp nhận ảnh JPG, PNG hoặc WebP.', 'error'); return;
     }
 
-    // Preview ngay lập tức
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        _renderProfileAvatar(e.target.result, null);
-        // Cũng update sidebar + topbar
-        const stored = JSON.parse(localStorage.getItem('user') || '{}');
-        stored.avatar_url = e.target.result;
-        localStorage.setItem('user', JSON.stringify(stored));
-        if (typeof loadUserUI === 'function') loadUserUI();
-    };
-    reader.readAsDataURL(file);
+    const uploadButton = document.getElementById('avatarUploadButton');
+    const status = document.getElementById('profileAvatarStatus');
+    let stored = {};
+    try { stored = JSON.parse(localStorage.getItem('user') || '{}'); } catch {}
+    const fallbackName = document.getElementById('profileName').value || stored.name || '';
+
+    if (profilePreviewObjectUrl) URL.revokeObjectURL(profilePreviewObjectUrl);
+    profilePreviewObjectUrl = URL.createObjectURL(file);
+    _renderProfileAvatar(profilePreviewObjectUrl, fallbackName);
+    uploadButton.disabled = true;
+    uploadButton.setAttribute('aria-busy', 'true');
+    uploadButton.textContent = 'Đang tải ảnh…';
+    status.className = 'profile-avatar-status';
+    status.textContent = 'Đang tải ảnh đại diện lên Angel…';
 
     // Upload lên server
     const formData = new FormData();
@@ -227,135 +182,31 @@ async function handleAvatarUpload(input) {
         const data = await res.json();
 
         if (res.ok && data.avatar_url) {
-            const stored = JSON.parse(localStorage.getItem('user') || '{}');
             stored.avatar_url = data.avatar_url;
             localStorage.setItem('user', JSON.stringify(stored));
+            profileConfirmedAvatarUrl = data.avatar_url;
             _renderProfileAvatar(data.avatar_url, stored.name);
             if (typeof loadUserUI === 'function') loadUserUI();
+            status.classList.add('success');
+            status.textContent = 'Ảnh đại diện đã được cập nhật.';
             showToast('Cập nhật ảnh thành công!', 'success');
         } else {
-            showToast(data.message || 'Upload thất bại!', 'error');
+            throw new Error(accountErrorMessage(data, 'Chưa thể cập nhật ảnh đại diện.'));
         }
     } catch (e) {
-        showToast('Lỗi kết nối khi upload ảnh!', 'error');
-    }
-
-    input.value = '';
-}
-
-/* ============================================================
-   TOGGLE PASSWORD VISIBILITY
-============================================================ */
-function togglePw(inputId, icon) {
-    const input = document.getElementById(inputId);
-    if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-    } else {
-        input.type = 'password';
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
+        _renderProfileAvatar(profileConfirmedAvatarUrl, fallbackName);
+        status.classList.add('error');
+        status.textContent = 'Ảnh xem trước đã được hoàn tác vì tải lên thất bại.';
+        showToast(e instanceof TypeError ? 'Lỗi kết nối khi tải ảnh. Vui lòng thử lại.' : e.message, 'error');
+    } finally {
+        if (profilePreviewObjectUrl) URL.revokeObjectURL(profilePreviewObjectUrl);
+        profilePreviewObjectUrl = null;
+        uploadButton.disabled = false;
+        uploadButton.removeAttribute('aria-busy');
+        uploadButton.innerHTML = accountIcon('camera') + ' Thay ảnh đại diện';
+        input.value = '';
     }
 }
 
-/* ============================================================
-   NOTIFICATION SETTINGS — lưu vào localStorage
-============================================================ */
-function saveNotifSettings() {
-    const settings = {
-        booking: document.getElementById('notifBooking')?.checked || false,
-        promo:   document.getElementById('notifPromo')?.checked || false,
-        system:  document.getElementById('notifSystem')?.checked || false,
-    };
-    localStorage.setItem('notif_settings', JSON.stringify(settings));
-    showToast('Đã lưu cài đặt thông báo', 'success');
-}
-
-function loadNotifSettings() {
-    try {
-        const s = JSON.parse(localStorage.getItem('notif_settings') || '{}');
-        if (s.booking !== undefined) document.getElementById('notifBooking').checked = s.booking;
-        if (s.promo   !== undefined) document.getElementById('notifPromo').checked   = s.promo;
-        if (s.system  !== undefined) document.getElementById('notifSystem').checked  = s.system;
-    } catch(e) {}
-}
-
-/* ============================================================
-   SCROLL TO PASSWORD SECTION khi vào từ sidebar #password
-============================================================ */
-function scrollToPasswordIfNeeded() {
-    if (window.location.hash === '#password') {
-        const el = document.getElementById('section-password');
-        if (el) {
-            setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
-        }
-    }
-}
-
-/* ============================================================
-   HELPERS — alert inline
-============================================================ */
-function _showAlert(prefix, type, msg) {
-    const el  = document.getElementById(prefix + (type === 'success' ? 'Success' : 'Error'));
-    const msg_el = document.getElementById(prefix + (type === 'success' ? 'SuccessMsg' : 'ErrorMsg'));
-    if (!el) return;
-    el.classList.remove('show');
-    void el.offsetWidth; // reflow
-    if (msg_el) msg_el.textContent = msg;
-    el.classList.add('show');
-}
-
-function _clearAlerts(prefix) {
-    ['Success', 'Error'].forEach(t => {
-        const el = document.getElementById(prefix + t);
-        if (el) el.classList.remove('show');
-    });
-}
-
-/* ============================================================
-   ACTIVITY LOG — Hoạt động gần đây
-============================================================ */
-function loadActivityLog() {
-    const activityList = document.getElementById('activityList');
-    if (!activityList) return;
-
-    let activities = JSON.parse(localStorage.getItem('activities') || '[]');
-    if (activities.length === 0) {
-        const fakeActivities = [
-            { type: 'login', title: 'Đăng nhập hệ thống', detail: 'Chrome trên Windows', time: '2 phút trước', icon: 'fa-sign-in-alt' },
-            { type: 'profile', title: 'Cập nhật hồ sơ', detail: 'Thay đổi ảnh đại diện', time: '1 giờ trước', icon: 'fa-user-edit' },
-            { type: 'booking', title: 'Đặt phòng thành công', detail: 'Khách sạn Sunrise Hà Nội', time: '3 giờ trước', icon: 'fa-bed' },
-            { type: 'password', title: 'Thay đổi mật khẩu', detail: 'Cập nhật mật khẩu', time: '2 ngày trước', icon: 'fa-shield-alt' },
-        ];
-        localStorage.setItem('activities', JSON.stringify(fakeActivities));
-        activities = fakeActivities;
-    }
-
-    const recent = activities.slice(0, 5);
-    activityList.innerHTML = recent.map(act => `
-        <div class="activity-item">
-            <div class="activity-icon"><i class="fas ${act.icon}"></i></div>
-            <div><div class="activity-title">${act.title}</div><div class="activity-sub">${act.detail}</div><div class="activity-time">${act.time}</div></div>
-        </div>
-    `).join('');
-}
-
-function viewAllActivity() {
-    const acts = JSON.parse(localStorage.getItem('activities') || '[]');
-    let modalHtml = `<div style="position:fixed; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:1000;" onclick="this.remove()"><div style="background:white; border-radius:20px; max-width:500px; width:90%; padding:24px;"><h3 style="margin-bottom:16px;">Lịch sử hoạt động</h3><div style="max-height:60vh; overflow:auto;">`;
-    acts.forEach(act => {
-        modalHtml += `<div style="display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #eee;"><div style="width:36px; height:36px; background:#eef2ff; border-radius:50%; display:flex; align-items:center; justify-content:center;"><i class="fas ${act.icon}"></i></div><div><div style="font-weight:600">${act.title}</div><div style="font-size:12px; color:#555">${act.detail}</div><div style="font-size:11px; color:#888">${act.time}</div></div></div>`;
-    });
-    modalHtml += `</div><button style="margin-top:20px; background:#3b82f6; color:white; border:none; padding:8px 20px; border-radius:40px;" onclick="this.closest('div').remove()">Đóng</button></div></div>`;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-}
-
-/* ============================================================
-   INIT
-============================================================ */
-document.addEventListener('DOMContentLoaded', function () {
-    loadProfile();
-    loadActivityLog();
-    loadNotifSettings();
-    scrollToPasswordIfNeeded();
-});
+document.addEventListener('DOMContentLoaded', loadProfile);
 </script>

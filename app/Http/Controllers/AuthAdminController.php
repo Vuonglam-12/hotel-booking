@@ -23,13 +23,13 @@ class AuthAdminController extends Controller
             ->where('role', 'admin')
             ->first();
 
-        if (!$admin || !Hash::check($request->password, $admin->password_hash)) {
+        if (!$admin || !$admin->isAdmin() || !$admin->password_hash || !Hash::check($request->password, $admin->password_hash)) {
             return response()->json([
                 'message' => 'Email hoặc mật khẩu không đúng',
             ], 401);
         }
 
-        $admin->tokens()->delete();
+        $admin->tokens()->where('name', 'admin_token')->delete();
         $token = $admin->createToken('admin_token', ['admin'])->plainTextToken;
 
         return response()->json([

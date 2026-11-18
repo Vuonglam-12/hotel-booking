@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/Support/itinerary_test_bootstrap.php" colors="true" cacheResult="false">
+    <testsuites><testsuite name="Two-step itinerary editor on owned isolated MySQL">
+        <file>tests/Unit/OpeningHoursTest.php</file>
+        <file>tests/Feature/ItineraryPlaceAvailabilityTest.php</file>
+        <file>tests/Feature/ItineraryPlannerTest.php</file>
+        <file>tests/Feature/ItineraryV2Test.php</file>
+        <file>tests/Feature/TravelAssistantTest.php</file>
+        <file>tests/Feature/ItineraryGeoapifyTest.php</file>
+        <file>tests/Feature/ItineraryPlanningPolicyTest.php</file>
+        <file>tests/Feature/PlaceSheetIntegrationTest.php</file>
+    </testsuite></testsuites>
+</phpunit>
